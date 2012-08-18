@@ -1,0 +1,8 @@
+<div class='footer container'>
+	<p class='pull-right'>
+		<a target="_blank" rel="license"
+			href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh"> <img
+			style="border-width: 0" src="./img/license.png" />
+		</a> &nbsp;&nbsp;by <strong><a href='<?=l("?func=about")?>'>LEE</a></strong>
+	</p>
+</div>
