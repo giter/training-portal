@@ -1,0 +1,5 @@
+body{ padding-top:90px; }
+#page-index #functions .hero-unit{ padding:18px; }
+#page-index #functions .hero-unit h3 {margin-bottom:18px;}
+#page-index #functions .hero-unit p {min-height:5em;font-size:13px;color:#666;}
+.footer { margin-top:45px;padding-top:18px;border-top:1px dotted #ccc; }
