@@ -6,22 +6,22 @@
 	<div class='span4'>
 		<h3>Blogs</h3>
 		<p class='alert alert-info'>
-			<strong class='label label-info'>BLOG</strong> &nbsp;&nbsp;records my workings.
+			<strong class='label label-info'>BLOGS</strong> &nbsp;&nbsp;records my workings.
 		</p>
-		<a href='#' class='pull-right btn'>take a look</a>
+		<a href='<?=l("?func=blogs")?>' class=' btn'>View details »</a>
 	</div>
 	<div class='span4'>
 		<h3>Wikis</h3>
 		<p class='alert alert-info'>
-			<strong class='label label-info'>WIKI</strong> &nbsp;&nbsp;contains my knowledge.
+			<strong class='label label-info'>WIKIS</strong> &nbsp;&nbsp;contains my knowledge.
 		</p>
-		<a href='#' class='pull-right btn'>take a look</a>
+		<a href='<?=l("?func=wikis")?>' class=' btn'>View details »</a>
 	</div>
 	<div class='span4'>
 		<h3>Utils</h3>
 		<p class='alert alert-info'>
-			<strong class='label label-info'>UTIL</strong> &nbsp;&nbsp;is cool.
+			<strong class='label label-info'>UTILS</strong> &nbsp;&nbsp;is cool.
 		</p>
-		<a href='#' class='pull-right btn'>take a look</a>
+		<a href='<?=l("?func=utils")?>' class=' btn'>View details »</a>
 	</div>
 </div>

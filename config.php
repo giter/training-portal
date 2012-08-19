@@ -7,3 +7,8 @@
 		"utils"=>"UTILS",
 		"about"=>"ABOUT"
 	);
+	
+	$DB = array(
+		"url"=>"127.0.0.1"
+	);
+	
