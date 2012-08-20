@@ -13,7 +13,7 @@ function db(){
 
 		$db = $m->lee;
 
-		if(isset($DB["user"]) && isset($DB["password"])){
+		if(isset($DB["user"])){
 			$db->authenticate($DB["user"],$DB["password"]);
 		}
 	}
@@ -28,6 +28,12 @@ function get($type,$id,$fields=NULL){
 
 
 function view_blogs(){
-	$_REQUEST['blogs'] = db()->blog->find()->limit(10)->sort(array("_id" => -1));
+	$_REQUEST['items'] = db()->blog->find()->limit(10)->sort(array("_id" => -1));
+}
+
+function view_blog(){
+	echo $type;
+	echo $id;
+	//$_REQUEST['item'] = get($type,$id);
 }
 
