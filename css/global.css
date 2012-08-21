@@ -1,5 +1,5 @@
 @import url("./bootstrap.css");
-body{ font-size:18px;font-family:consolas;padding-top:90px }
+body{ font-size:18px;font-family:"Consolas","Microsoft YaHei";padding-top:90px }
 .footer { margin-top:36px;padding-top:18px;border-top:1px dotted #ccc; }
 .box{
 	background-color: #fbfbfb;

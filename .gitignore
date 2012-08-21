@@ -1,6 +1,7 @@
 .buildpath
 .project
 .settings/*
+*.swp
 tmp/*
 config/database.php
 app/tmp/*
