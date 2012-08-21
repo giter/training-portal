@@ -3,15 +3,20 @@
 	require __DIR__ . '/config.php';
 	include __DIR__ . '/functions/functions.php';
 	
-	
-	extract($_GET,EXTR_SKIP);
-	
-	if(!isset($func)){
-		$func =  "home";
+	$func = "home";
+	if($_GET['func']){
+		$func = $_GET['func'];
 	}
 	
-	if(function_exists("view_".$func)){
-		call_user_func("view_".$func);
+	$val = null;
+
+	if(function_exists($func."_load")){
+		$val = call_user_func($func."_load");
+	}
+
+	$breadcrumb = null;
+	if(function_exists($func."_breadcrumb")){
+		$breadcrumb = call_user_func($func."_breadcrumb",$val);
 	}
 	
 ?><!DOCTYPE html >
@@ -19,7 +24,16 @@
 
 	<head>
 		<meta charset="utf-8"/>
-		<title><?=$funcs[$func]?> - LEE's </title>
+		<?php
+			if($val && is_array($val) && $val['title']){
+				$title = $val['title'];
+			}else if($funcs[$func]){
+				$title = strtoupper($funcs[$func]);
+			}else{
+				$title = strtoupper($func);
+			}
+		?>
+		<title><?=$title?> - LEE's </title>
 		<link rel='stylesheet' href='./css/global.css'/>
 	</head>
 	
@@ -29,7 +43,7 @@
 		<?php include __DIR__ . '/include/breadcrumb.php'; ?>
 
 		<div id='main' class='container box'>
-			<?php include __DIR__ . '/functions/' . $func . ".php" ?>
+			<?php include __DIR__ . '/views/' . $func . ".php" ?>
 		</div>
 		
 		<?php include __DIR__  . '/include/foot.php'; ?>

@@ -11,4 +11,6 @@
 	$DB = array(
 		"url"=>"127.0.0.1"
 	);
+
+	define("PAGER_COUNT",10);
 	
