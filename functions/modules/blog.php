@@ -34,3 +34,7 @@ function blog_breadcrumb($val){
 	);
 }
 
+function blog_tabid(){
+	return "blogs";
+}
+

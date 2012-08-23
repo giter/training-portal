@@ -7,11 +7,25 @@
 	if($_GET['func']){
 		$func = $_GET['func'];
 	}
-	
+
 	$val = null;
 
 	if(function_exists($func."_load")){
 		$val = call_user_func($func."_load");
+	}
+
+	if($_SERVER['REQUEST_METHOD'] == "POST"){
+		if(function_exists($func."_post")){
+			call_user_func($func."_post",$val);
+		}
+		echo "<h2>POST method is NOT supported " . $func . " !</h2>";
+		die;
+	}
+
+
+	$tabid = $func;
+	if(function_exists($func."_tabid")){
+		$tabid = call_user_func($func."_tabid");
 	}
 
 	$breadcrumb = null;
@@ -50,5 +64,10 @@
 		
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<!--<script type="text/javascript" src="js/Markdown.Converter.js"></script>
+		<script type="text/javascript" src="js/Markdown.Editor.js"></script>
+		<script type="text/javascript" src="js/Markdown.Sanitizer.js"></script>
+		-->
+		<script type="text/javascript" src="js/global.js"></script>
 	</body>
 </html>

@@ -5,7 +5,7 @@
 			<ul class='nav'>
 				<?php
 					foreach ($funcs as $k => $v){
-						echo "<li class='".(($k==$func)?"active":"")."'><a href='?func=${k}'>${v}</a></li>";
+						echo "<li class='".(($k==$tabid)?"active":"")."'><a href='?func=${k}'>${v}</a></li>";
 					}
 				?>
 			</ul>
