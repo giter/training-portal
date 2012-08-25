@@ -10,15 +10,27 @@
 			$val['e'] = get($val['type'],$val['id']);
 		}
 
+		if($val['e']['tags']){
+			$val['e']['tags'] = implode($val['e']['tags'],";");	
+		}
+
 		return $val;
 
 	}
 
-	function form_breadcrumb(){
-		return array(
+	function form_breadcrumb($val){
+		$b =  array(
 			"home" => l("?func=home"),
 			"form" => ""
 		);
+		if($val['type']){
+			$b += array($val['type']=>"");
+		}
+		return $b;
+	}
+
+	function form_auth($user,$val){
+		return $user;
 	}
 
 	function form_post($val){
@@ -33,8 +45,12 @@
 
 		if(isset($type)){
 
-			if(!$e){
+			if(!$e && !$_POST['_id']){
 				$_POST['_id'] = base_convert(uniqid(),16,36);
+			}
+
+			if($_POST['tags']){
+				$_POST['tags'] = explode(";",$_POST['tags']);
 			}
 
 			$e = $_POST + $e;

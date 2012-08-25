@@ -1,24 +1,9 @@
 <?php
 
+include(__DIR__ . "/db.php");
+
 function l($url){
 	return $url;
-}
-
-function db(){
-
-	global $db;
-
-	if(!isset($db)){
-		$m = new Mongo("127.0.0.1");
-
-		$db = $m->lee;
-
-		if(isset($DB["user"])){
-			$db->authenticate($DB["user"],$DB["password"]);
-		}
-	}
-
-	return $db;
 }
 
 function html($text){
@@ -27,10 +12,25 @@ function html($text){
 	return $md->getHtml();
 }
 
-function get($type,$id,$fields=NULL){
-	$c = db()->$type;
-	$o = $fields ? $c->findOne(array("_id"=>$id),$fields) : $c->findOne(array("_id"=>$id));
-	return $o;
+function compile($text){
+	ob_start();
+	eval($text);
+	return ob_get_clean();
+}
+
+function content($text,$type){
+	switch($type){
+		case "html":
+			echo $text;
+			break;
+		case "php":
+			echo compile($text);
+			break;
+		case "markdown":
+		default:
+			echo html($text);
+			break;
+	}	
 }
 
 foreach(glob(__DIR__."/modules/*.php") as $file){

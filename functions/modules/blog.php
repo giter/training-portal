@@ -24,7 +24,6 @@ function blogs_breadcrumb($val){
 
 function blog_load(){
 	$val = get($_GET['func'],$_GET['id']);
-	$val['content'] = html(htmlspecialchars($val['content']));
 	return $val;
 }
 

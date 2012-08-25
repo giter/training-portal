@@ -1,4 +1,8 @@
 <?php
+	session_start();
+
+	global $user;
+	$user = $_SESSION['user'];
 
 	require __DIR__ . '/config.php';
 	include __DIR__ . '/functions/functions.php';
@@ -14,11 +18,22 @@
 		$val = call_user_func($func."_load");
 	}
 
+	if(function_exists($func."_auth")){
+
+		$user = $_SESSION['user'];
+		
+		if(!$user || !call_user_func($func."_auth",$user,$val)){
+			echo "<h2>Permission Denied!</h2>";
+			die;	
+		}
+	}
+
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
 		if(function_exists($func."_post")){
 			call_user_func($func."_post",$val);
+			exit;
 		}
-		echo "<h2>POST method is NOT supported " . $func . " !</h2>";
+		echo "<h2>POST method is NOT supported in " . $func . " module!</h2>";
 		die;
 	}
 
@@ -48,6 +63,7 @@
 			}
 		?>
 		<title><?=$title?> - LEE's </title>
+		<link rel='stylesheet' href='./css/prettify.css'/>
 		<link rel='stylesheet' href='./css/global.css'/>
 	</head>
 	
@@ -64,10 +80,11 @@
 		
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<!--<script type="text/javascript" src="js/Markdown.Converter.js"></script>
+		<script type="text/javascript" src="js/Markdown.Converter.js"></script>
 		<script type="text/javascript" src="js/Markdown.Editor.js"></script>
 		<script type="text/javascript" src="js/Markdown.Sanitizer.js"></script>
-		-->
+		<script type="text/javascript" src="js/prettify.js"></script>
+		<script type="text/javascript" src="js/lang-hs.js"></script>
 		<script type="text/javascript" src="js/global.js"></script>
 	</body>
 </html>

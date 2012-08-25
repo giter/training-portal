@@ -5,8 +5,16 @@
 	<?=date("Y/m/d",$val['created'])?>
 </div>
 <div class='content'>
-	<?=$val['content']?>
+	<?php content($val['content'],$val['format']) ?>
+	<div class='tags'>
+	<?php
+			if($val['tags']){
+				foreach($val['tags'] as $t){
+					echo "<span class='label label-info'>".$t."</span>&nbsp;";
+				}
+			}
+	?>
+	</div>
 </div>
-<div class='comment'>
-	MAIL to <abbr>nubixljj[at]gmail.com</abbr>
-</div>
+
+
