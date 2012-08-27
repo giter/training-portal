@@ -10,7 +10,7 @@ function blogs_load(){
 		$query["id"] = array("$lt"=>$id);
 	}
 
-	return db()->blog->find($query,array("content"=>false))->limit($PAGE_COUNT)->sort(array("_id" => -1));
+	return fetch("blog",$query,array("title"=>1,"created"=>1),array("_id"=>-1),$PAGE_COUNT);
 }
 
 function blogs_breadcrumb($val){

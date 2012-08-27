@@ -1,11 +1,11 @@
 <div class='title'>
 	<h2><?=$val['title']?></h2>
+	<div class='time'>
+		<?=date("Y/m/d",$val['created'])?>
+	</div>
 </div>	
-<div class='time'>
-	<?=date("Y/m/d",$val['created'])?>
-</div>
 <div class='content'>
-	<?php content($val['content'],$val['format']) ?>
+<?php content($val['content'],$val['format']) ?>
 	<div class='tags'>
 	<?php
 			if($val['tags']){

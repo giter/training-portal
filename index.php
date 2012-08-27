@@ -4,7 +4,7 @@
 	global $user;
 	$user = $_SESSION['user'];
 
-	require __DIR__ . '/config.php';
+	include __DIR__ . '/config.php';
 	include __DIR__ . '/functions/functions.php';
 	
 	$func = "home";
@@ -63,7 +63,6 @@
 			}
 		?>
 		<title><?=$title?> - LEE's </title>
-		<link rel='stylesheet' href='./css/prettify.css'/>
 		<link rel='stylesheet' href='./css/global.css'/>
 	</head>
 	

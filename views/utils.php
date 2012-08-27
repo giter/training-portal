@@ -3,11 +3,10 @@
 		
 		echo "<div class='content'>";
 		
-		if($val->hasNext()) {
+		if(is_array($val) && count($val) > 0) {
 
-			while($val->hasNext()){
+			foreach($val as $util){
 
-				$util =	 $val->getNext();
 				$util["link"] = l("?func=util&id=".$util["_id"]);
 				$util["time"] = date("Y/m/d",$util['created']);
 
@@ -18,7 +17,7 @@ EOD;
 			}
 
 		}else{
-			echo "<div class='item time'>No more entries!</div>";
+			echo "<div class='time'>No more utils.</div>";
 		}
 		
 		echo "</div>";

@@ -9,7 +9,9 @@
 	);
 	
 	$DB = array(
-		"url"=>"127.0.0.1"
+		"type"=>"mongodb",
+		"host"=>"127.0.0.1",
+		"db"  => "lee"
 	);
 
 	define("PAGER_COUNT",10);

@@ -9,14 +9,19 @@
 		}
 
 		$val = get($type,$id);
-		$val['content'] = html(htmlspecialchars($val['content']));
+		if($val){
+			$val['content'] = html(htmlspecialchars($val['content']));
+		}
 		return $val;
 	}
 
 	function wikis_breadcrumb($val){
-		return array(
+		$b =  array(
 			"home"=>l("?func=home"),
 			"wikis"=>l("?func=wikis"),
-			$val['_id']=>""
 		);
+		if($val){
+			$b += array($val['_id']=>"");
+		}
+		return $b;
 	}

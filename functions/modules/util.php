@@ -10,8 +10,7 @@
 			$query["id"] = array("$lt"=>$id);
 		}
 
-		return db()->util->find($query,array("content"=>false))->sort(array("_id" => -1));
-	
+		return fetch($query,array("title"=>1,"created"=>1),array("_id"=>-1));
 	}
 
 	function utils_breadcrumb($val){

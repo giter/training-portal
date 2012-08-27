@@ -3,15 +3,14 @@
 		
 		echo "<div class='items'>";
 		
-		if($val->hasNext()) {
+		if(is_array($val) && count($val) > 0) {
 
 			$first = null;
 			$last = null;
 			$count = 0;
 
-			while($val->hasNext()){
+			foreach($val as $blog){
 
-				$blog =	 $val->getNext();
 				$count ++;
 				
 				if(!$first){
@@ -60,7 +59,7 @@ EOD;
 			}
 
 		}else{
-			echo "<div class='item time'>No more entries!</div>";
+			echo "<div class='content time'>No more blogs.</div>";
 		}
 		
 		echo "</div>";

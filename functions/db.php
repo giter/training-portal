@@ -1,25 +1,6 @@
 <?php
-	function db(){
-
-		global $db;
-
-		if(!isset($db)){
-			$m = new Mongo("127.0.0.1");
-
-			$db = $m->lee;
-
-			if(isset($DB["user"])){
-				$db->authenticate($DB["user"],$DB["password"]);
-			}
-		}
-
-		return $db;
+	if(!file_exists(__DIR__."/db/${DB['type']}.php")){
+		die("Missing db driver ${DB['type']}.");
+	}else{
+		include(__DIR__."/db/${DB['type']}.php");
 	}
-
-	function get($type,$id,$fields=NULL){
-		$c = db()->$type;
-		$o = $fields ? $c->findOne(array("_id"=>$id),$fields) : $c->findOne(array("_id"=>$id));
-		return $o;
-	}
-
-

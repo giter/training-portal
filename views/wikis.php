@@ -1,6 +1,6 @@
 <?php
 	if(!$val){
-		echo "No wikis";
+		echo "<div class='content time'>No wikis.</div>";
 	}else{
 		$val['created'] = date("Y/m/d",$val['created']);
 		echo <<<EOD
