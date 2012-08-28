@@ -1,7 +1,7 @@
 <div class='title'>
-	<h2><?=$val['title']?></h2>
+	<h2><?php echo($val['title']); ?></h2>
 	<div class='time'>
-		<?=date("Y/m/d",$val['created'])?>
+		<?php echo(date("Y/m/d",$val['created'])); ?>
 	</div>
 </div>	
 <div class='content'>

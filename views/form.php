@@ -8,14 +8,14 @@
 	<form class='row-fluid' style='padding:2em 0 0 2em;' action='' method='post' >
 
 		<fieldset class='control-group'>
-			<input name='title' placeholder="TITLE" type='text' class='input-xxlarge' value="<?=$val['e']['title']?>" />
+			<input name='title' placeholder="TITLE" type='text' class='input-xxlarge' value="<?php echo($val['e']['title']); ?>" />
 		</fieldset>
 		
 		<fieldset  class='control-group'>
 			<div class='wmd-panel'>
 				<div id="wmd-button-bar"></div>
-				<textarea placeholder="CONTENT" name='content' class='input-xxlarge wmd-input' id='wmd-input' rows="15"><?=$val['e']['content']?></textarea>
-				<input name='tags' placeholder="TAGS" type='text' class='input-xxlarge' value="<?=$val['e']['tags']?>"/>
+				<textarea placeholder="CONTENT" name='content' class='input-xxlarge wmd-input' id='wmd-input' rows="15"><?php echo($val['e']['content']); ?></textarea>
+				<input name='tags' placeholder="TAGS" type='text' class='input-xxlarge' value="<?php echo($val['e']['tags']); ?>"/>
 			</div>
 		</fieldset>
 

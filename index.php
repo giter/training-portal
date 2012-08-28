@@ -6,7 +6,7 @@
 
 	include __DIR__ . '/config.php';
 	include __DIR__ . '/functions/functions.php';
-	
+
 	$func = "home";
 	if($_GET['func']){
 		$func = $_GET['func'];
@@ -62,11 +62,11 @@
 				$title = strtoupper($func);
 			}
 		?>
-		<title><?=$title?> - LEE's </title>
+		<title><?php echo($title); ?> - LEE's </title>
 		<link rel='stylesheet' href='./css/global.css'/>
 	</head>
 	
-	<body id='page-<?=$func?>'>
+	<body id='page-<?php echo($func); ?>'>
 	
 		<?php include __DIR__ . '/include/top.php'; ?>
 		<?php include __DIR__ . '/include/breadcrumb.php'; ?>

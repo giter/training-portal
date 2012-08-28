@@ -89,3 +89,15 @@ function fetch($type,$query,$fields=array(),$sort=NULL,$limit=NULL){
 	return $arr;
 }
 
+function save($type,$val){
+	
+	if(!$val['_id']){
+		die("Undefined _id when save()");
+	}
+
+	$first = false;
+	foreach($val as $k => $v){
+		if($first){
+		}
+	}
+}
