@@ -22,6 +22,15 @@ function db(){
 }
 
 /**
+ * Save $en to db()'s collection $type
+ * @param $type collection name
+ * @param $en entity 
+ */
+function save($type,$en){
+	db()->$type->save($en);
+}
+
+/**
  * Fetch item from db() 
  * @param $type
  *	type of collection

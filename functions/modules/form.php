@@ -57,7 +57,8 @@
 
 			$e['created'] = time();
 
-			db()->$type->save($e);
+			save($type,$e);
+
 			header("Location: ".l("?func=$type&id=${e['_id']}"));
 			exit;
 		}	

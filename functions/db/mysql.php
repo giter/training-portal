@@ -9,44 +9,86 @@ function db(){
 	global $DB;
 
 	if(!isset($db)){
-		$db = new mysql_connect($DB["host"],$DB["user"],$DB["password"]);
-		mysql_select_db($DB["db"]);
-		mysql_query("SET NAMES utf8");
-		mysql_query("SET CHARACTER SET utf8");
+		$db = new PDO( 
+			$DB["host"],
+			$DB["user"], 
+			$DB["password"], 
+			array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") 
+		); 
+		//$db = new mysql_connect($DB["host"],$DB["user"],$DB["password"]);
+		//mysql_select_db($DB["db"]);
+		//mysql_query("SET NAMES utf8");
+		//mysql_query("SET CHARACTER SET utf8");
 	}
 
 	return $db;
 }
 
+/**
+ * Save $en to db()'s collection $type
+ * @param $type collection name
+ * @param $en entity 
+ */
+function save($type,$val){
+	
+	$first = true;
+	$query = "replace $type set ";
+
+	foreach($val as $k => $v){
+		if(!$first){
+			$query .= ",";	
+		}else{
+			$first = false;
+		}
+		$query .= "$k = :$k";
+	}
+
+	$stmt = db()->prepare($query);
+
+	foreach($val as $k => $v){
+		$stmt->bindValue(":$k",$v);
+	}
+
+	$stmt->execute();
+}
+
+
 function query($type,$query,$fields=array(),$sort=NULL,$limit=NULL){
 
 	$_fields = "*";
 	if(count($fields) > 0){
-		$fields = array_map(mysql_escape_string,array_keys($fields));
+		$fields["_id"] = 1;
+		$fields = array_keys($fields);
 		$_fields = implode(",",$fields);
 	}
 
 	$_query = "1=1 ";
 	if(count($query) > 0){
 		foreach($query as $k => $v){
-			$query .= "and ".mysql_escape_string($k)."=".mysql_escape_string($v);
+			$query .= "and $k = :$k";
 		}
 	}
 
 	$_sort = "";
 	if(count($sort) > 0){
 		foreach($sort as $k=>$v){
-			$_sort .= mysql_escape_string($k) ." ".($v<0?"asc":"desc");
+			$_sort .= db()->quote($k) ." ".($v<0?"asc":"desc");
 		}
 		$_sort = "order by $_sort";
 	}
 
 	$_limit = "";
 	if($limit > 0){
-		$limit = "limit $limit";
+		$limit = "limit ".db()->quote($limit);
+	}
+	
+	$stmt = db()->prepare(sprintf("select %s from %s where %s %s",$_fields,$type,$_query,$_sort,$_limit));
+	foreach($query as $k => $v){
+		$stmt->bindValue(":$k",$v);
 	}
 
-	return sprintf("select %s from %s where %s %s",$_fields,mysql_escape_string($type),$_query,$_sort,$_limit);
+	$stmt->execute();
+	return $stmt;
 }
 
 /**
@@ -58,8 +100,8 @@ function query($type,$query,$fields=array(),$sort=NULL,$limit=NULL){
  * @param $fields
  *  fields of column returned
  */
-function get($type,$id,$fields=NULL){
-	$arr = fetch($type,array("_id"=>$id),NULL,1));
+function get($type,$id,$fields=array()){
+	$arr = fetch($type,array("_id"=>$id),$fields,NULL,1);
 	return count($arr) > 0 ? $arr[0] : NULL;
 }
 
@@ -77,27 +119,8 @@ function get($type,$id,$fields=NULL){
  *  maxiunm fetched items
  */
 function fetch($type,$query,$fields=array(),$sort=NULL,$limit=NULL){
-
-	$result = mysql_query(query($type,$query,$fields,$sort,$limit));
-
-	$arr = array();
-
-	while ($row = mysql_fetch_assoc($result)) {
-		array_push($row);
-	}
-
-	return $arr;
+	$stmt = query($type,$query,$fields,$sort,$limit);
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function save($type,$val){
-	
-	if(!$val['_id']){
-		die("Undefined _id when save()");
-	}
 
-	$first = false;
-	foreach($val as $k => $v){
-		if($first){
-		}
-	}
-}

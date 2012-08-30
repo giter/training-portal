@@ -1,10 +1,7 @@
-<div class='title'>
-	<h2><?php echo($val['title']); ?></h2>
-	<div class='time'>
+<div class='content'>
+	<div class='time pull-right'>
 		<?php echo(date("Y/m/d",$val['created'])); ?>
 	</div>
-</div>	
-<div class='content'>
 <?php content($val['content'],$val['format']) ?>
 	<div class='tags'>
 	<?php
