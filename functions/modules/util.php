@@ -10,7 +10,7 @@
 			$query["id"] = array("$lt"=>$id);
 		}
 
-		return fetch($query,array("title"=>1,"created"=>1),array("_id"=>-1));
+		return fetch($query,array("title"=>1,"created"=>1,"tags" => 1),array("_id"=>-1));
 	}
 
 	function utils_breadcrumb($val){

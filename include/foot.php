@@ -5,6 +5,6 @@
 			style="border-width: 0" src="./img/license.png" /></a> 
 	</p>
 	<p class='pull-right'>
-		&nbsp;&nbsp;by <strong><a href='<?php echo(l("?func=about")); ?>'>LEE</a></strong>
+		&nbsp;&nbsp;by <strong><a href='https://github.com/giter'>LEE</a></strong>
 	</p>
 </div>

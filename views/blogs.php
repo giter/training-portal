@@ -19,11 +19,21 @@
 
 				$blog["link"] = l("?func=blog&id=".$blog["_id"]);
 				$blog["time"] = date("Y/m/d",$blog['created']);
+				if($blog['tags']){
+					$tags = "";
+					foreach($blog['tags'] as $t){
+						$tags .= "<a href='".l("?func=blogs&tag=".$t)."' class='label label-info'>$t</a> ";
+					}
+					$blog["tags"] = $tags;
+				}
 
 				echo <<<EOD
 			<div class='item'>
-				<p class='time pull-right'>${blog['time']}</p>
-				<p><a href='${blog["link"]}'><strong>${blog['title']}</strong></a></p>
+				<h4>
+					<a href='${blog["link"]}'><strong>${blog['title']}</strong></a>
+					<span class='pull-right'>${blog["tags"]}</span>
+				</h4>
+				<p class='time'>${blog['time']}</p>
 			</div>			
 EOD;
 			}

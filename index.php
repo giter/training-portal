@@ -56,8 +56,8 @@
 		<?php
 			if($val && is_array($val) && $val['title']){
 				$title = $val['title'];
-			}else if($funcs[$func]){
-				$title = strtoupper($funcs[$func]);
+			}else if($navs[$func]){
+				$title = strtoupper($navs[$func]);
 			}else{
 				$title = strtoupper($func);
 			}

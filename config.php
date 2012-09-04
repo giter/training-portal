@@ -1,6 +1,6 @@
 <?php
 
-	$funcs = array(
+	$navs = array(
 		"home" =>"HOME",
 		"blogs"=>"BLOGS",
 		"wikis"=>"WIKIS",

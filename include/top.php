@@ -4,7 +4,7 @@
 			<div class='brand'>LEE</div>
 			<ul class='nav'>
 				<?php
-					foreach ($funcs as $k => $v){
+					foreach ($navs as $k => $v){
 						echo "<li class='".(($k==$tabid)?"active":"")."'><a href='?func=${k}'>${v}</a></li>";
 					}
 				?>
