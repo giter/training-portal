@@ -1,79 +1,70 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <link rel="stylesheet" type="text/css" href="/css.css" />
-  </head>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="/css.css" />
+</head>
 
-  <body>
+<body>
 
-    <div id='hd'>
+	<div id='hd'>
 
-      <div id='brand'>
-        <div class='logo'>LOGO</div>
-        <div class='search'>
-          <form action='/estate.html' class='clearfix'>
-            <input name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' />
-            <input type='submit' value='搜索' />
-          </form>
-          <div class='quick-search'>
-            <ul>
-              <li><a href='#'>嘉兴万达</a></li>
-              <li><a href='#'>中港城</a></li>
-              <li><a href='#'>旭辉广场</a></li>
-              <li><a href='#'>南湖区</a></li>
-              <li><a href='#'>江南摩尔</a></li>
-              <li><a href='#'>嘉兴</a></li>
-              <li><a href='#'>桐乡</a></li>
-              <li><a href='#'>嘉善</a></li>
-              <li><a href='#'>海宁</a></li>
-              <li><a href='#'>平湖</a></li>
-            </ul>
-          </div>
-        </div> 
-      </div>
+		<div id='brand' class='clearfix'>
+			<div class='logo'><a href='/'><img src='/images/logo.png'/></a></div>
+			<div class='search'>
+				<div class='form clearfix'>
+					<form action='/estate/list.html'>
+						<input class='text' name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' /> 
+						<input class='submit' type='submit' value='搜索' />
+					</form>
+				</div>
+				<div class='quick-search clearfix'>
+					<ul>
+						<li><a href='#'>嘉兴万达</a></li>
+						<li><a href='#'>中港城</a></li>
+						<li><a href='#'>旭辉广场</a></li>
+						<li><a href='#'>南湖区</a></li>
+						<li><a href='#'>江南摩尔</a></li>
+						<li><a href='#'>嘉兴</a></li>
+						<li><a href='#'>桐乡</a></li>
+						<li><a href='#'>嘉善</a></li>
+						<li><a href='#'>海宁</a></li>
+						<li><a href='#'>平湖</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-      <div id='nav'>
-        <div class='wrap'>
-          <ul class='menu'>
-            <li class='active'><a href='/'>首页</a></li>
-            <li><a href='/estate.html'>新房</a></li>
-            <li><a href='/news.html'>资讯</a></li>
-            <li><a href='/groupon.html'>团购</a></li>
-          </ul>
-          <ul class='user'>
-            <li><a href='/login.html'>登录</a></li>
-            <li><a href='/register.html'>注册</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+		<div id='nav'>
+			<div class='wrap'>
+				<ul class='menu'>
+					<li class='active'><a href='/'>首页</a></li>
+					<li><a href='/estate.html'>新房</a></li>
+					<li><a href='/news.html'>资讯</a></li>
+					<li><a href='/groupon.html'>团购</a></li>
+				</ul>
+				<ul class='user'>
+					<li><a href='/login.html'>登录</a></li>
+					<li><a href='/register.html'>注册</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <div id='bd'>
-      {{ yield }}
-    </div>
+	<div id='bd'>{{ yield }}</div>
 
-    <div id='ft'>
-      <p>
-        <a href='#'>关于我们</a>
-        | <a href='#'>联系方式</a>
-        | <a href='#'>诚聘英才</a>
-        | <a href='#'>站点地图</a>
-        | <a href='#'>购房百科</a>
-        | <a href='#'>每日资讯</a>
-        | <a href='#'>免责声明</a>
-        | <a href='#'>用户协议</a>
-        | <a href='#'>手机客户端</a>
-      </p>
-      <p>
-        浙ICP备 1002623号
-        &nbsp;&nbsp;
-        版权所有&copy; 2015 嘉兴房产团购网
-        客服热线：0573-8333 5555
-      </p>
-    </div>
+	<div id='ft'>
+		<p>
+			<a href='#'>关于我们</a> | <a href='#'>联系方式</a> | <a href='#'>诚聘英才</a> |
+			<a href='#'>站点地图</a> | <a href='#'>购房百科</a> | <a href='#'>每日资讯</a> |
+			<a href='#'>免责声明</a> | <a href='#'>用户协议</a> | <a href='#'>手机客户端</a>
+		</p>
+		<p>浙ICP备 1002623号 &nbsp;&nbsp; 版权所有&copy; 2015 嘉兴房产团购网
+			客服热线：0573-8333 5555</p>
+	</div>
 
-    <script type="text/javascript" src="/lib.js" ></script>
-    <script type="text/javascript" src="/js.js" ></script>
-  </body>
+	<script type="text/javascript" src="/lib.js"></script>
+	<script type="text/javascript" src="/js.js"></script>
+</body>
 </html>

@@ -15,6 +15,17 @@
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
+            </dd>
+          </dl>
+        </div>
+        <div class='category'>
+          <dl>
+            <dt>区域</dt>
+            <dd>
+              <a href='#'>中心城区</a>
+              <nobr>| <a href='#'>南湖新区</a></nobr>
+              <nobr>| <a href='#'>南湖新区</a></nobr>
+              <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
             </dd>
@@ -30,8 +41,6 @@
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
-              <nobr>| <a href='#'>南湖新区</a></nobr>
-              <nobr>| <a href='#'>南湖新区</a></nobr>
             </dd>
           </dl>
         </div>
@@ -45,18 +54,18 @@
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
               <nobr>| <a href='#'>南湖新区</a></nobr>
-              <nobr>| <a href='#'>南湖新区</a></nobr>
-              <nobr>| <a href='#'>南湖新区</a></nobr>
             </dd>
           </dl>
         </div>
-
       </div>
     </div>
+  	<div class='pic-headlines'>
+  		<img src='/images/sample.png' />
+  	</div>
   </div>
 </div>
 
-<div id='links' class='block block-bordered'>
+<div id='links' class='block block-bordered clearfix'>
 
   <div class='hd'>
     <h3>友情链接</h3>
@@ -64,30 +73,9 @@
 
   <div class='bd'>
     <ul>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
-      <li><a href='#'>深圳租房</a></li>
+      {{ range .Links}}
+        <li><a target="_blank" href='{{.Link}}'>{{.Name}}</a></li>
+      {{end}}
     </ul>
   </div>
 
