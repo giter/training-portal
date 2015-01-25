@@ -74,7 +74,9 @@
   <div class='bd'>
     <ul>
       {{ range .Links}}
-        <li><a target="_blank" href='{{.Link}}'>{{.Name}}</a></li>
+        <li>
+        	<a target="_blank" {{if .NoFollow}}rel="nofollow"{{end}} href='{{.Link}}'>{{.Name}}</a>
+        </li>
       {{end}}
     </ul>
   </div>
