@@ -102,7 +102,11 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">链接网址 <span class="required">*</span></label>
 							<div class="col-sm-8 col-sm-offset-1">
-								<input name="Link:string" type="text" class="form-control required" />
+								<input name="Link:string" type="text" 
+								class="form-control required url" 
+								value="http://" 
+								data-msg-url="* 请输入正确的URL"
+								/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -112,7 +116,9 @@
 							</div>
 							<label class="col-sm-2 control-label">PR值</label>
 							<div class="col-sm-2 col-sm-offset-1">
-								<input name="PR:number" type="text" class="form-control" />
+								<input name="PR:number" type="text" class="form-control number"
+									data-msg-number="* PR值为数字"
+								 />
 							</div>
 						</div>
 						
@@ -279,12 +285,16 @@ var PageLogical = function () {
             
             var action = $(".table-group-action-input", grid.getTableWrapper());
             if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
-                
-                grid.setAjaxParam("action", action.val());
-                grid.setAjaxParam("id", grid.getSelectedRows());
-                grid.getDataTable().ajax.reload();
-                grid.clearAjaxParams();
-                
+            	
+            	bootbox.confirm("是否确认删除?", function(ok) {
+            		
+            		if(!ok) return;
+            		
+	                grid.setAjaxParam("action", action.val());
+	                grid.setAjaxParam("id", grid.getSelectedRows());
+	                grid.getDataTable().ajax.reload();
+	                grid.clearAjaxParams();
+            	});
             } else if (action.val() == "") {
             	
                 Metronic.alert({
