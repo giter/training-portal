@@ -84,13 +84,6 @@
 					</ul>
 				</li>
 				<!-- END USER LOGIN DROPDOWN -->
-				<!-- BEGIN QUICK SIDEBAR TOGGLER -->
-				<li class="dropdown dropdown-quick-sidebar-toggler">
-					<a href="javascript:;" class="dropdown-toggle">
-					<i class="icon-logout"></i>
-					</a>
-				</li>
-				<!-- END QUICK SIDEBAR TOGGLER -->
 			</ul>
 		</div>
 		<!-- END TOP NAVIGATION MENU -->
@@ -238,6 +231,7 @@ jQuery(document).ready(function() {
    
    Metronic.init(); // init metronic core componets
    Layout.init(); // init layout
+   Demo.init(); // init demo features
    
    function resize(){
 	   $(".page-content iframe").height(
@@ -253,9 +247,6 @@ jQuery(document).ready(function() {
    }
    
    $(window).resize(resize).trigger('resize')
-   
-   QuickSidebar.init(); // init quick sidebar
-   Demo.init(); // init demo features 
 });
 </script>
 <!-- END JAVASCRIPTS -->

@@ -79,30 +79,44 @@ func (q *Q) Query(c *mgo.Collection) *mgo.Query{
 	return it
 }
 
-func Insert(c *mgo.Collection, o bson.M){
+func Insert(c *mgo.Collection, o bson.M) (err error){
 	
-	if _, ok := o["_id"] ; !ok {
+	if _id, ok := o["_id"] ; !ok || _id == "" {
 		o["_id"] = bson.NewObjectId().Hex();
 	}
 	
-	c.Insert(o);
+	err = c.Insert(o);
+	return
 }
 
-func UpdateId(c *mgo.Collection, _id string, o bson.M){
+func UpdateId(c *mgo.Collection, _id string, o bson.M) (err error){
 	
-	c.UpdateId(_id, o);
+	err = c.UpdateId(_id, o);
+	return
 }
 
 
-func Update(c *mgo.Collection, spec interface{}, o bson.M){
+func Update(c *mgo.Collection, spec interface{}, o bson.M) (err error){
 	
-	c.Update(spec, o);
+	err = c.Update(spec, o);
+	return
 }
 
-func UpdateAll(c *mgo.Collection, spec interface{}, o bson.M){
-	c.UpdateAll(spec, o);
+func UpdateAll(c *mgo.Collection, spec interface{}, o bson.M) (err error){
+
+	_, err = c.UpdateAll(spec, o);
+	return
 }
 
+func RemoveAll(c *mgo.Collection, ids []string) (err error){
+
+	if len(ids) == 0 {
+		return 
+	}
+	
+	_, err = c.RemoveAll(bson.M{ "_id": bson.M{"$in": ids} })
+	return
+}
 
 func DataQuery(req *http.Request) (query *Q){
 	

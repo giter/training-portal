@@ -44,10 +44,10 @@ var Datatable = function () {
                     "dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r><'table-scrollable't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>",
                     "pageLength": 10,
                     "language": {
-                        "metronicGroupActions": "已选<b>_TOTAL_</b>行:  ",
+                        "metronicGroupActions": "已选<b>_TOTAL_</b>条:  ",
                         "metronicAjaxRequestGeneralError": "请求失败，请检查网络连接！",
                         "lengthMenu": "&nbsp;_MENU_&nbsp;",
-                        "info": " 第 _PAGE_/_PAGES_ 页",
+                        "info": " 第 <b>_PAGE_</b>/<b>_PAGES_</b> 页",
                         "infoEmpty": "未找到记录",
                         "emptyTable": "无可用数据",
                         "zeroRecords": "无匹配记录",

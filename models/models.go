@@ -47,6 +47,9 @@ type Link struct {
 	Weight int `bson:"weight"`
 	State  bool   `bson:"state"`
 	
+	// 联系人
+	Contact string `bson:"contact"`
+	Phone   string `bson:"phone"`
 	
 	// 扩展属性
 	NoFollow bool `bson:"nofollow"`

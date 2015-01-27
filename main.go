@@ -27,7 +27,7 @@ func main() {
 	m.Map(db)
 
 	m.Use(render.Renderer(render.Options{
-		//Layout: "layout",
+		Layout: "manage-layout",
 	}))
 
 	m.Use(martini.Static("static"))
