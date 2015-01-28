@@ -11,7 +11,7 @@ const salt = "jxft"
 
 const COLLECTION_AREA = "area";
 const COLLECTION_LINK = "link";
-const COLLECTION_REAL_ESTATE_COMPANY = "realestate";
+const COLLECTION_REAL_ESTATE_COMPANY = "rec";
 
 type MTime struct {
 	
