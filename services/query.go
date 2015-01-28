@@ -1,9 +1,6 @@
 package services
 
 import (
-
-	"strconv"
-	"net/http"
 	
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -116,24 +113,4 @@ func RemoveAll(c *mgo.Collection, ids []string) (err error){
 	
 	_, err = c.RemoveAll(bson.M{ "_id": bson.M{"$in": ids} })
 	return
-}
-
-func DataQuery(req *http.Request) (query *Q){
-	
-	m := bson.M{}
-	query = NewQuery(m)
-	
-	start := req.FormValue("start")
-	if start != "" {
-		if v, err := strconv.ParseInt(start, 0, 32) ; err == nil{
-			query.Skip(int(v))
-		}
-	}
-	
-	length := req.FormValue("length")
-	if v, err := strconv.ParseInt(length, 0, 32) ; err == nil{
-		query.Limit(int(v))
-	}
-	
-	return 
 }

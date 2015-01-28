@@ -2,5 +2,7 @@
 	padding: 0;
 }
 
+.form-horizontal .form-group {margin-right: 0;margin-left: 0;}
+
 input.error { border:1px solid #ff0000; }
 label.error { color: red; }

@@ -9,6 +9,10 @@ import (
 
 const salt = "jxft"
 
+const COLLECTION_AREA = "area";
+const COLLECTION_LINK = "link";
+const COLLECTION_REAL_ESTATE_COMPANY = "realestate";
+
 type MTime struct {
 	
 	// 创建时间
@@ -90,30 +94,64 @@ type Manager struct {
 	Account string `bson:"account"`
 	Password string `bson:"password"`
 	
-	MT MTime      `bson:"mt"`
+	MTime MTime      `bson:"mtime"`
 }
 
 type Area struct {
 	
 	Id string `bson:"_id"`
 	
-	city string `bson:"city"`
-	area string `bson:"area"`
-	zones []string `bson:"zone"`
+	City string `bson:"city"`
+	Area string `bson:"area"`
+	Weight int64 `bson:"weight"`
+	Zones []string `bson:"zones,omitempty"`
 	
 	// 当前板块
-	zone string `bson:"zone"`
+	Zone string `bson:"zone,omitempty"`
+	
+	MTime MTime `bson:"mtime"`
 }
 
 type Company struct {
 
 	Id string `bson:"_id"`
-	Type string `bson:"type"`
+	
+	// Type string `bson:"type"`
 	
 	AR *Area    `bson:"area,omitempty"`
-	Name string `bson:"name,omitempty"`
 	
+	//公司简称
+	Name string `bson:"name"`
+	
+	//公司全称
+	Title string `bson:"title"`
+	
+	//公司法人
+	Legal string `bson:"legal"`
+	
+	//公司联系人
+	Linkman string `bson:"linkman"`
+	
+	//联系电话
+	Phone   string `bson:"phone"`
+	
+	//传真
+	Fax     string `bsn:"fax"`
+	
+	//公司地址
 	Address string `bson:"address"`
+	
+	//公司主页
+	Homepage string `bson:"homepage"`
+	
+	//公司简介
+	Description string `bson:"description"`
+	
+	//排序
+	Weight int64 `bson:"weight"`
+	
+	//更新时间
+	MTime MTime `bson:"mtime"`
 }
 
 type RealEstateCompany Company;
