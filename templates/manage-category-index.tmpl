@@ -6,9 +6,7 @@
 				
 				<div class="caption">
 					<div class='pull-right'>
-						<a data-toggle='modal' href='#modal-form' id='button-add' class='btn btn-small blue'>
-							<i class='fa fa-plus-square'></i> 新建房产公司
-						</a>
+						<a data-toggle='modal' href='#modal-form' id='button-add' class='btn btn-small blue'><i class='fa fa-plus-square'></i> 创建分类</a>
 					</div>
 					<div class="page-bar">
 						<ul class="page-breadcrumb">
@@ -22,28 +20,13 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="/manage/real-estate-company/index.html">房产公司</a>
+								<a href="/manage/category/index.html">区域管理</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="portlet-body">
-			
-				<div class='row' style='margin-bottom:15px;'>
-					<div class='form-group'>
-					
-						<div class="col-sm-4">
-							<input id='search-title' type='text' class='form-control' placeholder='房产公司名称关键字'/>
-						</div>
-						
-						<div class='col-sm-1 '>
-							<input id='button-search' type='submit' value='搜索' class='btn btn-info col-sm-offset-1' />
-						</div>
-						
-					</div>
-				</div>
-				
 				<div class="table-container">
 					<div class="table-actions-wrapper">
 						<span>
@@ -81,14 +64,14 @@
 
 <div id="modal-form" class="modal fade" tabindex="-1" aria-hidden="true">
 
-	<div class="modal-dialog" style='width:1000px;'>
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">房产公司</h4>
+				<h4 class="modal-title">资讯分类</h4>
 			</div>
 			<div class="modal-body">
-				<div class="scroller" style="height:450px" data-always-visible="1" data-rail-visible1="1">
+				<div class="scroller" style="height:200px" data-always-visible="1" data-rail-visible1="1">
 					<div class="row">
 					<div class="col-12">
 					<form class="form-horizontal form-bordered">
@@ -97,105 +80,36 @@
 						<input name="MTime[Created]:number" type="text" value="" hidden />
 						
 						<div class="form-group">
-							<label class="col-sm-1 control-label">公司全称<span class="required">*</span></label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Title:string" 
-									type="text" 
-									class="form-control required" 
-									data-msg-required=""
-									value=""
-								/>
-							</div>
-							
-							<label class="col-sm-1 control-label col-md-offset-1">公司简称<span class="required">*</span></label>
-							<div class="col-sm-3 col-sm-offset-1">
+							<label class="col-sm-2 control-label">分类名称<span class="required">*</span></label>
+							<div class="col-sm-8 col-md-offset-1">
 								<input 
 									name="Name:string" 
 									type="text" 
 									class="form-control required" 
+									placeholder="分类名称，如`本地楼市`"
 									data-msg-required=""
 									value=""
 								/>
 							</div>
 						</div>
-						
 						<div class="form-group">
-						
-							<label class="col-sm-1 control-label">法人代表</label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Legal:string" 
-									type="text" 
-									class="form-control" 
-									value=""
-								/>
-							</div>
-							
-							<label class="col-sm-1 control-label col-md-offset-1">联系人</label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Linkman:string" 
-									type="text" 
-									class="form-control" 
-									data-msg-required=""
-									value=""
+							<label class="col-sm-2 control-label">类型代码<span class="required">*</span></label>
+							<div class="col-sm-8 col-sm-offset-1">
+								<input name="Code:string" type="text" 
+								class="form-control required" 
+								placeholder="英文别名，如`local`"
+								value="" 
 								/>
 							</div>
 						</div>
-						
 						<div class="form-group">
-						
-							<label class="col-sm-1 control-label">联系电话</label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Phone:string" 
-									type="text" 
-									class="form-control" 
-									value=""
+							<label class="col-sm-2 control-label">排序</label>
+							<div class="col-sm-8 col-sm-offset-1">
+								<input name="Weight:number" type="text" 
+								class="form-control number" 
+								data-msg-number="序号必须为整数"
+								value="" 
 								/>
-							</div>
-							
-							<label class="col-sm-1 control-label col-md-offset-1">传真</label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Fax:string" 
-									type="text" 
-									class="form-control" 
-									data-msg-required=""
-									value=""
-								/>
-							</div>
-						</div>
-						
-						<div class="form-group">
-						
-							<label class="col-sm-1 control-label">公司地址</label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Address:string" 
-									type="text" 
-									class="form-control" 
-									value=""
-								/>
-							</div>
-							
-							<label class="col-sm-1 control-label col-md-offset-1">公司主页<span class="required">*</span></label>
-							<div class="col-sm-3 col-sm-offset-1">
-								<input 
-									name="Homepage:string" 
-									type="text" 
-									class="form-control url" 
-									data-url-required="请填入正确的URL"
-									value=""
-								/>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-1 control-label">公司介绍</label>
-							<div class="col-sm-9 col-sm-offset-1">
-								<textarea class='form-control' name="Description:string" style='height:200px;'></textarea>
 							</div>
 						</div>
 					</form>
@@ -233,21 +147,20 @@ var PageLogical = function () {
                 ],
                 "pageLength": 20,
                 "ajax": {
-                    "url": "/manage/real-estate-company/list.json",
+                    "url": "/manage/category/list.json",
                 },
                 "ordering": false,
                 "columns": [
                 	{ "name": "","data": "Id","class":"table-checkbox","title":'<input type="checkbox" class="group-checkable" />', "targets": 1, "width": 24, "render": function(data){
                 		return "<input type='checkbox' value='"+ data +"' />"
                 	}},
-                	{ "data": "Title", "title":"房产公司名称", "targets": 1 , "width":200},
-                	{ "data": "", "title":"公司标志", "targets": 2,"defaultContent": "", "width":160},
-                	{ "data": "", "title":"楼盘数", "targets": 3,"defaultContent": "", "width":80},
-                	{ "data": "Weight", "title":"排序", "targets": 4,"defaultContent": "", "width":80},
-                	{ "data": "MTime.Created", "title":"创建时间", "targets": 5,"defaultContent": "", "width":90, "render": t2d},
-                	{ "data": "MTime.Changed", "title":"更新时间", "targets": 6,"defaultContent": "", "width":90, "render": t2d},
+                	{ "data": "Name", "title":"分类名称", "targets": 1 , "width":48},
+                	{ "data": "Code", "title":"类型别名", "targets": 2,"defaultContent": "", "width":160},
+                	{ "data": "Weight", "title":"排序", "targets": 2,"defaultContent": "", "width":80},
+                	{ "data": "MTime.Created", "title":"创建时间", "targets": 3,"defaultContent": "", "width":90, "render": t2d},
+                	{ "data": "MTime.Changed", "title":"更新时间", "targets": 4,"defaultContent": "", "width":90, "render": t2d},
                 	{ "title":"", "defaultContent": "", "targets": 5},
-                	{ "data": "", "title":"操作", "width":90 , "targets": 7, "defaultContent": "<a data-toggle='modal' href='#modal-form' class='btn btn-xs yellow edit'>编辑</a> <button class='delete btn btn-xs red'>删除</button>"},
+                	{ "data": "", "title":"操作", "width":90 , "targets": 6, "defaultContent": "<a data-toggle='modal' href='#modal-form' class='btn btn-xs yellow edit'>编辑</a> <button class='delete btn btn-xs red'>删除</button>"},
                 ]
             }
         });
@@ -261,14 +174,6 @@ var PageLogical = function () {
         	})
         });
         
-        $("#button-search").click(function(){
-        	
-        	var title = $("#search-title").val().trim();
-            grid.setAjaxParam("title", title);
-            grid.getDataTable().ajax.reload();
-            grid.clearAjaxParams();
-        });
-        
         $("#button-save").click(function(){
         	
         	if(!$("#modal-form form").valid()){
@@ -279,7 +184,7 @@ var PageLogical = function () {
         	
         	$.ajax({
         		
-        		"url": "/manage/real-estate-company/upsert.json",
+        		"url": "/manage/category/upsert.json",
         		"method": "POST",
         		"dataType":"JSON",
         		"contentType":"application/json",
@@ -321,7 +226,6 @@ var PageLogical = function () {
         		this.reset();
         		$(this).validate().resetForm();
         	})
-        	
         	$("#modal-form").deserializeJSON(grid.getDataTable().row(".selected").data());
         });
         

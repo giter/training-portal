@@ -1,0 +1,203 @@
+<!-- BEGIN PAGE CONTENT-->
+<div class="portlet">
+	<div class="portlet-title">
+		
+		<div class="caption">
+			<div class="page-bar">
+				<ul class="page-breadcrumb">
+					<li>
+						<i class="fa fa-home"></i>
+						<a href="/manage/index.html">管理首页</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="/manage/news.html">资讯管理</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="/manage/news/index.html">资讯管理</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<form class='form-horizontal' id='form-news'>
+		<input type='hidden' name='Id' value='{{if .News}}{{.News.Id}}{{end}}' />
+		<input type='hidden' name='City' value='{{if .News}}{{.News.City}}{{else}}嘉兴{{end}}' />
+		<input type='hidden' name='MTime[Created]:number' value='{{if .News}}{{.News.MTime.Created}}{{end}}' />
+		<table class="table table-striped table-bordered table-hover">
+			<tbody>
+				<tr>
+					<td class='col-md-1'>
+						<label class='control-label'>原创标志<span class='required' aria-required='true'>*</span></label>
+					</td>
+					<td class='col-md-4'>
+						<div class='row'>
+							<div class='col-md-4'>
+								{{.News.Soure}}
+								<select class='form-control required' name='Source:number'>
+									<option value="">请选择</option>
+									<option value="1" {{if.News}}{{if eq .News.Source 1}}selected{{end}}{{end}}>原创</option>
+									<option value="2" {{if.News}}{{if eq .News.Source 2}}selected{{end}}{{end}}>伪原创</option>
+									<option value="3" {{if.News}}{{if eq .News.Source 3}}selected{{end}}{{end}}>转载</option>
+									<option value="4" {{if.News}}{{if eq .News.Source 4}}selected{{end}}{{end}}>通稿</option>
+									<option value="5" {{if.News}}{{if eq .News.Source 5}}selected{{end}}{{end}}>简讯</option>
+									<option value="6" {{if.News}}{{if eq .News.Source 6}}selected{{end}}{{end}}>专题</option>
+								</select>
+							</div>
+						</div>
+					</td>
+					<td class='col-md-1'><label class='control-label'>发布时间</label></td>
+					<td class='col-md-4'>
+						<div class='row'>
+							<div class='col-md-6'>
+								<div class="input-group date form-datetime">
+									<input readonly type='class' class='form-control' name='_time' />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>正标题<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+								<input type='text' name='Name' value="{{if .News}}{{.News.Name}}{{end}}" class='sp-long-line form-control required'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>副标题</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+								<input type='text' name='Subtitle' value="{{if .News}}{{.News.Subtitle}}{{end}}" class='form-control'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>短标题<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+								<input type='text' name='Slug' value="{{if .News}}{{.News.Slug}}{{end}}" class='sp-long-line form-control required'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>WAP标题</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+								<input type='text' name='Title' value="{{if .News}}{{.News.Title}}{{end}}" class='form-control'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>资讯分类</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>资讯标签</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>URL</label></td>
+					<td colspan=3>
+						<div class='row'>
+							<div class='col-md-12'>
+								<input type='text' name='URL' value="{{if .News}}{{.News.URL}}{{end}}" class='form-control'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>SEO关键词</label></td>
+					<td>
+						<input type='text' name='SEOKeyword' value="{{if .News}}{{.News.SEOKeyword}}{{end}}" class='form-control'/>
+					</td>
+					<td><label class='control-label'>SEO描述</label></td>
+					<td>
+						<textarea name='SEODescription' class='form-control'>{{.News.SEODescription}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>资讯正文</label></td>
+					<td colspan=3>
+						<textarea name='Content' class='ckeditor'>{{.News.Content}}</textarea>
+					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td colspan=3>
+						<input type='submit' class='btn btn-success' value='保存' />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+</div>
+
+<!-- END PAGE CONTENT-->
+
+<!-- BEGIN CURRENT CONTEXT -->
+<script type="text/javascript">
+
+var PageLogical = function () {
+	
+	function FormInits(){
+		
+		$(".form-datetime").datetimepicker({
+            autoclose: true,
+            format: "yyyy-mm-dd hh:ii",
+            pickerPosition: "bottom-left"
+        });
+		
+		$("#form-news").submit(function(){
+			
+			CKEDITOR.instances['Content'].updateElement();
+
+			if(!$(this).valid()){
+				
+				$(this).find("input.error, select.error").first().focus();
+				return false; 
+			}
+			
+			JWS("/manage/news/upsert.json", $(this).serializeJSON()).success(function(data){
+				
+				window.location.href = "./index.html";
+			})
+			
+			return false;
+		})
+	}
+	
+    return {
+    	
+        init: function () {
+        	
+        	FormInits();
+        }
+    };
+}();
+</script>
+<!-- END   CURRENT CONTEXT -->

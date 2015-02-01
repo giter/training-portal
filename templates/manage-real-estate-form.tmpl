@@ -1,0 +1,275 @@
+<!-- BEGIN PAGE CONTENT-->
+<div class="portlet">
+	<div class="portlet-title">
+		
+		<div class="caption">
+			<div class="page-bar">
+				<ul class="page-breadcrumb">
+					<li>
+						<i class="fa fa-home"></i>
+						<a href="/manage/index.html">管理首页</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="/manage/real-estate.html">新房管理</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="/manage/real-estate/index.html">新房楼盘</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<form class='form-horizontal' id='form-real-estate'>
+		<input type='hidden' name='Id' value='{{if .RealEstate}}{{.RealEstate.Id}}{{end}}' />
+		<input type='hidden' name='MTime[Created]:number' value='{{if .RealEstate}}{{.RealEstate.MTime.Created}}{{end}}' />
+		<table class="table table-striped table-bordered table-hover">
+			<tbody>
+				<tr>
+					<td class='col-md-1'>
+						<label class='control-label'>区域<span class='required' aria-required='true'>*</span></label>
+					</td>
+					<td class='col-md-4'>
+						<div class='row'>
+							<div class='col-md-4'>
+								<select class='form-control' name='Area[Id]'>
+									{{if .Areas}}
+									{{if len .Areas}}
+										{{range .Areas}}
+											<option {{if $.RealEstate}}{{if eq $.RealEstate.Area.Id .Id}}selected{{end}}{{end}} value='{{.Id}}'>{{.Area}}</option>
+										{{end}}
+									{{end}}
+									{{end}}
+								</select>
+							</div>
+						</div>
+					</td>
+					<td class='col-md-1'><label class='control-label'>板块</label></td>
+					<td class='col-md-4'>
+						<div class='row'>
+							<div class='col-md-4'>
+								<!-- <input type='class' class='form-control' /> -->
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>楼盘名称<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Name' value="{{if .RealEstate}}{{.RealEstate.Name}}{{end}}" class='form-control required'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>首字母<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-2'>
+								<input type='text' name='Captain' value="{{if .RealEstate}}{{.RealEstate.Captain}}{{end}}" class='form-control required'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>楼盘地址<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Address' value='{{if .RealEstate}}{{.RealEstate.Address}}{{end}}' class='form-control required'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>学区</label></td>
+					<td>
+						<label class='control-label'>小学</label>
+						<label class='control-label'>中学</label>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>房产公司</label></td>
+					<td></td>
+					<td><label class='control-label'>发展商</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Developer' class='form-control'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>销售代理</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Agency' class='form-control'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>策划公司</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Machinate' class='form-control'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>售楼热线<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Phone[]' value="{{if .RealEstate}}{{if len .RealEstate.Phone}}{{index .RealEstate.Phone 0}}{{end}}{{end}}" class='form-control required'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>售楼地址<span class='required' aria-required='true'>*</span></label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='SellAddress[]' value="{{if .RealEstate}}{{if len .RealEstate.SellAddress}}{{index .RealEstate.SellAddress 0}}{{end}}{{end}}" class='form-control required'/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>400电话</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-8'>
+								<input type='text' name='Order' class='form-control'/>
+							</div>
+						</div>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>物业公司</label></td>
+					<td></td>
+					<td><label class='control-label'>物业费</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>交通状况</label></td>
+					<td></td>
+					<td><label class='control-label'>车库（车位）</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>车位价格</label></td>
+					<td></td>
+					<td><label class='control-label'>车位租金</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>公交路线</label></td>
+					<td></td>
+					<td><label class='control-label'>轨道交通</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>高架</label></td>
+					<td></td>
+					<td><label class='control-label'>高速</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>火车站</label></td>
+					<td></td>
+					<td><label class='control-label'>汽车站</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>机场</label></td>
+					<td colspan=3></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>总户数</label></td>
+					<td></td>
+					<td><label class='control-label'>房屋结构</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>道路名</label></td>
+					<td colspan=3></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>楼盘别名</label></td>
+					<td colspan=3></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>其他备注</label></td>
+					<td colspan=3></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>楼盘广告语</label></td>
+					<td></td>
+					<td><label class='control-label'>楼盘特点</label></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>楼盘介绍</label></td>
+					<td colspan=3>
+						<textarea name='Remark' class='ckeditor'>{{.RealEstate.Remark}}</textarea>
+					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td colspan=3>
+						<input type='submit' class='btn btn-success' value='保存' />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+</div>
+
+<!-- END PAGE CONTENT-->
+
+<!-- BEGIN CURRENT CONTEXT -->
+<script type="text/javascript">
+
+var PageLogical = function () {
+	
+	function FormInits(){
+		
+		$("#form-real-estate").submit(function(){
+			
+			CKEDITOR.instances['Remark'].updateElement();
+
+			if(!$(this).valid()){
+				
+				$(this).find("input.error, select.error").first().focus();
+				return false; 
+			}
+			
+			JWS("/manage/real-estate/upsert.json", $(this).serializeJSON()).success(function(data){
+				
+				window.location.href = "./index.html";
+			})
+			
+			return false;
+		})
+	}
+	
+    return {
+    	
+        init: function () {
+        	
+        	FormInits();
+        }
+    };
+}();
+</script>
+<!-- END   CURRENT CONTEXT -->

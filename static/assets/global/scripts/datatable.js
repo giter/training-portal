@@ -48,7 +48,7 @@ var Datatable = function () {
                         "metronicAjaxRequestGeneralError": "请求失败，请检查网络连接！",
                         "lengthMenu": "&nbsp;_MENU_&nbsp;",
                         "info": " 第 <b>_PAGE_</b>/<b>_PAGES_</b> 页",
-                        "infoEmpty": "未找到相关记录",
+                        "infoEmpty": "",
                         "sInfoFiltered":"(总<b> _MAX_ </b>条)",
                         "emptyTable": "无可用数据",
                         "zeroRecords": "无匹配记录",

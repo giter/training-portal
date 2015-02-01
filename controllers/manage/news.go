@@ -2,8 +2,8 @@ package manage;
 
 import (
 	
-	"regexp"
 	"time"
+	"regexp"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
@@ -13,29 +13,60 @@ import (
 	
 	"github.com/martini-contrib/render"
 	
+	// "ftjx/services"
 	"ftjx/models"
 )
 
 
 
-func RealEstateCompanyCollection(db *mgo.Database) *mgo.Collection {
+func NewsCollection(db *mgo.Database) *mgo.Collection {
 	
-	return db.C(models.COLLECTION_REAL_ESTATE_COMPANY);
+	return db.C(models.COLLECTION_NEWS);
 }
 
-func RealEstateCompanyUpsert(db *mgo.Database, req *http.Request, r render.Render) {
+func NewsForm(db *mgo.Database, req *http.Request, r render.Render) {
+	
+	var err error
+	c := NewsCollection(db)
+	
+	ctx := bson.M{}
+	
+	if err != nil {
+	
+		r.Error(500);
+		return
+	}
+	
+	id := req.FormValue("Id");
+	
+	if id != "" {
+	
+		var re models.News
+		
+		if err := c.FindId(id).One(&re) ; err != nil {
+			r.Error(500)
+			return
+		}
+		
+		ctx["News"] = re
+	}
+	
+	r.HTML(200, "manage-news-form", ctx)
+} 
+
+func NewsUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	var b []byte
 	var err error
 	
-	c := RealEstateCompanyCollection(db)
+	c := NewsCollection(db)
 	
 	if b, err = ioutil.ReadAll(req.Body); err != nil {
 		r.JSON(500, err.Error())
 		return
 	}
 	
-	var o models.RealEstateCompany
+	var o models.News
 	if err := json.Unmarshal(b, &o); err != nil {
 		r.JSON(500, err.Error())
 		return
@@ -48,6 +79,7 @@ func RealEstateCompanyUpsert(db *mgo.Database, req *http.Request, r render.Rende
 	o.MTime.Changed = models.NewInt64(time.Now().Unix())
 	
 	if o.Id == nil || len(*o.Id) == 0 {
+	
 	
 		o.Id = models.NewString(bson.NewObjectId().Hex())
 		o.MTime.Created = models.NewInt64(time.Now().Unix())
@@ -67,22 +99,24 @@ func RealEstateCompanyUpsert(db *mgo.Database, req *http.Request, r render.Rende
 	r.JSON(200, bson.M{"Id":*o.Id});
 }
 
-func RealEstateCompanyList(db *mgo.Database, req *http.Request, r render.Render) {
+func NewsList(db *mgo.Database, req *http.Request, r render.Render) {
 	
-	c := RealEstateCompanyCollection(db)
+	c := NewsCollection(db)
 	
 	m := bson.M{}
 	
-	t := req.FormValue("title");
+	
+	t := req.FormValue("name");
 	
 	if t != "" {
-		m["title"] = bson.M{"$regex" : regexp.QuoteMeta(t)}
+		m["name"] = bson.M{"$regex" : regexp.QuoteMeta(t)}
 	}
+	
 	
 	
 	List(c, req, r, m, (func(query *mgo.Query) (interface{}, error) {
 		
-		var rs []models.RealEstateCompany
+		var rs []models.News
 		err := query.All(&rs)
 		
 		return rs, err

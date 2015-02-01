@@ -35,17 +35,22 @@ func AreaUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	}
 	
 	var area models.Area
+	
 	if err := json.Unmarshal(b, &area); err != nil {
 		r.JSON(500, err.Error())
 		return
 	}
 	
-	area.MTime.Changed = time.Now().Unix()
+	if area.MTime == nil {
+		area.MTime = & models.MTime {}
+	}
 	
-	if area.Id == "" {
+	area.MTime.Changed = models.NewInt64(time.Now().Unix())
 	
-		area.Id = bson.NewObjectId().Hex()
-		area.MTime.Created = time.Now().Unix()
+	if area.Id == nil || len(*area.Id) == 0 {
+		
+		area.Id = models.NewString(bson.NewObjectId().Hex())
+		area.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(area); err != nil {
 			r.JSON(500, err.Error())
@@ -59,7 +64,7 @@ func AreaUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 		}
 	}
 	
-	r.JSON(200, bson.M{"Id":area.Id});
+	r.JSON(200, bson.M{"Id":*area.Id});
 }
 
 func AreaList(db *mgo.Database, req *http.Request, r render.Render) {

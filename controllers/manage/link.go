@@ -40,12 +40,16 @@ func LinkUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 		return
 	}
 	
-	link.MTime.Changed = time.Now().Unix()
+	if link.MTime == nil {
+		link.MTime = new(models.MTime)
+	}
 	
-	if link.Id == "" {
+	link.MTime.Changed = models.NewInt64(time.Now().Unix())
 	
-		link.Id = bson.NewObjectId().Hex()
-		link.MTime.Created = time.Now().Unix()
+	if link.Id == nil || len(*link.Id) == 0 {
+	
+		link.Id = models.NewString(bson.NewObjectId().Hex())
+		link.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(link); err != nil {
 			r.JSON(500, err.Error())
@@ -59,7 +63,7 @@ func LinkUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 		}
 	}
 	
-	r.JSON(200, bson.M{"Id":link.Id});
+	r.JSON(200, bson.M{"Id":*link.Id});
 }
 
 func LinkList(db *mgo.Database, req *http.Request, r render.Render) {

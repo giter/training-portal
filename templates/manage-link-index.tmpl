@@ -12,11 +12,11 @@
 						<ul class="page-breadcrumb">
 							<li>
 								<i class="fa fa-home"></i>
-								<a href="/manage/index.html">后台管理</a>
+								<a href="/manage/index.html">管理首页</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="/manage/basic.html">基础资料</a>
+								<a href="/manage/basic.html">系统配置</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
@@ -184,7 +184,7 @@ var PageLogical = function () {
                 },
                 "ordering": false,
                 "columns": [
-                	{ "name": "","data": "Id","class":"table-checkbox","title":'<input type="checkbox" class="group-checkable">', "targets": 1, "width": 24, "render": function(data){
+                	{ "name": "","data": "Id","class":"table-checkbox","title":'<input type="checkbox" class="group-checkable" />', "targets": 1, "width": 24, "render": function(data){
                 		return "<input type='checkbox' value='"+ data +"' />"
                 	}},
                 	{ "data": "Type", "title":"类型", "targets": 1, "width": 80},
@@ -260,6 +260,13 @@ var PageLogical = function () {
         	
         	$(this).parents("table").first().find(".selected").removeClass("selected");
         	$(this).parents("tr").first().addClass("selected");
+        	
+			$("#modal-form form").first().each(function(){
+        		
+        		this.reset();
+        		$(this).validate().resetForm();
+        	})
+        	
         	$("#modal-form").deserializeJSON(grid.getDataTable().row(".selected").data());
         });
         
