@@ -3,6 +3,7 @@ package main
 import (
 
 	"time"
+	"html/template"
 
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/gzip"
@@ -32,9 +33,28 @@ func main() {
 
 	m.Map(session)
 	m.Map(db)
+	
+	funcMap := template.FuncMap{
+		"eqs": func(a *string, b *string) bool {
+			if a == nil && b == nil {
+				return true
+			}
+			
+			if a == nil && b != nil {
+				return false
+			}
+			
+			if a != nil && b == nil {
+				return false
+			}
+			
+			return *a == *b
+		},
+    }
 
 	m.Use(render.Renderer(render.Options{
 		Layout: "manage-layout",
+		Funcs: []template.FuncMap{funcMap},
 	}))
 
 	m.Use(martini.Static("static"))
