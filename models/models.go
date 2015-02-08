@@ -323,13 +323,13 @@ type News struct {
 	Stats *Stats `bson:"Stats,omitempty"`
 }
 
-func (n *News) STime() string{
+func (n News) STime() string{
 
 	if n.Time == nil {
 		return ""
 	}
-		
-	return time.Unix(*n.Time, 0).Format(time.ANSIC)
+	
+	return time.Unix(*n.Time, 0).Format("2006-01-02 15:04")
 }
 
 type Comment struct {

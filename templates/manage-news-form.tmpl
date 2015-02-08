@@ -58,7 +58,7 @@
 						<div class='row'>
 							<div class='col-md-6'>
 								<div class="input-group date form-datetime">
-									<input readonly type='class' class='form-control required' name='Time' />
+									<input readonly type='class' class='form-control required' name='Time' value="{{if .News}}{{if .News.Time}}{{.News.STime}}{{end}}{{end}}" />
 									<span class="input-group-btn">
 										<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 									</span>
