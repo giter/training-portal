@@ -40,8 +40,6 @@ func CategoryUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 		return
 	}
 	
-	
-	
 	if category.Weight == nil {
 		category.Weight = models.NewInt64(time.Now().Unix())
 	}

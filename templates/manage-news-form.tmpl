@@ -39,25 +39,26 @@
 					<td class='col-md-4'>
 						<div class='row'>
 							<div class='col-md-4'>
-								{{.News.Soure}}
 								<select class='form-control required' name='Source:number'>
 									<option value="">请选择</option>
-									<option value="1" {{if.News}}{{if eq .News.Source 1}}selected{{end}}{{end}}>原创</option>
-									<option value="2" {{if.News}}{{if eq .News.Source 2}}selected{{end}}{{end}}>伪原创</option>
-									<option value="3" {{if.News}}{{if eq .News.Source 3}}selected{{end}}{{end}}>转载</option>
-									<option value="4" {{if.News}}{{if eq .News.Source 4}}selected{{end}}{{end}}>通稿</option>
-									<option value="5" {{if.News}}{{if eq .News.Source 5}}selected{{end}}{{end}}>简讯</option>
-									<option value="6" {{if.News}}{{if eq .News.Source 6}}selected{{end}}{{end}}>专题</option>
+									<option value="1" {{if.News}}{{if eq (.News.Source | html) "1"}}selected{{end}}{{end}}>原创</option>
+									<option value="2" {{if.News}}{{if eq (.News.Source | html) "2"}}selected{{end}}{{end}}>伪原创</option>
+									<option value="3" {{if.News}}{{if eq (.News.Source | html) "3"}}selected{{end}}{{end}}>转载</option>
+									<option value="4" {{if.News}}{{if eq (.News.Source | html) "4"}}selected{{end}}{{end}}>通稿</option>
+									<option value="5" {{if.News}}{{if eq (.News.Source | html) "5"}}selected{{end}}{{end}}>简讯</option>
+									<option value="6" {{if.News}}{{if eq (.News.Source | html) "6"}}selected{{end}}{{end}}>专题</option>
 								</select>
 							</div>
 						</div>
 					</td>
-					<td class='col-md-1'><label class='control-label'>发布时间</label></td>
+					<td class='col-md-1'>
+						<label class='control-label'>发布时间<span class='required' aria-required='true'>*</span></label>
+					</td>
 					<td class='col-md-4'>
 						<div class='row'>
 							<div class='col-md-6'>
 								<div class="input-group date form-datetime">
-									<input readonly type='class' class='form-control' name='_time' />
+									<input readonly type='class' class='form-control required' name='Time' />
 									<span class="input-group-btn">
 										<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 									</span>
@@ -71,7 +72,7 @@
 					<td>
 						<div class='row'>
 							<div class='col-md-12'>
-								<input type='text' name='Name' value="{{if .News}}{{.News.Name}}{{end}}" class='sp-long-line form-control required'/>
+								<input type='text' name='Title' value="{{if .News}}{{.News.Title}}{{end}}" class='sp-long-line form-control required'/>
 							</div>
 						</div>
 					</td>
@@ -97,7 +98,7 @@
 					<td>
 						<div class='row'>
 							<div class='col-md-12'>
-								<input type='text' name='Title' value="{{if .News}}{{.News.Title}}{{end}}" class='form-control'/>
+								<input type='text' name='WAPTitle' value="{{if .News}}{{.News.Title}}{{end}}" class='form-control'/>
 							</div>
 						</div>
 					</td>
@@ -106,7 +107,16 @@
 					<td><label class='control-label'>资讯分类</label></td>
 					<td>
 						<div class='row'>
-							<div class='col-md-12'>
+							<a id='append-category' class='form-control-static pull-right' href='javascript:void(0)'>增加</a>
+							<div class='col-md-4 category-selector'>
+								{{if .Categories}}
+									<select name="Category[][Id]" class='form-control'>
+										<option value="">选择分类</option>
+										{{range .Categories}}
+											<option value="{{.Id}}">{{.Name}}</option>
+										{{end}}
+									</select>
+								{{end}}
 							</div>
 						</div>
 					</td>
@@ -166,6 +176,10 @@ var PageLogical = function () {
 	
 	function FormInits(){
 		
+		$("#append-category").click(function(){
+			$(".category-selector").first().clone().appendTo($(this).parent());
+		})
+		
 		$(".form-datetime").datetimepicker({
             autoclose: true,
             format: "yyyy-mm-dd hh:ii",
@@ -182,7 +196,12 @@ var PageLogical = function () {
 				return false; 
 			}
 			
-			JWS("/manage/news/upsert.json", $(this).serializeJSON()).success(function(data){
+			var vals = $(this).serializeJSON()
+			if(vals.Time){
+				vals.Time = new Date(vals.Time) / 1000;
+			}
+			
+			JWS("/manage/news/upsert.json", vals).success(function(data){
 				
 				window.location.href = "./index.html";
 			})

@@ -296,8 +296,8 @@ type News struct {
 	Slug *string `bson:"Slug,omitempty"`
 	
 	// WAP标题
-	Waptitle *string `bson:"Waptitle,omitempty"`
-	
+	WAPTitle *string `bson:"WAPTitle,omitempty"`
+
 	// 资讯类别
 	Category []Category `bson:"Category,omitempty"`
 	

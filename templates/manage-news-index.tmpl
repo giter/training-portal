@@ -34,7 +34,7 @@
 					<div class='form-group'>
 					
 						<div class="col-sm-4">
-							<input id='search-name' type='text' class='form-control' placeholder='楼盘名称关键字'/>
+							<input id='search-name' type='text' class='form-control' placeholder='按资讯内容搜索'/>
 						</div>
 						
 						<div class='col-sm-1 '>
@@ -108,16 +108,21 @@ var PageLogical = function () {
                 	{ "name": "","data": "Id","class":"table-checkbox","title":'<input type="checkbox" class="group-checkable" />', "targets": 1, "width": 24, "render": function(data){
                 		return "<input type='checkbox' value='"+ data +"' />"
                 	}},
-                	{ "data": "", "title":"主类别", "targets": 1 , "width":120},
+                	{ "data": "Category", "title":"主类别", "targets": 1 , "width":120,"defaultContent": "", "render": function(data) {
+                		if(data && data.length > 0) {
+                			return data[0].Name
+                		}
+                		return ""
+                	}},
                 	{ "data": "Title", "title":"标题", "targets": 2,"defaultContent": "", "width":160},
                 	{ "data": "", "title":"缩略图", "targets": 3,"defaultContent": "", "width":80},
-                	{ "data": "Time", "title":"日期", "targets": 4,"defaultContent": "", "width":80},
-                	{ "data": "Stats.Comments", "title":"评论", "targets": 5,"defaultContent": "", "width":90, "render": t2d},
-                	{ "data": "", "title":"多图", "targets": 6,"defaultContent": "", "width":90, "render": t2d},
-                	{ "data": "MTime.Clicked", "title":"点击量", "targets": 7,"defaultContent": "", "width":60, "render": t2d},
+                	{ "data": "Time", "title":"发布日期", "targets": 4,"defaultContent": "", "width":120, "render": t2dt},
+                	{ "data": "Stats.Comments", "title":"评论", "targets": 5,"defaultContent": "", "width":90},
+                	{ "data": "", "title":"多图", "targets": 6,"defaultContent": "", "width":90},
+                	{ "data": "MTime.Clicked", "title":"点击量", "targets": 7,"defaultContent": "", "width":60},
                 	{ "title":"通过", "defaultContent": "", "targets": 8, "width": 40},
                 	{ "title":"首显", "defaultContent": "", "targets": 9, "width": 40},
-                	{ "data": "", "title":"操作", "width":90 , "targets": 10, "defaultContent": "<button class='edit'>编辑</button> <button class='delete'>删除</button>"},
+                	{ "data": "", "title":"操作", "width":90 , "targets": 10, "defaultContent": "<button class='edit'>编辑</button> <button class='delete'>删除</button>"}
                 ]
             }
         });

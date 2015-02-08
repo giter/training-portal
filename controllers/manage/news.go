@@ -13,7 +13,7 @@ import (
 	
 	"github.com/martini-contrib/render"
 	
-	// "ftjx/services"
+	"ftjx/services"
 	"ftjx/models"
 )
 
@@ -30,6 +30,8 @@ func NewsForm(db *mgo.Database, req *http.Request, r render.Render) {
 	c := NewsCollection(db)
 	
 	ctx := bson.M{}
+	
+	ctx["Categories"], err = services.CategoryList(db);
 	
 	if err != nil {
 	
@@ -76,6 +78,18 @@ func NewsUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 		o.MTime = new(models.MTime)
 	}
 	
+	if len(o.Category) > 0 {
+		
+		for i := 0 ; i < len(o.Category) ; i = i + 1 {
+			
+			c, _ := services.CategoryGet(db, *o.Category[i].Id)
+			
+			if c != nil {
+				o.Category[i] = *c;
+			}
+		}
+	}
+	
 	o.MTime.Changed = models.NewInt64(time.Now().Unix())
 	
 	if o.Id == nil || len(*o.Id) == 0 {
@@ -111,8 +125,6 @@ func NewsList(db *mgo.Database, req *http.Request, r render.Render) {
 	if t != "" {
 		m["name"] = bson.M{"$regex" : regexp.QuoteMeta(t)}
 	}
-	
-	
 	
 	List(c, req, r, m, (func(query *mgo.Query) (interface{}, error) {
 		
