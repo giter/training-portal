@@ -25,6 +25,6 @@ func AreaGet(db *mgo.Database, Id string) (r *models.Area , err error) {
 func AreaList(db *mgo.Database) (r []models.Area , err error) {
 
 	c := AreaCollection(db)
-	err = c.Find(bson.M{ "city" : "嘉兴" }).All(&r)
+	err = c.Find(bson.M{ "City" : "嘉兴" }).All(&r)
 	return
 }
