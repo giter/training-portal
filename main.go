@@ -35,7 +35,9 @@ func main() {
 	m.Map(db)
 	
 	funcMap := template.FuncMap{
+	
 		"eqs": func(a *string, b *string) bool {
+		
 			if a == nil && b == nil {
 				return true
 			}
@@ -60,21 +62,9 @@ func main() {
 	m.Use(martini.Static("static"))
 
 	controllers.Managements(m)
-	/*
-		m.Get("/(index\\.html?)?", func(db *mgo.Database, r render.Render) {
-
-			ctx := bson.M{}
-			c := db.C("links")
-
-			// f := models.NewLink("房产网站","房产超市2","http://www.baidu.com");
-			// links.Upsert(c, f)
-
-			q := services.NewQuery(bson.M{})
-			q.Limit(24).Sorts("weight", "_id")
-			ctx["Links"], _ = links.List(c, q)
-			r.HTML(200, "index", ctx)
-		})
-	*/
+	controllers.Index(m);
+	controllers.NewHouse(m);
+	
 	m.Run()
 }
 

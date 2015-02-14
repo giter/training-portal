@@ -5,6 +5,8 @@ import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
 	
+	"ftjx/controllers/index"
+	"ftjx/controllers/newhouse"
 	"ftjx/controllers/manage"
 )
 
@@ -14,6 +16,18 @@ func ManageIndexRedirection(r render.Render){
 
 func ManageIndex(r render.Render) {
 	r.HTML(200, "manage-index", nil);
+}
+
+func Index(m *martini.ClassicMartini){
+
+	m.Get("/", index.Index);
+	m.Get("/index.html", index.Index);
+}
+
+func NewHouse(m *martini.ClassicMartini){
+
+	m.Get("/newhouse/", newhouse.Index);
+	m.Get("/newhouse/index.html", newhouse.Index);
 }
 
 func Managements(m *martini.ClassicMartini) {
