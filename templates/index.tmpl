@@ -1,4 +1,4 @@
-<div class='page-index'>
+<div id='page-index'>
 
   <div class='clearfix section'>
     <div class='categories block block-bordered'>
@@ -70,7 +70,7 @@
   	</div>
   </div>
   
-  <div class='section clearfix'>
+  <div class='section'>
   
   	<div class='left-670-30'>
 	  	
@@ -231,7 +231,7 @@
   	</div>
   </div>
   
-  <div class='section clearfix'>
+  <div class='section'>
   	
   	<div class='m-groupons block block-boundless'>
   	
@@ -447,7 +447,7 @@
   </div>
 
 
-  <div class='section clearfix'>
+  <div class='section'>
   	<div class='left-270-30'>
   		<div class='leaders block block-boundless'>
   			<div class='hd'>
@@ -517,7 +517,7 @@
   	</div>
   </div>
   
-  <div class='section clearfix'>
+  <div class='section'>
   	<div class='left-270-30'>
   		<div class='deliveries block block-boundless'>
   			<div class='hd'>
@@ -595,7 +595,7 @@
   		</div>
   	</div>
   	<div class='right-270-30'>
-			<div class='opens block block-boundless'>
+		<div class='opens block block-boundless'>
   			<div class='hd'>
   				<div class='more f16'><a href='#'>更多</a></div>
   				<h1>最新开盘</h1>
@@ -642,21 +642,8 @@
   		</div>
   	</div>
   </div>
-  <div class='section clearfix'>
-	<div class='links block block-bordered'>
-	  <div class='hd'>
-	    <h1>友情链接</h1>
-	  </div>
-	  <div class='bd'>
-	    <ul>
-	      {{ range .Links}}
-	        <li>
-	        	<a target="_blank" {{if .NoFollow}}rel="nofollow"{{end}} href='{{.Link}}'>{{.Name}}</a>
-	        </li>
-	      {{end}}
-	    </ul>
-	  </div>
-	</div>
+  <div class='section'>
+	{{template "block-links" .}}
   </div>
 </div>
 

@@ -8,6 +8,7 @@ import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/gzip"
 	"github.com/martini-contrib/render"
+	"github.com/martini-contrib/sessions"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
@@ -53,12 +54,21 @@ func main() {
 			return *a == *b
 		},
     }
-
+    
+    funcMap["set"] = (func(a map[string]interface{}, b string, c interface{}) string{
+		
+		a[b] = c
+		return ""
+	})
+    
 	m.Use(render.Renderer(render.Options{
 		Layout: "manage-layout",
 		Funcs: []template.FuncMap{funcMap},
 	}))
-
+	
+	store := sessions.NewCookieStore([]byte("ftjx"));
+	
+	m.Use(sessions.Sessions("ftjx", store))
 	m.Use(martini.Static("static"))
 
 	controllers.Managements(m)

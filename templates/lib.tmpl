@@ -1,15 +1,378 @@
 {{define "head"}}
 	<head>
-		{{with .HTMLTitle}}<title>{{.HTMLTitle}}</title>{{else}}<title>嘉兴房产团购网</title>{{end}}
+		<title>{{if .HTMLTitle}}{{.HTMLTitle}} - {{end}}嘉兴房产团购网</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" href="/css.css" />
 	</head>
 {{end}}
 
+{{define "top"}}
+	<div id='top'>
+		<div class='wrap'>
+			<ul>
+				<li class='hoverable clickable'><a href='/'>首页</a></li>
+				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "新房"}}active{{end}}{{end}}'><a href='/newhouse/'>新房</a></li>
+				<li class='hoverable clickable'><a href='#'>二手房</a></li>
+				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "资讯"}}active{{end}}{{end}}'><a href='#'>资讯</a></li>
+				<li class='hoverable clickable'><a href='#'>装修</a></li>
+				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "团购"}}active{{end}}{{end}}'><a href='#'>团购<i class='icon-thumb-top'></i></a></li>
+			</ul>
+			<div class='more'>
+				<i class='icon-user-gray'>&nbsp;</i>
+				<a href='#'>登录</a>
+				<abbr>|</abbr>
+				<a href='#'>注册</a>
+			</div>
+		</div>
+	</div>
+{{end}}
+
+{{define "block-newhouse-quick-search"}}
+<div id='block-newhouse-quick-search' class='block block-boundless f14'>
+	<div class='bd'>
+		<dl class='clearfix'>
+			<dt>区域： </dt>
+			<dd>
+				<ul>
+					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>中心城区</a></li>
+					<li><a href='#'>南湖新区</a></li>
+					<li><a href='#'>秀洲新区</a></li>
+					<li><a href='#'>城北区</a></li>
+					<li><a href='#'>国际商务区</a></li>
+					<li><a href='#'>湘家荡</a></li>
+					<li><a href='javascript:void(0)'>五县</a></li>
+					<li><a href='#'>嘉善</a></li>
+					<li><a href='#'>海宁</a></li>
+					<li><a href='#'>海盐</a></li>
+					<li><a href='#'>平湖</a></li>
+					<li><a href='#'>桐乡</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class='clearfix'>
+			<dt>楼型： </dt>
+			<dd>
+				<ul>
+					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>低层</a></li>
+					<li><a href='#'>多层</a></li>
+					<li><a href='#'>小高层</a></li>
+					<li><a href='#'>超高层</a></li>
+					<li><a class='primary' href='#'>楼层介绍</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class='clearfix'>
+			<dt>用途： </dt>
+			<dd>
+				<ul>
+					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>普通住宅</a></li>
+					<li><a href='#'>大平层</a></li>
+					<li><a href='#'>别墅</a></li>
+					<li><a href='#'>单身公寓</a></li>
+					<li><a href='#'>LOFT</a></li>
+					<li><a href='#'>写字楼</a></li>
+					<li><a href='#'>商铺</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class='clearfix'>
+			<dt>价格： </dt>
+			<dd>
+				<ul>
+					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>6千元以下</a></li>
+					<li><a href='#'>6千-7千元</a></li>
+					<li><a href='#'>7千-8千元</a></li>
+					<li><a href='#'>8千-9千元</a></li>
+					<li><a href='#'>9千-1万元</a></li>
+					<li><a href='#'>1万元以上</a></li>
+					<li><a class='primary' href='#'>总价</a></li>
+					<li><a class='primary' href='#'>价格待定</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class='clearfix'>
+			<dt>特色： </dt>
+			<dd>
+				<ul>
+					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>刚需房</a></li>
+					<li><a href='#'>改善房</a></li>
+					<li><a href='#'>团购房</a></li>
+					<li><a href='#'>学区房</a></li>
+					<li><a href='#'>精装修</a></li>
+					<li><a href='#'>现房</a></li>
+					<li><a href='#'>养老地产</a></li>
+					<li><a href='#'>投资地产</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class='clearfix'>
+			<dt>状态： </dt>
+			<dd>
+				<ul>
+					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>待售</a></li>
+					<li><a href='#'>期房</a></li>
+					<li><a href='#'>现房</a></li>
+					<li><a href='#'>尾房</a></li>
+				</ul>
+			</dd>
+		</dl>
+		
+		<dl class='letters clearfix'>
+			<dt>字母搜索</dt>
+			<dd>
+				<ul>
+					<li class='hoverable clickable'><a href='#'>A</a></li>
+					<li class='hoverable clickable'><a href='#'>B</a></li>
+					<li class='hoverable clickable'><a href='#'>C</a></li>
+					<li class='hoverable clickable'><a href='#'>D</a></li>
+					<li class='hoverable clickable'><a href='#'>E</a></li>
+					<li class='hoverable clickable'><a href='#'>F</a></li>
+					<li class='hoverable clickable'><a href='#'>G</a></li>
+					<li class='hoverable clickable'><a href='#'>H</a></li>
+					<li class='hoverable clickable'><a href='#'>I</a></li>
+					<li class='hoverable clickable'><a href='#'>J</a></li>
+					<li class='hoverable clickable'><a href='#'>K</a></li>
+					<li class='hoverable clickable'><a href='#'>L</a></li>
+					<li class='hoverable clickable'><a href='#'>M</a></li>
+					<li class='hoverable clickable'><a href='#'>N</a></li>
+					<li class='hoverable clickable'><a href='#'>O</a></li>
+					<li class='hoverable clickable'><a href='#'>P</a></li>
+					<li class='hoverable clickable'><a href='#'>Q</a></li>
+					<li class='hoverable clickable'><a href='#'>R</a></li>
+					<li class='hoverable clickable'><a href='#'>S</a></li>
+					<li class='hoverable clickable'><a href='#'>T</a></li>
+					<li class='hoverable clickable'><a href='#'>U</a></li>
+					<li class='hoverable clickable'><a href='#'>V</a></li>
+					<li class='hoverable clickable'><a href='#'>W</a></li>
+					<li class='hoverable clickable'><a href='#'>X</a></li>
+					<li class='hoverable clickable'><a href='#'>Y</a></li>
+					<li class='hoverable clickable'><a href='#'>Z</a></li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+</div>
+{{end}}
+
+{{define "block-newhouse-focus"}}
+<div id='block-newhouse-focus' class='block block-boundless'>
+	<div class='hd'>
+		<div class='more f16'><a href='#'>更多</a></div>
+		<h1>关注楼盘</h1>
+	</div>
+	<div class='bd f13'>
+		<ul>
+			<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+			<li class='rankings'>
+				<dl class='active clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-start'></i></dd>
+					<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5888元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>金洋·紫金艺境</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+			</li>
+		</ul>
+	</div>
+</div>
+{{end}}
+
+{{define "block-newhouse-recommends"}}
+<div id='block-newhouse-recommends' class='block block-boundless'>
+	<div class='hd'>
+		<div class='more f16'><a href='#'>更多</a></div>
+		<h1>推荐楼盘</h1>
+	</div>
+	<div class='bd f13'>
+		<ul>
+			<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+			<li class='rankings'>
+				<dl class='active clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-start'></i></dd>
+					<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5888元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>金洋·紫金艺境</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+				<dl class='clearfix'>
+					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
+					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+				</dl>
+			</li>
+		</ul>
+	</div>
+</div>
+{{end}}
+
+{{define "block-newhouse-deliveries"}}
+	<div id='block-newhouse-deliveries' class='block block-boundless'>
+		<div class='hd'>
+			<div class='more f16'><a href='#'>更多</a></div>
+			<h1>即将交房</h1>
+		</div>
+		<div class='bd f13'>
+			<ul>
+				<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+				<li>
+					<dl class='active clearfix'>
+						<dd>2015.01</dd>
+						<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.04</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.04</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.04</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+{{end}}
+
+{{define "block-newhouse-opens"}}
+	<div id='block-newhouse-opens' class='block block-boundless'>
+		<div class='hd'>
+			<div class='more f16'><a href='#'>更多</a></div>
+			<h1>最新开盘</h1>
+		</div>
+		<div class='bd f13'>
+			<ul>
+				<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+				<li>
+					<dl class='active clearfix'>
+						<dd>2015.01.18</dd>
+						<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.04</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.04</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.04</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
+					</dl>
+					<dl class='clearfix'>
+						<dd>预计2015.03</dd>
+						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+{{end}}
+
+{{define "block-links"}}
+	<div id='block-links' class='block block-bordered'>
+	  <div class='hd'>
+	    <h1>友情链接</h1>
+	  </div>
+	  <div class='bd'>
+	    <ul>
+	      {{ range .Links}}
+	        <li>
+	        	<a target="_blank" {{if .NoFollow}}rel="nofollow"{{end}} href='{{.Link}}'>{{.Name}}</a>
+	        </li>
+	      {{end}}
+	    </ul>
+	  </div>
+	</div>
+{{end}}
+
 {{define "ft"}}
 <div id='ft'>
-	<div class='ft-main-wrap'>
-		<div class='ft-main clearfix'>
+	<div class='ft-main'>
+		<div class='wrap clearfix'>
 			<div class='ft-weixin'>
 				<dl class='clearfix'>
 					<dt>

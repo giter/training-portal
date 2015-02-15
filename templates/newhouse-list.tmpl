@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+{{template "lib"}}
+{{set . "HTMLTitle" "新房"}}
+{{template "head" .}}
+<body>
+
+	{{template "top" .}}
+	
+	<div id='hd'>
+
+		<div id='brand' class='clearfix'>
+			<div class='logo'>
+				<a href='/'><img src='/images/logo.png'/></a>
+				<span class='f22 primary'>&nbsp;<abbr>|</abbr> 新房</span>
+			</div>
+			<div class='search'>
+				<div class='form clearfix'>
+					<form action='/estate/list.html'>
+						<input class='text' name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' /> 
+						<input class='submit' type='submit' value='搜索' />
+					</form>
+				</div>
+				<div class='quick-search clearfix'>
+					<ul>
+						<li><a href='#'>嘉兴万达</a></li>
+						<li><a href='#'>中港城</a></li>
+						<li><a href='#'>旭辉广场</a></li>
+						<li><a href='#'>南湖区</a></li>
+						<li><a href='#'>江南摩尔</a></li>
+						<li><a href='#'>嘉兴</a></li>
+						<li><a href='#'>桐乡</a></li>
+						<li><a href='#'>嘉善</a></li>
+						<li><a href='#'>海宁</a></li>
+						<li><a href='#'>平湖</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id='nav'>
+			<div class='wrap'>
+				<ul class='menu'>
+					<li><a href='/newhouse/'>新房首页</a></li>
+					<li class='active'><a href='/newhouse/list.html'>楼盘大全</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div id='page-newhouse-list'>
+		<div id='bd'>
+		
+			<div class='section'>
+				{{ template "block-newhouse-quick-search" }}
+			</div>
+			
+			<div class='section'>
+			
+				<div class='left-740-20'>
+				
+					<div class='block-selection block block-boundless'>
+						<div class='bd f13'>
+							您选择的条件是&nbsp;&nbsp;&nbsp;&nbsp;
+							<a class='item' href='#'>中心城区 <i class='icon-close'></i></a>
+							<a class='item' href='#'>多层 <i class='icon-close'></i></a>
+							<a class='item' class='item' href='#'>花园洋房 <i class='icon-close'></i></a>
+							<a class='item' href='#'>8千-9千元	 <i class='icon-close'></i></a>	
+							&nbsp;&nbsp;
+							<a href='/newhouse/list.html'>取消全部</a>
+						</div>
+					</div>
+					
+					<div class='block-list block block-boundless'>
+						<div class='bd'>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+							<div class='item hoverable'>
+								<div class='image'>
+									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
+								</div>
+								<div class='description'>
+									<dl class='clearfix'>
+										<dt>
+											<h2><b>万科·海上传奇</b></h2>
+											<p>[南湖新区]中环西路与广穹路交汇处</p>
+											<p>主推户型：4居室110平米； 3居室82平米</p>
+											<ul>
+												<li>复合地产</li>
+												<li>大型社区</li>
+												<li>车位充足</li>
+											</ul>
+										</dt>
+										<dd>
+											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
+											<p class='featured'>存5万抵25万火爆抢筹</p>
+										</dd>
+									</dl>
+									<dl class='clearfix'>
+										<dt class='f16 primary'>400-700-1234 转 6486</dt>
+										<dd>
+											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<div class='ft'>
+						
+							<ul class='pager'>
+								<li class='hoverable clickable'><a href='#'>&lt;上一页</a></li>
+								<li class='hoverable clickable active'><a href='#'>1</a></li>
+								<li class='hoverable clickable'><a href='#'>2</a></li>
+								<li class='hoverable clickable'><a href='#'>3</a></li>
+								<li class='hoverable clickable'><a href='#'>4</a></li>
+								<li class='hoverable clickable'><a href='#'>5</a></li>
+								<li class='text'>…</li>
+								<li class='hoverable clickable'><a href='#'>20</a></li>
+								<li class='hoverable clickable'><a href='#'>下一页&gt;</a></li>
+							</ul>
+						</div>
+					</div>
+				
+				</div>
+				
+				<div class='right-240'>
+					{{ template "block-newhouse-focus" . }}
+					{{ template "block-newhouse-recommends" . }}
+					{{ template "block-newhouse-deliveries" . }}
+					{{ template "block-newhouse-opens" . }}
+				</div>
+			</div>
+			
+			<div class='section'>
+				<div id='block-buyer-guide' class='block block-bordered'>
+				
+					<div class='hd'>
+						<h1>置业指南</h1>
+					</div>
+					
+					<div class='bd'>
+					
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>前期准备</h2>
+							<p><a href='#'>房产词典</a></p>
+							<p><a href='#'>明确购房目的</a></p>
+							<p><a href='#'>购房要了解什么</a></p>
+						</div>
+						
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>网上选房</h2>
+							<p><a href='#'>楼盘搜索</a></p>
+							<p><a href='#'>户型搜索</a></p>
+							<p><a href='#'>量身选房</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>实地看房</h2>
+							<p><a href='#'>验看五证二书</a></p>
+							<p><a href='#'>实地考察</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>楼盘比较</h2>
+							<p><a href='#'>地段交通</a></p>
+							<p><a href='#'>开发商实力</a></p>
+							<p><a href='#'>户型</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>认购</h2>
+							<p><a href='#'>交定金</a></p>
+							<p><a href='#'>签订认购书</a></p>
+							<p><a href='#'>如何退定金</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>合同</h2>
+							<p><a href='#'>购房合同范本</a></p>
+							<p><a href='#'>补充协议</a></p>
+							<p><a href='#'>合同陷阱</a></p>
+						</div>
+						<div class='hoverable guide guide-last clearfix'>
+							<h2 class='primary'>贷款</h2>
+							<p><a href='#'>付款方式</a></p>
+							<p><a href='#'>购房贷款</a></p>
+							<p><a href='#'>贷款计算器</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>收房验房</h2>
+							<p><a href='#'>收房流程</a></p>
+							<p><a href='#'>如何验收房屋</a></p>
+							<p><a href='#'>验房四步走</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>入住装修</h2>
+							<p><a href='#'>入住装修</a></p>
+							<p><a href='#'>家装公司</a></p>
+							<p><a href='#'>设计师推荐</a></p>
+							<p><a href='#'>家装大全</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>房产证</h2>
+							<p><a href='#'>业主办理房产证</a></p>
+							<p><a href='#'>委托他人办理</a></p>
+							<p><a href='#'>办理步骤</a></p>
+							<p><a href='#'>不登记的弊端</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>物业</h2>
+							<p><a href='#'>物业管理内容</a></p>
+							<p><a href='#'>成立业主委员会</a></p>
+							<p><a href='#'>物业纠纷</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>退房</h2>
+							<p><a href='#'>退房条件</a></p>
+							<p><a href='#'>退房手续</a></p>
+							<p><a href='#'>法律维权</a></p>
+						</div>
+						<div class='hoverable guide clearfix'>
+							<h2 class='primary'>二手房</h2>
+							<p><a href='#'>二手房买卖流程</a></p>
+							<p><a href='#'>买卖合同</a></p>
+							<p><a href='#'>买卖纠纷</a></p>
+						</div>
+						<div class='hoverable guide guide-last clearfix'>
+							<h2 class='primary'>租房</h2>
+							<p><a href='#'>房屋租赁合同</a></p>
+							<p><a href='#'>房源发布</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class='section'>
+				{{template "block-links" .}}
+			</div>
+		</div>
+	</div>
+	
+	{{template "ft"}}
+	
+	<script type="text/javascript" src="/lib.js"></script>
+	<script type="text/javascript" src="/js.js"></script>
+</body>
+</html>

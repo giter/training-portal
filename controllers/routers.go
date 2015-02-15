@@ -28,6 +28,7 @@ func NewHouse(m *martini.ClassicMartini){
 
 	m.Get("/newhouse/", newhouse.Index);
 	m.Get("/newhouse/index.html", newhouse.Index);
+	m.Get("/newhouse/list.html", newhouse.List);
 }
 
 func Managements(m *martini.ClassicMartini) {

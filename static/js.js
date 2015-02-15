@@ -1,8 +1,14 @@
 $(function(){
-
-  $("#nav ul li").hover(function(){
+	
+  var hover = function(){
     $(this).addClass("hover");
-  },function(){
+  };
+  
+  var hout = function(){
     $(this).removeClass("hover");
-  });
+  };
+  
+  $(".hoverable").hover(hover,hout)
+  $(".clickable").css("cursor", "pointer").click(function(){ $(this).find("a").first().each(function(){ this.click(); }) });
+
 });
