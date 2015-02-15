@@ -15,7 +15,7 @@
 				<li class='hoverable clickable'><a href='#'>二手房</a></li>
 				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "资讯"}}active{{end}}{{end}}'><a href='#'>资讯</a></li>
 				<li class='hoverable clickable'><a href='#'>装修</a></li>
-				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "团购"}}active{{end}}{{end}}'><a href='#'>团购<i class='icon-thumb-top'></i></a></li>
+				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "团购"}}active{{end}}{{end}}'><a href='/groupbuy/'>团购<i class='icon-thumb-top'></i></a></li>
 			</ul>
 			<div class='more'>
 				<i class='icon-user-gray'>&nbsp;</i>
@@ -27,6 +27,43 @@
 	</div>
 {{end}}
 
+{{define "brand" }}
+<div id='brand' class='clearfix'>
+		
+	<div class='logo'>
+		<a href='/'><img src='/images/logo.png'/></a>
+		<span class='f22 primary'>&nbsp;<abbr>|</abbr> {{.HTMLTitle}}</span>
+	</div>
+	
+	{{ template "newhouse-search" .}}
+</div>
+{{end}}
+
+{{define "newhouse-search"}}
+<div class='search'>
+	<div class='form clearfix'>
+		<form action='/estate/list.html'>
+			<input class='text' name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' /> 
+			<input class='submit' type='submit' value='搜索' />
+		</form>
+	</div>
+	<div class='quick-search clearfix'>
+		<ul>
+			<li><a href='#'>嘉兴万达</a></li>
+			<li><a href='#'>中港城</a></li>
+			<li><a href='#'>旭辉广场</a></li>
+			<li><a href='#'>南湖区</a></li>
+			<li><a href='#'>江南摩尔</a></li>
+			<li><a href='#'>嘉兴</a></li>
+			<li><a href='#'>桐乡</a></li>
+			<li><a href='#'>嘉善</a></li>
+			<li><a href='#'>海宁</a></li>
+			<li><a href='#'>平湖</a></li>
+		</ul>
+	</div>
+</div>
+{{end}}
+
 {{define "block-newhouse-quick-search"}}
 <div id='block-newhouse-quick-search' class='block block-boundless f14'>
 	<div class='bd'>
@@ -34,12 +71,12 @@
 			<dt>区域： </dt>
 			<dd>
 				<ul>
-					<li><a class='active' href='#'>全部</a></li>
+					<li><a href='#'>全部</a></li>
 					<li><a href='#'>中心城区</a></li>
 					<li><a href='#'>南湖新区</a></li>
 					<li><a href='#'>秀洲新区</a></li>
 					<li><a href='#'>城北区</a></li>
-					<li><a href='#'>国际商务区</a></li>
+					<li><a class='active selected' href='#'>国际商务区</a></li>
 					<li><a href='#'>湘家荡</a></li>
 					<li><a href='javascript:void(0)'>五县</a></li>
 					<li><a href='#'>嘉善</a></li>
@@ -54,8 +91,8 @@
 			<dt>楼型： </dt>
 			<dd>
 				<ul>
-					<li><a class='active' href='#'>全部</a></li>
-					<li><a href='#'>低层</a></li>
+					<li><a href='#'>全部</a></li>
+					<li><a class='active selected' href='#'>低层</a></li>
 					<li><a href='#'>多层</a></li>
 					<li><a href='#'>小高层</a></li>
 					<li><a href='#'>超高层</a></li>
@@ -417,4 +454,7 @@
 		<p>广播电视节目制作经营许可证(浙)字第1033号 商业特许经营备案号：1330302000900033</p>
 	</div>
 </div>
+
+<script type="text/javascript" src="/lib.js"></script>
+<script type="text/javascript" src="/js.js"></script>
 {{end}}

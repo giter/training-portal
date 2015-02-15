@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+{{template "lib"}}
+{{set . "HTMLTitle" "资讯"}}
+{{template "head" .}}
+<body>
+
+	{{template "top" .}}
+	
+	<div id='hd'>
+
+		{{template "brand" .}}
+
+		<div id='nav'>
+			<div class='wrap'>
+				<ul class='menu'>
+					<li class='hoverable clickable active'><a href='/news/'>资讯首页</a></li>
+					<li class='hoverable clickable'><a href='#'>专题报道</a></li>
+					<li class='hoverable clickable'><a href='#'>各界声音</a></li>
+					<li class='hoverable clickable'><a href='#'>成交数据</a></li>
+					<li class='hoverable clickable'><a href='#'>独家探盘</a></li>
+					<li class='hoverable clickable'><a href='#'>慧眼看楼</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div id='page-news-index'>
+		<div id='bd'>
+			<div class='section'>
+				<div class='left-400-30'>
+					<div class='block-news-focus block block-boundless'>
+						<div class='hd'>
+							<div class='more f16'>2015-02-15 星期日</div>
+							<h1>要闻推荐</h1>
+						</div>
+						<div class='bd f13'>
+							<ul>
+								<li>
+									<div>
+										<h2><b>北京佳兆业广场施工缓慢 能否如期入市存疑</b></h2>
+									</div>
+								</li>
+								<li>
+									<a href='#'>绿地地产销售冲击2800亿 上半年有望完成上市 </a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class='right-570'>
+					B
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{{template "ft"}}
+	
+</body>
+</html>

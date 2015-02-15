@@ -1,4 +1,4 @@
-package news
+package groupbuy
 
 import (
 
@@ -8,13 +8,12 @@ import (
 	"github.com/martini-contrib/render"
 )
 
-//资讯首页
+//团购页
 func Index(db *mgo.Database, r render.Render) {
 
 	ctx := bson.M{}
 	
-	
-	r.HTML(200, "news-index", ctx, render.HTMLOptions{
+	r.HTML(200, "groupbuy-index", ctx, render.HTMLOptions{
 		Layout: "layout",
 	});
 }

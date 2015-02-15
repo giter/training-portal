@@ -3,11 +3,7 @@
 
 {{template "lib"}}
 
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="/css.css" />
-</head>
-
+{{template "head" .}}
 <body>
 
 	<div id='hd'>
@@ -44,9 +40,9 @@
 					<li class='hoverable clickable active'><a href='/'>首页</a></li>
 					<li class='hoverable clickable'><a href='/newhouse/'>新房</a></li>
 					<li class='hoverable clickable'><a href='javascript:void(0)'>二手房</a></li>
-					<li class='hoverable clickable'><a href='/news.html'>资讯</a></li>
+					<li class='hoverable clickable'><a href='/news/'>资讯</a></li>
 					<li class='hoverable clickable'><a href='#'>装修</a></li>
-					<li class='hoverable clickable'><i class='icon-thumb'>&nbsp;</i><a href='/groupon.html'>团购</a></li>
+					<li class='hoverable clickable'><i class='icon-thumb'>&nbsp;</i><a href='/groupbuy/'>团购</a></li>
 				</ul>
 				<ul class='user'>
 					<li class='hoverable clickable'><a href='/login.html'>登录</a></li>
@@ -62,7 +58,5 @@
 	
 	{{template "ft"}}
 	
-	<script type="text/javascript" src="/lib.js"></script>
-	<script type="text/javascript" src="/js.js"></script>
 </body>
 </html>

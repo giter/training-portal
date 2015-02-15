@@ -74,6 +74,8 @@ func main() {
 	controllers.Managements(m)
 	controllers.Index(m);
 	controllers.NewHouse(m);
+	controllers.News(m);
+	controllers.GroupBuy(m);
 	
 	m.Run()
 }

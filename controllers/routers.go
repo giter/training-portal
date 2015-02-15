@@ -7,6 +7,8 @@ import (
 	
 	"ftjx/controllers/index"
 	"ftjx/controllers/newhouse"
+	"ftjx/controllers/news"
+	"ftjx/controllers/groupbuy"
 	"ftjx/controllers/manage"
 )
 
@@ -29,6 +31,17 @@ func NewHouse(m *martini.ClassicMartini){
 	m.Get("/newhouse/", newhouse.Index);
 	m.Get("/newhouse/index.html", newhouse.Index);
 	m.Get("/newhouse/list.html", newhouse.List);
+}
+
+func News(m *martini.ClassicMartini) {
+
+	m.Get("/news/", news.Index);
+	m.Get("/news/index.html", news.Index);
+}
+
+func GroupBuy(m *martini.ClassicMartini) {
+	m.Get("/groupbuy/", groupbuy.Index);
+	m.Get("/groupbuy/index.html", groupbuy.Index);
 }
 
 func Managements(m *martini.ClassicMartini) {
