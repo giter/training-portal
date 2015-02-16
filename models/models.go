@@ -17,6 +17,8 @@ const (
 	COLLECTION_REAL_ESTATE = "RealEstate"
 	COLLECTION_REAL_ESTATE_COMPANY = "RealEstateCompany"
 	COLLECTION_MANAGER = "Manager"
+	COLLECTION_RESOURCE = "Resource"
+	COLLECTION_PICTURE = "Picture"
 )
 
 type MTime struct {
@@ -401,6 +403,24 @@ type Advertisment struct {
 	
 	//备注
 	Remark *string `bson:"Remark,omitempty"`
+}
+
+type Resource struct {
+
+	Id        *string `bson:"_id,omitempty"`
+	Resource  *string `bson:"Resource,omitempty"`
+}
+
+type Picture struct {
+
+	Id *string `bson:"_id,omitempty"`
+
+	Title     *string `bson:"Title,omitempty"`
+	Resource  *Resource `bson:"Resource,omitempty"`
+	Url       *string `bson:"Url,omitempty"`
+	Remark    *string `bson:"Remark, omitempty`
+	
+	MTime     *MTime  `bson:"MTime,omitempty"`
 }
 
 func EncodePassword(pass string) string {

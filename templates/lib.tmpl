@@ -2,7 +2,7 @@
 	<head>
 		<title>{{if .HTMLTitle}}{{.HTMLTitle}} - {{end}}嘉兴房产团购网</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" type="text/css" href="/css.css" />
+		<link rel="stylesheet" type="text/css" href="/css.css?{{.CONTEXT.UPTIME}}" />
 	</head>
 {{end}}
 
@@ -13,7 +13,7 @@
 				<li class='hoverable clickable'><a href='/'>首页</a></li>
 				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "新房"}}active{{end}}{{end}}'><a href='/newhouse/'>新房</a></li>
 				<li class='hoverable clickable'><a href='#'>二手房</a></li>
-				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "资讯"}}active{{end}}{{end}}'><a href='#'>资讯</a></li>
+				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "资讯"}}active{{end}}{{end}}'><a href='/news/'>资讯</a></li>
 				<li class='hoverable clickable'><a href='#'>装修</a></li>
 				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "团购"}}active{{end}}{{end}}'><a href='/groupbuy/'>团购<i class='icon-thumb-top'></i></a></li>
 			</ul>
@@ -32,7 +32,7 @@
 		
 	<div class='logo'>
 		<a href='/'><img src='/images/logo.png'/></a>
-		<span class='f22 primary'>&nbsp;<abbr>|</abbr> {{.HTMLTitle}}</span>
+		<span class='f22 primary'>&nbsp;{{if .HTMLTitle}}<abbr>|</abbr> {{.HTMLTitle}}{{end}}</span>
 	</div>
 	
 	{{ template "newhouse-search" .}}
@@ -43,8 +43,8 @@
 <div class='search'>
 	<div class='form clearfix'>
 		<form action='/estate/list.html'>
-			<input class='text' name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' /> 
 			<input class='submit' type='submit' value='搜索' />
+			<input class='text' name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' /> 
 		</form>
 	</div>
 	<div class='quick-search clearfix'>
@@ -455,6 +455,7 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/lib.js"></script>
-<script type="text/javascript" src="/js.js"></script>
+<script type="text/javascript" src="/lib.js?{{.CONTEXT.UPTIME}}"></script>
+<script type="text/javascript" src="/js.js?{{.CONTEXT.UPTIME}}"></script>
+
 {{end}}

@@ -8,31 +8,7 @@
 
 	<div id='hd'>
 
-		<div id='brand' class='clearfix'>
-			<div class='logo'><a href='/'><img src='/images/logo.png'/></a></div>
-			<div class='search'>
-				<div class='form clearfix'>
-					<form action='/estate/list.html'>
-						<input class='text' name='q' type='text' placeholder='输入楼盘名称、地址或开发商等' /> 
-						<input class='submit' type='submit' value='搜索' />
-					</form>
-				</div>
-				<div class='quick-search clearfix'>
-					<ul>
-						<li><a href='#'>嘉兴万达</a></li>
-						<li><a href='#'>中港城</a></li>
-						<li><a href='#'>旭辉广场</a></li>
-						<li><a href='#'>南湖区</a></li>
-						<li><a href='#'>江南摩尔</a></li>
-						<li><a href='#'>嘉兴</a></li>
-						<li><a href='#'>桐乡</a></li>
-						<li><a href='#'>嘉善</a></li>
-						<li><a href='#'>海宁</a></li>
-						<li><a href='#'>平湖</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		{{ template "brand"}}
 
 		<div id='nav'>
 			<div class='wrap'>
@@ -56,7 +32,7 @@
 
 	<div id='bd'>{{ yield }}</div>
 	
-	{{template "ft"}}
+	{{template "ft" .}}
 	
 </body>
 </html>

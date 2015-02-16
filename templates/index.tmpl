@@ -10,13 +10,10 @@
           <dl>
             <dt>区域</dt>
             <dd>
-              <a href='#'>中心城区</a>
-              | <nobr><a href='#'>南湖新区</a></nobr>
-              | <nobr><a href='#'>秀洲新区</a></nobr>
-              | <nobr><a href='#'>城北区</a></nobr>
-              | <nobr><a href='#'>国际商务区</a></nobr>
-              | <nobr><a href='#'>湘家荡</a></nobr>
-              | <nobr><a href='#'>五县</a></nobr>
+              {{ range $index, $area := .Areas }}
+                {{ if gt $index 0 }}|{{end}}
+                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "area" .Id}}'>{{.Area}}</a></nobr>
+              {{ end }}
             </dd>
           </dl>
         </div>
@@ -24,14 +21,10 @@
           <dl>
             <dt>用途</dt>
             <dd>
-              <a href='#'>普通住宅</a>
-              | <nobr><a href='#'>花园洋房</a></nobr>
-              | <nobr><a href='#'>大平层</a></nobr>
-              | <nobr><a href='#'>别墅</a></nobr>
-              | <nobr><a href='#'>单身公寓</a></nobr>
-              | <nobr><a href='#'>LOFT</a></nobr>
-              | <nobr><a href='#'>写字楼</a></nobr>
-              | <nobr><a href='#'>商铺</a></nobr>
+              {{ range $index, $usage := .Tops.Usages }}
+                {{ if gt $index 0 }}|{{end}}
+                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "usage" .Value}}'>{{.Name}}</a></nobr>
+              {{ end }}
             </dd>
           </dl>
         </div>
@@ -39,12 +32,10 @@
           <dl>
             <dt>价格</dt>
             <dd>
-              <a href='#'>6千元以下</a>
-              | <nobr><a href='#'>6千-7千元</a></nobr>
-              | <nobr><a href='#'>7千-8千元</a></nobr>
-              | <nobr><a href='#'>8千-9千元</a></nobr>
-              | <nobr><a href='#'>9千-1万元</a></nobr>
-              | <nobr><a href='#'>1万元以上</a></nobr>
+              {{ range $index, $price := .Tops.Prices }}
+                {{ if gt $index 0 }}|{{end}}
+                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "price" .Value}}'>{{.Name}}</a></nobr>
+              {{ end }}
             </dd>
           </dl>
         </div>
@@ -52,14 +43,10 @@
           <dl>
             <dt>特色</dt>
             <dd>
-              <a href='#'>刚需房</a>
-              | <nobr><a href='#'>改善房</a></nobr>
-              | <nobr><a href='#'>团购房</a></nobr>
-              | <nobr><a href='#'>学区房</a></nobr>
-              | <nobr><a href='#'>精装修</a></nobr>
-              | <nobr><a href='#'>现房</a></nobr>
-              | <nobr><a href='#'>养老地产</a></nobr>
-              | <nobr><a href='#'>投资地产</a></nobr>
+              {{ range $index, $feature := .Tops.Features }}
+                {{ if gt $index 0 }}|{{end}}
+                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "feature" .Value}}'>{{.Name}}</a></nobr>
+              {{ end }}
             </dd>
           </dl>
         </div>

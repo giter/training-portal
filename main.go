@@ -3,6 +3,7 @@ package main
 import (
 
 	"time"
+	"net/http"
 	"html/template"
 
 	"github.com/go-martini/martini"
@@ -14,7 +15,10 @@ import (
 
 	"ftjx/controllers"
 	"ftjx/models"
+	"ftjx/utils"
 )
+
+var UPTIME = time.Now().Format("200601021504")
 
 func main() {
 
@@ -35,41 +39,37 @@ func main() {
 	m.Map(session)
 	m.Map(db)
 	
-	funcMap := template.FuncMap{
-	
-		"eqs": func(a *string, b *string) bool {
-		
-			if a == nil && b == nil {
-				return true
-			}
-			
-			if a == nil && b != nil {
-				return false
-			}
-			
-			if a != nil && b == nil {
-				return false
-			}
-			
-			return *a == *b
-		},
-    }
+	funcMap := template.FuncMap{}
     
-    funcMap["set"] = (func(a map[string]interface{}, b string, c interface{}) string{
-		
-		a[b] = c
-		return ""
-	})
+    funcMap["equals"] = utils.Equals
+    funcMap["set"] = utils.Set
+	funcMap["unset"] = utils.UnSet
+	funcMap["query"] = utils.Query;
+	funcMap["queryN"] = utils.QueryN;
     
 	m.Use(render.Renderer(render.Options{
-		Layout: "manage-layout",
-		Funcs: []template.FuncMap{funcMap},
+		Layout: "",
+		Funcs: []template.FuncMap{ funcMap },
 	}))
 	
 	store := sessions.NewCookieStore([]byte("ftjx"));
 	
 	m.Use(sessions.Sessions("ftjx", store))
 	m.Use(martini.Static("static"))
+	m.Use(func (ctx martini.Context, r *http.Request) {
+		
+		
+		v := bson.M{}
+		
+		SERVER := bson.M{}
+		SERVER["URL"] = r.URL;
+		SERVER["UPTIME"] = UPTIME
+		
+		v["CONTEXT"] = SERVER
+		
+		ctx.Map(v)
+		ctx.Next()
+	})
 
 	controllers.Managements(m)
 	controllers.Index(m);
@@ -97,9 +97,10 @@ func initializing(db *mgo.Database) (err error) {
 	
 	city := "嘉兴"
 	areas := [...]string{
-		"中心城区", "南湖新区", "秀洲新区", "城西区", 
-		"城北区", "西南区", "国际商务区", "城南区", 
-		"湘家荡度假区", "嘉善", "海宁", "海盐", "平湖", "桐乡"}
+		"中心城区", "南湖新区", "秀洲新区", 
+		"城北区", "国际商务区", "湘家荡度假区", 
+		"嘉善", "海宁", "海盐", "平湖", "桐乡",
+	}
 	
 	i := int64(100)
 	var n int

@@ -116,7 +116,7 @@
 											<select name="Category[][Id]" class='form-control'>
 												<option value="">选择分类</option>
 												{{range $.Categories}}
-													<option {{if eqs .Name $c.Name}}selected{{end}} value="{{.Id}}">{{.Name}}</option>
+													<option {{if equals .Name $c.Name}}selected{{end}} value="{{.Id}}">{{.Name}}</option>
 												{{end}}
 											</select>
 										{{end}}

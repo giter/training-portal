@@ -9,10 +9,8 @@ import (
 )
 
 //团购页
-func Index(db *mgo.Database, r render.Render) {
+func Index(db *mgo.Database, ctx bson.M, r render.Render) {
 
-	ctx := bson.M{}
-	
 	r.HTML(200, "groupbuy-index", ctx, render.HTMLOptions{
 		Layout: "layout",
 	});

@@ -11,10 +11,8 @@ import (
 )
 
 //新房首页
-func Index(db *mgo.Database, r render.Render) {
+func Index(db *mgo.Database, ctx bson.M, r render.Render) {
 
-	ctx := bson.M{}
-	
 	//友情链接
 	ctx["Links"], _ = services.LinkList(db)
 	
@@ -24,10 +22,8 @@ func Index(db *mgo.Database, r render.Render) {
 }
 
 //楼盘大全
-func List(db *mgo.Database, r render.Render) {
+func List(db *mgo.Database, ctx bson.M, r render.Render) {
 
-	ctx := bson.M{}
-	
 	//友情链接
 	ctx["Links"], _ = services.LinkList(db)
 	

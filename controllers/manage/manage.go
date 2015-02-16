@@ -17,7 +17,9 @@ import (
 func Index(page string) func(db *mgo.Database, r render.Render) {
 
 	return (func(db *mgo.Database, r render.Render){
-		r.HTML(200, page, nil);
+		r.HTML(200, page, nil, render.HTMLOptions{
+			Layout: "manage-layout", 
+		});
 	});
 }
 
