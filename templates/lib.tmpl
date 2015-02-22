@@ -303,6 +303,13 @@
 			<ul>
 				<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
 				<li>
+					{{ range $i, $o := .Deliveries }}
+  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+  							<dd>{{if not (equals .DeliveryDate "")}}{{.DeliveryDate}}{{else}}{{.SDelivery}}{{end}}</dd>
+  							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
+  						</dl>
+ 					{{ end }}
+ 					<!-- 
 					<dl class='active clearfix'>
 						<dd>2015.01</dd>
 						<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
@@ -335,6 +342,7 @@
 						<dd>2015.03</dd>
 						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
 					</dl>
+					 -->
 				</li>
 			</ul>
 		</div>
@@ -350,7 +358,15 @@
 		<div class='bd f13'>
 			<ul>
 				<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+				
 				<li>
+					{{ range $i, $o := .Opens }}
+  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+  							<dd>{{if not (equals .OpenDate "")}}{{.OpenDate}}{{else}}{{.SOpen}}{{end}}</dd>
+  							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
+  						</dl>
+ 					{{ end }}
+ 					<!-- 
 					<dl class='active clearfix'>
 						<dd>2015.01.18</dd>
 						<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
@@ -383,6 +399,7 @@
 						<dd>预计2015.03</dd>
 						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
 					</dl>
+					 -->
 				</li>
 			</ul>
 		</div>

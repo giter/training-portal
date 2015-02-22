@@ -87,13 +87,3 @@ func (c *CRUD) List(query *Q) (r interface{} , err error) {
 	err = query.Query(m).All(r)
 	return 
 }
-
-func (c *State) Enable(Id string) error {
-	
-	return c.Update(Id, bson.M { "state" : 1 })
-}
-
-func (c *State) Disable(Id string) error {
-	
-	return c.Update(Id, bson.M { "state" : 0 })
-}

@@ -63,6 +63,13 @@
 	  	
 	  	<div class='headlines block'>
 	  		<div class='bd'>
+	  			{{ range .Headlines }}
+	  			<div class='headline first-headline'>
+		  			<h1><a href='{{.SURL}}'>{{.Title}}</a></h1>
+		  			<p>{{.Brief}}</p>
+	  			</div>
+	  			{{ end}}
+	  			<!--
 	  			<div class='headline first-headline'>
 		  			<h1><a href='#'>2015年究竟该不该买房？避免四大错误思维</a></h1>
 		  			<p>市区铁路客运站迎退票高潮 “晚查找早购票”来捡 市区铁路客运站迎退票高潮 “晚查找早购票”来捡</p>
@@ -71,6 +78,7 @@
 		  			<h1>2015年究竟该不该买房？避免四大错误思维</h1>
 		  			<p>市区铁路客运站迎退票高潮 “晚查找早购票”来捡 市区铁路客运站迎退票高潮 “晚查找早购票”来捡</p>
 	  			</div>
+	  			-->
 	  		</div>
 	  	</div>
   	
@@ -83,48 +91,81 @@
 	  				| <a href='#'>土地播报</a>
   				</div>
   				<div class='more'>
-  					<a href='#'>更多</a>
+  					<a href='/news/'>更多</a>
   				</div>
   			</div>
   			<div class='bd'>
-  			
   				<div class='half-left'>
-  				
   					<div class='first-focus'>
-	  					<h2><a href='#'>2015年楼市高价地开局 房地产税今年或实现突破</a></h2>
+  						{{ range (slice .Recommends 0 1) }}
+	  					<h2><a href='{{.SURL}}'>{{.Title}}</a></h2>
 	  					<p>
-	  						逢2015年新春，各种高冷奇葩年终奖借着冷空气，在朋友圈里疯狂来袭。就在大家纷纷质疑还能不能好好的享...
+	  						{{.Brief}}
 	  					</p>
+	  					{{ end }}
   					</div>
-  					
   					<ul>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li class='group'><i class='icon-dot'></i> <a href='#'>2015年楼市高价地开局 房地产税今年</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
+  						{{ range (slice .Recommends 2 3) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 4 5) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 6 7) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 8 9) }}
+	  						<li class='group'><i class='icon-dot'></i> <a title="{{.Title}}" href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 10 11) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 12 13) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 14 15) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 16 17) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
   					</ul>
   				</div>
   				<div class='half-right'>
   					<div class='first-focus'>
-	  					<h2><a href='#'>2015年楼市高价地开局 房地产税今年或实现突破</a></h2>
+	  					{{ range (slice .Recommends 1 2) }}
+	  					<h2><a href='{{.SURL}}'>{{.Title}}</a></h2>
 	  					<p>
-	  						逢2015年新春，各种高冷奇葩年终奖借着冷空气，在朋友圈里疯狂来袭。就在大家纷纷质疑还能不能好好的享...
+	  						{{.Brief}}
 	  					</p>
+	  					{{ end }}
   					</div>
   					
   					<ul>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li class='group'><i class='icon-dot'></i> <a href='#'>2015年楼市高价地开局 房地产税今年</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i><a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
-  						<li><i class='icon-dot'></i> <a href='#'>孩子该上幼儿园了吧？幼儿园有多少到底怎么样？</a></li>
+  						{{ range (slice .Recommends 3 4) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 5 6) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 7 8) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 9 10) }}
+	  						<li class='group'><i class='icon-dot'></i> <a title="{{.Title}}" href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 11 12) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 13 14) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 15 16) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
+  						{{ range (slice .Recommends 17 18) }}
+  							<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{ end }}
   					</ul>
   				</div>
   			</div>
@@ -176,7 +217,7 @@
   					</dl>
   				</div>
   				
-  				<div class='signup-by-phone'>
+  				<div class='signup-by-phone f16'>
   					报名热线
   					<img src='/images/index/phone.png' />
   					<span class='phone'>400-080-6666</span>
@@ -193,15 +234,47 @@
   		<div class='datas block block-boundless'>
   			<div class='hd clearfix'>
   			
-  				<div class='data-selector'>日</div>
-  				<div class='data-selector data-selector-selected'>周</div>
-  				<div class='data-selector'>月</div>
+  				<div class='data-selector' data-for=".dataset-days">日</div>
+  				<div class='data-selector data-selector-selected' data-for=".dataset-weeks">周</div>
+  				<div class='data-selector' data-for=".dataset-months">月</div>
   				
   				<h2>数据中心</h2>
   				
   				<div class='more'><a href='#'>更多</a></div>
   			</div>
   			<div class='bd'>
+  			
+  				<div class='dataset dataset-days '>
+	  				{{ range slice .Days 0 1}}
+	  					<p><a href='{{.SURL}}'><pre>{{.Brief}}</pre></a></p>
+	  				{{ end }} 
+	  				<br />
+	  				{{ range slice .Days 1 5}}
+	  					<p>· <a href='{{.SURL}}'>{{.Title}}</a></p>
+	  				{{ end }}
+  				</div>
+  				
+  				<div class='dataset dataset-weeks dataset-selected'>
+	  				{{ range slice .Weeks 0 1}}
+	  					<p><a href='{{.SURL}}'><pre>{{.Brief}}</pre></a></p>
+	  				{{ end }} 
+	  				<br />
+	  				{{ range slice .Weeks 1 5}}
+	  					<p>· <a href='{{.SURL}}'>{{.Title}}</a></p>
+	  				{{ end }}
+  				</div>
+  				
+  				<div class='dataset dataset-months'>
+	  				{{ range slice .Months 0 1}}
+	  					<p><a href='{{.SURL}}'><pre>{{.Brief}}</pre></a></p>
+	  				{{ end }} 
+	  				<br />
+	  				{{ range slice .Months 1 5}}
+	  					<p>· <a href='{{.SURL}}'>{{.Title}}</a></p>
+	  				{{ end }}
+  				</div>
+  				
+  				<!-- 
   				<p>
 	  				周成交数据 （嘉兴 2014-12-29至2015-01-04）
 	  			</p>
@@ -213,6 +286,7 @@
 				<p>· <a href='#'>嘉兴2015年1月8日楼市成交备案66套</a></p>
 				<p>· <a href='#'>嘉兴2015年1月7日楼市成交备案57套</a></p>
 				<p>· <a href='#'>嘉兴2015年1月6日楼市成交备案103套</a></p>
+				 -->
   			</div>
   		</div>
   	</div>
@@ -235,7 +309,47 @@
   		</div>
   		
   		<div class='bd'>
-  		
+  			{{range $i, $v := .GroupBuys}}
+  			<div class='groupbuy {{if eq (mod $i 3) 2}}groupbuy-last{{end}}'>
+  			
+  				<div><img src='/images/index/sample.jpg' /></div>
+  				
+  				<dl class='clearfix'>
+  					<dt><h2>{{.Name}}</h2></dt>
+  					<dd><a class='btn' href='#'>我要团购</a></dd>
+  				</dl>
+  				
+  				<dl class='clearfix'>
+  					<dt><h3>团购价： <span class='price'>{{.GroupPrice}}</span>元/平米</h3></dt>
+  					<dd><span class='deletion'>原价:{{.Price}}元/平米</span></dd>
+  				</dl>
+  				
+  				<dl class='clearfix'>
+  					<dt class='discount'><i class='icon-arrow-right'>&nbsp;</i> {{.GroupDescription}}</dt>
+  				</dl>
+  				
+  				<dl class='clearfix'>
+  					<dt>
+  						<h2>
+  							<i class='icon-phone-large'>&nbsp;</i> 
+  							{{if equals .Order "" | not}}
+	  							<span class='phone'>{{.Order}}</span>
+	  							{{if equals .OrderExtension "" | not}}
+	  							转 
+	  							<span class='phone'>{{.OrderExtension}}</span>
+	  							{{end}}
+	  						{{else if gt (len .Phone) 0 }}
+	  							<span class='phone'>{{range slice .Phone 0 1}}{{.}}{{end}}</span>
+  							{{end}}
+  						</h2>
+  					</dt>
+  					<dd>
+  						<div class='shape'>110人</div>
+  					</dd>
+  				</dl>
+  			</div>
+  			{{end}}
+  			<!-- 
   			<div class='groupbuy'>
   			
   				<div><img src='/images/index/sample.jpg' /></div>
@@ -429,7 +543,7 @@
   				</dl>
   			</div>
   		</div>
-  		
+  		-->
   	</div>
   </div>
 
@@ -438,18 +552,30 @@
   	<div class='left-270-30'>
   		<div class='leaders block block-boundless'>
   			<div class='hd'>
-  				<div class='more f16'><a href='#'>更多</a></div>
+  				<div class='more f16'><a href='/news/index-leader.html'>更多</a></div>
   				<h1>各界声音</h1>
   			</div>
   			<div class='bd f13'>
   				<ul>
-  					<li class='pic'><a href='#'><img src='/images/index/sample-news.jpg' /></a></li>
-  					<li><i class='icon-dot'></i> <a href='#'>专访国贸中心广场营销总监 周鉴川</a></li>
+  					{{range slice .Leaders 0 1}}
+  						{{if .Cover }}
+	  						<li class='pic'><a href='{{.SURL}}'><img src='{{.Cover.Resource.URI}}' /></a></li>
+  						{{else}}
+		  					<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{end}}
+  					{{end}}
+  					
+  					{{range slice .Leaders 1 7}}
+	  					<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  					{{end}}
+  					
+  					<!-- 
   					<li><i class='icon-dot'></i> <a href='#'>金都·南德大院策划经理 庄景丰</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>嘉兴世合新农村有限公司常务董事巴达文</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>专访国贸中心广场营销总监 周鉴川</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>香港兴业国际市务助理总经理 林红</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>金都·南德大院策划经理 庄景丰</a></li>
+  					-->
   				</ul>
   			</div>
   		</div>
@@ -457,28 +583,26 @@
   	<div class='middle-400'>
   		<div class='locals block block-boundless'>
   			<div class='hd'>
-  				<div class='more f16'><a href='#'>更多</a></div>
+  				<div class='more f16'><a href='/news/index-local.html'>更多</a></div>
   				<h1>本地楼市</h1>
   			</div>
   			<div class='bd'>
   				<ul>
-  					<li>
-  						<dl class='clearfix'>
-  							<dd><img src='/images/index/sample-small.jpg' /></dd>
-  							<dt>
-  								<h2 class='bold'>春晚大牌空降金都，房团网每天2张门票免费送</h2>
-  								<p style='line-height:1.25em;margin-top: 1em;'>2014年嘉兴共出让105宗地块，土地出让面积约278.96万方，同比去年下滑..</p>
-  							</dt>
-  						</dl>
-  					</li>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
-  					<li><i class='icon-dot'></i> <a href='#'>关注| 佳源·优优花园一期多层电梯花园洋房结顶大吉</a>
+  					{{ range slice .Locals 0 1 }}
+	  					<li>
+	  						<dl class='clearfix'>
+	  							<dd>{{ if .Cover}}<img src='{{.Cover.Resource.URI}}' />{{end}}</dd>
+	  							<dt>
+	  								<h2 class='bold'>{{.Title}}</h2>
+	  								<p style='line-height:1.25em;margin-top: 1em;'>{{.Brief}}</p>
+	  							</dt>
+	  						</dl>
+	  					</li>
+  					{{ end }}
+  					
+  					{{ range slice .Locals 1 9 }}
+		  				<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a>
+		  			{{ end }}
   				</ul>
   			</div>
   		</div>
@@ -486,11 +610,24 @@
   	<div class='right-270-30'>
   		<div class='soles block block-boundless'>
   			<div class='hd'>
-  				<div class='more f16'><a href='#'>更多</a></div>
+  				<div class='more f16'><a href='/news/index-sole.html'>更多</a></div>
   				<h1>独家探盘</h1>
   			</div>
   			<div class='bd'>
   				<ul>
+  					{{range slice .Soles 0 1}}
+  						{{if .Cover }}
+	  						<li class='pic'><a href='{{.SURL}}'><img src='{{.Cover.Resource.URI}}' /></a></li>
+  						{{else}}
+		  					<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  						{{end}}
+  					{{end}}
+  					
+  					{{range slice .Soles 1 7}}
+	  					<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
+  					{{end}}
+  					
+  					<!-- 
   					<li class='pic'><a href='#'><img src='/images/index/sample-sole.jpg' /></a></li>
   					<li><i class='icon-dot'></i> <a href='#'>专访国贸中心广场营销总监 周鉴川</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>金都·南德大院策划经理 庄景丰</a></li>
@@ -498,6 +635,7 @@
   					<li><i class='icon-dot'></i> <a href='#'>专访国贸中心广场营销总监 周鉴川</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>香港兴业国际市务助理总经理 林红</a></li>
   					<li><i class='icon-dot'></i> <a href='#'>金都·南德大院策划经理 庄景丰</a></li>
+  					 -->
   				</ul>
   			</div>
   		</div>
@@ -515,6 +653,22 @@
   				<ul>
   					<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
   					<li>
+  						{{ range $i, $o := .Deliveries }}
+	  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+	  							<dd class='price'>
+	  							{{.Price}} 元/平米
+	  							{{if equals .PriceType -1}}
+	  								待定
+	  							{{else if  equals .PriceType 0}}
+	  								<i title="起价" class='icon-price-start'></i>
+	  							{{else if equals .PriceType 1}}
+	  								<i title="均价" class='icon-price-average'></i>
+	  							{{end}}
+	  							</dd>
+	  							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
+	  						</dl>
+  						{{ end }}
+  						<!-- 
   						<dl class='active clearfix'>
   							<dd class='price'>5200元/㎡ <i class='icon-price-start'></i></dd>
   							<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
@@ -547,6 +701,7 @@
   							<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
   							<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
   						</dl>
+  						 -->
   					</li>
   				</ul>
   			</div>
@@ -555,11 +710,28 @@
   	<div class='middle-400'>
   		<div class='lands block block-boundless'>
   			<div class='hd'>
-  				<div class='more f16'><a href='#'>更多</a></div>
+  				<div class='more f16'><a href='/news/index-land.html'>更多</a></div>
   				<h1>土地资讯</h1>
   			</div>
   			<div class='bd'>
   				<ul>
+  				
+					{{ range slice .Lands 0 1 }}
+	  					<li>
+	  						<dl class='clearfix'>
+	  							<dd>{{ if .Cover}}<img src='{{.Cover.Resource.URI}}' />{{end}}</dd>
+	  							<dt>
+	  								<h2 class='bold'>{{.Title}}</h2>
+	  								<p style='line-height:1.25em;margin-top: 1em;'>{{.Brief}}</p>
+	  							</dt>
+	  						</dl>
+	  					</li>
+  					{{ end }}
+  					
+  					{{ range slice .Lands 1 9 }}
+		  				<li><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a>
+		  			{{ end }}
+  					<!-- 
   					<li>
   						<dl class='clearfix'>
   							<dd><img src='/images/index/sample-small.jpg' /></dd>
@@ -577,6 +749,7 @@
   					<li class='f13'><i class='icon-dot'></i> <a href='#'>年末土地市场收官大捷 浙江铁投3.1亿首进国际商务区</a>
   					<li class='f13'><i class='icon-dot'></i> <a href='#'>【土地直播】年末土地收官战 万达南商住地花落谁家</a>
   					<li class='f13'><i class='icon-dot'></i> <a href='#'>2015年1月嘉兴拟出让8宗地块 市区8万方商住地挂牌</a>
+  					-->
   				</ul>
   			</div>
   		</div>
@@ -591,6 +764,13 @@
   				<ul>
   					<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
   					<li>
+  						{{ range $i, $o := .Opens }}
+	  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+	  							<dd>{{if not (equals .OpenDate "")}}{{.OpenDate}}{{else}}{{.SOpen}}{{end}}</dd>
+	  							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
+	  						</dl>
+  						{{ end }}
+  						<!-- 
   						<dl class='active clearfix'>
   							<dd>2015年1月18日</dd>
   							<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
@@ -623,6 +803,7 @@
   							<dd>预计2015年1月</dd>
   							<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
   						</dl>
+  						-->
   					</li>
   				</ul>
   			</div>
@@ -633,4 +814,3 @@
 	{{template "block-links" .}}
   </div>
 </div>
-

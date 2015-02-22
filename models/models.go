@@ -1,10 +1,15 @@
 package models
 
 import (
+
+	"fmt"
 	"crypto/sha1"
 	"encoding/hex"
 	"io"
 	"time"
+	"strings"
+	
+	"gopkg.in/mgo.v2/bson"
 )
 
 const SALT = "Jxft"
@@ -42,7 +47,34 @@ type Category struct {
 	MTime *MTime `bson:"MTime,omitempty"`
 }
 
-type Stats struct {
+func NewCategory(Name string, Code string) Category{
+
+	return Category{
+	
+		Id   : NewString(bson.NewObjectId().Hex()),
+		Name : NewString(Name),
+		Code : NewString(Code),
+		Weight : NewWeight(),
+		MTime: &MTime {
+			Created : NewInt64(time.Now().Unix()),
+			Changed : NewInt64(time.Now().Unix()),
+		},
+	}
+}
+
+type Status struct {
+
+	//禁用
+	Disabled bool   `bson:"Disabled,omitempty"`
+	
+	//推荐
+	Recommended bool `bson:"Recommended,omitempty"`
+	
+	//首显
+	Indexed  bool   `bson:"Indexed,omitempty"`
+}
+
+type ST struct {
 	
 	// 点击量
 	Clicked *int64 `bson:"Clicked,omitempty"`
@@ -83,7 +115,7 @@ type Link struct {
 	
 	// 统计属性
 	MTime *MTime      `bson:"MTime,omitempty"`
-	Stats *Stats      `bson:"Stats,omitempty"`
+	ST *ST      `bson:"ST,omitempty"`
 	Manager *Manager     `bson:"User,omitempty"`
 }
 
@@ -213,23 +245,46 @@ type RealEstate struct {
 	
 	Id *string `bson:"_id,omitempty"`
 	
-	//楼盘状态 <通过，待审>
-	State *int `bson:"State,omitempty"`
-	
 	//楼盘名称
 	Name *string `bson:"Name,omitempty"`
 	//楼盘别名
 	ByName *string `bson:"Byname,omitempty"`
+	//物业类型
+	Usage []int `bson:"Usage,omitempty"`
 	//楼盘位置
 	Location *Location `bson:"Location,omitempty"`
 	//销售状态
 	Schedule *int `bson:"Schedule,omitempty"`
+	//楼型
+	Floor []int `bson:"Floor,omitempty"`
+	
+	//楼盘价格
+	Price *int `bson:"Price,omitempty"`
+	PriceType *int `bson:"PriceType,omitempty"`
+	
+	//开盘日期
+	Open *int64 `bson:"Open,omitempty"`
+	OpenDate *string `bson:"OpenDate,omitempty"`
+	
+	//交房日期
+	Delivery *int64 `bson:"Delivery,omitempty"`
+	DeliveryDate *string `bson:"DeliveryDate,omitempty"`
+	
+	//团购价格
+	GroupPrice *int64 `bson:"GroupPrice,omitempty"`
+	//团购截止
+	GroupClose  *int64 `bson:"GroupClose,omitempty"`
+	//团购说明
+	GroupDescription   *string `bson:"GroupDescription,omitempty"`
+
+	// 楼盘封面
+	Cover  *Picture `bson:"Cover,omitempty"`
 	
 	//楼盘区域
 	Area *Area   `bson:"Area,omitempty"`
 	
 	//首字母
-	Captain   *string `bson:"Captain,omitempty"`
+	Captions   []string `bson:"Captions,omitempty"`
 	
 	//楼盘地址
 	Address   *string `bson:"Address,omitempty"`
@@ -256,7 +311,10 @@ type RealEstate struct {
 	SellAddress []string `bson:"Selladdress,omitempty"`
 	
 	//400电话配置
-	Order  *string `bson:"Order,omitempty"`
+	Order          *string `bson:"Order,omitempty"`
+	OrderExtension *string `bson:"OrderExtension,omitempty"`
+	
+	//物业费
 	PropertyFee *string `bson:"PropertyFee,omitempty"`
 	
 	//周边配套
@@ -270,9 +328,48 @@ type RealEstate struct {
 	Content *string `bson:"Content,omitempty"`
 	
 	// 扩展属性
-	MTime *MTime      `bson:"MTime,omitempty"`
-	Stats Stats      `bson:"Stats,omitempty"`
-	Manager *Manager   `bson:"Manager,omitempty"`
+	MTime   *MTime    `bson:"MTime,omitempty"`
+	ST      *ST       `bson:"ST,omitempty"`
+	Status  *Status   `bson:"Status,omitempty"`
+	Manager *Manager  `bson:"Manager,omitempty"`
+}
+
+
+func (r RealEstate) Caption() string {
+
+	if r.Captions == nil || len(r.Captions) == 0 {
+		return ""
+	}
+	
+	return strings.Join(r.Captions, "")
+}
+
+func (r RealEstate) SOpen() string {
+
+	if r.Open == nil {
+		return ""
+	}
+	
+	return time.Unix(*r.Open, 0).Format("2006-01-02")
+}
+
+
+func (r RealEstate) SDelivery() string {
+
+	if r.Delivery == nil {
+		return ""
+	}
+	
+	return time.Unix(*r.Delivery, 0).Format("2006-01-02")
+}
+
+func (r RealEstate) SGroupClose() string {
+
+	if r.GroupClose == nil {
+		return ""
+	}
+	
+	return time.Unix(*r.GroupClose, 0).Format("2006-01-02")
 }
 
 type News struct {
@@ -321,8 +418,21 @@ type News struct {
 	// 资讯正文
 	Content *string `bson:"Content,omitempty"`
 	
-	MTime *MTime `bson:"MTime,omitempty"`
-	Stats *Stats `bson:"Stats,omitempty"`
+	// 封面
+	Cover  *Picture `bson:"Cover,omitempty"`
+	
+	Status *Status `bson:"Status,omitempty"`
+	MTime  *MTime  `bson:"MTime,omitempty"`
+	ST  *ST  `bson:"ST,omitempty"`
+}
+
+func (n News) SURL() string {
+
+	if n.URL != nil && *n.URL != "" {
+		return *n.URL
+	}
+	
+	return fmt.Sprintf("/news/o%s.html", *n.Id);
 }
 
 func (n News) STime() string{
@@ -407,40 +517,70 @@ type Advertisment struct {
 
 type Resource struct {
 
-	Id        *string `bson:"_id,omitempty"`
-	Resource  *string `bson:"Resource,omitempty"`
+	Id    *string `bson:"_id,omitempty"`
+	
+	MIME  *string `bson:"MIME,omitempty"`
+	Path  *string `bson:"Path,omitempty"`
+}
+
+
+func (r Resource) URI() string {
+	
+	if r.Path == nil {
+		return ""
+	}
+	
+	return *r.Path
 }
 
 type Picture struct {
 
-	Id *string `bson:"_id,omitempty"`
-
-	Title     *string `bson:"Title,omitempty"`
-	Resource  *Resource `bson:"Resource,omitempty"`
-	Url       *string `bson:"Url,omitempty"`
-	Remark    *string `bson:"Remark, omitempty`
+	Id       *string `bson:"_id,omitempty"`
 	
-	MTime     *MTime  `bson:"MTime,omitempty"`
+	Type     *string `bson:"Type,omitempty"`
+	Title    *string `bson:"Title,omitempty"`
+	Remark   *string `bson:"Remark,omitempty"`
+	URL      *string `bson:"URL,omitempty"`
+	Weight   *int64  `bson:"Weight,omitempty"`
+	
+	Resource *Resource `bson:"Resource,omitempty"`
+	
+	Width    *int64  `bson:"Width,omitempty"`
+	Height   *int64  `bson:"Height,omitempty"`
+	
+	MTime    *MTime  `bson:"MTime,omitempty"`
 }
 
 func EncodePassword(pass string) string {
 
 	mc := sha1.New()
+	
 	io.WriteString(mc, SALT)
 	io.WriteString(mc, pass)
+	
 	return hex.EncodeToString(mc.Sum(nil))
 }
 
-func NewString(s string) (e *string) {
+func NewWeight() *int64 {
+
+	i := time.Now().Unix() - 1420070400
+	return &i
+}
+
+func NewString(s string) *string {
 	
-	e = new(string)
-	*e = s
-	return
+	return &s
 }
 
 func NewInt64(s int64) (e *int64) {
 
 	e = new(int64)
 	*e = s
-	return 
+	return
+}
+
+func NewBool(s bool) (e *bool) {
+	e = new(bool)
+	*e = s
+	return
 }

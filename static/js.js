@@ -9,6 +9,7 @@ $(function(){
   };
   
   $(".hoverable").hover(hover,hout)
-  $(".clickable").css("cursor", "pointer").click(function(){ $(this).find("a").first().each(function(){ this.click(); }) });
+  $(".clickable").addClass("c-ptr").click(function(){ $(this).find("a").first().each(function(){ this.click(); }) });
 
 });
+

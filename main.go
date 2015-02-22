@@ -7,7 +7,7 @@ import (
 	"html/template"
 
 	"github.com/go-martini/martini"
-	"github.com/martini-contrib/gzip"
+	// "github.com/martini-contrib/gzip"
 	"github.com/martini-contrib/render"
 	"github.com/martini-contrib/sessions"
 	"gopkg.in/mgo.v2"
@@ -15,6 +15,7 @@ import (
 
 	"ftjx/controllers"
 	"ftjx/models"
+	"ftjx/services"
 	"ftjx/utils"
 )
 
@@ -24,7 +25,7 @@ func main() {
 
 	m := martini.Classic()
 
-	m.Use(gzip.All())
+	// m.Use(gzip.All())
 
 	session, err := mgo.Dial("127.0.0.1")
 	db := session.DB("FCCS")
@@ -42,10 +43,13 @@ func main() {
 	funcMap := template.FuncMap{}
     
     funcMap["equals"] = utils.Equals
-    funcMap["set"] = utils.Set
-	funcMap["unset"] = utils.UnSet
-	funcMap["query"] = utils.Query;
+    funcMap["set"]    = utils.Set
+	funcMap["unset"]  = utils.UnSet
+	funcMap["query"]  = utils.Query;
 	funcMap["queryN"] = utils.QueryN;
+	funcMap["slice"]  = utils.Slice;
+	funcMap["mod"]  = utils.Mod;
+	funcMap["in"]  = utils.In;
     
 	m.Use(render.Renderer(render.Options{
 		Layout: "",
@@ -62,8 +66,10 @@ func main() {
 		v := bson.M{}
 		
 		SERVER := bson.M{}
+		
 		SERVER["URL"] = r.URL;
 		SERVER["UPTIME"] = UPTIME
+		SERVER["KVs"]    = services.KVs()
 		
 		v["CONTEXT"] = SERVER
 		
@@ -93,48 +99,8 @@ func indexing(db *mgo.Database) (err error) {
 
 func initializing(db *mgo.Database) (err error) {
 	
-	c := db.C(models.COLLECTION_AREA);
-	
-	city := "嘉兴"
-	areas := [...]string{
-		"中心城区", "南湖新区", "秀洲新区", 
-		"城北区", "国际商务区", "湘家荡度假区", 
-		"嘉善", "海宁", "海盐", "平湖", "桐乡",
-	}
-	
-	i := int64(100)
-	var n int
-	for _, area := range areas {
-		
-		n, err = c.Find(bson.M{"City":city, "Area": area}).Limit(1).Count();
-		
-		if err != nil {
-			panic(err)
-		}
-		
-		if n == 0 {
-		
-			area := models.Area{
-				Id: models.NewString(bson.NewObjectId().Hex()),
-				City: &city, 
-				Area: &area,
-				Weight: models.NewInt64(i),
-				MTime: &models.MTime {
-					Created : models.NewInt64(time.Now().Unix()),
-					Changed : models.NewInt64(time.Now().Unix()),
-				},
-			}
-			
-			err = c.Insert(area)
-			
-			if err != nil {
-			
-				panic(err)
-			}
-		}
-		
-		i = i + 100
-	}
+	services.AreaInitializing(db);
+	services.CategoryInitializing(db);
 	
 	return
 }

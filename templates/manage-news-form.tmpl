@@ -11,7 +11,7 @@
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="/manage/news.html">资讯管理</a>
+						<a href="/manage/news/index.html">资讯管理</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
@@ -86,11 +86,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label class='control-label'>短标题<span class='required' aria-required='true'>*</span></label></td>
+					<td><label class='control-label'>短标题</label></td>
 					<td>
 						<div class='row'>
 							<div class='col-md-12'>
-								<input type='text' name='Slug' value="{{if .News}}{{.News.Slug}}{{end}}" class='sp-long-line form-control required'/>
+								<input type='text' name='Slug' value="{{if .News}}{{.News.Slug}}{{end}}" class='sp-long-line form-control'/>
 							</div>
 						</div>
 					</td>
@@ -161,6 +161,12 @@
 					<td><label class='control-label'>SEO描述</label></td>
 					<td>
 						<textarea name='SEODescription' class='form-control'>{{.News.SEODescription}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>资讯摘要</label></td>
+					<td colspan=3>
+						<textarea class='form-control' name='Brief' style='height: 5em;'>{{if .News.Brief}}{{.News.Brief}}{{end}}</textarea>
 					</td>
 				</tr>
 				<tr>

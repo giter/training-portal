@@ -53,7 +53,9 @@ func NewsForm(db *mgo.Database, req *http.Request, r render.Render) {
 		ctx["News"] = re
 	}
 	
-	r.HTML(200, "manage-news-form", ctx)
+	r.HTML(200, "manage-news-form", ctx, render.HTMLOptions{
+		Layout: "manage-layout", 
+	})
 } 
 
 func NewsUpsert(db *mgo.Database, req *http.Request, r render.Render) {
@@ -129,6 +131,7 @@ func NewsList(db *mgo.Database, req *http.Request, r render.Render) {
 	List(c, req, r, m, (func(query *mgo.Query) (interface{}, error) {
 		
 		var rs []models.News
+		query.Sort("-Time", "-_id");
 		err := query.All(&rs)
 		
 		return rs, err

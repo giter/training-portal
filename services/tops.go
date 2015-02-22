@@ -126,7 +126,82 @@ var DefaultTops = &Top{
 	},
 };
 
-func Tops() *Top {
+func Tops() (*Top, error) {
 	
-	return DefaultTops
+	return DefaultTops, nil
+}
+
+type Node struct {
+
+	Name string
+	Value int
+}
+
+type NodeSet struct {
+	
+	Nodes []Node
+	Names map[string]int
+}
+
+func NewNodeSet(v []Node) (n NodeSet) {
+
+	n.Nodes = v
+	n.Names = make(map[string]int, len(v))
+	
+	for _,x := range v {
+		n.Names[x.Name] = x.Value
+	}
+	
+	return
+}
+
+type KV map[string]NodeSet;
+
+var DefaultKV = KV {
+
+	"RollType" : NewNodeSet([]Node {
+		Node{"首页轮播",1},
+		Node{"资讯首页轮播",2},
+	}),
+	
+	//物业类型
+	"Usage"    : NewNodeSet([]Node {
+		Node{"普通住宅" , 0},
+		Node{"花园洋房" , 1},
+		Node{"大平层"   , 2},
+		Node{"别墅"    , 3},
+		Node{"单身公寓" , 4},
+		Node{"LOFT"   , 5},
+		Node{"写字楼"   , 6},
+		Node{"商铺"    , 7},
+	}),
+	
+	//销售状态
+	"Schedule"  : NewNodeSet([]Node {
+		Node{"待售" , 0},
+		Node{"期房" , 1},
+		Node{"现房" , 2},
+		Node{"尾房" , 3},
+		Node{"售完" , -1},
+	}),
+	
+	"Floor"   : NewNodeSet([]Node {
+		Node{"低层",  0},
+		Node{"多层",  1},
+		Node{"小高层", 2},
+		Node{"高层"  ,3},
+		Node{"超高层", 4},
+	}),
+	
+	"PriceType" : NewNodeSet([]Node {
+		Node{"起价", 0},
+		Node{"均价", 1},
+		Node{"总价", 2},
+		Node{"待定", -1},
+	}),
+	
+};
+
+func KVs() KV {
+	return DefaultKV
 }

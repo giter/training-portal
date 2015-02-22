@@ -24,11 +24,10 @@ func RealEstateCollection(db *mgo.Database) *mgo.Collection {
 	return db.C(models.COLLECTION_REAL_ESTATE);
 }
 
-func RealEstateForm(db *mgo.Database, req *http.Request, r render.Render) {
+func RealEstateForm(db *mgo.Database, ctx bson.M, req *http.Request, r render.Render) {
 	
 	var err error
 	c := RealEstateCollection(db)
-	ctx := bson.M{}
 	
 	ctx["Areas"], err = services.AreaList(db)
 	
@@ -52,7 +51,9 @@ func RealEstateForm(db *mgo.Database, req *http.Request, r render.Render) {
 		ctx["RealEstate"] = re
 	}
 	
-	r.HTML(200, "manage-real-estate-form", ctx)
+	r.HTML(200, "manage-real-estate-form", ctx, render.HTMLOptions{
+		Layout: "manage-layout", 
+	})
 } 
 
 func RealEstateUpsert(db *mgo.Database, req *http.Request, r render.Render) {
@@ -123,8 +124,6 @@ func RealEstateList(db *mgo.Database, req *http.Request, r render.Render) {
 	if t != "" {
 		m["name"] = bson.M{"$regex" : regexp.QuoteMeta(t)}
 	}
-	
-	
 	
 	List(c, req, r, m, (func(query *mgo.Query) (interface{}, error) {
 		

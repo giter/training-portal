@@ -14,10 +14,10 @@ import (
 	"ftjx/services"
 )
 
-func Index(page string) func(db *mgo.Database, r render.Render) {
+func Index(page string) func(db *mgo.Database, ctx bson.M, r render.Render) {
 
-	return (func(db *mgo.Database, r render.Render){
-		r.HTML(200, page, nil, render.HTMLOptions{
+	return (func(db *mgo.Database, ctx bson.M, r render.Render){
+		r.HTML(200, page, ctx, render.HTMLOptions{
 			Layout: "manage-layout", 
 		});
 	});
@@ -39,13 +39,55 @@ func List(c *mgo.Collection, req *http.Request, r render.Render, m bson.M, retri
 	
 	action := req.FormValue("action");
 	
-	if action == "delete" {
+	switch action {
+	case "delete":
 	
 		ids := req.Form["id[]"]
 		if len(ids) > 0 {
 			dels := bson.M{ "_id": bson.M{"$in": ids} }
 			if _, err = c.RemoveAll(dels); err!= nil {
 				r.JSON(500, err.Error())
+			}
+		}
+	case "disable":
+	
+		ids := req.Form["id[]"];
+		strDisable := req.FormValue("value")
+		if len(ids) > 0 && strDisable != ""{
+			
+			var disable bool
+			disable, err = strconv.ParseBool(strDisable)
+			
+			if err == nil {
+				diss := bson.M{ "_id": bson.M{"$in": ids} }
+				_, err = c.UpdateAll(diss, bson.M{"$set" : bson.M{"Status.Disabled" : disable, }, });
+			}
+		}
+		
+	case "index":
+		ids := req.Form["id[]"];
+		strIndex := req.FormValue("value")
+		if len(ids) > 0 && strIndex != ""{
+			
+			var index bool
+			index, err = strconv.ParseBool(strIndex)
+			
+			if err == nil {
+				indxs := bson.M{ "_id": bson.M{"$in": ids} }
+				_, err = c.UpdateAll(indxs, bson.M{"$set" : bson.M{"Status.Indexed" : index, }, });
+			}
+		}
+	case "recommend":
+		ids := req.Form["id[]"];
+		strRecommend := req.FormValue("value")
+		if len(ids) > 0 && strRecommend != ""{
+			
+			var value bool
+			value, err = strconv.ParseBool(strRecommend)
+			
+			if err == nil {
+				indxs := bson.M{ "_id": bson.M{"$in": ids} }
+				_, err = c.UpdateAll(indxs, bson.M{"$set" : bson.M{"Status.Recommended" : value, }, });
 			}
 		}
 	}

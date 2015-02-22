@@ -17,7 +17,9 @@ func ManageIndexRedirection(r render.Render){
 }
 
 func ManageIndex(r render.Render) {
-	r.HTML(200, "manage-index", nil);
+	r.HTML(200, "manage-index", nil, render.HTMLOptions{
+		Layout: "manage-layout", 
+	});
 }
 
 func Index(m *martini.ClassicMartini){
@@ -86,4 +88,8 @@ func Managements(m *martini.ClassicMartini) {
 	m.Post("/manage/news/list.json", manage.NewsList)
 	m.Post("/manage/news/upsert.json", manage.NewsUpsert)
 
+	//轮播图片
+	m.Get("/manage/picture/index.html", manage.Index("manage-picture-index"));
+	m.Post("/manage/picture/list.json", manage.PictureList)
+	m.Post("/manage/picture/upsert.json", manage.PictureUpsert)
 }
