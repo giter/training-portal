@@ -65,13 +65,19 @@ func NewCategory(Name string, Code string) Category{
 type Status struct {
 
 	//禁用
-	Disabled bool   `bson:"Disabled,omitempty"`
+	Disabled *bool   `bson:"Disabled,omitempty"`
 	
 	//推荐
-	Recommended bool `bson:"Recommended,omitempty"`
+	Recommended *bool `bson:"Recommended,omitempty"`
 	
 	//首显
-	Indexed  bool   `bson:"Indexed,omitempty"`
+	Indexed  *bool   `bson:"Indexed,omitempty"`
+	
+	//推荐度
+	Recommendation int64 `bson:"Recommendation,omitempty"`
+	
+	//关注度
+	Attention int64 `bson:"Attention,omitempty"` 
 }
 
 type ST struct {
@@ -254,7 +260,7 @@ type RealEstate struct {
 	//楼盘位置
 	Location *Location `bson:"Location,omitempty"`
 	//销售状态
-	Schedule *int `bson:"Schedule,omitempty"`
+	Schedule []int `bson:"Schedule,omitempty"`
 	//楼型
 	Floor []int `bson:"Floor,omitempty"`
 	
@@ -276,6 +282,8 @@ type RealEstate struct {
 	GroupClose  *int64 `bson:"GroupClose,omitempty"`
 	//团购说明
 	GroupDescription   *string `bson:"GroupDescription,omitempty"`
+	
+	Features []string `bson:"Features,omitempty"`
 
 	// 楼盘封面
 	Cover  *Picture `bson:"Cover,omitempty"`
@@ -370,6 +378,15 @@ func (r RealEstate) SGroupClose() string {
 	}
 	
 	return time.Unix(*r.GroupClose, 0).Format("2006-01-02")
+}
+
+func (r RealEstate) Feature() string {
+	
+	if r.Features == nil || len(r.Features) == 0 {
+		return ""
+	}
+	
+	return strings.Join(r.Features, ",")
 }
 
 type News struct {

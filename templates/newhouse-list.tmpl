@@ -25,28 +25,56 @@
 		<div id='bd'>
 		
 			<div class='section'>
-				{{ template "block-newhouse-quick-search" }}
+			
+				{{set . "NewhouseQuickSearchPath" .CONTEXT.URL.String }}
+				{{ template "block-newhouse-quick-search" . }}
 			</div>
 			
 			<div class='section'>
 			
 				<div class='left-740-20'>
-				
+					{{ if .CONTEXT.URL.Query | len }}
 					<div class='block-selection block block-boundless'>
 						<div class='bd f13'>
 							您选择的条件是&nbsp;&nbsp;&nbsp;&nbsp;
-							<a class='item' href='#'>中心城区 <i class='icon-close'></i></a>
-							<a class='item' href='#'>多层 <i class='icon-close'></i></a>
-							<a class='item' class='item' href='#'>花园洋房 <i class='icon-close'></i></a>
-							<a class='item' href='#'>8千-9千元	 <i class='icon-close'></i></a>	
+							{{range $.CONTEXT.KVs.Area.Nodes}}
+								{{if queryE $.NewhouseQuickSearchPath "area" .Value}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "area" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
+							
+							{{range $.CONTEXT.KVs.Floor.Nodes}}
+								{{if queryE $.NewhouseQuickSearchPath "floor" .Value}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "floor" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
+							
+							{{range $.CONTEXT.KVs.Price.Nodes}}
+								{{if queryE $.NewhouseQuickSearchPath "price" .Value}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "price" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
+							
+							{{range $.CONTEXT.KVs.Features.Nodes}}
+								{{if queryE $.NewhouseQuickSearchPath "feature" .Value}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "feature" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
+							
+							{{range .Letters}}
+								{{if queryE $.NewhouseQuickSearchPath "letter" .}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "letter" nil "p" nil}}'> &nbsp;&nbsp;{{upper .}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
 							&nbsp;&nbsp;
 							<a href='/newhouse/list.html'>取消全部</a>
 						</div>
 					</div>
+					{{end}}
 					
 					<div class='block-list block block-boundless'>
 						<div class='bd'>
-							{{ range .Page.Data}}
+							{{ range .NewhousePage.Data}}
 							<div class='item hoverable'>
 								<div class='image'>
 									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
@@ -70,7 +98,18 @@
 									</dl>
 									<dl class='clearfix'>
 										<dt class='f16 primary'>
-											400-700-1234 转 6486
+											{{if equals .Order "" | not }}
+												{{.Order}}
+												{{if .OrderExtension}}
+													转 {{.OrderExtension}}
+												{{end}}
+											{{else}}
+												{{if len .Phone}}
+													{{range slice .Phone 0 1}}
+														{{.}}
+													{{end}}
+												{{end}}
+											{{end}}
 										</dt>
 										<dd>
 											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
@@ -79,7 +118,7 @@
 								</div>
 							</div>
 							{{ end }}
-							
+							<!-- 
 							<div class='item hoverable'>
 								<div class='image'>
 									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
@@ -370,28 +409,39 @@
 									</dl>
 								</div>
 							</div>
+							 -->
 						</div>
 						<div class='ft'>
 							
 							<ul class='pager'>
-								<li class='{{if eq .Page.Page.Previous 0}}disabled{{end}} hoverable clickable'><a href='#'>&lt;上一页</a></li>
-								{{ range .Page.Page.List }}
+							
+								{{if eq .NewhousePage.Page.Previous 0}}
+								{{ else }}
+									<li class='{{if eq .NewhousePage.Page.Previous 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.CONTEXT.URL.String "p" .NewhousePage.Page.Previous }}'>&lt;上一页</a></li>
+								{{ end }}
+								
+								{{ range .NewhousePage.Page.List }}
 									{{ if eq . 0 }}
 										<li class='text'>…</li>
 									{{else}}
-										<li class='{{if eq . $.Page.Page.Current | not}}hoverable clickable{{end}} {{if eq . $.Page.Page.Current}}active{{end}}'>
-											{{if eq . $.Page.Page.Current}}
+										<li class='{{if eq . $.NewhousePage.Page.Current | not}}hoverable clickable{{end}} {{if eq . $.NewhousePage.Page.Current}}active{{end}}'>
+											{{if eq . $.NewhousePage.Page.Current}}
 												{{.}}
 											{{else}}
-												<a href='#'>{{.}}</a>
+												<a href='{{ queryN $.CONTEXT.URL.String "p" . }}'>{{.}}</a>
 											{{end}}
 										</li>
 									{{ end }}
 								{{ end }}
-								<li class='{{if eq .Page.Page.Next 0}}disabled{{end}} hoverable clickable'><a href='#'>下一页&gt;</a></li>
+								{{if eq .NewhousePage.Page.Next 0}}
+								{{ else }}
+									<li class='{{if eq .NewhousePage.Page.Next 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.CONTEXT.URL.String "p" .NewhousePage.Page.Next }}'>下一页&gt;</a></li>
+								{{ end }}
 							</ul>
 						</div>
 					</div>
+					
+					
 				
 				</div>
 				

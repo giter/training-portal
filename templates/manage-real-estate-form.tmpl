@@ -64,11 +64,11 @@
 								<div class='col-md-4'>
 									<select class='form-control' name='Area[Id]'>
 										{{if .Areas}}
-										{{if len .Areas}}
-											{{range .Areas}}
-												<option {{if $.RealEstate}}{{if equals $.RealEstate.Area.Id .Id}}selected{{end}}{{end}} value='{{.Id}}'>{{.Area}}</option>
+											{{if len .Areas}}
+												{{range .Areas}}
+													<option {{if $.RealEstate}}{{if equals $.RealEstate.Area.Id .Id}}selected{{end}}{{end}} value='{{.Id}}'>{{.Area}}</option>
+												{{end}}
 											{{end}}
-										{{end}}
 										{{end}}
 									</select>
 								</div>
@@ -118,11 +118,13 @@
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
-									<select name='Schedule:number' class='form-control required'>
-										{{range $k, $v := .CONTEXT.KVs.Schedule.Nodes}}
-											<option {{with $.RealEstate}}{{if equals $.RealEstate.Schedule $v.Value}}selected{{end}}{{end}} value='{{$v.Value}}'>{{$v.Name}}</option>
-										{{end}}
-									</select>
+									{{range $k, $v := .CONTEXT.KVs.Schedule.Nodes}}
+										<div class='col-md-4'>
+											<label class='control-label'>
+												<input class='form-control' {{with $.RealEstate}}{{if in $.RealEstate.Schedule $v.Value}}checked{{end}}{{end}} type='checkbox' name='Schedule[]:number' value='{{$v.Value}}' /> {{$v.Name}}
+											</label>
+										</div>
+									{{end}}
 								</div>
 							</div>
 						</td>
@@ -170,7 +172,7 @@
 								</div>
 							</div>
 						</td>
-						<td><label class='control-label'>开盘说明</label></td>
+						<td><label class='control-label'>开盘日期<br/>（说明）</label></td>
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
@@ -193,7 +195,7 @@
 								</div>
 							</div>
 						</td>
-						<td><label class='control-label'>交房说明</label></td>
+						<td><label class='control-label'>交房日期<br/>（说明）</label></td>
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
@@ -229,15 +231,16 @@
 						<td><label class='control-label'>团购说明</label></td>
 						<td>
 							<div class='row'>
-								<div class='col-md-6'>
-									<input class='form-control' type='text' name='GroupDescription:string' value='{{if .RealEstate.GroupDescription}}{{.RealEstate.GroupDescription}}{{end}}' />
+								<div class='col-md-8'>
+									<input class='form-control' placeHolder="例如：房团独家优惠5万/套" type='text' name='GroupDescription:string' value='{{if .RealEstate.GroupDescription}}{{.RealEstate.GroupDescription}}{{end}}' />
 								</div>
 							</div>
 						</td>
-						<td><label class='control-label'></label></td>
+						<td><label class='control-label'>楼盘特色</label></td>
 						<td>
 							<div class='row'>
-								<div class='col-md-6'>
+								<div class='col-md-12'>
+									<input class='form-control' type='text' placeHolder='特色间逗号分隔，例如 "刚需房,改善房,团购房"' name="Features:string" value='{{if .RealEstate}}{{.RealEstate.Feature}}{{end}}' />
 								</div>
 							</div>
 						</td>
@@ -398,6 +401,7 @@
 						<td></td>
 						<td colspan=3>
 							<input type='submit' class='btn btn-success' value='保存' />
+							<a class='btn' href='./index.html'>取消</a>
 						</td>
 					</tr>
 				</tbody>
@@ -435,7 +439,7 @@ var PageLogical = function () {
 			var vals = $(this).serializeJSON()
 			
 			if(vals.Captions){
-				vals.Captions = vals.Captions.split("");
+				vals.Captions = vals.Captions.toUpperCase().split("");
 			}else{
 				delete vals.Open;
 			}
@@ -444,6 +448,26 @@ var PageLogical = function () {
 				vals.Open = new Date(vals.Open) / 1000;
 			}else{
 				delete vals.Open;
+			}
+			
+			if(vals.Features && vals.Features.length > 0) {
+				
+				var a = vals.Features.split(",");
+				var b = []
+				for(var i=0;i<a.length;i++){
+					a[i] = a[i].trim()
+					if(a[i].length > 0){
+						b.push(a[i])
+					}
+				}
+				
+				if(b.length > 0){
+					vals.Features = b
+				}else{
+					delete vals.Features
+				}
+			}else {
+				delete vals.Features
 			}
 			
 			if(vals.Delivery){
@@ -457,6 +481,8 @@ var PageLogical = function () {
 			}else{
 				delete vals.GroupClose
 			}
+			
+			$("#form-real-estate")
 			
 			JWS("/manage/real-estate/upsert.json", vals).success(function(data){
 				

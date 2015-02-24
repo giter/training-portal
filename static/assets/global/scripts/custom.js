@@ -45,6 +45,14 @@
 	return "<input class='btn-index' type='checkbox' value='1' " + (data?"checked":"") + " />"
 }
 
+; function text_attention(data){
+	return "<input type='text' class='text-attention' style='width:80px' value='" + (data?data:"") + "' />"
+}
+
+; function text_recommendation(data){
+	return "<input type='text' class='text-recommendation' style='width:80px' value='" + (data?data:"") + "' />"
+}
+
 ; function JWS(url, data, options) {
 	
 	var defs = {
@@ -155,6 +163,48 @@
             grid.getDataTable().ajax.reload();
             grid.clearAjaxParams();
     	})
+    });
+	
+	grid.getTableWrapper().on('keyup', '.text-recommendation', function(e){
+    	
+		var that = this;
+		
+		var code = e.which;
+		
+		if(code==13){
+			
+			e.preventDefault();
+			
+			$(that).parents('tr').first().find("input[type=checkbox]").first().each(function(){
+
+	    		grid.setAjaxParam("action", "recommendation");
+	            grid.setAjaxParam("id[]", $(this).val());
+	            grid.setAjaxParam("value", $(that).val())
+	            grid.getDataTable().ajax.reload();
+	            grid.clearAjaxParams();
+	    	});
+		}
+    });
+	
+	grid.getTableWrapper().on('keyup', '.text-attention', function(e){
+    	
+		var that = this;
+		
+		var code = e.which;
+		
+		if(code==13){
+			
+			e.preventDefault();
+			
+			$(that).parents('tr').first().find("input[type=checkbox]").first().each(function(){
+
+	    		grid.setAjaxParam("action", "attention");
+	            grid.setAjaxParam("id[]", $(this).val());
+	            grid.setAjaxParam("value", $(that).val())
+	            grid.getDataTable().ajax.reload();
+	            grid.clearAjaxParams();
+	    	});
+		}
     });
 	
 	grid.getTableWrapper().on('click', '.btn-recommend', function(e){

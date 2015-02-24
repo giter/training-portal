@@ -90,6 +90,33 @@ func List(c *mgo.Collection, req *http.Request, r render.Render, m bson.M, retri
 				_, err = c.UpdateAll(indxs, bson.M{"$set" : bson.M{"Status.Recommended" : value, }, });
 			}
 		}
+	case "recommendation":
+		ids := req.Form["id[]"];
+		strRecommendation := req.FormValue("value")
+		if len(ids) > 0 && strRecommendation != ""{
+			
+			var value int64
+			value, err = strconv.ParseInt(strRecommendation, 10, 64)
+			
+			if err == nil {
+				indxs := bson.M{ "_id": bson.M{"$in": ids} }
+				_, err = c.UpdateAll(indxs, bson.M{"$set" : bson.M{"Status.Recommendation" : value, }, });
+			}
+		}
+	
+	case "attention":
+		ids := req.Form["id[]"];
+		strAttention := req.FormValue("value")
+		if len(ids) > 0 && strAttention != ""{
+			
+			var value int64
+			value, err = strconv.ParseInt(strAttention, 10, 64)
+			
+			if err == nil {
+				indxs := bson.M{ "_id": bson.M{"$in": ids} }
+				_, err = c.UpdateAll(indxs, bson.M{"$set" : bson.M{"Status.Attention" : value, }, });
+			}
+		}
 	}
 	
 	if err != nil {

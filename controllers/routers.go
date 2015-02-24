@@ -4,12 +4,15 @@ import (
 
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	"github.com/martini-contrib/binding"
 	
 	"ftjx/controllers/index"
 	"ftjx/controllers/newhouse"
 	"ftjx/controllers/news"
 	"ftjx/controllers/groupbuy"
 	"ftjx/controllers/manage"
+	
+	"ftjx/forms"
 )
 
 func ManageIndexRedirection(r render.Render){
@@ -32,7 +35,7 @@ func NewHouse(m *martini.ClassicMartini){
 
 	m.Get("/newhouse/", newhouse.Index);
 	m.Get("/newhouse/index.html", newhouse.Index);
-	m.Get("/newhouse/list.html", newhouse.List);
+	m.Get("/newhouse/list.html", binding.Bind(forms.RealEstatePageForm{}), newhouse.List);
 }
 
 func News(m *martini.ClassicMartini) {

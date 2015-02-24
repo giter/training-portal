@@ -9,6 +9,10 @@ import (
 	"strings"
 )
 
+func Upper(a string) string {
+	return strings.ToUpper(a)
+}
+
 func Mod(a interface{}, b int64) int64 {
 	
 	if a == nil {
@@ -85,52 +89,93 @@ func UnSet(a map[string]interface{}, b string) string{
 	return ""
 }
 
-func Query(path string, a map[string]interface{}) string {
-	
-	return QueryN(path, a, "", nil)
-}
+func QueryE(path string, vs ...interface{}) bool {
 
-func QueryN(path string, a map[string]interface{}, key string, val interface{}) string {
-
-	vals := url.Values{}
+	p, err := url.Parse(path)
 	
-	for k, v := range a {
+	if err != nil {
+		panic(fmt.Sprintf("Error path %v" , path))
+	}
+	
+	vals := p.Query()
+	
+	if len(vs) > 0 {
+	
+		for i:=0;i<len(vs);i=i+2{
 		
-		if v == nil {
-		
-			delete(vals, k)
-		} else{
-		
-			vv := reflect.ValueOf(val);
+			key := vs[i].(string)
+			val := vs[i+1]
 			
-			switch vv.Kind() {
-				case reflect.Ptr:
-					vals.Add(k, fmt.Sprintf("%v", vv.Elem().Interface()));
-				default:
-					vals.Add(k, fmt.Sprintf("%v", v));
+			if key != "" {
+			
+				if val != nil {
+					
+					var v string
+					vv := reflect.ValueOf(val);
+					switch vv.Kind() {
+						case reflect.Ptr:
+							v = fmt.Sprintf("%v", vv.Elem().Interface())
+						default:
+							v = fmt.Sprintf("%v", val)
+					}
+					
+					if vals.Get(key) == "" || vals.Get(key) != v {
+						return false
+					}
+				}else{
+					if vals.Get(key) != "" {
+						return false
+					}
+				}
 			}
 		}
 	}
 	
-	if key != "" {
+	return true
+}
+
+func QueryN(path string, vs ...interface{}) string {
+
+	p, err := url.Parse(path)
+	
+	if err != nil {
+		panic(fmt.Sprintf("Error path %v" , path))
+	}
+	
+	path = p.Path
+	vals := p.Query()
+	
+	if len(vs) > 0 {
+	
+		for i:=0;i<len(vs);i=i+2{
 		
-		if val == nil {
-			delete(vals, key)
-		}else{
-		
-			vv := reflect.ValueOf(val);
-			switch vv.Kind() {
-				case reflect.Ptr:
-					vals.Add(key, fmt.Sprintf("%v", vv.Elem().Interface()));
-				default:
-					vals.Add(key, fmt.Sprintf("%v", val));
+			key := vs[i].(string)
+			val := vs[i+1]
+			
+			if key != "" {
+			
+				delete(vals, key)
+				if val != nil {
+				
+					vv := reflect.ValueOf(val);
+					switch vv.Kind() {
+						case reflect.Ptr:
+							vals.Add(key, fmt.Sprintf("%v", vv.Elem().Interface()));
+						default:
+							vals.Add(key, fmt.Sprintf("%v", val));
+					}
+				}
 			}
 		}
 	}
 	
 	query := vals.Encode()
 	
-	return strings.Join([]string{path, query}, "?")
+	if query != "" {
+		return path + "?" + query
+	}
+	
+	return path
 }
 
 func Slice(a interface{} , s int, e int) interface{}{

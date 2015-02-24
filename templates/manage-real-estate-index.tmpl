@@ -112,10 +112,11 @@ var PageLogical = function () {
                 	{ "data": "Name", "title":"楼盘名称", "targets": 2,"defaultContent": "", "width":160},
                 	{ "data": "", "title":"楼盘标志", "targets": 3,"defaultContent": "", "width":80},
                 	{ "data": "ST.Groupon", "title":"团购数", "targets": 4,"defaultContent": "", "width":80},
-                	{ "data": "MTime.Created", "title":"付费状态 ", "targets": 5,"defaultContent": "", "width":90, "render": t2d},
-                	{ "data": "MTime.Changed", "title":"更新时间", "targets": 6,"defaultContent": "", "width":90, "render": t2d},
-                	{ "data": "Status.Disabled", "title":"通过", "defaultContent": "", "targets": 7, "width": 32, "render": btn_disable},
-                	{ "data": "", "title":"操作", "width":90 , "targets": 8, "defaultContent": "<button class='edit'>编辑</button> <button class='delete'>删除</button>"},
+                	{ "data": "Status.Recommendation", "title":"推荐度 ", "targets": 5,"defaultContent": "", "width":90, "render": text_recommendation},
+                	{ "data": "Status.Attention", "title":"关注度", "targets": 6,"defaultContent": "", "width":90, "render": text_attention},
+                	{ "data": "MTime.Changed", "title":"更新时间", "targets": 7,"defaultContent": "", "width":90, "render": t2d},
+                	{ "data": "Status.Disabled", "title":"通过", "defaultContent": "", "targets": 8, "width": 32, "render": btn_disable},
+                	{ "data": "", "title":"操作", "width":90 , "targets": 9, "defaultContent": "<button class='edit'>编辑</button> <button class='delete'>删除</button>"},
                 ]
             }
         });

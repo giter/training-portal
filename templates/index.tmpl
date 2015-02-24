@@ -12,7 +12,7 @@
             <dd>
               {{ range $index, $area := .Areas }}
                 {{ if gt $index 0 }}|{{end}}
-                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "area" .Id}}'>{{.Area}}</a></nobr>
+                <nobr><a href='{{queryN "/newhouse/list.html" "area" .Id}}'>{{.Area}}</a></nobr>
               {{ end }}
             </dd>
           </dl>
@@ -23,7 +23,7 @@
             <dd>
               {{ range $index, $usage := .Tops.Usages }}
                 {{ if gt $index 0 }}|{{end}}
-                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "usage" .Value}}'>{{.Name}}</a></nobr>
+                <nobr><a href='{{queryN "/newhouse/list.html" "usage" .Value}}'>{{.Name}}</a></nobr>
               {{ end }}
             </dd>
           </dl>
@@ -34,7 +34,7 @@
             <dd>
               {{ range $index, $price := .Tops.Prices }}
                 {{ if gt $index 0 }}|{{end}}
-                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "price" .Value}}'>{{.Name}}</a></nobr>
+                <nobr><a href='{{queryN "/newhouse/list.html" "price" .Value}}'>{{.Name}}</a></nobr>
               {{ end }}
             </dd>
           </dl>
@@ -45,7 +45,7 @@
             <dd>
               {{ range $index, $feature := .Tops.Features }}
                 {{ if gt $index 0 }}|{{end}}
-                <nobr><a href='{{queryN "/newhouse/list.html" $.Query "feature" .Value}}'>{{.Name}}</a></nobr>
+                <nobr><a href='{{queryN "/newhouse/list.html" "feature" .Value}}'>{{.Name}}</a></nobr>
               {{ end }}
             </dd>
           </dl>
@@ -320,8 +320,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>{{.GroupPrice}}</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:{{.Price}}元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>{{.GroupPrice}}</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:{{.Price}} 元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -360,8 +360,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>7680</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:7680元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>7680</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:7680元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -392,8 +392,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>7680</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:7680元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>7680</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:7680元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -424,8 +424,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>7680</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:7680元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>7680</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:7680元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -456,8 +456,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>7680</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:7680元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>7680</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:7680元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -488,8 +488,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>7680</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:7680元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>7680</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:7680元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -520,8 +520,8 @@
   				</dl>
   				
   				<dl class='clearfix'>
-  					<dt><h3>团购价： <span class='price'>7680</span>元/平米</h3></dt>
-  					<dd><span class='deletion'>原价:7680元/平米</span></dd>
+  					<dt><h3>团购价： <span class='price'>7680</span>元/㎡</h3></dt>
+  					<dd><span class='deletion'>原价:7680元/㎡</span></dd>
   				</dl>
   				
   				<dl class='clearfix'>
@@ -656,7 +656,7 @@
   						{{ range $i, $o := .Deliveries }}
 	  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
 	  							<dd class='price'>
-	  							{{.Price}} 元/平米
+	  							{{.Price}} 元/㎡
 	  							{{if equals .PriceType -1}}
 	  								待定
 	  							{{else if  equals .PriceType 0}}

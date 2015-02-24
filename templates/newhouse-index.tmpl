@@ -25,7 +25,8 @@
 		<div id='bd'>
 		
 			<div class='section'>
-				{{ template "block-newhouse-quick-search" }}
+				{{set . "NewhouseQuickSearchPath" "/newhouse/list.html" }}
+				{{ template "block-newhouse-quick-search" . }}
 			</div>
 			
 			<div class='section'>

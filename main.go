@@ -45,11 +45,12 @@ func main() {
     funcMap["equals"] = utils.Equals
     funcMap["set"]    = utils.Set
 	funcMap["unset"]  = utils.UnSet
-	funcMap["query"]  = utils.Query;
+	funcMap["queryE"]  = utils.QueryE;
 	funcMap["queryN"] = utils.QueryN;
 	funcMap["slice"]  = utils.Slice;
 	funcMap["mod"]  = utils.Mod;
 	funcMap["in"]  = utils.In;
+	funcMap["upper"] = utils.Upper;
     
 	m.Use(render.Renderer(render.Options{
 		Layout: "",
@@ -65,13 +66,13 @@ func main() {
 		
 		v := bson.M{}
 		
-		SERVER := bson.M{}
+		CONTEXT := bson.M{}
 		
-		SERVER["URL"] = r.URL;
-		SERVER["UPTIME"] = UPTIME
-		SERVER["KVs"]    = services.KVs()
+		CONTEXT["URL"] = r.URL;
+		CONTEXT["UPTIME"] = UPTIME
+		CONTEXT["KVs"]    = services.KVs(db)
 		
-		v["CONTEXT"] = SERVER
+		v["CONTEXT"] = CONTEXT
 		
 		ctx.Map(v)
 		ctx.Next()
