@@ -13,6 +13,7 @@ import (
 	"github.com/martini-contrib/render"
 	
 	"ftjx/models"
+	"ftjx/utils"
 )
 
 
@@ -48,7 +49,7 @@ func LinkUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	if link.Id == nil || len(*link.Id) == 0 {
 	
-		link.Id = models.NewString(bson.NewObjectId().Hex())
+		link.Id = models.NewString(utils.NewShortId())
 		link.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(link); err != nil {

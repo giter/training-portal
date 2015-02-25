@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+{{template "lib"}}
+{{set . "HTMLComponent" "新房" }}
+{{set . "HTMLTitle" .Newhouse.Name }}
+{{template "head" .}}
+<body id='page-newhouse-picture-index'>
+
+	{{template "top" .}}
+	
+	<div id='hd'>
+
+		{{template "newhouse-brand" .}}
+
+		<div id='nav'>
+			<div class='wrap'>
+				<ul class='menu'>
+					{{with .Newhouse}}
+						<li class='hoverable clickable'><a href='/newhouse/o{{.Id}}.html'>楼盘首页</a></li>
+						<li class='hoverable clickable'><a href='/newhouse/i{{.Id}}.html'>简介</a></li>
+						<li class='hoverable clickable'><a href='/newhouse/n{{.Id}}.html'>资讯</a></li>
+						<li class='hoverable clickable'><a href='/newhouse/a{{.Id}}.html'>户型</a></li>
+						<li class='hoverable clickable'><a href='/newhouse/d{{.Id}}.html'>配套</a></li>
+						<li class='hoverable clickable active'><a href='/newhouse/p{{.Id}}.html'>图库</a></li>
+						<li class='hoverable clickable'><a href='/newhouse/r{{.Id}}.html'>点评</a></li>
+					{{end}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div>
+	
+		<div id='bd'>
+		
+			<div class='section'>
+			
+				<div class='block block-newhouse-pictures block-boundless'>
+					<div class='hd clearfix'>
+						<div class='f16 l3'>
+							<ul>
+									{{range $i, $v := .PictureStatus}}
+										<li class="clickable hoverable {{if equals $.PictureType .Value}}active{{end}}" >
+											<a href='/newhouse/p{{$.Newhouse.Id}}/list-{{.Value}}.html'>{{.Name}}</a>
+										</li>
+									{{end}}
+							</ul>
+						</div>
+					</div>
+					
+					{{if gt .PictureType 0}}
+					
+						<div class='bd clearfix'>
+						
+							<ul>
+								{{range $ii, $vv := .PicturePage.Data}}
+									<li class='{{if eq (mod $ii 4) 3}}last{{end}}'>
+										<p><a href='#'><img src='{{.Palm.Path}}' width=220 height=147 /></a></p>
+										<p class='f13'><a href='#'>{{if .Title}}{{.Title}}{{else}}{{$.PictureTypeName}}{{end}}</a></p>
+									</li>
+								{{end}}
+							</ul>
+						</div>
+						<div class='ft'>
+							{{.PicturePage.Page.SetURL .Context.URL.String}}
+							{{template "pager".PicturePage}}
+						</div>
+					{{else}}
+						<div class='bd clearfix'>
+							{{range $i, $v := slice .PictureStatus 1 100}}
+								<dl class='clearfix'>
+									<dt class='l3 clearfix line f16'>
+										<div class='more quote'>
+											<a href='/newhouse/p{{$.Newhouse.Id}}/list-{{.Value}}.html'>更多&gt;</a>
+										</div>
+										<p class='bold'>{{.Name}} [{{.Count}}]</p>
+									</dt>
+									<dd>
+										<ul>
+											{{range $ii, $vv := slice .Heads 0 4 }}
+											<li class='{{if eq (mod $ii 4) 3}}last{{end}}'>
+												<p><a href='#'><img src='{{.Palm.Path}}' width=220 height=147 /></a></p>
+												<p class='f13'><a href='#'>{{if .Title}}{{.Title}}{{else}}{{$v.Name}}{{end}}</a></p>
+											</li>
+											{{end}}
+										</ul>
+									</dd>
+								</dl>
+							{{end}}
+						</div>
+					{{end}}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{{template "ft" .}}
+	<script type='text/javascript'>
+		$(function(){
+			
+			var block_index = $(".block-newhouse-index");
+			
+			block_index.find(".next").click(function(){
+				var next = block_index.find(".thumb a.active").next();
+				if(next.size() == 0){
+					next = block_index.find(".thumb a").first()
+				}
+				next.click();
+			});
+			
+			block_index.find(".prev").click(function(){
+				var prev = block_index.find(".thumb a.active").prev();
+				if(prev.size() == 0){
+					prev = block_index.find(".thumb a").last()
+				}
+				prev.click();
+			});
+			
+			block_index.find(".thumb a").click(function(){
+				
+				block_index.find(".thumb a.active").removeClass("active");
+				$(this).addClass("active");
+				block_index.find(".pic img").attr("src", $(this).data("big"));
+			})
+		})
+	</script>
+</body>
+</html>

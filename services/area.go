@@ -8,6 +8,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	
 	"ftjx/models"
+	"ftjx/utils"
 )
 
 
@@ -55,7 +56,7 @@ func AreaInitializing(db *mgo.Database) (err error){
 		if n == 0 {
 		
 			area := models.Area{
-				Id: models.NewString(bson.NewObjectId().Hex()),
+				Id: models.NewString(utils.NewShortId()),
 				City: &city, 
 				Area: &area,
 				Weight: models.NewInt64(i),

@@ -15,6 +15,7 @@ import (
 	
 	"ftjx/services"
 	"ftjx/models"
+	"ftjx/utils"
 )
 
 
@@ -97,7 +98,7 @@ func NewsUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	if o.Id == nil || len(*o.Id) == 0 {
 	
 	
-		o.Id = models.NewString(bson.NewObjectId().Hex())
+		o.Id = models.NewString(utils.NewShortId())
 		o.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(o); err != nil {

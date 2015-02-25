@@ -36,6 +36,9 @@ func NewHouse(m *martini.ClassicMartini){
 	m.Get("/newhouse/", newhouse.Index);
 	m.Get("/newhouse/index.html", newhouse.Index);
 	m.Get("/newhouse/list.html", binding.Bind(forms.RealEstatePageForm{}), newhouse.List);
+	m.Get("/newhouse/o:id.html", newhouse.DetailIndex);
+	m.Get("/newhouse/p:id.html", newhouse.PictureIndex);
+	m.Get("/newhouse/p:id/list-:typo.html", newhouse.PictureIndex);
 }
 
 func News(m *martini.ClassicMartini) {
@@ -90,6 +93,9 @@ func Managements(m *martini.ClassicMartini) {
 	m.Get("/manage/news/form.html", manage.NewsForm);
 	m.Post("/manage/news/list.json", manage.NewsList)
 	m.Post("/manage/news/upsert.json", manage.NewsUpsert)
+	
+	//文件上传组件
+	m.Post("/manage/upload.json", binding.Bind(forms.ResourceForm{}), manage.ResourceUpload)
 
 	//轮播图片
 	m.Get("/manage/picture/index.html", manage.Index("manage-picture-index"));

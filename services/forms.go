@@ -9,6 +9,19 @@ type Page struct {
 	From int
 	Size int
 	Count int
+	
+	URL  string
+}
+
+func (p Page) SetURL(a *string) string {
+	
+	if a == nil {
+		p.URL = ""
+	}else {
+		p.URL = *a
+	}
+	
+	return ""
 }
 
 func (p Page) Current() int {

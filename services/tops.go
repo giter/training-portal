@@ -146,15 +146,19 @@ type NodeSet struct {
 	
 	Nodes []Node
 	Names map[string] interface{}
+	Values map[interface{}]string
 }
 
 func NewNodeSet(v []Node) (n NodeSet) {
 
 	n.Nodes = v
 	n.Names = make(map[string] interface{}, len(v))
+	n.Values = make(map[interface{}]string, len(v))
 	
 	for _,x := range v {
+	
 		n.Names[x.Name] = x.Value
+		n.Values[x.Value] = x.Name
 	}
 	
 	return
@@ -228,7 +232,16 @@ func defaultKV() KV {
 			Node{"养老地产","养老地产"},
 			Node{"投资地产","投资地产"},
 		}),
-	
+		
+		"PictureType": NewNodeSet([]Node {
+			Node{"效果图",1},
+			Node{"实景图",2},
+			Node{"样板房",3},
+			Node{"施工图",4},
+			Node{"总平图",5},
+			Node{"地理位置图",6},
+		}),
+						
 	};
 	
 	return kv

@@ -15,9 +15,8 @@ import (
 	
 	"ftjx/services"
 	"ftjx/models"
+	"ftjx/utils"
 )
-
-
 
 func RealEstateCollection(db *mgo.Database) *mgo.Collection {
 	
@@ -94,7 +93,7 @@ func RealEstateUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	if o.Id == nil || len(*o.Id) == 0 {
 	
 	
-		o.Id = models.NewString(bson.NewObjectId().Hex())
+		o.Id = models.NewString(utils.NewShortId())
 		o.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(o); err != nil {
@@ -122,7 +121,7 @@ func RealEstateList(db *mgo.Database, req *http.Request, r render.Render) {
 	t := req.FormValue("name");
 	
 	if t != "" {
-		m["name"] = bson.M{"$regex" : regexp.QuoteMeta(t)}
+		m["Name"] = bson.M{"$regex" : regexp.QuoteMeta(t)}
 	}
 	
 	List(c, req, r, m, (func(query *mgo.Query) (interface{}, error) {

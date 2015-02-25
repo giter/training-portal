@@ -51,6 +51,7 @@ func main() {
 	funcMap["mod"]  = utils.Mod;
 	funcMap["in"]  = utils.In;
 	funcMap["upper"] = utils.Upper;
+	funcMap["join"]  = utils.Join;
     
 	m.Use(render.Renderer(render.Options{
 		Layout: "",

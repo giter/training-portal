@@ -237,3 +237,12 @@ func In(a interface{}, b interface{}) bool{
 	
 	return false
 }
+
+func Join(a []string, b string) string{
+
+	if a == nil {
+		return ""
+	}
+	
+	return strings.Join(a, b)
+}

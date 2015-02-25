@@ -13,6 +13,8 @@ import (
 	"github.com/martini-contrib/render"
 	
 	"ftjx/models"
+	"ftjx/services"
+	"ftjx/utils"
 )
 
 
@@ -46,9 +48,42 @@ func PictureUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	picture.MTime.Changed = models.NewInt64(time.Now().Unix())
 	
+	if picture.Resource != nil && picture.Resource.Id != nil {
+	
+		if picture.Resource, err = services.ResourceGet(db, *picture.Resource.Id); err != nil {
+			r.JSON(500, err.Error())
+			return
+		}
+	}
+	
 	if picture.Id == nil || len(*picture.Id) == 0 {
 	
-		picture.Id = models.NewString(bson.NewObjectId().Hex())
+		if picture.Resource == nil || picture.Resource.Id == nil  {
+			r.JSON(500, err.Error())
+			return
+		}
+		
+		if picture.Large, err = ResourceResize(db, picture.Resource, 960) ; err != nil {
+			r.JSON(500, err.Error())
+			return
+		}
+		
+		if picture.Big, err = ResourceResize(db, picture.Large, 640) ; err != nil {
+			r.JSON(500, err.Error())
+			return
+		}
+		
+		if picture.Palm, err = ResourceResize(db, picture.Big, 360) ; err != nil {
+			r.JSON(500, err.Error())
+			return
+		}
+		
+		if picture.Thumbnail, err = ResourceResize(db, picture.Palm, 120) ; err != nil {
+			r.JSON(500, err.Error())
+			return
+		}
+		
+		picture.Id = models.NewString(utils.NewShortId())
 		picture.MTime.Created = models.NewInt64(time.Now().Unix())
 		picture.Weight = models.NewWeight()
 		

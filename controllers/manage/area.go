@@ -13,6 +13,7 @@ import (
 	"github.com/martini-contrib/render"
 	
 	"ftjx/models"
+	"ftjx/utils"
 )
 
 
@@ -49,7 +50,7 @@ func AreaUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	if area.Id == nil || len(*area.Id) == 0 {
 		
-		area.Id = models.NewString(bson.NewObjectId().Hex())
+		area.Id = models.NewString(utils.NewShortId())
 		area.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(area); err != nil {

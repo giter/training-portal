@@ -4,6 +4,8 @@ import (
 	
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	
+	"ftjx/utils"
 )
 
 type Q struct{
@@ -79,7 +81,7 @@ func (q *Q) Query(c *mgo.Collection) *mgo.Query{
 func Insert(c *mgo.Collection, o bson.M) (err error){
 	
 	if _id, ok := o["_id"] ; !ok || _id == "" {
-		o["_id"] = bson.NewObjectId().Hex();
+		o["_id"] = utils.NewShortId();
 	}
 	
 	err = c.Insert(o);

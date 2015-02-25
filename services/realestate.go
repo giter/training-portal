@@ -25,7 +25,7 @@ func RealEstateGet(db *mgo.Database, Id string) (r *models.RealEstate , err erro
 	err = c.Find(bson.M{ "_id" : Id }).One(&r)
 	
 	return
-} 
+}
 
 func RealEstateList(db *mgo.Database) (r []models.RealEstate , err error) {
 
@@ -109,11 +109,13 @@ func RealEstatePage(db *mgo.Database, query forms.RealEstatePageForm) (p SRealEs
 		q["PriceType"] = query.PriceType
 	}
 	
-	cur := c.Find(q).Sort("-_id").Skip(skip)
+	cur := c.Find(q).Sort("-_id")
 	
 	if p.Page.Count, err = cur.Count(); err != nil {
 		return
 	}
+	
+	cur.Skip(skip)
 	
 	if err = cur.Limit(limit).All(&r); err != nil {
 		return
@@ -185,4 +187,9 @@ func RealEstateFocus(db *mgo.Database, Count int) (r []models.RealEstate , err e
 	q["Status.Attention"] = bson.M{"$gt": -9999999}
 	err = c.Find(q).Sort("-Status.Attention").Limit(Count).All(&r)
 	return
+}
+
+func RealEstatePictures(db *mgo.Database, Id string, Type int64, Count int)(r []models.Picture, err error) {
+	
+	return PictureList(db, Id, Type, Count)
 }

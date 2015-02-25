@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 {{template "lib"}}
+{{set . "HTMLComponent" "新房" }}
 {{set . "HTMLTitle" "新房"}}
 {{template "head" .}}
 <body>
@@ -82,7 +83,7 @@
 								<div class='description'>
 									<dl class='clearfix'>
 										<dt>
-											<h2><a href='#'><b>{{.Name}}</b></a></h2>
+											<h2><a href='/newhouse/o{{.Id}}.html'><b>{{.Name}}</b></a></h2>
 											<p>[{{.Area.Area}}] {{.Address}}</p>
 											<p>主推户型：4居室110平米； 3居室82平米</p>
 											<ul>
@@ -98,18 +99,7 @@
 									</dl>
 									<dl class='clearfix'>
 										<dt class='f16 primary'>
-											{{if equals .Order "" | not }}
-												{{.Order}}
-												{{if .OrderExtension}}
-													转 {{.OrderExtension}}
-												{{end}}
-											{{else}}
-												{{if len .Phone}}
-													{{range slice .Phone 0 1}}
-														{{.}}
-													{{end}}
-												{{end}}
-											{{end}}
+											{{ template "newhouse-phone" . }}
 										</dt>
 										<dd>
 											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
@@ -148,296 +138,11 @@
 									</dl>
 								</div>
 							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><a href='#'><b>万科·海上传奇</b></a></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
-							<div class='item hoverable'>
-								<div class='image'>
-									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
-								</div>
-								<div class='description'>
-									<dl class='clearfix'>
-										<dt>
-											<h2><b>万科·海上传奇</b></h2>
-											<p>[南湖新区]中环西路与广穹路交汇处</p>
-											<p>主推户型：4居室110平米； 3居室82平米</p>
-											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
-											</ul>
-										</dt>
-										<dd>
-											<p>团购均价:<span class='featured f18'>7680</span>元/㎡</p>
-											<p class='featured'>存5万抵25万火爆抢筹</p>
-										</dd>
-									</dl>
-									<dl class='clearfix'>
-										<dt class='f16 primary'>400-700-1234 转 6486</dt>
-										<dd>
-											<a href='#' class='btn btn-small btn-featured'>我要团购</a>
-										</dd>
-									</dl>
-								</div>
-							</div>
 							 -->
 						</div>
 						<div class='ft'>
-							
-							<ul class='pager'>
-							
-								{{if eq .NewhousePage.Page.Previous 0}}
-								{{ else }}
-									<li class='{{if eq .NewhousePage.Page.Previous 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.CONTEXT.URL.String "p" .NewhousePage.Page.Previous }}'>&lt;上一页</a></li>
-								{{ end }}
-								
-								{{ range .NewhousePage.Page.List }}
-									{{ if eq . 0 }}
-										<li class='text'>…</li>
-									{{else}}
-										<li class='{{if eq . $.NewhousePage.Page.Current | not}}hoverable clickable{{end}} {{if eq . $.NewhousePage.Page.Current}}active{{end}}'>
-											{{if eq . $.NewhousePage.Page.Current}}
-												{{.}}
-											{{else}}
-												<a href='{{ queryN $.CONTEXT.URL.String "p" . }}'>{{.}}</a>
-											{{end}}
-										</li>
-									{{ end }}
-								{{ end }}
-								{{if eq .NewhousePage.Page.Next 0}}
-								{{ else }}
-									<li class='{{if eq .NewhousePage.Page.Next 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.CONTEXT.URL.String "p" .NewhousePage.Page.Next }}'>下一页&gt;</a></li>
-								{{ end }}
-							</ul>
+							{{.NewhousePage.Page.SetURL .Context.URL.String}}
+							{{ template "pager" .NewhousePage }}
 						</div>
 					</div>
 					

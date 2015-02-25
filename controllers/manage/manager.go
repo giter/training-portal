@@ -13,6 +13,7 @@ import (
 	"github.com/martini-contrib/render"
 	
 	"ftjx/models"
+	"ftjx/utils"
 )
 
 func ManagerCollection(db *mgo.Database) *mgo.Collection {
@@ -52,7 +53,7 @@ func ManagerUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	if manager.Id == nil || len(*manager.Id) == 0 {
 	
-		manager.Id = models.NewString(bson.NewObjectId().Hex())
+		manager.Id = models.NewString(utils.NewShortId())
 		manager.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(manager); err != nil {

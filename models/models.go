@@ -9,7 +9,7 @@ import (
 	"time"
 	"strings"
 	
-	"gopkg.in/mgo.v2/bson"
+	"ftjx/utils"
 )
 
 const SALT = "Jxft"
@@ -51,7 +51,7 @@ func NewCategory(Name string, Code string) Category{
 
 	return Category{
 	
-		Id   : NewString(bson.NewObjectId().Hex()),
+		Id   : NewString(utils.NewShortId()),
 		Name : NewString(Name),
 		Code : NewString(Code),
 		Weight : NewWeight(),
@@ -228,6 +228,11 @@ type MiddleSchool School;
 
 type Enviroment struct {
 	
+	Description *string `bson:"Description,omitempty"`
+		
+	//学区
+	Schools             *string `bson:"School,omitempty"`
+	
 	//位置
 	Road  *string `bson:"Road,omitempty"`
 	
@@ -240,11 +245,7 @@ type Enviroment struct {
 	Bus     *string `bson:"Bus,omitempty"`
 	AirPort *string `bson:"AirPort,omitempty"`
 	
-	//车位
-	Carbarn *string `bson:"Carbarn,omitempty"`
-	CPrice *string `bson:"CPrice,omitempty"`
-	CRent *string `bson:"CRent,omitempty"`
-	
+		
 }
 
 type RealEstate struct {
@@ -283,7 +284,18 @@ type RealEstate struct {
 	//团购说明
 	GroupDescription   *string `bson:"GroupDescription,omitempty"`
 	
+	//楼盘特色
 	Features []string `bson:"Features,omitempty"`
+	
+	//楼盘广告语
+	Adword *string `bson:"Adword,omitempty"`
+	
+	
+	//售楼处工作时间
+	WorkTime *string `bson:"WorkTime,omitempty"`
+	
+	//销售信息
+	Sale   *string `bson:"Sale,omitempty"`
 
 	// 楼盘封面
 	Cover  *Picture `bson:"Cover,omitempty"`
@@ -313,6 +325,11 @@ type RealEstate struct {
 	//物业公司
 	Property  *string `bson:"Property,omitempty"`
 	
+	//车位
+	Carbarn *string `bson:"Carbarn,omitempty"`
+	CPrice *string `bson:"CPrice,omitempty"`
+	CRent *string `bson:"CRent,omitempty"`
+	
 	//售楼电话
 	Phone       []string `bson:"Phone,omitempty"`
 	//售楼地址
@@ -322,14 +339,25 @@ type RealEstate struct {
 	Order          *string `bson:"Order,omitempty"`
 	OrderExtension *string `bson:"OrderExtension,omitempty"`
 	
+	//装修程度
+	Decoration  *string `bson:"Decoration,omitempty"`
+	
 	//物业费
-	PropertyFee *string `bson:"PropertyFee,omitempty"`
+	PropertyFee    *string `bson:"PropertyFee,omitempty"`
+	
+	//得房率
+	EffectiveAreaRatio *string `bson:"EffectiveAreaRatio,omitempty"`
+	
+	//容积率
+	FloorAreaRatio     *string `bson:"FloorAreaRatio,omitempty"`
+	
+	//绿化率
+	GreenRatio         *string `bson:"GreenRatio,omitempty"`
 	
 	//周边配套
-	Env Enviroment `bson:"Enviroment,omitempty"`
+	Enviroment Enviroment `bson:"Enviroment,omitempty"`
 	
 	Remark *string `bson:"Remark,omitempty"`
-	Adword *string `bson:"Adword,omitempty"`
 	
 	//房屋结构
 	Structure []string `bson:"Structure,omitempty"`
@@ -536,8 +564,10 @@ type Resource struct {
 
 	Id    *string `bson:"_id,omitempty"`
 	
+	Size  *int64  `bson:"Size,omitempty"`
 	MIME  *string `bson:"MIME,omitempty"`
 	Path  *string `bson:"Path,omitempty"`
+	Name  *string `bson:"Name,omitempty"`
 }
 
 
@@ -553,14 +583,29 @@ func (r Resource) URI() string {
 type Picture struct {
 
 	Id       *string `bson:"_id,omitempty"`
+	Rid *string `bson:"Rid,omitempty"`
+	RType *string `bson:"RType,omitempty"`
 	
-	Type     *string `bson:"Type,omitempty"`
+	Type     *int64 `bson:"Type,omitempty"`
 	Title    *string `bson:"Title,omitempty"`
 	Remark   *string `bson:"Remark,omitempty"`
 	URL      *string `bson:"URL,omitempty"`
 	Weight   *int64  `bson:"Weight,omitempty"`
 	
-	Resource *Resource `bson:"Resource,omitempty"`
+	//~ORIGIN
+	Resource  *Resource `bson:"Resource,omitempty"`
+	
+	//~960
+	Large    *Resource `bson:"Large,omitempty"`
+	
+	//~640
+	Big    *Resource `bson:"Big,omitempty"`
+	
+	//~360
+	Palm     *Resource `bson:"Palm,omitempty"`
+	
+	//~120
+	Thumbnail *Resource `bson:"Thumbnail,omitempty"`
 	
 	Width    *int64  `bson:"Width,omitempty"`
 	Height   *int64  `bson:"Height,omitempty"`

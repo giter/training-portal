@@ -11,11 +11,11 @@
 		<div class='wrap'>
 			<ul>
 				<li class='hoverable clickable'><a href='/'>首页</a></li>
-				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "新房"}}active{{end}}{{end}}'><a href='/newhouse/'>新房</a></li>
+				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "新房"}}active{{end}}{{end}}'><a href='/newhouse/'>新房</a></li>
 				<li class='hoverable clickable'><a href='#'>二手房</a></li>
-				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "资讯"}}active{{end}}{{end}}'><a href='/news/'>资讯</a></li>
+				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "资讯"}}active{{end}}{{end}}'><a href='/news/'>资讯</a></li>
 				<li class='hoverable clickable'><a href='#'>装修</a></li>
-				<li class='hoverable clickable {{if .HTMLTitle}}{{if eq .HTMLTitle "团购"}}active{{end}}{{end}}'><a href='/groupbuy/'>团购<i class='icon-thumb-top'></i></a></li>
+				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "团购"}}active{{end}}{{end}}'><a href='/groupbuy/'>团购<i class='icon-thumb-top'></i></a></li>
 			</ul>
 			<div class='more'>
 				<i class='icon-user-gray'>&nbsp;</i>
@@ -25,6 +25,36 @@
 			</div>
 		</div>
 	</div>
+{{end}}
+
+{{define "pager"}}
+
+	{{ if gt .Page.Last 1 }}
+	<ul class='pager'>
+		{{if eq .Page.Previous 0}}
+		{{ else }}
+			<li class='{{if eq .Page.Previous 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.Page.URL "p" .Page.Previous }}'>&lt;上一页</a></li>
+		{{ end }}
+		
+		{{ range .Page.List }}
+			{{ if eq . 0 }}
+				<li class='text'>…</li>
+			{{else}}
+				<li class='{{if eq . $.Page.Current | not}}hoverable clickable{{end}} {{if eq . $.Page.Current}}active{{end}}'>
+					{{if eq . $.Page.Current}}
+						{{.}}
+					{{else}}
+						<a href='{{ queryN $.Page.URL "p" . }}'>{{.}}</a>
+					{{end}}
+				</li>
+			{{ end }}
+		{{ end }}
+		{{if eq .Page.Next 0}}
+		{{ else }}
+			<li class='{{if eq .Page.Next 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.Page.URL "p" .Page.Next }}'>下一页&gt;</a></li>
+		{{ end }}
+	</ul>
+	{{ end }}
 {{end}}
 
 {{define "brand" }}
@@ -37,6 +67,52 @@
 	
 	{{ template "newhouse-search" .}}
 </div>
+{{end}}
+
+{{define "newhouse-brand" }}
+<div id='brand' class='clearfix'>
+		
+	<div class='search'>
+			<h3>
+				<i class='icon-phone-large'>&nbsp;</i> 
+				免费咨询售楼处：
+				<span class='f18'>
+				{{ template "newhouse-phone".Newhouse }}
+				</span>
+			</h3>
+	</div>
+	
+	<div class='logo'>
+		<a href='/'><img src='/images/logo.png'/></a>
+		<span class='f22'>
+			&nbsp;{{if .HTMLTitle}}<abbr>|</abbr> {{.HTMLTitle}}{{end}}
+			{{ if .Newhouse.Schedule }}
+			{{ if .Newhouse.Schedule | len }}
+				{{range .CONTEXT.KVs.Schedule.Nodes }}
+					{{if in $.Newhouse.Schedule .Value}}
+						<i class='icon-pop'>{{.Name}}</i>
+					{{end}}
+				{{end}}
+			{{ end }}
+			{{ end }}
+		</span>
+	</div>
+</div>
+{{end}}
+
+{{define "newhouse-phone"}}
+	{{if equals .Order "" | not }}
+		<span class='primary'>{{.Order}}</span>
+		{{if .OrderExtension}}
+			转 <span class='primary'>{{.OrderExtension}}</span>
+		{{end}}
+	{{else}}
+		{{if len .Phone}}
+			{{range slice .Phone 0 1}}
+				<span class='primary'>{{.}}</span>
+			{{end}}
+		{{end}}
+	{{end}}
 {{end}}
 
 {{define "newhouse-search"}}
@@ -191,7 +267,13 @@
 			<li class='rankings'>
 				{{range $i,$v := .NewhouseFocus}}
 					<dl class='{{if eq $i 0}}active{{end}} clearfix'>
-						<dd class='price'>{{.Price}} 元/㎡ <i class='icon-price-start'></i></dd>
+						<dd class='price'>{{.Price}} 元/㎡ 
+							{{if equals .PriceType 1 }}
+								<i class='icon-price-start'></i>
+							{{else if equals .PriceType 2 }}
+								<i class='icon-price-average'></i>
+							{{end}}
+						</dd>
 						<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
 					</dl>
 				{{end}}
@@ -247,7 +329,13 @@
 			<li class='rankings'>
 				{{range $i, $v := .NewhouseRecommends}}
 					<dl class='{{if eq $i 0}}active{{end}} clearfix'>
-						<dd class='price'>{{.Price}} 元/㎡ <i class='icon-price-start'></i></dd>
+						<dd class='price'>{{.Price}} 元/㎡ 
+							{{if equals .PriceType 1 }}
+								<i class='icon-price-start'></i>
+							{{else if equals .PriceType 2 }}
+								<i class='icon-price-average'></i>
+							{{end}}
+						</dd>
 						<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
 					</dl>
 				{{end}}

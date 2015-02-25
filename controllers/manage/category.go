@@ -13,6 +13,7 @@ import (
 	"github.com/martini-contrib/render"
 	
 	"ftjx/models"
+	"ftjx/utils"
 )
 
 
@@ -53,7 +54,7 @@ func CategoryUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	if category.Id == nil || len(*category.Id) == 0 {
 	
-		category.Id = models.NewString(bson.NewObjectId().Hex())
+		category.Id = models.NewString(utils.NewShortId())
 		category.MTime.Created = models.NewInt64(time.Now().Unix())
 		
 		if err := c.Insert(category); err != nil {

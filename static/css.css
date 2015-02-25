@@ -12,10 +12,10 @@ h2 {font-size:18px;}
 h3 {font-size:16px;}
 
 
-.primary   {color:#62ab00;}
-.secondary {color:#528e00;}
-.featured  {color:#ff6600;}
-.quote     {color:#888;}
+.primary, .primary a {color:#62ab00;}
+.secondary, .secondary a {color:#528e00;}
+.featured, .featured a  {color:#ff6600;}
+.quote, .quote a {color:#888;}
 
 .bold { font-weight:bold; }
 .deletion { text-decoration: line-through; color: #888;}
@@ -32,29 +32,35 @@ h3 {font-size:16px;}
 .l2  { line-height: 24px;   }
 .l25 { line-height: 30px; }
 .l3  { line-height: 36px;   }
+.l4  { line-height: 48px;   }
+.l5  { line-height: 60px;   }
+.l6  { line-height: 72px;   }
 
 .c-ptr { cursor: pointer; }
 .c-def { cursor: default; }
 
-i { display:inline-block; vertical-align: middle; background-repeat: no-repeat; background-position: 0 0;}
-i.icon-thumb { vertical-align:baseline; background-image: url(./images/icons/thumb.png); width:40px; height:50px; }
-i.icon-thumb-small { background-image: url(./images/icons/thumb-small.png); width:34px; height:43px; }
-i.icon-thumb-top { background-image: url(./images/icons/thumb-top.png); width:30px; height:40px; }
-i.icon-user { background-image: url(./images/icons/user.png); width:18px; height:20px; margin-bottom:-6px; }
-i.icon-dot  { background-image: url(./images/icons/dot.png); width:13px; height:13px;}
-i.icon-arrow-down  { background-image: url(./images/icons/arrow-down.png); width:12px; height:12px;}
-i.icon-arrow-right  { background-image: url(./images/icons/arrow-right.png); width:13px; height:13px;}
-i.icon-phone-large  { background-image: url(./images/icons/phone-large.png); width:30px; height:30px;}
-i.icon-price-start  { background-image: url(./images/icons/price-start.png); width:15px; height:15px;}
-i.icon-price-average  { background-image: url(./images/icons/price-average.png); width:15px; height:15px;}
-i.icon-user-gray{ background-image: url(./images/icons/user-gray.png); width:20px; height:20px; }
-i.icon-more-vertical { background-image: url(./images/icons/more-vertical.png); width:23px; height:70px; }
-i.icon-close { background-image: url(./images/icons/close.png); width:13px; height:13px; }
-i.icon-square { background-image: url(./images/icons/square.png); width:9px; height:9px; }
-i.icon-square-gray { background-image: url(./images/icons/square-gray.png); width:9px; height:9px; }
-i.icon-arrow-left-large { background-image: url(./images/icons/arrow-left-large.png); width:60px; height:90px; }
-i.icon-arrow-right-large { background-image: url(./images/icons/arrow-right-large.png); width:60px; height:90px; }
-i.icon-eye { background-image: url(./images/icons/eye.png); width:22px; height:11px; }
+i,.icon { display:inline-block; vertical-align: middle; background-repeat: no-repeat; background-position: 0 0;}
+.icon-thumb { vertical-align:baseline; background-image: url(./images/icons/thumb.png); width:40px; height:50px; }
+.icon-thumb-small { background-image: url(./images/icons/thumb-small.png); width:34px; height:43px; }
+.icon-thumb-top { background-image: url(./images/icons/thumb-top.png); width:30px; height:40px; }
+.icon-user { background-image: url(./images/icons/user.png); width:18px; height:20px; margin-bottom:-6px; }
+.icon-dot  { background-image: url(./images/icons/dot.png); width:13px; height:13px;}
+.icon-arrow-down  { background-image: url(./images/icons/arrow-down.png); width:12px; height:12px;}
+.icon-arrow-right  { background-image: url(./images/icons/arrow-right.png); width:13px; height:13px;}
+.icon-phone-large  { background-image: url(./images/icons/phone-large.png); width:30px; height:30px;}
+.icon-phone-xlarge  { background-image: url(./images/icons/phone-xlarge.png); width:60px; height:60px;}
+.icon-price-start  { background-image: url(./images/icons/price-start.png); width:15px; height:15px;}
+.icon-price-average  { background-image: url(./images/icons/price-average.png); width:15px; height:15px;}
+.icon-user-gray{ background-image: url(./images/icons/user-gray.png); width:20px; height:20px; }
+.icon-more-vertical { background-image: url(./images/icons/more-vertical.png); width:23px; height:70px; }
+.icon-close { background-image: url(./images/icons/close.png); width:13px; height:13px; }
+.icon-square { background-image: url(./images/icons/square.png); width:9px; height:9px; }
+.icon-square-gray { background-image: url(./images/icons/square-gray.png); width:9px; height:9px; }
+.icon-arrow-left-large { background-image: url(./images/icons/arrow-left-large.png); width:60px; height:90px; }
+.icon-arrow-right-large { background-image: url(./images/icons/arrow-right-large.png); width:60px; height:90px; }
+.icon-eye { background-image: url(./images/icons/eye.png); width:22px; height:11px; }
+.icon-pop { background-image: url(./images/icons/pop.png); width:50px; height:20px; }
+
 .submit {cursor:pointer;}
 
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
@@ -63,6 +69,9 @@ i.icon-eye { background-image: url(./images/icons/eye.png); width:22px; height:1
 p{margin:0;}
 
 /* Layouts */
+
+.left-490-10 {float:left; width:490px;}
+.right-500   {margin-left:500px;width:500px;}
 
 .left-670-30 { float:left; width:670px;}
 .right-300 { margin-left:700px; width:300px;}
@@ -119,15 +128,15 @@ p{margin:0;}
 #ft a{color:#666;text-decoration:none;}
 
 #brand {width:1000px;margin:0 auto;}
-#brand .logo {float:left; margin-top: 26px;width:400px;}
+#brand .logo {float:left; margin-top: 26px;width:310px;}
 #brand .logo img { vertical-align: top; }
 #brand .logo abbr { color: #ddd; font-weight:normal;}
-#brand .search {margin-left:440px;_margin-left:438px;}
+#brand .search {margin-left:330px;}
 #brand .search .form{overflow:hidden;}
 #brand .search form {margin-top:30px; }
-#brand .search form input.submit {float:right;border:1px solid #62ab00;color:#fff;background:#62ab00 url('./images/search.png') right bottom no-repeat;height:38px;line-height:38px;font-size:18px;padding: 0 36px 0 12px;_padding: 0 18px 0 6px;;font-weight:bold;}
-#brand .search form input.text {float:right;border:1px solid #62ab00;border-right:none;width:432px;height:24px;line-height:24px;padding:6px;}
-#brand .search .quick-search{line-height:32px; margin-left:32px; }
+#brand .search form input.submit {float:right;border:1px solid #62ab00;color:#fff;background:#62ab00 url('./images/search.png') right bottom no-repeat;height:38px;line-height:38px;font-size:18px;padding: 0 50px 0 26px;_padding: 0 25px 0 13px;;font-weight:bold;}
+#brand .search form input.text {float:right;border:1px solid #62ab00;border-right:none;width:540px;height:24px;line-height:24px;padding:6px;}
+#brand .search .quick-search{line-height:32px; margin-left: 6px; }
 #brand .search .quick-search ul li{ float:left; margin-right:6px;}
 
 
@@ -369,6 +378,51 @@ p{margin:0;}
 #page-groupbuy-index .block-groupbuy-new .bd .groupbuy.hover .mark  { left:80px; top: 20px;font-size: 26px;display:block;}
 #page-groupbuy-index .block-groupbuy-new .bd .groupbuy.hover .mask  { left:0; top:0; height: 100%; width: 100%;}
 
+#page-newhouse-detail-index #brand .logo { width: auto;  }
+#page-newhouse-detail-index #brand .logo i.icon-pop { font-style: normal; line-height:20px; font-size: 16px; color: #fff; padding-left: 12px;}
+#page-newhouse-detail-index #brand .search { float:right; margin-left: auto; text-align:right; margin-top: 33px;}
+
+#page-newhouse-detail-index .block-newhouse-index { min-height:410px; _height:410px; border: 1px solid #ddd;}
+#page-newhouse-detail-index .block-newhouse-index .left-490-10 { padding: 20px; position:relative;}
+#page-newhouse-detail-index .block-newhouse-index .left-490-10 .prev {position:absolute;top:120px;left:20px;}
+#page-newhouse-detail-index .block-newhouse-index .left-490-10 .next {position:absolute;top:120px;right:60px}
+#page-newhouse-detail-index .block-newhouse-index .left-490-10 .pic { margin-bottom: 10px; }
+#page-newhouse-detail-index .block-newhouse-index .left-490-10 .thumb img { border: 1px solid #fff; }
+#page-newhouse-detail-index .block-newhouse-index .left-490-10 .thumb a.active img { border: 1px solid #62ab00; }
+#page-newhouse-detail-index .block-newhouse-index .right-500 {padding:20px;}
+#page-newhouse-detail-index .block-newhouse-index .right-500 dl { overflow: hidden; } 
+#page-newhouse-detail-index .block-newhouse-index .right-500 dl dt {float:left; width:80px;}
+#page-newhouse-detail-index .block-newhouse-index .right-500 dl dd {margin-left: 80px;}
+
+#page-newhouse-detail-index .block-newhouse-intro .hd h1 { color: #333; }
+#page-newhouse-detail-index .block-newhouse-intro .bd { border: 1px solid #ddd; padding: 20px;}
+#page-newhouse-detail-index .block-newhouse-intro .right-500 dl { overflow: hidden; } 
+#page-newhouse-detail-index .block-newhouse-intro .right-500 dl dt {float:left; width:80px;}
+#page-newhouse-detail-index .block-newhouse-intro .right-500 dl dd {margin-left: 80px;}
+
+#page-newhouse-detail-index .block-newhouse-pictures .hd h1 { color: #333; }
+#page-newhouse-detail-index .block-newhouse-pictures .bd { border: 1px solid #ddd; padding: 20px;}
+#page-newhouse-detail-index .block-newhouse-pictures .bd ul li { float:left; margin-right: 29px; margin-bottom: 20px; }
+#page-newhouse-detail-index .block-newhouse-pictures .bd ul li.break { margin-right: 0; }
+#page-newhouse-detail-index .block-newhouse-pictures .bd ul li p { text-align: center; } 
+
+#page-newhouse-picture-index #brand .logo { width: auto;  }
+#page-newhouse-picture-index #brand .logo i.icon-pop { font-style: normal; line-height:20px; font-size: 16px; color: #fff; padding-left: 12px;}
+#page-newhouse-picture-index #brand .search { float:right; margin-left: auto; text-align:right; margin-top: 33px;}
+
+
+#page-newhouse-picture-index .block-newhouse-pictures .hd ul { float: left;}
+#page-newhouse-picture-index .block-newhouse-pictures .hd ul li { float:left; font-size: 16px;}
+#page-newhouse-picture-index .block-newhouse-pictures .hd ul li { text-align:center; width: 100px; height: 42px; border-bottom: 5px solid #fff;}
+#page-newhouse-picture-index .block-newhouse-pictures .hd ul li.active { border-color: #62ab00; }
+#page-newhouse-picture-index .block-newhouse-pictures .hd ul li.hover  a,
+#page-newhouse-picture-index .block-newhouse-pictures .hd ul li.active a {color:#62ab00;}
+#page-newhouse-picture-index .block-newhouse-pictures .bd { border: 1px solid #ddd; padding: 20px;}
+#page-newhouse-picture-index .block-newhouse-pictures .bd .line { border-bottom: 1px solid #ddd; }
+#page-newhouse-picture-index .block-newhouse-pictures .bd .more { float: right; }
+#page-newhouse-picture-index .block-newhouse-pictures .bd dl dt { margin-bottom: 20px; }
+#page-newhouse-picture-index .block-newhouse-pictures .bd ul li { float: left; margin-bottom: 25px; margin-right: 25px;}
+#page-newhouse-picture-index .block-newhouse-pictures .bd ul li.last { margin-right: 0; }
 /*Blocks*/
 #block-newhouse-focus .hd { line-height: 45px; border-top: 1px solid #62ab00; border-bottom: 1px solid #ddd;}
 #block-newhouse-focus .bd { padding: 18px 0 0 0; }

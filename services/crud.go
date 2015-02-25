@@ -4,6 +4,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
+	
+	"ftjx/utils"
 )
 
 type ICollection interface {
@@ -24,7 +26,7 @@ func (c *CRUD) Create(o bson.M) (string, error) {
 	m := c.Collection()
 	
 	if _, err := o["_id"] ; err {
-		o["_id"] = bson.NewObjectId().Hex()
+		o["_id"] = utils.NewShortId()
 	}
 	
 	o["created"] = time.Now().Unix()
