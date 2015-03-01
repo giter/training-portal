@@ -132,13 +132,15 @@ func PictureList(db *mgo.Database, rid string, typo int64, limit int) (r []model
 
 type SPicturePage struct {
 
-	Page Page
+	Page *Page
 	Data []models.Picture
 }
 
 func PicturePage(db *mgo.Database, limit int, page int, rid string, typo int64) (p SPicturePage , err error) {
 
 	c := PictureCollection(db)
+	
+	p.Page = &Page{}
 	
 	if err !=  nil {
 		page = 1;

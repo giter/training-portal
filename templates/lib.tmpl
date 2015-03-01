@@ -11,29 +11,28 @@
 		<div class='wrap'>
 			<ul>
 				<li class='hoverable clickable'><a href='/'>首页</a></li>
-				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "新房"}}active{{end}}{{end}}'><a href='/newhouse/'>新房</a></li>
+				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "newhouse"}}active{{end}}{{end}}'><a href='/newhouse/'>新房</a></li>
 				<li class='hoverable clickable'><a href='#'>二手房</a></li>
-				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "资讯"}}active{{end}}{{end}}'><a href='/news/'>资讯</a></li>
+				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "news"}}active{{end}}{{end}}'><a href='/news/'>资讯</a></li>
 				<li class='hoverable clickable'><a href='#'>装修</a></li>
-				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "团购"}}active{{end}}{{end}}'><a href='/groupbuy/'>团购<i class='icon-thumb-top'></i></a></li>
+				<li class='hoverable clickable {{if .HTMLComponent}}{{if eq .HTMLComponent "groupbuy"}}active{{end}}{{end}}'><a href='/groupbuy/'>团购<i class='icon-thumb-top'></i></a></li>
 			</ul>
 			<div class='more'>
 				<i class='icon-user-gray'>&nbsp;</i>
-				<a href='#'>登录</a>
+				<a href='/login.html'>登录</a>
 				<abbr>|</abbr>
-				<a href='#'>注册</a>
+				<a href='/register.html'>注册</a>
 			</div>
 		</div>
 	</div>
 {{end}}
 
 {{define "pager"}}
-
 	{{ if gt .Page.Last 1 }}
 	<ul class='pager'>
 		{{if eq .Page.Previous 0}}
 		{{ else }}
-			<li class='{{if eq .Page.Previous 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.Page.URL "p" .Page.Previous }}'>&lt;上一页</a></li>
+			<li class='{{if eq .Page.Previous 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.Page.URL "p" .Page.Previous }}{{if $.Page.Hash}}#{{$.Page.Hash}}{{end}}'>&lt;上一页</a></li>
 		{{ end }}
 		
 		{{ range .Page.List }}
@@ -44,14 +43,14 @@
 					{{if eq . $.Page.Current}}
 						{{.}}
 					{{else}}
-						<a href='{{ queryN $.Page.URL "p" . }}'>{{.}}</a>
+						<a href='{{ queryN $.Page.URL "p" . }}{{if $.Page.Hash}}#{{$.Page.Hash}}{{end}}'>{{.}}</a>
 					{{end}}
 				</li>
 			{{ end }}
 		{{ end }}
 		{{if eq .Page.Next 0}}
 		{{ else }}
-			<li class='{{if eq .Page.Next 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.Page.URL "p" .Page.Next }}'>下一页&gt;</a></li>
+			<li class='{{if eq .Page.Next 0}}disabled{{end}} hoverable clickable'><a href='{{ queryN $.Page.URL "p" .Page.Next }}{{if $.Page.Hash}}#{{$.Page.Hash}}{{end}}'>下一页&gt;</a></li>
 		{{ end }}
 	</ul>
 	{{ end }}
@@ -83,7 +82,11 @@
 	</div>
 	
 	<div class='logo'>
-		<a href='/'><img src='/images/logo.png'/></a>
+		{{if .Newhouse.Logo}}
+			<a href='/'><img width=220 src='{{.Newhouse.Logo.Palm.Path}}'/></a>
+		{{else}}
+			<a href='/'><img src='/images/logo.png'/></a>
+		{{end}}
 		<span class='f22'>
 			&nbsp;{{if .HTMLTitle}}<abbr>|</abbr> {{.HTMLTitle}}{{end}}
 			{{ if .Newhouse.Schedule }}
@@ -244,8 +247,14 @@
 					{{range .Letters}}
 						{{if queryE $.NewhouseQuickSearchPath "letter" .}}
 							<li class='active selected hoverable clickable'><a href='{{queryN $.NewhouseQuickSearchPath "letter" . "p" nil}}'>{{upper .}}</a></li>
+						{{else if in "UEIV" (upper .)}}
+							<li class='disabled'>
+								<a href='javascript:void(0)'>{{upper .}}</a>
+							</li>
 						{{else}}
-							<li class='hoverable clickable'><a href='{{queryN $.NewhouseQuickSearchPath "letter" . "p" nil}}'>{{upper .}}</a></li>
+							<li class='hoverable clickable'>
+								<a href='{{queryN $.NewhouseQuickSearchPath "letter" . "p" nil}}'>{{upper .}}</a>
+							</li>
 						{{end}}
 					{{end}}
 				</ul>
@@ -263,10 +272,14 @@
 	</div>
 	<div class='bd f13'>
 		<ul>
-			<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+			<li class='pic'>
+				{{ range slice .NewhouseFocus 0 1}}
+ 					<a href='/newhouse/o{{.Id}}.html'><img width=270 height=151 src='{{.Cover.Palm.Path}}' /></a>
+				{{end}}
+			</li>
 			<li class='rankings'>
 				{{range $i,$v := .NewhouseFocus}}
-					<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+					<dl data-cover="{{.Cover.Palm.Path}}" class='{{if eq $i 0}}active{{end}} hoverable clickable clearfix'>
 						<dd class='price'>{{.Price}} 元/㎡ 
 							{{if equals .PriceType 1 }}
 								<i class='icon-price-start'></i>
@@ -281,34 +294,6 @@
 				<dl class='active clearfix'>
 					<dd class='price'>5200元/㎡ <i class='icon-price-start'></i></dd>
 					<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5888元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>金洋·紫金艺境</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
 				</dl>
 				 -->
 			</li>
@@ -325,10 +310,14 @@
 	</div>
 	<div class='bd f13'>
 		<ul>
-			<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+			<li class='pic'>
+				{{ range slice .NewhouseRecommends 0 1}}
+ 					<a href='/newhouse/o{{.Id}}.html'><img width=270 height=151 src='{{.Cover.Palm.Path}}' /></a>
+				{{end}}
+			</li>
 			<li class='rankings'>
 				{{range $i, $v := .NewhouseRecommends}}
-					<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+					<dl data-cover="{{.Cover.Palm.Path}}" class='{{if eq $i 0}}active{{end}} hoverable clickable clearfix'>
 						<dd class='price'>{{.Price}} 元/㎡ 
 							{{if equals .PriceType 1 }}
 								<i class='icon-price-start'></i>
@@ -343,34 +332,6 @@
 				<dl class='active clearfix'>
 					<dd class='price'>5200元/㎡ <i class='icon-price-start'></i></dd>
 					<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5888元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>金洋·紫金艺境</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-				</dl>
-				<dl class='clearfix'>
-					<dd class='price'>5200元/㎡ <i class='icon-price-average'></i></dd>
-					<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
 				</dl>
 				 -->
 			</li>
@@ -387,10 +348,14 @@
 		</div>
 		<div class='bd f13'>
 			<ul>
-				<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+				<li class='pic'>
+					{{ range slice .NewhouseDeliveries 0 1}}
+	 					<a href='/newhouse/o{{.Id}}.html'><img width=270 height=151 src='{{.Cover.Palm.Path}}' /></a>
+					{{end}}
+				</li>
 				<li>
 					{{ range $i, $o := .NewhouseDeliveries }}
-  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
+					<dl data-cover="{{.Cover.Palm.Path}}" class='{{if eq $i 0}}active{{end}} hoverable clickable clearfix'>
   							<dd>{{if not (equals .DeliveryDate "")}}{{.DeliveryDate}}{{else}}{{.SDelivery}}{{end}}</dd>
   							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
   						</dl>
@@ -399,34 +364,6 @@
 					<dl class='active clearfix'>
 						<dd>2015.01</dd>
 						<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.04</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.04</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.04</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
 					</dl>
 					 -->
 				</li>
@@ -443,47 +380,23 @@
 		</div>
 		<div class='bd f13'>
 			<ul>
-				<li class='pic'><a href='#'><img src='/images/index/sample-delivery.jpg' /></a></li>
+				<li class='pic'>
+					{{ range slice .NewhouseOpens 0 1}}
+	 					<a href='/newhouse/o{{.Id}}.html'><img width=270 height=151 src='{{.Cover.Palm.Path}}' /></a>
+					{{end}}
+				</li>
 				
 				<li>
 					{{ range $i, $o := .NewhouseOpens }}
-  						<dl class='{{if eq $i 0}}active{{end}} clearfix'>
-  							<dd>{{if not (equals .OpenDate "")}}{{.OpenDate}}{{else}}{{.SOpen}}{{end}}</dd>
-  							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
-  						</dl>
+						<dl data-cover="{{.Cover.Palm.Path}}" class='{{if eq $i 0}}active{{end}} hoverable clickable clearfix'>
+ 							<dd>{{if not (equals .OpenDate "")}}{{.OpenDate}}{{else}}{{.SOpen}}{{end}}</dd>
+ 							<dt><i class='icon-dot'></i> <a href='/newhouse/o{{.Id}}.html'>{{.Name}}</a></dt>
+ 						</dl>
  					{{ end }}
  					<!-- 
 					<dl class='active clearfix'>
 						<dd>2015.01.18</dd>
 						<dt><i class='icon-dot'></i> 经房·浅水湾</dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.04</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.04</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.04</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>麟湖·公元壹号</a></dt>
-					</dl>
-					<dl class='clearfix'>
-						<dd>预计2015.03</dd>
-						<dt><i class='icon-dot'></i> <a href='#'>徽商大厦</a></dt>
 					</dl>
 					 -->
 				</li>
@@ -491,6 +404,152 @@
 		</div>
 	</div>
 {{end}}
+
+
+{{ define "block-news-view" }}
+	<div id='block-news-view' class='block block-boundless'>
+		<div class='hd hd-style-2'>
+			<div class='more'>
+				<a href='#'>更多</a>
+			</div>
+			<h1>慧眼看楼</h1>
+		</div>
+		
+		<div class='bd f14'>
+			
+			<div class='clearfix'>
+				{{range $i,$v := slice . 0 2}}
+					<dl class='clickable l2 {{if eq (mod $i 2) 1}}last{{end}} '>
+						{{if .Cover}}<dt><img src='{{.Cover.Palm.Path}}' width=170 height=84/></dt>{{end}}
+						<dd><a href='{{.SURL}}'>{{.STitle}}</a></dd>
+					</dl>
+				{{end}}
+			</div>
+			
+			<ul class='l2'>
+				{{range slice . 2 7}}
+				<li><a href='{{.SURL}}'><i class='icon-dot'></i> {{.STitle}}</a></li>
+				{{end}}
+			</ul>
+		</div>
+	</div>
+{{ end }}
+
+{{ define "block-news-data" }}
+	<div id='block-news-data' class='block block-boundless'>
+		<div class='hd hd-style-2'>
+			<div class='more'>
+				<a href='#'>更多</a>
+			</div>
+			<h1>成交数据</h1>
+		</div>
+		
+		<div class='bd f14'>
+			
+			<div class='clearfix'>
+				{{range $i,$v := slice . 0 2}}
+					<dl class='clickable l2 {{if eq (mod $i 2) 1}}last{{end}} '>
+						{{if .Cover}}<dt><img src='{{.Cover.Palm.Path}}' width=170 height=84/></dt>{{end}}
+						<dd><a href='{{.SURL}}'>{{.STitle}}</a></dd>
+					</dl>
+				{{end}}
+			</div>
+			
+			<ul class='l2'>
+				{{range slice . 2 7}}
+				<li><a href='{{.SURL}}'><i class='icon-dot'></i> {{.STitle}}</a></li>
+				{{end}}
+			</ul>
+		</div>
+	</div>
+{{ end }}
+
+{{ define "block-news-special" }}
+	<div id='block-news-special' class='block block-boundless'>
+		<div class='hd hd-style-2'>
+			<div class='more'>
+				<a href='#'>更多</a>
+			</div>
+			<h1>专题报道</h1>
+		</div>
+		
+		<div class='bd f14'>
+			
+			<div class='clearfix'>
+				{{range $i,$v := slice . 0 2}}
+					<dl class='clickable l2 {{if eq (mod $i 2) 1}}last{{end}} '>
+						{{if .Cover}}<dt><img src='{{.Cover.Palm.Path}}' width=170 height=84/></dt>{{end}}
+						<dd><a href='{{.SURL}}'>{{.STitle}}</a></dd>
+					</dl>
+				{{end}}
+			</div>
+			
+			<ul class='l2'>
+				{{range slice . 2 7}}
+				<li><a href='{{.SURL}}'><i class='icon-dot'></i> {{.STitle}}</a></li>
+				{{end}}
+			</ul>
+		</div>
+	</div>
+{{ end }}
+
+{{ define "block-news-leader" }}
+	<div id='block-news-leader' class='block block-boundless'>
+		<div class='hd hd-style-2'>
+			<div class='more'>
+				<a href='#'>更多</a>
+			</div>
+			<h1>各界声音</h1>
+		</div>
+		
+		<div class='bd f14'>
+			
+			<div class='clearfix'>
+				{{range $i,$v := slice . 0 2}}
+					<dl class='clickable l2 {{if eq (mod $i 2) 1}}last{{end}} '>
+						{{if .Cover}}<dt><img src='{{.Cover.Palm.Path}}' width=170 height=84/></dt>{{end}}
+						<dd><a href='{{.SURL}}'>{{.STitle}}</a></dd>
+					</dl>
+				{{end}}
+			</div>
+			
+			<ul class='l2'>
+				{{range slice . 2 7}}
+				<li><a href='{{.SURL}}'><i class='icon-dot'></i> {{.STitle}}</a></li>
+				{{end}}
+			</ul>
+		</div>
+	</div>
+{{ end }}
+
+{{ define "block-news-sole" }}
+	<div id='block-news-sole' class='block block-boundless'>
+		<div class='hd hd-style-2'>
+			<div class='more'>
+				<a href='#'>更多</a>
+			</div>
+			<h1>独家探盘</h1>
+		</div>
+		
+		<div class='bd f14'>
+			
+			<div class='clearfix'>
+				{{range $i,$v := slice . 0 2}}
+					<dl class='clickable l2 {{if eq (mod $i 2) 1}}last{{end}} '>
+						{{if .Cover}}<dt><img src='{{.Cover.Palm.Path}}' width=170 height=84/></dt>{{end}}
+						<dd><a href='{{.SURL}}'>{{.STitle}}</a></dd>
+					</dl>
+				{{end}}
+			</div>
+			
+			<ul class='l2'>
+				{{range slice . 2 7}}
+				<li><a href='{{.SURL}}'><i class='icon-dot'></i> {{.STitle}}</a></li>
+				{{end}}
+			</ul>
+		</div>
+	</div>
+{{ end }}
 
 {{define "block-links"}}
 	<div id='block-links' class='block block-bordered'>

@@ -50,6 +50,17 @@ func RealEstateForm(db *mgo.Database, ctx bson.M, req *http.Request, r render.Re
 		ctx["RealEstate"] = re
 	}
 	
+	if ctx["PictureStat"], err = services.PictureStat(db, id, false, 0); err!=nil {
+		r.Error(500)
+		return
+	}
+	
+	if ctx["PicturePage"], err = services.PicturePage(db, 16, 0, id, 0); err!=nil {
+	
+		r.Error(500)
+		return
+	}
+	
 	r.HTML(200, "manage-real-estate-form", ctx, render.HTMLOptions{
 		Layout: "manage-layout", 
 	})
@@ -79,6 +90,24 @@ func RealEstateUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 		ar, err = services.AreaGet(db, *o.Area.Id);
 		o.Area = ar
 		if err != nil {
+			r.JSON(500, err.Error())
+			return
+		}
+	}
+	
+	if o.Logo != nil && o.Logo.Id != nil && *o.Logo.Id != ""{
+	
+		if o.Logo, err = services.PictureGet(db, *o.Logo.Id); err != nil {
+		
+			r.JSON(500, err.Error())
+			return
+		}
+	}
+	
+	if o.Cover != nil && o.Cover.Id != nil && *o.Cover.Id != ""{
+	
+		if o.Cover, err = services.PictureGet(db, *o.Cover.Id); err != nil {
+		
 			r.JSON(500, err.Error())
 			return
 		}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {{template "lib"}}
-{{set . "HTMLComponent" "新房" }}
+{{set . "HTMLComponent" "newhouse" }}
 {{set . "HTMLTitle" "新房"}}
 {{template "head" .}}
 <body>
@@ -17,6 +17,7 @@
 				<ul class='menu'>
 					<li class='hoverable clickable'><a href='/newhouse/'>新房首页</a></li>
 					<li  class='hoverable clickable active'><a href='/newhouse/list.html'>楼盘大全</a></li>
+					<li  class='hoverable clickable'><a href='/newhouse/tour.html'>看房团</a></li>
 				</ul>
 			</div>
 		</div>
@@ -38,6 +39,7 @@
 					<div class='block-selection block block-boundless'>
 						<div class='bd f13'>
 							您选择的条件是&nbsp;&nbsp;&nbsp;&nbsp;
+							
 							{{range $.CONTEXT.KVs.Area.Nodes}}
 								{{if queryE $.NewhouseQuickSearchPath "area" .Value}}
 									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "area" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
@@ -50,6 +52,12 @@
 								{{end}}
 							{{end}}
 							
+							{{range $.CONTEXT.KVs.Usage.Nodes}}
+								{{if queryE $.NewhouseQuickSearchPath "usage" .Value}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "usage" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
+							
 							{{range $.CONTEXT.KVs.Price.Nodes}}
 								{{if queryE $.NewhouseQuickSearchPath "price" .Value}}
 									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "price" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
@@ -59,6 +67,12 @@
 							{{range $.CONTEXT.KVs.Features.Nodes}}
 								{{if queryE $.NewhouseQuickSearchPath "feature" .Value}}
 									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "feature" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
+								{{end}}
+							{{end}}
+							
+							{{range $.CONTEXT.KVs.Schedule.Nodes}}
+								{{if queryE $.NewhouseQuickSearchPath "schedule" .Value}}
+									<a class='item' href='{{queryN $.NewhouseQuickSearchPath "schedule" nil "p" nil}}'>{{.Name}} <i class='icon-close'></i></a>
 								{{end}}
 							{{end}}
 							
@@ -141,7 +155,7 @@
 							 -->
 						</div>
 						<div class='ft'>
-							{{.NewhousePage.Page.SetURL .Context.URL.String}}
+							{{.NewhousePage.Page.SetURL .CONTEXT.URL.String}}
 							{{ template "pager" .NewhousePage }}
 						</div>
 					</div>

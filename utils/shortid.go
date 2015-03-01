@@ -2,7 +2,7 @@ package utils
 
 import (
 
-	"fmt"
+	//"fmt"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -14,9 +14,6 @@ func NewShortId() string {
 
 func ToShortId(oid bson.ObjectId) string {
 
-	time := int64(oid.Time().Unix()) * 256
-	time = time - int64(1420070400) * 256
-	time = time + int64(oid.Counter() % 256)
-	
-	return fmt.Sprintf("%x", time);
+	return oid.Hex();
+	//return fmt.Sprintf("%x%x", oid.Time().Unix(), oid.Counter() % 256);
 }

@@ -8,6 +8,7 @@ import (
 	"io"
 	"time"
 	"strings"
+	"strconv"
 	
 	"ftjx/utils"
 )
@@ -35,6 +36,13 @@ type MTime struct {
 	Changed *int64 `bson:"Changed,omitempty"`
 }
 
+func (m* MTime) SCreated() string{
+	return time.Unix(*m.Created, 0).Format("2006-01-02 15:04")
+}
+
+func (m* MTime) SChanged() string{
+	return time.Unix(*m.Changed, 0).Format("2006-01-02 15:04")
+}
 
 type Category struct {
 
@@ -296,9 +304,6 @@ type RealEstate struct {
 	
 	//销售信息
 	Sale   *string `bson:"Sale,omitempty"`
-
-	// 楼盘封面
-	Cover  *Picture `bson:"Cover,omitempty"`
 	
 	//楼盘区域
 	Area *Area   `bson:"Area,omitempty"`
@@ -361,7 +366,12 @@ type RealEstate struct {
 	
 	//房屋结构
 	Structure []string `bson:"Structure,omitempty"`
+	
+	Brief   *string `bson:"Brief,omitempty"`
 	Content *string `bson:"Content,omitempty"`
+	
+	Logo *Picture `bson:"Logo,omitempty"`
+	Cover *Picture `bson:"Cover,omitempty"`
 	
 	// 扩展属性
 	MTime   *MTime    `bson:"MTime,omitempty"`
@@ -417,6 +427,42 @@ func (r RealEstate) Feature() string {
 	return strings.Join(r.Features, ",")
 }
 
+func (r RealEstate) NGroup() int64 {
+	
+	if r.ST != nil && r.ST.Groupon != nil { return *r.ST.Groupon }
+	return 0
+}
+
+func (r RealEstate) SGroupRemain() string {
+	
+	if r.GroupClose == nil { return "团购未开始" }
+	
+	day    := ""
+	hour   := ""
+	minute := ""
+	second := ""
+	
+	rt := *r.GroupClose - time.Now().Unix()
+	
+	if rt < 0 { return "团购未开始" }
+	
+	if rt > 24*3600 {
+		day = strconv.FormatInt(rt / 24 / 3600, 10) + "天"
+	}
+	
+	if rt > 3600 {
+		hour = strconv.FormatInt(rt % (24*3600) / 3600, 10) + "小时"
+	}
+	
+	if rt > 60 {
+		minute = strconv.FormatInt(rt % 3600 / 60, 10) + "分"
+	}
+	
+	second = strconv.FormatInt(rt % 60, 10) + "秒"
+	
+	return fmt.Sprintf("%s%s%s%s", day, hour, minute, second)
+}
+
 type News struct {
 
 	Id *string `bson:"_id,omitempty"`
@@ -439,6 +485,9 @@ type News struct {
 	// 短标题
 	Slug *string `bson:"Slug,omitempty"`
 	
+	// 资讯作者
+	Author *string `bosn:"Author,omitempty"`
+	
 	// WAP标题
 	WAPTitle *string `bson:"WAPTitle,omitempty"`
 
@@ -459,6 +508,9 @@ type News struct {
 	
 	// 资讯摘要
 	Brief *string `bson:"Brief,omitempty"`
+	
+	// 资讯导读
+	Introduction *string `bson:"Introduction,omitempty"`
 	
 	// 资讯正文
 	Content *string `bson:"Content,omitempty"`
@@ -487,6 +539,27 @@ func (n News) STime() string{
 	}
 	
 	return time.Unix(*n.Time, 0).Format("2006-01-02 15:04")
+}
+
+func (n News) NComment() int64 {
+
+	if n.ST == nil { return 0 }
+	if n.ST.Comments == nil { return 0 }
+	return *n.ST.Comments
+}
+
+func (n News) SAuthor() string {
+	
+	if n.Author != nil && *n.Author != "" { return *n.Author }
+	return "嘉兴房产团购网"
+}
+
+func (n News) STitle() string {
+	
+	if n.Slug  != nil && *n.Slug != "" { return *n.Slug }
+	if n.Title != nil && *n.Title != "" { return *n.Title }
+	
+	return "-"
 }
 
 type Comment struct {

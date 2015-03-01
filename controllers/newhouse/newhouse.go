@@ -36,22 +36,17 @@ func Index(db *mgo.Database, ctx bson.M, r render.Render) {
 		return
 	}
 	
-	if ctx["NewhouseDeliveries"], err = services.RealEstateDeliveries(db, 8) ; err != nil {
+	if ctx["NewhouseOpens"], err = services.RealEstateOpens(db, 10) ; err != nil {
 		r.Error(500);
 		return
 	}
 	
-	if ctx["NewhouseOpens"], err = services.RealEstateOpens(db, 8) ; err != nil {
+	if ctx["NewhouseFocus"], err = services.RealEstateFocus(db, 10) ; err != nil {
 		r.Error(500);
 		return
 	}
 	
-	if ctx["NewhouseFocus"], err = services.RealEstateFocus(db, 8) ; err != nil {
-		r.Error(500);
-		return
-	}
-	
-	if ctx["NewhouseRecommends"], err = services.RealEstateRecommends(db, 8) ; err != nil {
+	if ctx["NewhouseRecommends"], err = services.RealEstateRecommends(db, 10) ; err != nil {
 		r.Error(500);
 		return
 	}
@@ -115,6 +110,11 @@ func DetailIndex(db *mgo.Database, ctx bson.M, r render.Render, params martini.P
 	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); err != nil || ctx["Newhouse"] == nil {
 		
 		r.Error(404);
+		return
+	}
+	
+	if err = services.ViewInc(services.RealEstateCollection(db), Id); err != nil {
+		r.Error(500);
 		return
 	}
 	

@@ -1,6 +1,7 @@
 package forms
 
 import (
+	"mime/multipart"
 )
 
 type RealEstatePageForm struct {
@@ -19,4 +20,17 @@ type RealEstatePageForm struct {
 	
 	Area  string `form:"area"`
 
+}
+
+type NewsForm struct { 
+
+	Page int `form:"p"`
+	
+	Category string `form:"category"`
+	Tag string `form:"tag"`
+}
+
+type ResourceForm struct {
+	
+	Resource *multipart.FileHeader `form:"Filedata"`
 }

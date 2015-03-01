@@ -342,64 +342,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td><label class='control-label'>物业公司</label></td>
-						<td></td>
-						<td><label class='control-label'>物业费</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>交通状况</label></td>
-						<td></td>
-						<td><label class='control-label'>车库（车位）</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>车位价格</label></td>
-						<td></td>
-						<td><label class='control-label'>车位租金</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>公交路线</label></td>
-						<td></td>
-						<td><label class='control-label'>轨道交通</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>高架</label></td>
-						<td></td>
-						<td><label class='control-label'>高速</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>火车站</label></td>
-						<td></td>
-						<td><label class='control-label'>汽车站</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>机场</label></td>
-						<td colspan=3></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>总户数</label></td>
-						<td></td>
-						<td><label class='control-label'>房屋结构</label></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>道路名</label></td>
-						<td colspan=3></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>楼盘别名</label></td>
-						<td colspan=3></td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>其他备注</label></td>
-						<td colspan=3></td>
-					</tr>
-					<tr>
 						<td><label class='control-label'>楼盘广告语<span class='required' aria-required='true'>*</span></label></td>
 						<td>
 							<div class='row'>
@@ -408,8 +350,36 @@
 								</div>
 							</div>
 						</td>
-						<td><label class='control-label'>楼盘特点</label></td>
-						<td></td>
+						<td><label class='control-label'>楼盘简介<span class='required' aria-required='true'>*</span></label></td>
+						<td>
+							<textarea cols=3 name='Brief' class='required form-control' >{{if and .RealEstate .RealEstate.Brief}}{{.RealEstate.Brief}}{{end}}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>楼盘标志<span class='required' aria-required='true'>*</span></label></td>
+						<td>
+						
+							<input type='file' class='form-control' id='file-logo' value="浏览图片" />
+							<input type='text' class='form-control' name='Logo[Id]' style='display:none;'/>
+							
+							{{if and .RealEstate (.RealEstate.Logo) }}
+								<a target='_blank' href='{{.RealEstate.Logo.Resource.Path}}'><img width=240 height=128 id='logo-preview' src='{{.RealEstate.Logo.Palm.Path}}' /></a>
+							{{else}}
+								<img width=240 height=128 id='logo-preview' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=' />
+							{{end}}
+						</td>
+						<td><label class='control-label'>楼盘封面<span class='required' aria-required='true'>*</span></label></td>
+						<td>
+						
+							<input type='file' class='form-control' id='file-cover' value="浏览图片" />
+							<input type='text' class='form-control required' name='Cover[Id]' style='display:none;'/>
+							
+							{{if and .RealEstate (.RealEstate.Cover) }}
+								<a target='_blank' href='{{.RealEstate.Cover.Resource.Path}}'><img width=240 height=128 id='cover-preview' src='{{.RealEstate.Cover.Palm.Path}}' /></a>
+							{{else}}
+								<img width=240 height=128 id='cover-preview' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=' />
+							{{end}}
+						</td>
 					</tr>
 					<tr>
 						<td><label class='control-label'>楼盘介绍</label></td>
@@ -523,6 +493,38 @@
 		{{if .RealEstate}}
 		<div class='tab-pane col-md-12' id="tab-images">
 		
+			{{range slice .PictureStat 0 1000000}}
+				{{.Name}} [{{.Count}}]
+			{{end}}
+			
+			<ul class='clearfix' style='padding:0'>
+				{{range slice .PicturePage.Data 0 1000000}}
+					<li style='float:left;list-style-type: none;padding:0;margin: 13px;height: 200px;'>
+						<p><img width=240 src='{{.Palm.Path}}' /></p>
+						<p>
+							<span style='float:right;'>
+								
+								<a class='picture-title-edit' href='javascript:void(0)'>编辑</a> <a data-id="{{.Id}}" class='picture-delete' href='javascript:void(0)'>删除</a>
+							</span>
+							<span class='picture-title'>
+								{{if .Title}}{{.Title}}{{else}}未标注{{end}}
+							</span>
+							<span class='picture-title-edition' style='display:none'>
+								<input type='text' value="{{if .Title}}{{.Title}}{{end}}" style='width:64px;'/>
+								<button data-created='{{.MTime.Created}}' data-id="{{.Id}}" class='picture-title-edition-button'>确定</button>
+								<button class='picture-title-edition-cancel'>取消</button>
+							</span>
+						</p>
+						<p>
+							{{$.CONTEXT.KVs.PictureType.Name .Type}} {{.MTime.SCreated}}
+						</p>
+					</li>
+				{{end}}
+			</ul>
+			
+			{{.PicturePage.Page.SetURL .CONTEXT.URL.String}}
+			{{template "pager" .PicturePage}}
+		
 			<form class='form-horizontal' id='form-real-estate-picture'>
 			
 				<input type='hidden' name="Rid" value="{{.RealEstate.Id}}" />
@@ -558,7 +560,7 @@
 							<td class='col-md-2'><label class='control-label'>图片名称</label></td>
 							<td class='col-md-10'>
 							
-								<input type='text' name='Name' class='form-control' value="" />
+								<input type='text' name='Title' class='form-control' value="" />
 							</td>
 						</tr>
 						<tr>
@@ -584,6 +586,107 @@ var PageLogical = function () {
 	
 	function FormInits(){
 		
+		$("#file-logo").upload({
+			
+			buttonText: "浏览图片",
+			fileTypeDesc : '图片文件',
+			fileTypeExts : '*.gif; *.jpg; *.png',
+			fileSizeLimit: 2048,
+			queueSizeLimit: 1,
+			multi: false,
+			uploader:"/manage/upload.json",
+			uploadScript: "/manage/upload.json",
+			success: function(file ,data){
+				
+				var o = JSON.parse(data);
+				
+				JWS("/manage/picture/upsert.json", {
+					Resource : {
+						Id: o.Id
+					},
+					Type: 100
+				}).success(function(data){
+					
+					var form = $("#form-real-estate");
+					form.find('input[name="Logo[Id]"]').val(data.Id)
+					$('#logo-preview').attr("src", o.Path)
+				})
+				
+			}
+		});
+		
+		$("#file-cover").upload({
+			
+			buttonText: "浏览图片",
+			fileTypeDesc : '图片文件',
+			fileTypeExts : '*.gif; *.jpg; *.png',
+			fileSizeLimit: 2048,
+			queueSizeLimit: 1,
+			multi: false,
+			uploader:"/manage/upload.json",
+			uploadScript: "/manage/upload.json",
+			success: function(file ,data){
+				
+				var o = JSON.parse(data);
+				
+				JWS("/manage/picture/upsert.json", {
+					Resource : {
+						Id: o.Id
+					},
+					Type: 100
+				}).success(function(data){
+					
+					var form = $("#form-real-estate");
+					form.find('input[name="Cover[Id]"]').val(data.Id)
+					$('#cover-preview').attr("src", o.Path)
+				})
+				
+			}
+		});
+		
+		$(".picture-delete").click(function(){
+			
+			var that = this
+			
+				
+				bootbox.confirm("是否确认删除?", function(ok) {
+		    		if(!ok) return;
+		    		
+					JWS("/manage/picture/delete.json", {Id:$(that).attr("data-id")}).success(function(){
+		    			$(that).parents("li").first().remove();
+					});
+		        }); 
+				
+		});
+		
+		$(".picture-title-edit").click(function(){
+			
+			$(this).parents("li").first().find(".picture-title-edition").show();
+			$(this).parents("li").first().find(".picture-title").hide();
+		})
+		
+		$(".picture-title-edition-button").click(function(){
+			
+			var that = this
+			var title = $(this).prev().val()
+			JWS("/manage/picture/upsert.json", {
+				
+				Id : $(this).attr('data-id'),
+				Title: title,
+				MTime: {
+					Created: $(this).data("created")
+				}
+			}).success(function(){
+				
+				$(that).parents("li").first().find(".picture-title").html(title)
+				$(that).next().click();
+			})
+		});
+		
+		$(".picture-title-edition-cancel").click(function(){
+			
+			$(this).parent().hide().prev().show();
+		})
 		
 		$('#pic-preview').load(function(){
 			
@@ -594,6 +697,7 @@ var PageLogical = function () {
 		});
 		
 		$("#PictureUpload").upload({
+			
 			buttonText: "浏览图片",
 			fileTypeDesc : '图片文件',
 			fileTypeExts : '*.gif; *.jpg; *.png',
@@ -607,7 +711,7 @@ var PageLogical = function () {
 				var form = $("#form-real-estate-picture");
 				var file = JSON.parse(data);
 				
-				form.find("input[name=Name]").val(file.Name)
+				form.find("input[name=Title]").val(file.Name)
 				form.find('input[name="Resource[Id]"]').val(file.Id)
 				$('#pic-preview').attr("src", file.Path)
 			}
@@ -617,7 +721,7 @@ var PageLogical = function () {
 			
 			if(!$(this).valid()){
 				
-				$(this).find("input.error, select.error").first().focus();
+				$(this).find("textarea.error, input.error, select.error").first().focus();
 				return false; 
 			}
 			
@@ -686,25 +790,7 @@ var PageLogical = function () {
 				delete vals.Open;
 			}
 			
-			if(vals.Features && vals.Features.length > 0) {
-				
-				var a = vals.Features.split(/[,，]/);
-				var b = []
-				for(var i=0;i<a.length;i++){
-					a[i] = a[i].trim()
-					if(a[i].length > 0){
-						b.push(a[i])
-					}
-				}
-				
-				if(b.length > 0){
-					vals.Features = b
-				}else{
-					delete vals.Features
-				}
-			}else {
-				delete vals.Features
-			}
+			vals.Features = tags(vals.Features);
 			
 			if(vals.Delivery){
 				vals.Delivery = new Date(vals.Delivery) / 1000;
@@ -716,6 +802,16 @@ var PageLogical = function () {
 				vals.GroupClose = new Date(vals.GroupClose) / 1000;
 			}else{
 				delete vals.GroupClose
+			}
+			
+			if(!vals.Logo.Id){
+				delete vals.Logo.Id;
+				delete vals.Logo;
+			}
+			
+			if(!vals.Cover.Id){
+				delete vals.Cover.Id;
+				delete vals.Cover;
 			}
 			
 			JWS("/manage/real-estate/upsert.json", vals).success(function(data){

@@ -49,6 +49,14 @@
 				}
 			}, 200)
 		}, function(){})
+		
+		$(".deliveries .bd ul li dl").hover(function(){
+			$(".deliveries .bd ul li.pic img").attr("src", $(this).attr("data-cover"))
+		})
+		
+		$(".opens .bd ul li dl").hover(function(){
+			$(".opens .bd ul li.pic img").attr("src", $(this).attr("data-cover"))
+		})
 	})
 	</script>
 	

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {{template "lib"}}
-{{set . "HTMLComponent" "新房" }}
+{{set . "HTMLComponent" "newhouse" }}
 {{set . "HTMLTitle" .Newhouse.Name }}
 {{template "head" .}}
 <body id='page-newhouse-picture-index'>
@@ -62,7 +62,7 @@
 							</ul>
 						</div>
 						<div class='ft'>
-							{{.PicturePage.Page.SetURL .Context.URL.String}}
+							{{.PicturePage.Page.SetURL .CONTEXT.URL.String}}
 							{{template "pager".PicturePage}}
 						</div>
 					{{else}}

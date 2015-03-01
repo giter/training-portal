@@ -7,7 +7,13 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"html/template"
 )
+
+func Safe(a string) interface{} {
+
+	return template.HTML(a)
+}
 
 func Upper(a string) string {
 	return strings.ToUpper(a)
@@ -228,12 +234,24 @@ func In(a interface{}, b interface{}) bool{
 		bb = bb.Elem()
 	}
 	
-	for i:=0 ; i<ln ; i=i+1 {
-	
-		if bb.Interface() == aa.Index(i).Interface() {
-			return true
+	switch aa.Kind() {
+	case reflect.String:
+		
+		if bb.Kind() != reflect.String {
+			return false
+		}
+		
+		return strings.Index(aa.Interface().(string) , bb.Interface().(string)) >= 0
+		
+	default:
+		for i:=0 ; i<ln ; i=i+1 {
+		
+			if bb.Interface() == aa.Index(i).Interface() {
+				return true
+			}
 		}
 	}
+	
 	
 	return false
 }

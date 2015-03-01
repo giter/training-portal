@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {{template "lib"}}
-{{set . "HTMLComponent" "新房" }}
+{{set . "HTMLComponent" "newhouse" }}
 {{set . "HTMLTitle" "新房"}}
 {{template "head" .}}
 <body id='page-newhouse-index'>
@@ -17,6 +17,7 @@
 				<ul class='menu'>
 					<li class='hoverable clickable active'><a href='/newhouse/'>新房首页</a></li>
 					<li class='hoverable clickable'><a href='/newhouse/list.html'>楼盘大全</a></li>
+					<li class='hoverable clickable'><a href='/newhouse/tour.html'>看房团</a></li>
 				</ul>
 			</div>
 		</div>
@@ -31,16 +32,13 @@
 			</div>
 			
 			<div class='section'>
-				<div class='left-238-12'>
+				<div class='triple-320-20'>
 					{{ template "block-newhouse-focus" . }}
 				</div>
-				<div class='left-238-12'>
+				<div class='triple-320-20'>
 					{{ template "block-newhouse-recommends" . }}
 				</div>
-				<div class='left-238-12'>
-					{{template "block-newhouse-deliveries" . }}
-				</div>
-				<div class='left-238-12 left-238-12-last'>
+				<div class='triple-320-20 triple-320-20-last'>
 					{{ template "block-newhouse-opens" . }}
 				</div>
 			</div>

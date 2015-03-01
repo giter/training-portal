@@ -86,19 +86,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label class='control-label'>短标题</label></td>
+					<td><label class='control-label'>短标题<span class='required' aria-required='true'>*</span></label></td>
 					<td>
 						<div class='row'>
 							<div class='col-md-12'>
-								<input type='text' name='Slug' value="{{if .News}}{{.News.Slug}}{{end}}" class='sp-long-line form-control'/>
+								<input type='text' name='Slug' value="{{if .News}}{{.News.Slug}}{{end}}" class='sp-long-line form-control required'/>
 							</div>
 						</div>
 					</td>
-					<td><label class='control-label'>WAP标题</label></td>
+					<td><label class='control-label'>来源</label></td>
 					<td>
 						<div class='row'>
 							<div class='col-md-12'>
-								<input type='text' name='WAPTitle' value="{{if .News}}{{.News.Title}}{{end}}" class='form-control'/>
+								<input type='text' name='Author' value="{{if .News}}{{.News.Author}}{{end}}" class='form-control'/>
 							</div>
 						</div>
 					</td>
@@ -139,6 +139,7 @@
 					<td>
 						<div class='row'>
 							<div class='col-md-12'>
+								<input type='text' name='Tag' value='{{if .News}}{{join .News.Tag ","}}{{end}}' class='form-control'/>
 							</div>
 						</div>
 					</td>
@@ -154,19 +155,29 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label class='control-label'>SEO关键词</label></td>
-					<td>
-						<input type='text' name='SEOKeyword' value="{{if .News}}{{.News.SEOKeyword}}{{end}}" class='form-control'/>
-					</td>
-					<td><label class='control-label'>SEO描述</label></td>
-					<td>
-						<textarea name='SEODescription' class='form-control'>{{.News.SEODescription}}</textarea>
+					<td><label class='control-label'>资讯摘要<span class='required' aria-required='true'>*</span></label></td>
+					<td colspan=3>
+						<textarea class='required form-control' name='Brief' style='height: 5em;'>{{if .News.Brief}}{{.News.Brief}}{{end}}</textarea>
 					</td>
 				</tr>
 				<tr>
-					<td><label class='control-label'>资讯摘要</label></td>
+					<td><label class='control-label'>封面<span class='required' aria-required='true'>*</span></label></td>
 					<td colspan=3>
-						<textarea class='form-control' name='Brief' style='height: 5em;'>{{if .News.Brief}}{{.News.Brief}}{{end}}</textarea>
+					
+						<input type='file' class='form-control' id='file-cover' value="浏览图片" />
+						<input type='text' class='form-control' name='Cover[Id]' style='display:none;'/>
+						
+						{{if and .News (.News.Cover) }}
+							<img id='pic-preview' src='{{.News.Cover.Palm.Path}}' />
+						{{else}}
+							<img id='pic-preview' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=' />
+						{{end}}
+					</td>
+				</tr>
+				<tr>
+					<td><label class='control-label'>资讯导读</label></td>
+					<td colspan=3>
+						<textarea class='required form-control' name='Introduction' style='height: 5em;'>{{if .News.Introduction}}{{.News.Introduction}}{{end}}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -197,6 +208,35 @@
 var PageLogical = function () {
 	
 	function FormInits(){
+
+		$("#file-cover").upload({
+			
+			buttonText: "浏览图片",
+			fileTypeDesc : '图片文件',
+			fileTypeExts : '*.gif; *.jpg; *.png',
+			fileSizeLimit: 2048,
+			queueSizeLimit: 1,
+			multi: false,
+			uploader:"/manage/upload.json",
+			uploadScript: "/manage/upload.json",
+			success: function(file ,data){
+				
+				var o = JSON.parse(data);
+				
+				JWS("/manage/picture/upsert.json", {
+					Resource : {
+						Id: o.Id
+					},
+					Type: 100
+				}).success(function(data){
+					
+					var form = $("#form-news");
+					form.find('input[name="Cover[Id]"]').val(data.Id)
+					$('#pic-preview').attr("src", o.Path)
+				})
+				
+			}
+		});
 		
 		$("#append-category").click(function(){
 			$(".category-selector").first().clone().appendTo($(this).parent());
@@ -214,13 +254,24 @@ var PageLogical = function () {
 
 			if(!$(this).valid()){
 				
-				$(this).find("input.error, select.error").first().focus();
+				$(this).find("textarea.erorr, input.error, select.error").first().focus();
 				return false; 
 			}
 			
 			var vals = $(this).serializeJSON()
 			if(vals.Time){
 				vals.Time = new Date(vals.Time) / 1000;
+			}
+			
+			if(vals.Tag){
+				vals.Tag = tags(vals.Tag);
+			}else{
+				delete vals.Tag;
+			}
+			
+			if(!vals.Cover.Id){
+				delete vals.Cover.Id;
+				delete vals.Cover;
 			}
 			
 			JWS("/manage/news/upsert.json", vals).success(function(data){

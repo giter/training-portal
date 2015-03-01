@@ -1,6 +1,8 @@
 package services
 
 import (
+
+	"reflect"
 	"sync"
 	"gopkg.in/mgo.v2"
 )
@@ -147,6 +149,42 @@ type NodeSet struct {
 	Nodes []Node
 	Names map[string] interface{}
 	Values map[interface{}]string
+}
+
+func (n NodeSet) Name(val interface{}) string{
+	
+	vv := reflect.ValueOf(val)
+	
+	for vv.Kind() == reflect.Ptr {
+		vv = vv.Elem()
+	}
+	
+	switch vv.Kind() {
+	
+	case reflect.Int:
+		if v, ok := n.Values[vv.Interface()]; ok {
+			return v
+		}
+		
+	case reflect.Int64:
+	
+		if v, ok := n.Values[int(vv.Interface().(int64))]; ok {
+			return v
+		}
+	case reflect.String:
+	
+		if v, ok := n.Values[vv.Interface()]; ok {
+			return v
+		}
+		
+	default:
+		panic("Unsupported Types!")
+	}
+	
+	
+	
+	
+	return ""
 }
 
 func NewNodeSet(v []Node) (n NodeSet) {

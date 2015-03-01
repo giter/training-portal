@@ -12,11 +12,18 @@ const (
 	
 	CATEGORY_LOCAL = "local"
 	CATEGORY_LEADER = "leader"
+	CATEGORY_SPECIAL = "special"
+	CATEGORY_POLICY = "policy"
+	CATEGORY_VIEW   = "view"
 	CATEGORY_SOLE = "sole"
 	CATEGORY_LAND = "land"
+	CATEGORY_DATA = "data"
 	CATEGORY_DAY = "day"
 	CATEGORY_WEEK = "week"
 	CATEGORY_MONTH = "month"
+	CATEGORY_JOB  = "job"
+	CATEGORY_POINT = "point"
+	CAtEGORY_GUIDE = "guide"
 )
 
 
@@ -57,12 +64,18 @@ func CategoryInitializing(db *mgo.Database) (err error){
 	b := [][]string {
 	
 		[]string {"本地楼市", CATEGORY_LOCAL},
+		[]string {"专题报道", CATEGORY_SPECIAL},
 		[]string {"各界声音", CATEGORY_LEADER},
 		[]string {"独家探盘", CATEGORY_SOLE},
 		[]string {"土地资讯", CATEGORY_LAND},
+		[]string {"慧眼看楼", CATEGORY_VIEW},
+		[]string {"楼市政策", CATEGORY_POLICY},
+		[]string {"成交数据", CATEGORY_DATA},
 		[]string {"日数据", CATEGORY_DAY},
 		[]string {"周数据", CATEGORY_WEEK},
 		[]string {"月数据", CATEGORY_MONTH},
+		[]string {"地产招聘", CATEGORY_JOB},
+		[]string {"业界观点", CATEGORY_POINT},
 	}
 	
 	for _, k := range b {

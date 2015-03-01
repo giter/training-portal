@@ -95,6 +95,15 @@ func NewsUpsert(db *mgo.Database, req *http.Request, r render.Render) {
 	
 	o.MTime.Changed = models.NewInt64(time.Now().Unix())
 	
+	if o.Cover != nil && o.Cover.Id != nil && *o.Cover.Id != ""{
+	
+		if o.Cover, err = services.PictureGet(db, *o.Cover.Id); err != nil {
+		
+			r.JSON(500, err.Error())
+			return
+		}
+	}
+	
 	if o.Id == nil || len(*o.Id) == 0 {
 	
 	

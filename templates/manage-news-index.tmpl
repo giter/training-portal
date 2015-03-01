@@ -113,10 +113,12 @@ var PageLogical = function () {
                 		return ""
                 	}},
                 	{ "data": "Title", "title":"标题", "targets": 2,"defaultContent": ""},
-                	{ "data": "", "title":"封面", "targets": 3,"defaultContent": "", "width":80},
+                	{ "data": "Cover.Thumbnail.Path", "title":"封面", "targets": 3,"defaultContent": "", "width":80, "render": function(data) {
+                		return data ? "<img width=120 src='"+data+"' />" : ""
+                	}},
                 	{ "data": "Time", "title":"发布日期", "targets": 4,"defaultContent": "", "width":120, "render": t2dt},
                 	{ "data": "ST.Comments", "title":"评论", "targets": 5,"defaultContent": "0", "width":60},
-                	{ "data": "MTime.Clicked", "title":"点击量", "targets": 7,"defaultContent": "", "width":60},
+                	{ "data": "ST.Clicked", "title":"点击量", "targets": 7,"defaultContent": "", "width":60},
                 	{ "data": "Status.Disabled", "title":"通过", "defaultContent": "", "targets": 8, "width": 32, "render": btn_disable},
                 	{ "data": "Status.Recommended","title":"推荐", "defaultContent": "", "targets": 9, "width": 32, "render": btn_recommend},
                 	{ "data": "Status.Indexed","title":"首显", "defaultContent": "", "targets": 9, "width": 32, "render": btn_index},

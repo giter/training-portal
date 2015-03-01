@@ -116,3 +116,8 @@ func RemoveAll(c *mgo.Collection, ids []string) (err error){
 	_, err = c.RemoveAll(bson.M{ "_id": bson.M{"$in": ids} })
 	return
 }
+
+func ViewInc(c *mgo.Collection, Id string) error {
+	
+	return c.UpdateId(Id, bson.M{"$inc": bson.M{"ST.Clicked": 1}});
+}

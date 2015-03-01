@@ -15,6 +15,8 @@ import (
 	
 	"image"
 	"image/jpeg"
+	_ "image/png"
+	_ "image/gif"
 	
 	"ftjx/forms"
 	"ftjx/models"
@@ -30,6 +32,25 @@ const (
 func ResourceCollection(db *mgo.Database) *mgo.Collection {
 	
 	return db.C(models.COLLECTION_RESOURCE);
+}
+
+func ResourceDelete(db *mgo.Database, Resource *models.Resource) (err error) {
+
+	if Resource == nil {
+		return
+	}
+
+	if err = os.Remove(DIR_PREFIX + *Resource.Path) ; err != nil {
+		return
+	}
+	
+	c := ResourceCollection(db)
+	
+	if Resource.Id != nil && *Resource.Id != "" {
+		err = c.RemoveId(*Resource.Id)
+	}
+	
+	return
 }
 
 func ResourceResize(db *mgo.Database, Resource *models.Resource, width uint) (r *models.Resource, err error) {

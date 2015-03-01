@@ -52,6 +52,7 @@ func main() {
 	funcMap["in"]  = utils.In;
 	funcMap["upper"] = utils.Upper;
 	funcMap["join"]  = utils.Join;
+	funcMap["safe"]  = utils.Safe;
     
 	m.Use(render.Renderer(render.Options{
 		Layout: "",

@@ -43,8 +43,9 @@ func NewHouse(m *martini.ClassicMartini){
 
 func News(m *martini.ClassicMartini) {
 
-	m.Get("/news/", news.Index);
-	m.Get("/news/index.html", news.Index);
+	m.Get("/news/", binding.Bind(forms.NewsForm{}), news.Index);
+	m.Get("/news/index.html", binding.Bind(forms.NewsForm{}), news.Index);
+	m.Get("/news/o:id.html", news.DetailIndex);
 }
 
 func GroupBuy(m *martini.ClassicMartini) {
@@ -101,4 +102,5 @@ func Managements(m *martini.ClassicMartini) {
 	m.Get("/manage/picture/index.html", manage.Index("manage-picture-index"));
 	m.Post("/manage/picture/list.json", manage.PictureList)
 	m.Post("/manage/picture/upsert.json", manage.PictureUpsert)
+	m.Post("/manage/picture/delete.json", manage.PictureDelete)
 }

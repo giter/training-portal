@@ -11,20 +11,22 @@ type Page struct {
 	Count int
 	
 	URL  string
+	Hash string
 }
 
-func (p Page) SetURL(a *string) string {
+func (p *Page) SetURL(a string) string {
 	
-	if a == nil {
-		p.URL = ""
-	}else {
-		p.URL = *a
-	}
-	
+	p.URL = a
 	return ""
 }
 
-func (p Page) Current() int {
+func (p *Page) SetHash(a string) string {
+	
+	p.Hash = a
+	return ""
+}
+
+func (p *Page) Current() int {
 	
 	if p.Size == 0 {
 		return 0
@@ -33,28 +35,28 @@ func (p Page) Current() int {
 	return p.From / p.Size + 1 
 }
 
-func (p Page) Next() int {
+func (p *Page) Next() int {
 	
 	if p.Current() == p.Last() { return 0 }
 	
 	return p.Current() + 1
 }
 
-func (p Page) Previous() int {
+func (p *Page) Previous() int {
 
 	if p.Current() <= 1 { return 0 }
 	
 	return p.Current() + 1
 }
 
-func (p Page) Last() int {
+func (p *Page) Last() int {
 
 	if p.Size == 0 { return 0 }
 	
 	return (p.Count+p.Size-1) / p.Size
 }
 
-func (p Page) List() []int {
+func (p *Page) List() []int {
 
 	r := make([]int, 0, 15)
 	

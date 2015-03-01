@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 {{template "lib"}}
-{{set . "HTMLComponent" "资讯" }}
+{{set . "HTMLComponent" "news" }}
 {{set . "HTMLTitle" "资讯"}}
 {{template "head" .}}
-<body>
+<body id='page-news-index'>
 
 	{{template "top" .}}
 	
@@ -26,34 +26,129 @@
 		</div>
 	</div>
 	
-	<div id='page-news-index'>
-		<div id='bd'>
-			<div class='section'>
-				<div class='left-400-30'>
-					<div class='block-news-focus block block-boundless'>
-						<div class='hd'>
-							<div class='more f16'>{{.Date}} {{.Weekday}}</div>
-							<h1>要闻推荐</h1>
-						</div>
-						<div class='bd f13'>
-							{{range slice .Recommends 0 1}}
-								<h2 class='l3 bold'><a href='{{.SURL}}'><nobr>{{.Title}}</nobr></a></h2>
-								<blockquote class='f12 quote'>{{.Brief}}</blockquote>
+	<div id='bd'>
+		<div class='section'>
+			<div class='left-400-30'>
+				<div class='block-news-focus block block-boundless'>
+					<div class='hd'>
+						<div class='more f16'>{{.Date}} {{.Weekday}}</div>
+						<h1>要闻推荐</h1>
+					</div>
+					<div class='bd f13'>
+						{{range slice .Recommends 0 2}}
+							<h2 class='bold'><a title="{{.Title}}" href='{{.SURL}}'><nobr>{{.Title}}</nobr></a></h2>
+							<blockquote class='f12'>{{.Brief}}</blockquote>
+						{{ end }}
+						<ul>
+							{{range slice .Recommends 2 8}}
+								<li class='l2'><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.STitle}}</a></li>
 							{{ end }}
-							<ul>
-								{{range slice .Recommends 1 7}}
-									<li class='l2'><i class='icon-dot'></i> <a href='{{.SURL}}'>{{.Title}}</a></li>
-								{{ end }}
-							</ul>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class='right-570'>
+				<div class='block block-news-pics block-boundless'>
+					<div class='bd'>
+						<img src='/images/news/sample.jpg' width=570 height=290 />
+					</div>
+					<div class=ft style='margin-top:3px;'>
+					
+						<div class='f16' style='text-align:center;width: 280px;line-height:145px;height:145px;background-color: #ccc;float:left;'>
+							广告位 
+							280*145
+						</div>
+						
+						<div class='f16' style='text-align:center;width: 280px;line-height:145px;height:145px;background-color: #ccc;margin-left:290px;'>
+							广告位 
+							280*145
 						</div>
 					</div>
 				</div>
-				<div class='right-570'>
-					<div class='block block-news-pics block-boundless'>
-						<div class='bd'>
-							<img src='/images/news/sample.jpg' width=570 height=290 />
-						</div>
+			</div>
+		</div>
+	
+		<div class='section'>
+			<div class='left-610-30'>
+			
+				<div id=news-list class='block block-news-list block-boundless'>
+					<div class='hd hd-style-1 hd-switch'>
+						<ul>
+							<li class='active'><a href='#'>本地楼市</a></li>
+							<li><a href='#'>楼市政策</a></li>
+							<li><a href='#'>土地拍卖</a></li>
+							<li><a href='#'>地产招聘</a></li>
+							<li><a href='#'>业界观点</a></li>
+							<li><a href='#'>购房指南</a></li>
+						</ul>
 					</div>
+					<div class='bd'>
+						<ul>
+						{{range .NewsList.Data}}
+							<li class='news hoverable clickable'>
+								<h1 class='l5 bold'><a href='{{.SURL}}'>{{.Title}}</a></h1>
+								
+								{{if .Cover }}
+								<dl class='clearfix'>
+									<dt>
+										<img width=200 src='{{.Cover.Palm.Path}}' />
+									</dt>
+									<dd>
+										<blockquote>
+											{{.Brief}}
+										</blockquote>
+										<abbr>
+											{{if .Tag | len }}
+											<div class='left'>
+												标签： 
+												{{range .Tag}}
+													<a href='#'>{{.}}</a>
+												{{end}}
+											</div>
+											{{end}}
+											
+											<div class='right'>
+												{{.STime}}
+											</div>
+										</abbr>
+									</dd>
+								</dl>
+								{{else}}
+								<blockquote>
+									{{.Brief}}
+								</blockquote>
+								<abbr class='clearfix'>
+									{{if .Tag | len }}
+									<div class='left'>
+										标签： 
+										{{range .Tag}}
+											<a href='#'>{{.}}</a>
+										{{end}}
+									</div>
+									{{end}}
+											
+									<div class='right'>
+										{{.STime}}
+									</div>
+								</abbr>
+								{{end}}
+							</li>
+						{{end}}
+						</ul>
+					</div>
+					<div class='ft'>
+						{{ .NewsList.Page.SetHash "news-list" }}
+						{{ template "pager" .NewsList}}
+					</div>
+				</div>
+			</div>
+			<div class='right-360' style='background-color: #f6f6f6;'>
+				<div style='padding: 20px;'>
+					{{ template "block-news-view" .NewsView }}
+					{{ template "block-news-leader" .NewsLeader }}
+					{{ template "block-news-special" .NewsSole }}
+					{{ template "block-news-data" .NewsData }}
+					{{ template "block-news-sole" .NewsSole }}
 				</div>
 			</div>
 		</div>

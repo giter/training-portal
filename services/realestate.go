@@ -40,13 +40,14 @@ func RealEstateList(db *mgo.Database) (r []models.RealEstate , err error) {
 
 type SRealEstatePage struct {
 
-	Page Page
+	Page *Page
 	Data []models.RealEstate
 }
 
 func RealEstatePage(db *mgo.Database, query forms.RealEstatePageForm) (p SRealEstatePage , err error) {
 
 	c := RealEstateCollection(db)
+	p.Page = &Page{}
 	
 	limit := 10
 	skip := query.Page * limit - limit
@@ -154,6 +155,21 @@ func RealEstateDeliveries(db *mgo.Database, Count int) (r []models.RealEstate , 
 	return
 }
 
+
+func RealEstateGroupBuyRecommends(db *mgo.Database, Count int) (r []models.RealEstate , err error) {
+	
+	c := RealEstateCollection(db)
+	
+	q := bson.M{ }
+	
+	q["Status.Disabled"] = bson.M{ "$ne" : true };
+	q["Status.Indexed"] = bson.M{ "$eq" : true };
+	q["GroupClose"] = bson.M{"$gte" : time.Now().Unix()}
+	
+	err = c.Find(q).Sort("GroupClose","-Recommendation").Limit(Count).All(&r)
+	
+	return
+}
 
 func RealEstateGroupBuys(db *mgo.Database, Count int) (r []models.RealEstate , err error) {
 

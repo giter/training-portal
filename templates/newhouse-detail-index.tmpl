@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {{template "lib"}}
-{{set . "HTMLComponent" "新房" }}
+{{set . "HTMLComponent" "newhouse" }}
 {{set . "HTMLTitle" .Newhouse.Name }}
 {{template "head" .}}
 <body id='page-newhouse-detail-index'>
@@ -56,37 +56,37 @@
 							<h1>{{if .Newhouse.Adword}}{{.Newhouse.Adword}}{{else}}{{.Newhouse.Name}}{{end}}</h1>
 							<div class='f16'>
 							
-								<dl class='l4 clearfix'>
+								<dl class='l3 clearfix'>
 									<dt><span class='quote'>参考售价</span></dt>
 									<dd><span class='featured f18'>{{.Newhouse.Price}}</span> 元/㎡</dd>
 								</dl>
 								
 								{{if .Newhouse.GroupDescription }}
-									<div class='f18 featured l6'>
+									<div class='f18 featured l4'>
 										<i class='icon-arrow-right'></i> {{.Newhouse.GroupDescription}}
 									</div>
 								{{end}}
 								
-								<dl class='l4 clearfix'>
+								<dl class='l3 clearfix'>
 									<dt><span class='quote'>楼盘地址</span></dt>
 									<dd>{{.Newhouse.Address}}</dd>
 								</dl>
 								
-								<dl class='l4 clearfix'>
+								<dl class='l3 clearfix'>
 									<dt><span class='quote'>开盘时间</span></dt>
 									<dd>{{.Newhouse.SOpen}}</dd>
 								</dl>
 								
-								<dl class='l4 clearfix'>
+								<dl class='l3 clearfix'>
 									<dt><span class='quote'>交房时间</span></dt>
 									<dd>{{.Newhouse.SDelivery}}</dd>
 								</dl>
 								
-								<dl class='l4 clearfix' style='margin-top: 13px;'>
+								<dl class='clearfix' style='margin-top: 13px;'>
 									<dt><i class='icon-phone-xlarge'></i></dt>
 									<dd>
-										<h1 class='l2 primary'>{{ template "newhouse-phone" .Newhouse }}</h1>
-										<span class=' l2 f13 quote'>售楼处工作时间： {{.Newhouse.WorkTime}}</span>
+										<h1 class='l15 primary'>{{ template "newhouse-phone" .Newhouse }}</h1>
+										<span class=' l15 f13 quote'>售楼处工作时间： {{.Newhouse.WorkTime}}</span>
 									</dd>
 								</dl>
 								
@@ -127,7 +127,7 @@
 						
 						<div class='right-500'>
 							<div class='f16'>
-								<dl class='l4 clearfix'>
+								<dl class='l25 clearfix'>
 									<dt><span class='bold'>物业类型</span></dt>
 									<dd>
 										{{range .CONTEXT.KVs.Usage.Nodes }}
@@ -146,7 +146,7 @@
 										{{end}}
 									</dd>
 								</dl>
-								<dl class='l4 clearfix'>
+								<dl class='l25 clearfix'>
 									<dt><span class='bold'>参数</span></dt>
 									<dd>
 										{{if .Newhouse.Carbarn }}
@@ -184,7 +184,7 @@
 								
 								{{if .Newhouse.Enviroment}}
 								{{if .Newhouse.Enviroment.Description}}
-								<dl class='l4 clearfix'>
+								<dl class='l25 clearfix'>
 									<dt><span class='bold'>环境</span></dt>
 									<dd>
 										{{.Newhouse.Enviroment.Description}}
@@ -192,14 +192,14 @@
 								</dl>
 								{{end}}
 								{{end}}
-								<dl class='l4 clearfix'>
+								<dl class='l25 clearfix'>
 									<dt><span class='bold'>特色</span></dt>
 									<dd>{{join .Newhouse.Features " "}}</dd>
 								</dl>
 								
 								{{if .Newhouse.Enviroment}}
 								{{if .Newhouse.Enviroment.Schools}}
-								<dl class='l4 clearfix'>
+								<dl class='l25 clearfix'>
 									<dt><span class='bold'>学区</span></dt>
 									<dd>
 										{{.Newhouse.Enviroment.Schools}}
@@ -209,7 +209,7 @@
 								{{end}}
 								
 								{{if .Newhouse.Sale}}
-								<dl class='l4 clearfix'>
+								<dl class='l25 clearfix'>
 									<dt><span class='bold'>销售信息</span></dt>
 									<dd>
 										{{.Newhouse.Sale}}
@@ -256,6 +256,7 @@
 	
 	{{template "ft" .}}
 	<script type='text/javascript'>
+	
 		$(function(){
 			
 			var block_index = $(".block-newhouse-index");

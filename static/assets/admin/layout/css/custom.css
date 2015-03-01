@@ -14,3 +14,5 @@ table tbody tr td.dataTables_empty{ padding:2em; font-size:24px;}
 input.error,textarea.error,select.error { border:1px solid #ff0000; }
 input.valid,textarea.valid,select.valid { border:1px solid #dff0d8; }
 label.error { color: red; }
+
+.uploadifive-button { margin: 12px 0;}
