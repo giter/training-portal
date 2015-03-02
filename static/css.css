@@ -3,7 +3,7 @@
 html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,code,em,strong,th{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}legend{color:#000}
 
 
-body { font-size: 12px;color: #333;line-height:1.5;font-family: microsoft yahei, simsun, arial; }
+body { background-attachment: fixed; font-size: 12px;color: #333;line-height:1.5;font-family: microsoft yahei, simsun, arial; }
 a{color:#333;text-decoration:none;}
 a:hover { color:#ff6600;}
 
@@ -11,14 +11,14 @@ h1 {font-size:22px;}
 h2 {font-size:18px;}
 h3 {font-size:16px;}
 
-
 .primary, .primary a {color:#62ab00;}
 .secondary, .secondary a {color:#528e00;}
 .featured, .featured a  {color:#ff6600;}
 .normal,   .normal   a  {color:#333;}
 blockquote, blockquote a, .quote, .quote a {color:#888;}
 
-
+label.error { color: #ff0000; }
+label.valid { color: inherit; }
 
 .bold { font-weight:bold; }
 .deletion { text-decoration: line-through; color: #888;}
@@ -56,6 +56,7 @@ i,.icon { display:inline-block; vertical-align: middle; background-repeat: no-re
 .icon-price-start  { background-image: url(./images/icons/price-start.png); width:15px; height:15px;}
 .icon-price-average  { background-image: url(./images/icons/price-average.png); width:15px; height:15px;}
 .icon-user-gray{ background-image: url(./images/icons/user-gray.png); width:20px; height:20px; }
+.icon-user-white{ background-image: url(./images/icons/user-white.png); width:20px; height:20px; }
 .icon-more-vertical { background-image: url(./images/icons/more-vertical.png); width:23px; height:70px; }
 .icon-close { background-image: url(./images/icons/close.png); width:13px; height:13px; }
 .icon-square { background-image: url(./images/icons/square.png); width:9px; height:9px; }
@@ -65,7 +66,9 @@ i,.icon { display:inline-block; vertical-align: middle; background-repeat: no-re
 .icon-eye { background-image: url(./images/icons/eye.png); width:22px; height:11px; }
 .icon-pop { background-image: url(./images/icons/pop.png); width:50px; height:20px; }
 .icon-comment { background-image: url(./images/icons/comment.png); width:14px; height:14px; }
-
+.icon-lock { background-image: url(./images/icons/lock.png); width:16px; height:20px; }
+.icon-um120 { background-image: url(./images/icons/um120.png); width:120px; height:120px; }
+.icon-um50 { background-image: url(./images/icons/um50.png); width:50px; height:50px; }
 
 .submit {cursor:pointer;}
 
@@ -83,7 +86,8 @@ p{margin:0;}
 .triple-320-20-last { margin-right: 0; }
 
 .left-670-30 { float:left; width:670px;}
-.right-300 { margin-left:700px; width:300px;}
+.left-700    { float:left; width:700px;}
+.right-300   { margin-left:700px; width:300px;}
 
 .left-740-20 { float:left; width:740px;}
 .right-240 { margin-left:760px; width:240px;}
@@ -104,6 +108,9 @@ p{margin:0;}
 .left-690-30 { float:left; width: 690px; }
 .right-280   { margin-left: 720px; width: 280px; }
 
+.left-600-40 { float:left; width: 600px; }
+.right-360   { margin-left: 640px; width: 360px;}
+
 /* Framework */
 #top { font-size: 14px; height: 40px; line-height:40px; background-color:#f6f6f6; border-bottom: 1px solid #ddd;}
 #top a{ color: #999;}
@@ -114,6 +121,20 @@ p{margin:0;}
 #top ul li.active a,
 #top ul li.hover a{ color: #62ab00;}
 #top .more { float:right; }
+
+#top-static { font-size: 14px; height: 80px; line-height:80px; background-color:#62ab00; border-bottom: 1px solid #ddd;color: #fff;}
+#top-static .logo {float:left; width:310px;}
+#top-static .logo img { vertical-align: middle; }
+#top-static .logo abbr { color: #ddd; font-weight:normal;}
+#top-static a{ color: #fff;}
+#top-static abbr{color:#ddd;}
+#top-static .wrap{ width: 1000px; margin: 0 auto;}
+#top-static ul li { float:left; width: 85px; text-align: center; border-bottom: 3px solid #f6f6f6;}
+#top-static ul li.active { border-color: #62ab00;}
+#top-static ul li.active a,
+#top-static ul li.hover a{ color: #62ab00;}
+#top-static .more { float:right; }
+
 
 #hd {}
 #bd {margin:0 auto;width:1000px;}
@@ -137,7 +158,7 @@ p{margin:0;}
 
 #ft .ft-bottom { background-color: #fff; color:#999; text-align:center; padding: 12px 0;}
 
-#ft a{color:#666;text-decoration:none;}
+#ft a{color:#999;text-decoration:none;}
 
 #brand {width:1000px;margin:0 auto;}
 #brand .logo {float:left; margin-top: 26px;width:310px;}
@@ -489,6 +510,48 @@ p{margin:0;}
 #page-newhouse-picture-index .block-newhouse-pictures .bd ul li { float: left; margin-bottom: 25px; margin-right: 25px;}
 #page-newhouse-picture-index .block-newhouse-pictures .bd ul li.last { margin-right: 0; }
 
+#page-user-login #bd { padding: 80px auto; }
+#page-user-login #login-error { line-height: 40px; height: 40px; color: #ff0000; }
+
+#page-user-login .block-user-login { padding: 20px 50px; }
+#page-user-login .block-user-login .hd h2 { color: #333; }
+#page-user-login .block-user-login .bd { padding:20px 0; }
+#page-user-login .block-user-login .bd dl { margin-bottom: 20px; }
+#page-user-login .block-user-login .bd dl dt { line-height: 40px; text-align:center; height: 40px; width: 40px; float:left; background-color: #62ab00;}
+#page-user-login .block-user-login .bd dl dd { float: left; border: 1px solid #ddd;}
+#page-user-login .block-user-login .bd dl dd input[type=text],
+#page-user-login .block-user-login .bd dl dd input[type=password] { width: 190px; border: none;display:block; float:left; padding: 0 13px; font-size: 16px; height: 38px; vertical-align: middle; }
+#page-user-login .block-user-login .bd button { font-size: 16px; border:none; width: 260px; height: 40px; line-height:40px; color: #fff; background-color: #62ab00; }
+#page-user-login .block-user-login .bd .remember { line-height: 32px; height: 32px;  }
+#page-user-login .block-user-login .ft { margin-top: 20px; color: #999;}
+#page-user-login .block-user-login .ft dl dt { float:left; }
+#page-user-login .block-user-login .ft dl dd { float:right; }
+
+#page-user-login .block-groupbuy-jumbotron { position: relative; overflow: visible; }
+#page-user-login .block-groupbuy-jumbotron .icon-arrow-left-large{ position: absolute; left: 0; top: 100px; }
+#page-user-login .block-groupbuy-jumbotron .icon-arrow-right-large{ position: absolute; right: 0; top: 100px; }
+#page-user-login .block-groupbuy-jumbotron .ft { text-align: center; height: 36px; line-height: 36px;}
+#page-user-login .block-groupbuy-jumbotron .ft ul li { display:inline-block; _zoom:1;_display:inline; margin-right: 24px; }
+
+#page-user-register #bd { margin: 64px auto; }
+
+#page-user-register .block-user-register .bd { border: 1px solid #ddd; padding: 64px;} 
+#page-user-register .block-user-register .bd dl { line-height: 70px; font-size:16px; }
+#page-user-register .block-user-register .bd dl dt { float:left; text-align:right; width: 90px; }
+#page-user-register .block-user-register .bd dl dt { float:left; }
+#page-user-register .block-user-register .bd dl dd.dd1 { float:left; margin-left: 25px; }
+#page-user-register .block-user-register .bd dl dd.dd2 { float:left; color: #999; line-height: 20px; margin-top:13px; margin-left: 25px; width: 270px;}
+#page-user-register .block-user-register .bd dl dd input[type=text],
+#page-user-register .block-user-register .bd dl dd input[type=password] { border: 1px solid #ddd; height: 38px; line-height: 38px; padding: 0 13px; width: 330px;}
+#page-user-register .block-user-register .bd dl dd input.validate-code { width: 120px; }
+#page-user-register .block-user-register .bd dl dd button { font-size: 16px; color: #fff; background-color: #62ab00; border:none; height: 40px; line-height: 40px; width: 356px;}
+#page-user-register .block-user-register .bd dl.hover dt { color: #62ab00; }
+#page-user-register .block-user-register .bd dl.hover dt dd { color: #62ab00; }
+#page-user-register .block-user-register .bd dl.hover dd input[type=text],
+#page-user-register .block-user-register .bd dl.hover dd input[type=password] { border-color: #62ab00; }
+#page-user-register .block-user-register .bd dl.hover dd label {color: #62ab00;}
+#page-user-register .block-user-register .bd dl.hover dd label.error { color: #ff0000; }
+#page-user-register .block-user-register .bd dl.hover dd label.valid { color: #62ab00; }
 /*Blocks*/
 #block-newhouse-focus .hd { line-height: 45px; border-top: 1px solid #62ab00; border-bottom: 1px solid #ddd;}
 #block-newhouse-focus .bd { padding: 18px 0 0 0; }

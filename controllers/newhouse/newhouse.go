@@ -107,7 +107,7 @@ func DetailIndex(db *mgo.Database, ctx bson.M, r render.Render, params martini.P
 	
 	Id := params["id"]
 	
-	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); err != nil || ctx["Newhouse"] == nil {
+	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
 		
 		r.Error(404);
 		return
@@ -160,7 +160,7 @@ func PictureIndex(db *mgo.Database, req *http.Request, ctx bson.M, r render.Rend
 		ctx["PictureTypeName"] = services.KVs(db)["PictureType"].Values[int(typo)]
 	}
 	
-	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); err != nil || ctx["Newhouse"] == nil {
+	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
 		
 		r.Error(404);
 		return

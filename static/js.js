@@ -1,5 +1,6 @@
 $(function(){
-	
+
+
   var hover = function(){
     $(this).addClass("hover");
   };
@@ -16,6 +17,23 @@ $(function(){
 	  $(that).find(".bd ul li dl").hover(function(){
 		  $(that).find(".bd ul li.pic img").attr("src", $(this).attr("data-cover"))
 	  })
+  })
+  
+  $("form").first().each(function(){
+	  
+	  jQuery.validator.addMethod("mobile", function(value, element) {
+		  return /^(13|14|15|18)[0-9]{9}$/.test( value );
+	  }, 'Please enter a valid mobile.');
+
+	  jQuery.validator.addClassRules("mobile", { mobile: true})
+  })
+  
+  $("form").submit(function(){
+	  
+	if(!$(this).valid()){
+		$(".error").first().focus()
+		return false
+	}
   })
 });
 

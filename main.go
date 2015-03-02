@@ -2,18 +2,23 @@ package main
 
 import (
 
+	"fmt"
 	"time"
 	"net/http"
 	"html/template"
+	"strings"
+	"math/rand"
 
 	"github.com/go-martini/martini"
-	// "github.com/martini-contrib/gzip"
+	//"github.com/martini-contrib/gzip"
 	"github.com/martini-contrib/render"
 	"github.com/martini-contrib/sessions"
+	
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
 	"ftjx/controllers"
+	"ftjx/forms"
 	"ftjx/models"
 	"ftjx/services"
 	"ftjx/utils"
@@ -23,6 +28,8 @@ var UPTIME = time.Now().Format("200601021504")
 
 func main() {
 
+	rand.Seed(time.Now().UnixNano())
+	
 	m := martini.Classic()
 
 	// m.Use(gzip.All())
@@ -59,12 +66,12 @@ func main() {
 		Funcs: []template.FuncMap{ funcMap },
 	}))
 	
-	store := sessions.NewCookieStore([]byte("ftjx"));
+	store := sessions.NewCookieStore([]byte("jiaxing zendor"));
 	
-	m.Use(sessions.Sessions("ftjx", store))
 	m.Use(martini.Static("static"))
+	m.Use(sessions.Sessions("FTU", store))
+	
 	m.Use(func (ctx martini.Context, r *http.Request) {
-		
 		
 		v := bson.M{}
 		
@@ -77,14 +84,48 @@ func main() {
 		v["CONTEXT"] = CONTEXT
 		
 		ctx.Map(v)
+		
+		ctx.Map(forms.AjaxRequestState(r.Header.Get("x-requested-with") != ""))
+		
 		ctx.Next()
 	})
+	
+	m.Use(func (db *mgo.Database, CONTEXT bson.M, ctx martini.Context, r render.Render, session sessions.Session, req *http.Request) {
+		
+		uid := session.Get("uid")
+		
+		if uid != nil {
+			
+			fmt.Println(uid)
+			
+			u, _ := services.UserGet(db, uid.(string))
+			
+			if u != nil {
+				ctx.Map(u);
+				CONTEXT = CONTEXT["CONTEXT"].(bson.M)
+				CONTEXT["USER"] = u
+			}
+		}
+		
+		if strings.HasPrefix(req.RequestURI, "/user/") {
+			
+			if uid == nil {
+			
+				r.Redirect("/login.html", 302);
+				return
+			}
+		}
+		
+		ctx.Next();
+	});
 
 	controllers.Managements(m)
 	controllers.Index(m);
 	controllers.NewHouse(m);
 	controllers.News(m);
 	controllers.GroupBuy(m);
+	controllers.User(m);
+	controllers.Misc(m);
 	
 	m.Run()
 }
@@ -94,6 +135,20 @@ func indexing(db *mgo.Database) (err error) {
 	c := db.C(models.COLLECTION_AREA);
 	
 	if err = c.EnsureIndexKey("City", "Area"); err != nil {
+		panic(err)
+	}
+	
+	u := db.C(models.COLLECTION_USER);
+	
+	if err = u.EnsureIndex(mgo.Index{Key : []string {"Account"},Unique: true}); err != nil {
+		panic(err)
+	}
+	
+	if err = u.EnsureIndex(mgo.Index{Key : []string {"Email"},Unique: true}); err != nil {
+		panic(err)
+	}
+	
+	if err = u.EnsureIndex(mgo.Index{Key : []string {"Mobile"},Unique: true}); err != nil {
 		panic(err)
 	}
 	

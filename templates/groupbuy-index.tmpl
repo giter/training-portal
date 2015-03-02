@@ -26,7 +26,7 @@
 		<div id='bd'>
 			<div class='section'>
 			
-				<div id='group-recommends' class='block-groupbuy-jumbotron block block-boundless'>
+				<div class='block-groupbuy-jumbotron block block-boundless'>
 				
 					<a class='prev' href='javascript:void(0)'><i class='icon-arrow-left-large'></i></a>
 					<a class='next' href='javascript:void(0)'><i class='icon-arrow-right-large'></i></a>
@@ -67,7 +67,7 @@
 					</div>
 					<div class='ft'>
 						<ul>
-							<li data-target='0'><a href='javascript:void(0)'><i class='icon-square'></i></a></li>
+							<li class='active' data-target='0'><a href='javascript:void(0)'><i class='icon-square'></i></a></li>
 							<li data-target='1'><a href='javascript:void(0)'><i class='icon-square-gray'></i></a></li>
 							<li data-target='2'><a href='javascript:void(0)'><i class='icon-square-gray'></i></a></li>
 						</ul>
@@ -175,8 +175,8 @@
 					$(that).find(".ft li.active").removeClass("active");
 					$(this).addClass("active");
 					
-					$("#group-recommends").find(".groupbuy:visible").hide();
-					$("#group-recommends").find(".groupbuy").eq($(this).data("target")).show();
+					$(that).find(".groupbuy:visible").hide();
+					$(that).find(".groupbuy").eq($(this).data("target")).show();
 				})
 				
 				$(that).find(".prev").click(function(){

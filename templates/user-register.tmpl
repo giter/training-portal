@@ -1,0 +1,146 @@
+{{template "lib"}}
+{{set . "HTMLTitle" "新用户注册"}}
+{{template "head" .}}
+<body id='page-user-register'>
+
+	{{template "top-static" .}}
+	
+	<div id='bd'>
+		
+		<div class='section'>
+			<div class='block block-user-register block-boundless'>
+				
+				<div class='hd hd-switch'>
+					<ul>
+						<li class='active l2' style='width: 124px;'><a class='f18' href='javascript:void(0)'>新用户注册</a></li>
+					</ul>
+					
+				</div>
+				
+				<div class='bd'>
+				
+					<form id='form-user-register' method='POST' action='/register.html'>
+						<dl class='hoverable clearfix'>
+							<dt>手机号码</dt>
+							<dd class='dd1'>
+								<input id=cmobile class='required mobile' data-msg="请输入您真实有效的手机号码，该号码可用于登录本网站，注册成功后不可修改" type='text' name='mobile' value="" />
+							</dd>
+							<dd class='dd2'>
+								<label for=cmobile class='error valid f14 l15'>请输入您真实有效的手机号码，该号码可用于登录本网站，注册成功后不可修改</label>
+							</dd>
+						</dl>
+						<dl class='hoverable clearfix'>
+							<dt>请输入密码</dt>
+							<dd class='dd1'>
+								<input id=cpassword class='required' data-msg="请输入6-16位密码，支持英文及数字，字母区分大小写" type='password' name='password' value="" />
+							</dd>
+							<dd class='dd2'>
+								<label for=cpassword class='error valid f14 l15'>请输入6-16位密码，支持英文及数字，字母区分大小写</label>
+							</dd>
+						</dl>
+						<dl class='hoverable clearfix'>
+							<dt>确认密码</dt>
+							<dd class='dd1'>
+								<input id=crepassword class='required' data-msg-equalto="两次输入密码不一致" data-msg="重复输入一次密码" type='password' name='repassword' value="" />
+							</dd>
+							<dd class='dd2'>
+								<label for=crepassword style='line-height: 38px;' class='error valid f14 l15'>重复输入一次密码</label>
+							</dd>
+						</dl>
+						<dl class='hoverable clearfix'>
+							<dt>电子邮箱</dt>
+							<dd class='dd1'>
+								<input id=cemail class='required email' data-msg="请输入有效邮箱，此邮箱可用于登录及找回密码，注册成功后不可修改" type='text' name='email' value="" />
+							</dd>
+							<dd class='dd2'>
+								<label for=cemail class='error valid f14 l15'>请输入有效邮箱，此邮箱可用于登录及找回密码，注册成功后不可修改</label>
+							</dd>
+						</dl>
+						<dl class='hoverable clearfix'>
+							<dt>验证码</dt>
+							<dd class='dd1' style='width: 360px;'>
+								<input id=cvali class='required validate-code' type='text' name='validation' value="" />
+								&nbsp;&nbsp;<img id='validation-code' style='vertical-align:middle;' src='/v.png' />
+								&nbsp;&nbsp;<a class='f13 primary' href='javascript:void(0)' id='re-gen'>换一张</a>
+								&nbsp;&nbsp;
+								
+							</dd>
+							<dd class='dd2'>
+								<br/>
+								<label for=cvali class="f14 l15 error valid"></label>
+							</dd>
+						</dl>
+						<dl class='clearfix'>
+							<dt>&nbsp;</dt>
+							<dd class='dd1 f13'>
+								<input id='contract' checked type='checkbox' value='1' name='contract' />
+								<label for=contract><span class=quote>我已阅读，同意</span><a class='primary' href='#'>《嘉兴房产团购网服务协议》</a></label>
+							</dd>
+						</dl>
+						<dl class='hoverable clearfix'>
+							<dt>&nbsp;</dt>
+							<dd class='dd1'>
+								<button >立即注册</button>
+							</dd>
+							<dd class='dd2'>
+								<p class='f13' style='text-align:right;'>
+									<img class='bg-cover' style='background: url(/images/avatar/40.png) 0 0 no-repeat; vertical-align: middle; width:40px; height:40px;' src='/images/icons/um40.png' /> 
+									&nbsp;&nbsp;已有帐号？<a class='primary' href='/login.html'>马上登录&gt;</a>
+								</p>
+							</dd>
+						</dl>
+					</form>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	
+	{{template "ft" .}}
+	
+	<script type="text/javascript">
+	
+		$(function(){
+			
+			$( "#form-user-register" ).validate({
+				
+				rules: {
+					
+					mobile: {
+						minlength: 11, 
+						remote : "/register-check.json"
+					},
+					
+					email : {
+						minlength: 10,
+						remote : "/register-check.json"
+					},
+					password: {
+						minlength: 6
+					},
+					repassword: {
+						equalTo: "#cpassword"
+					},
+					validation: {
+						remote : "/register-check.json"
+					}
+				}
+			});
+			
+			$("#form-user-register").submit(function(){
+				
+				if(!$("#contract").is(":checked")) {
+					
+					alert("为保障用户权益，请阅读并接受《嘉兴房产团购网服务协议》!");
+					$("#contract").focus();
+					return false;
+				}
+			});
+			
+			$("#re-gen, #validation-code").click(function(){
+				$("#validation-code").attr("src", "/v.png?" + Math.random())
+			})
+		})
+	</script>
+	
+</body>

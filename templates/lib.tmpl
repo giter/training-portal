@@ -19,9 +19,48 @@
 			</ul>
 			<div class='more'>
 				<i class='icon-user-gray'>&nbsp;</i>
-				<a href='/login.html'>登录</a>
-				<abbr>|</abbr>
-				<a href='/register.html'>注册</a>
+				{{with $.CONTEXT.USER}}
+					<a href='/user/'>{{.Name}}</a>
+					<abbr>|</abbr>
+					<a href='/logout.html'>退出</a>
+				{{else}}
+					<a href='/login.html'>登录</a>
+					<abbr>|</abbr>
+					<a href='/register.html'>注册</a>
+				{{end}}
+			</div>
+		</div>
+	</div>
+{{end}}
+
+{{define "top-static"}}
+	<div id='top-static'>
+		<div class='wrap'>
+		
+			<div class='logo'>
+				<a href='/'><img src='/images/logo-transparent.png'/></a>
+				<span class='f18'>&nbsp;&nbsp;{{if .HTMLTitle}}<abbr>|</abbr>&nbsp;&nbsp;{{.HTMLTitle}}{{end}}</span>
+			</div>
+		
+			<div class='more'>
+				<a href='/'>首页</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href='/newhouse/'>新房</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href='#'>二手房</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href='/news/'>资讯</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href='#'>装修</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href='/groupbuy/'>团购</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<i class='icon-user-white'>&nbsp;</i>
+				{{with $.CONTEXT.USER}}
+					<a href='/user/'>{{.Name}}</a>
+					<abbr>|</abbr>
+					<a href='/logout.html'>退出</a>
+				{{else}}
+					<a href='/login.html'>登录</a>
+					<abbr>|</abbr>
+					<a href='/register.html'>注册</a>
+				{{end}}
 			</div>
 		</div>
 	</div>
@@ -612,12 +651,14 @@
 		</div>
 	</div>
 	<div class='ft-bottom'>
-		<p>全国ICP证:B2-20130033 ICP证:浙B2-20100073 浙ICP备10026603号 版权所有 © 2015 嘉兴房产团购网 </p>
-		<p>广播电视节目制作经营许可证(浙)字第1033号 商业特许经营备案号：1330302000900033</p>
+		<p>COPY RIGHT ©2015 www.jxfangtuan.com ALL RIGHTS RESERVED ICP号：<a href='http://www.miitbeian.gov.cn/'>浙B2-20090008</a></p>
+		<p>客服热线：400-620-9008 邮箱：service@jxfangtuan.com</p>
 	</div>
 </div>
 
 <script type="text/javascript" src="/lib.js?{{.CONTEXT.UPTIME}}"></script>
 <script type="text/javascript" src="/js.js?{{.CONTEXT.UPTIME}}"></script>
-
+{{"<!--[if (gte IE 6)&(lte IE 8)]>" | safe }}
+  <script type="text/javascript" src="/selectivizr-min.js"></script>
+{{"<![endif]-->" | safe }}
 {{end}}

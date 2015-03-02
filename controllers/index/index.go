@@ -93,6 +93,6 @@ func Index(db *mgo.Database, ctx bson.M, r render.Render) {
 	ctx["Query"] = bson.M{}
 	
 	r.HTML(200, "index", ctx, render.HTMLOptions{
-		Layout: "index-layout", 
+		Layout: "layout", 
 	});
 }

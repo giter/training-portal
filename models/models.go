@@ -16,6 +16,7 @@ import (
 const SALT = "Jxft"
 
 const (
+	COLLECTION_USER = "User"
 	COLLECTION_AREA = "Area"
 	COLLECTION_CATEGORY = "Category"
 	COLLECTION_LINK = "Link"
@@ -139,13 +140,26 @@ type User struct {
 	Id	*string `bson:"_id,omitempty"`
 	
 	//基础属性
-	Type *int `bson:"Type,omitempty"` 
-	Name *string `bson:"Name,omitempty"`
+	Type *int `bson:"Type,omitempty"`
+	
+	NickName *string `bson:"NickName,omitempty"`
 	Account *string `bson:"Account,omitempty"`
+	Mobile  *string `bson:"Mobile,omitempty"`
+	Email   *string `bson:"Email,omitempty"`
 	Password *string `bson:"Password,omitempty"`
 	
 	// 扩展属性
 	MTime *MTime      `bson:"MTime,omitempty"`
+}
+
+func (u User) Name() string {
+	
+	if u.NickName != nil && *u.NickName != "" { return *u.NickName }
+	if u.Account  != nil && *u.Account  != "" { return (*u.Account)[0:4] + "*" }
+	if u.Mobile   != nil && *u.Mobile   != "" { return (*u.Mobile)[0:3] + "*" + (*u.Mobile)[7:11] } 
+	if u.Email    != nil && *u.Email    != "" { return (*u.Email)[0:5] + "*" }
+	
+	return "匿名用户"
 }
 
 type Location struct {

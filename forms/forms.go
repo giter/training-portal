@@ -4,6 +4,23 @@ import (
 	"mime/multipart"
 )
 
+type AjaxRequestState bool;
+
+type JWS struct {
+	
+	Code int `json:"code"`
+	Message string `json:"message"`
+	Result interface{} `json:"result"`
+}
+
+func OK ( Result interface{} ) JWS{
+	return JWS { 0, "", Result }
+}
+
+func Bad(Code int,  Message string ) JWS {
+	return JWS{ Code, Message, nil }
+}
+
 type RealEstatePageForm struct {
 	
 	Page int `form:"p"`
@@ -33,4 +50,29 @@ type NewsForm struct {
 type ResourceForm struct {
 	
 	Resource *multipart.FileHeader `form:"Filedata"`
+}
+
+type LoginForm struct {
+	
+	UserName string `form:"username" binding:"required"`
+	Password string `form:"password" binding:"required"`
+	Remember bool `form:"remember"`
+	Validate string `form:"validate"`
+}
+
+type AccountCheckForm struct {
+
+	Account string `form:"username"`
+	Mobile string `form:"mobile"`
+	Email string `form:"email"`
+	Validation string `form:"validation"`
+}
+
+type RegisterForm struct {
+
+	Mobile string `form:"mobile" binding:"required"`
+	Email string `form:"email" binding:"required"`
+	Password string `form:"password" binding:"required"`
+	
+	Validation string `form:"validation" binding:"required"`
 }

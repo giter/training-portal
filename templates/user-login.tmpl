@@ -1,0 +1,169 @@
+{{template "lib"}}
+{{set . "HTMLTitle" "用户登录"}}
+{{template "head" .}}
+<body id='page-user-login'>
+
+	{{template "top-static" .}}
+	
+	<div id='bd'>
+		
+		<div class='section'>
+		
+			<div class='left-600-40'>
+			
+				<div class='block-groupbuy-jumbotron block block-boundless'>
+				
+					<a class='prev' href='javascript:void(0)'><i class='icon-arrow-left-large'></i></a>
+					<a class='next' href='javascript:void(0)'><i class='icon-arrow-right-large'></i></a>
+					
+					<div class='bd clearfix'>
+						{{range $i, $v := slice .GroupbuyRecommends 0 3}}
+						<div class='clickable groupbuy clearfix' style='{{if gt $i 0 }}display:none;{{end}}'>
+							<div class='image'>
+								{{if and .Cover .Cover.Big }} 
+								<a href='/newhouse/o{{.Id}}.html'><img width=600 height=337 src='{{.Cover.Big.Path}}' /></a> 
+								{{end}}
+							</div>
+						</div>
+						{{end}}
+					</div>
+					<div class='ft'>
+						<ul>
+							<li class='active' data-target='0'><a href='javascript:void(0)'><i class='icon-square'></i></a></li>
+							<li data-target='1'><a href='javascript:void(0)'><i class='icon-square-gray'></i></a></li>
+							<li data-target='2'><a href='javascript:void(0)'><i class='icon-square-gray'></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class='right-360'>
+				<div class='block-user-login block block-boundless block-bordered'>
+					
+					<div class='hd'>
+						<h2>用户登录</h2>
+					</div>
+					
+					<div class='bd'>
+					
+						<form id='form-user-login' method="POST" action='/login.html' >
+								
+								<input type='hidden' name='referer' value="{{.Referer}}" />
+								<dl class='clearfix'>
+									<dt><i class='icon-user-white'></i></dt>
+									<dd><input class='required' placeholder="手机号码/邮箱/用户名" type='text' name='username' value=""/></dd>
+								</dl>
+								
+								<dl class='clearfix'>
+									<dt><i class='icon-lock'></i></dt>
+									<dd><input class='required' placeholder="请输入密码" type='password' name='password' value=""/></dd>
+								</dl>
+								
+								<div class='remember'>
+									<label>
+										<input checked type='checkbox' name='remember' value='1' />
+										&nbsp;&nbsp;下次自动登录
+									</label>
+								</div>
+								
+								<button class='c-ptr'>登录</button>
+								
+								<div id='login-error'></div>
+						</form>
+					</div>
+					
+					<div class='ft'>
+						<dl>
+							<dt><a class='quote' href='/forget.html'>忘记登录密码?</a></dt>
+							<dd>还没有帐号？<a class='primary' href='/register.html'>免费注册&gt;</a></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	
+	{{template "ft" .}}
+	
+	<script type="text/javascript">
+	
+		$("#form-user-login").submit(function(){
+			
+			$.ajax({
+				url: $(this).attr("action"),
+				method:"POST",
+				dataType:"json",
+				data: $(this).serialize()
+			}).success(function(data){
+				
+				if(data.code == 0){
+					window.location.href = data.result;
+				}else{
+					$("#login-error").html("<i class='icon-dot'></i> " + data.message);
+				}
+			});
+			
+			return false;
+		});
+	
+		$(".block-groupbuy-jumbotron").each(function(){
+			
+			var that = this;
+			
+			$(that).find(".ft li").click(function(){
+				
+				$(that).find(".ft li i.icon-square").removeClass("icon-square").addClass("icon-square-gray")
+				$(this).find("i").removeClass("icon-square-gray").addClass("icon-square")
+				
+				$(that).find(".ft li.active").removeClass("active");
+				$(this).addClass("active");
+				
+				$(that).find(".groupbuy:visible").hide();
+				$(that).find(".groupbuy").eq($(this).data("target")).show();
+			})
+			
+			$(that).find(".prev").click(function(){
+				
+				var prev = $(that).find(".ft li.active").prev();
+				
+				if(prev.size() > 0){
+					prev.click();
+				}else{
+					$(that).find(".ft li:last").click();
+				}
+				
+			})
+			
+			$(that).find(".next").click(function(){
+				
+				var next = $(that).find(".ft li.active").next();
+				
+				if(next.size() > 0){
+					next.click();
+				}else{
+					$(that).find(".ft li:first").click();
+				}
+				
+			})
+			
+			var stopped = false
+			
+			$(that).hover(function(){
+				stopped = true
+			},function(){
+				stopped = false
+			})
+			
+			window.setInterval(function(){
+				
+				if(stopped || !$(that).is(":visible")){
+				}else{
+					$(that).find(".next").click();
+				}
+			}, 10000);
+		})
+	
+	</script>
+	
+</body>

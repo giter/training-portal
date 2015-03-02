@@ -11,6 +11,8 @@ import (
 	"ftjx/controllers/news"
 	"ftjx/controllers/groupbuy"
 	"ftjx/controllers/manage"
+	"ftjx/controllers/misc"
+	"ftjx/controllers/user"
 	
 	"ftjx/forms"
 )
@@ -23,6 +25,10 @@ func ManageIndex(r render.Render) {
 	r.HTML(200, "manage-index", nil, render.HTMLOptions{
 		Layout: "manage-layout", 
 	});
+}
+
+func Misc(m *martini.ClassicMartini){
+	m.Get("/v.png", misc.Validation);
 }
 
 func Index(m *martini.ClassicMartini){
@@ -51,6 +57,21 @@ func News(m *martini.ClassicMartini) {
 func GroupBuy(m *martini.ClassicMartini) {
 	m.Get("/groupbuy/", groupbuy.Index);
 	m.Get("/groupbuy/index.html", groupbuy.Index);
+}
+
+func User(m *martini.ClassicMartini) {
+
+	m.Get("/login.html", user.Login);
+	m.Post("/login.html", binding.Bind(forms.LoginForm{}), user.UserLogin);
+	m.Get("/logout.html", user.Logout);
+	
+	m.Get("/register-check.json", binding.Bind(forms.AccountCheckForm{}), user.RegisterCheck);
+	
+	m.Get("/register.html", user.Register);
+	m.Post("/register.html", binding.Bind(forms.RegisterForm{}), user.UserRegister);
+	
+	m.Get("/user/", user.Index);
+	m.Get("/user/index.html", user.Index);
 }
 
 func Managements(m *martini.ClassicMartini) {

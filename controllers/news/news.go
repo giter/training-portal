@@ -86,7 +86,7 @@ func DetailIndex(db *mgo.Database, ctx bson.M, r render.Render, params martini.P
 	
 	Id := params["id"]
 	
-	if ctx["News"], err = services.NewsGet(db, Id); err != nil || ctx["News"] == nil {
+	if ctx["News"], err = services.NewsGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["News"] == nil {
 		
 		r.Error(404);
 		return
