@@ -1,0 +1,33 @@
+<form method="post">
+<div class="panel admin-panel">
+    <div class="panel-head">
+        <strong>
+            用户列表
+        </strong>
+    </div>
+    <div class="padding border-bottom">
+        <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
+        <input type="button" class="button button-small border-green" value="添加用户" />
+        <input type="button" class="button button-small border-yellow" value="批量删除" />
+    </div>
+    <table class="table table-hover">
+        <tr><th width="45">选择</th><th width="120">用户工号</th><th width="*">用户名称</th><th width="100">登录密码</th><th width="100">用户类型</th><th width="100">创建时间</th><th width="100">操作</th></tr>
+        <tr v-repeat="c in users">
+            <td><input type="checkbox" name="id" value="1" /></td>
+            <td>{{c.id}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.pwd}}</td>
+            <td>{{c.type}}</td>
+            <td>{{c.create}}</td>
+        <td><a class="button border-blue button-little" href="#">修改</a> <a class="button border-yellow button-little" href="#" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a> </td></tr>
+    </table>
+
+    <div class="panel-foot text-center">
+        <ul class="pagination"><li><a href="javascript:;" v-on="click:prevPage">上一页</a></li></ul>
+        <ul class="pagination pagination-group">
+            <li v-on="click:toPage" v-repeat="parseInt(((total-1)/size))+1" v-class="active:$index == (page-1)"><a href="javascript:;">{{$index+1}}</a></li>
+        </ul>
+        <ul class="pagination"><li><a href="javascript:;" v-on="click:nextPage">下一页</a></li></ul>
+    </div>
+</div>
+</form>

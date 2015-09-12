@@ -1,0 +1,36 @@
+<div class="page-search-result" >
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-arrowleft mui-pull-left"  href="#search"></a>
+        <h5 class="mui-title">
+            查询结果
+        </h5>
+    </header>
+
+    <div class="mui-content">
+        <h5 class="mui-content-padded">
+            2/2车次
+        </h5>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell" v-repeat="r in result">
+                <a class="mui-navigate-right" href="#car/{{r.id}}">
+                    <h4>
+                        {{r.name}} {{r.whither}}
+                    </h4>
+                    <p>{{r.date}}</p>
+                    <h5>
+                        空座：{{r.void}} 预订：{{r.order}} 全部：{{r.void + r.order}}
+                    </h5>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <nav class="mui-bar mui-bar-tab">
+        <div class="time-nav">
+            <span class="mui-action mui-action-previous mui-icon mui-icon-back"></span>
+            <span class="time">10月1日 周四</span>
+            <span class="mui-action mui-action-next mui-icon mui-icon-forward"></span>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,16 @@
+{
+  "Code":0,
+  "Message":"OK",
+  "Response":[
+    {
+      "id":1,
+      "name":"张海",
+      "mail":"ha123@sina.com"
+    }
+  ,{
+      "id":2,
+      "name":"张帅",
+      "mail":"zhangshua@qq.com"
+    }
+  ]
+}

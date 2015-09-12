@@ -1,0 +1,78 @@
+package com.aomi.busorder;
+
+import java.io.IOException;
+import java.util.regex.Pattern;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.springframework.core.io.ClassPathResource;
+
+public class Application {
+
+  static Pattern RESOURCES = Pattern
+      .compile("\\.(html|jpg|gif|png|js|css|ttf|json)$");
+
+  public static void main(String[] args) throws Exception {
+
+    Server server = new Server(Integer.parseInt(System.getProperty("port",
+        "8080")));
+
+    WebAppContext wac = new WebAppContext();
+
+    wac.setContextPath("/");
+    wac.setResourceBase(new ClassPathResource("ROOT").getURI().toString());
+
+    wac.setDefaultsDescriptor("/webdefault.xml");
+    server.setHandler(wac);
+
+    final ResourceHandler resources = new ResourceHandler();
+    resources.setDirectoriesListed(false);
+    resources.setBaseResource(Resource.newClassPathResource("/webapp"));
+
+    HandlerCollection handlers = new HandlerCollection() {
+
+      @Override
+      public void handle(String target, Request baseRequest,
+          HttpServletRequest request, HttpServletResponse response)
+          throws IOException, ServletException {
+
+        if (isStarted() && RESOURCES.matcher(target).find()) {
+          resources.handle(target, baseRequest, request, response);
+        }
+
+        if (baseRequest.isHandled()) {
+          return;
+        }
+
+        response.setCharacterEncoding("UTF-8");
+
+        Handler[] handlers = getHandlers();
+
+        if (handlers != null && isStarted()) {
+          for (Handler handler : handlers) {
+            handler.handle(target, baseRequest, request, response);
+            if (baseRequest.isHandled()) {
+              return;
+            }
+          }
+        }
+      }
+    };
+
+    handlers.addHandler(wac);
+    server.setHandler(handlers);
+
+    server.start();
+    server.join();
+  }
+}

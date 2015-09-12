@@ -1,0 +1,36 @@
+<div class="page-search">
+    <div class="mui-control-content mui-active">
+        <header class="mui-bar-nav mui-bar">
+            <h5 class="mui-title">
+                订单查询
+            </h5>
+        </header>
+        <div class="mui-content">
+            <ul class="mui-table-view mui-list">
+                <i class=" iconfont icon-target"></i>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" v-on="click:onClick('#whither')">目的地
+                    <span class="mui-pull-right form-value">
+                        {{search.target}}
+                    </span>
+                    </a>
+                </li>
+                <i class="iconfont icon-time"></i>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" v-on="click:onClick('#calendar')"  >出发时间
+                        <span class="mui-pull-right form-value">
+                        {{search.time}}
+                    </span>
+                    </a>
+                </li>
+            </ul>
+
+            <button class="mui-btn mui-btn-block" id="btn-search" v-on="click:onClick('#search/result')" >
+                <span class="mui-icon mui-icon-search"></span>查询
+            </button>
+        </div>
+
+    </div>
+    <c-nav view="search">
+    </c-nav>
+</div>

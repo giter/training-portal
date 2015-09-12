@@ -1,0 +1,18 @@
+<div class="list-page" >
+    <header class="mui-bar mui-bar-nav">
+        <h5 class="mui-title">
+            车辆选择
+        </h5>
+    </header>
+    <ul class="list">
+        <li class="mui-col-xs-6" v-repeat="l in list">
+            <a href="#/car/{{l.id}}">
+                <img  src="{{l.img}}">
+                <div class="title">{{l.name}}</div>
+                <div class="status">{{l.number}}/{{l.total}}</div>
+                <h5><span class="target">{{l.destination}}</span><span class="time">{{l.goff}}</span></h5>
+            </a>
+        </li>
+
+    </ul>
+</div>
