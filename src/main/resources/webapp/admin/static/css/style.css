@@ -49,3 +49,6 @@
 
 .slideInDown-leave {
   display: none; }
+
+.button {
+  transition: none !important; }

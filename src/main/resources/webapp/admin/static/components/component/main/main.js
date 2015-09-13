@@ -5,6 +5,7 @@ var Vue = require('component_modules/vue');
 var Router = require('component_modules/director').Router;
 var user = require('components/page/user/user');
 
+require("loading/loading.js");
 require("nav/nav.js");
 
 
@@ -14,20 +15,42 @@ window.app = new Vue({
         "currentView":"",
         "amenu":"",
         "bmenu":"",
-        "cmenu":""
-
+        "cmenu":"",
+        "loading":false /*是否显示加载*/
     },
     components:{
         "user":user
     }
 });
 
+/*过场动画*/
+Vue.transition('slide', {
+    enter: function (el) {
+        $(el).css({
+            "opacity":0,
+            "margin-top":20
+        }).animate({
+            "opacity":1,
+            "margin-top":0
+        },300,"linear");
+    },
+    leave: function (el) {
+        if(el > 0 ){
+            $(el).remove();
+        }
+    }
+});
 
+/*表单验证结果*/
+Vue.directive('disabled', function (value) {
+    this.el.disabled = !value;
+});
 
 var router = new Router();
 
 function doRouter(a,b,c,view,component){
     var coms = window.app.$options.components;
+
     if(!coms[view]){
         coms[view] = component;
     }
@@ -48,9 +71,9 @@ router.on("/home/user",function(){
     app.currentView = "user";
 });
 
-router.on("/home/car",function(view){
-    require.async(["components/page/car/car"], function (p) {
-        doRouter("home","car","","car",p);
+router.on("/home/bus",function(view){
+    require.async(["components/page/bus/bus"], function (p) {
+        doRouter("home","bus","","bus",p);
     })
 });
 
@@ -66,9 +89,9 @@ router.on("/home/auth",function(view){
     })
 });
 
-router.on("home/car/:id", function (id) {
+router.on("home/bus/:id", function (id) {
     require.async(["components/page/seat/seat"], function (p) {
-        doRouter("home","car","seat","seat",p);
+        doRouter("home","bus","seat","seat",p);
     })
 });
 

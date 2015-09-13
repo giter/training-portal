@@ -18,19 +18,19 @@ module.exports = Vue.component("c-nav",{
                     class: "icon-home",
                     child: [
                         {
+                            name: "桌面统计",
+                            key: "auth",
+                            class: "icon-file"
+                        },
+                        {
                             name: "人员管理",
                             key: "user",
                             class: "icon-user"
                         },
                         {
-                            name: "授权管理",
-                            key: "auth",
-                            class: "icon-file"
-                        },
-                        {
                             name: "车辆管理",
-                            key: "car",
-                            class: "icon-shopping-cart",
+                            key: "bus",
+                            class: "icon-car",
                             child: [
                                 {
                                     name: "车位管理",
@@ -38,12 +38,13 @@ module.exports = Vue.component("c-nav",{
                                     class:"icon-shopping-cart"
                                 }
                             ]
-                        },
+                        }
+                        /*,
                         {
                             name: "车位预订",
                             key: "order",
                             class: "icon-file-text"
-                        }
+                        }*/
                     ]
                 },
                 {

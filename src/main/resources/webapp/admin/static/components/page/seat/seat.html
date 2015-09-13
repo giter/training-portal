@@ -1,16 +1,81 @@
-<div >
+<div class="page-seat">
     <div class="panel admin-panel">
         <div class="panel-head">
             <strong>
                 车位管理
             </strong>
+
         </div>
         <div class="padding border-bottom">
             <button class="button win-back icon-arrow-left" style="float: right" onclick="javascript:window.history.go(-1)"> 后退</button>
-            <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
-            <input type="button" class="button button-small border-yellow" value="批量删除" />
+            <input type="button" class="button button-small bg-dot" data-mask="1" data-width="50%" v-on="click:btnInit"  value="初始化" />
+            <i>{{bus.rows}} x {{bus.cols}}</i>
         </div>
+       <div class="seat-container">
+           <h4 class="bus-info">
+               {{bus.name}}-{{bus.sn}}
+           </h4>
+           <table>
+               <tr v-repeat="r in bus.rows">
+                   <td v-repeat="bus.cols" style="position: relative;">
+                       <a v-on="click:seatClick(r,$index,this)">
+                           {{r}}-{{$index}}
+                           <div v-show="seat.row==r&&seat.col==$index">
+                               <input type="text" class="input" v-model="seat.sn" placeholder="请输入位号">
+                               <div style="margin-top: 5px;">
+                                   <input type="button" style="padding: 2px 5px;" class="button button-small bg-dot" v-on="click:addSeat" value="保存">
+                                   <input type="button" style="padding: 2px 5px;" class="button button-small" v-on="click:btnCancel" value="取消">
+                               </div>
+                           </div>
+                            <h3 class="seat-sn" v-text="seatSn(r,$index).sn" v-if="seat.row!=r||seat.col!=$index">
 
+                            </h3>
+                       </a>
+                       <button style="position: absolute;left:100px;top:8px;" v-if="(r+1)==bus.rows&&($index+1)==bus.cols" class="button icon icon-minus bg-main" v-on="click:minusBusRow">删除行</button>
+                   </td>
+               </tr>
+           </table>
+           <div style="text-align: center">
+               <button class="button icon icon-plus bg-main" v-on="click:plusBusRow">增加行</button>
+           </div>
+       </div>
+    </div>
+    <div class="dialog-mask" style="display: none;"></div>
+    <div id="init-dialog"  class="dialog-win" style="position: fixed; width: 50%; z-index: 11;display: none">
+        <div class="dialog open">
+            <div class="dialog-head">
+                <span class="close" v-on="click:btnClose"></span>
+                <strong>初始化</strong>
+            </div>
+            <div class="dialog-body">
+                <div class="form-x">
+
+                    <div class="form-group">
+                        <div class="alert alert-yellow"><strong>注意：</strong>初始化会清空所有座位信息。</div>
+                        <div class="label">
+                            行数
+                        </div>
+                        <div class="field">
+                            <input type="number" class="input" v-model="rows" placeholder="请填写行数">
+                            <div v-show="!validation.rows" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            列数
+                        </div>
+                        <div class="field">
+                            <input type="number" class="input" v-model="cols" placeholder="请填列数">
+                            <div v-show="!validation.cols || !validation.larger" class="input-help  check-error"><ul><li>必填，最大不超过8列</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-foot">
+                <button class="button dialog-close" v-on="click:btnClose">取消</button>
+                <button class="button bg-green" v-disabled="isValid" v-on="click:busInit" >确认</button>
+            </div>
+        </div>
     </div>
 </div>
 

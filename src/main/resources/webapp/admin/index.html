@@ -17,8 +17,9 @@
 <body style="background-color: #f2f9fd">
     <div id="app" class="wrap" >
        <c-nav view="{{currentView}}"  amenu="{{amenu}}"  bmenu="{{bmenu}}" cmenu="{{cmenu}}" ></c-nav>
-        <div class="admin" ><div v-transition="slideInDown" v-component="{{currentView}}"></div>
+        <div class="admin" ><div  v-transition="slide" v-component="{{currentView}}"></div>
         </div>
+        <c-loading show="{{loading}}"></c-loading>
     </div>
 
 <script type="text/javascript" src="/admin/static/js/mod.js"></script>
@@ -29,21 +30,21 @@ require.resourceMap({
       "url": "/admin/static/component_modules/vue.js",
       "type": "js"
     },
-    "main/pintuer": {
-      "url": "/admin/static/components/component/main/pintuer.js",
-      "type": "js"
-    },
     "main/service": {
       "url": "/admin/static/components/component/main/service.js",
       "type": "js"
     },
-    "components/page/car/car": {
-      "url": "/admin/static/components/page/car/car.js",
+    "main/check": {
+      "url": "/admin/static/components/component/main/check.js",
+      "type": "js"
+    },
+    "components/page/bus/bus": {
+      "url": "/admin/static/components/page/bus/bus.js",
       "type": "js",
       "deps": [
         "component_modules/vue.js",
-        "main/pintuer.js",
-        "main/service.js"
+        "main/service.js",
+        "main/check.js"
       ]
     },
     "components/page/order/order": {
@@ -65,7 +66,9 @@ require.resourceMap({
       "url": "/admin/static/components/page/seat/seat.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js"
+        "component_modules/vue.js",
+        "main/service.js",
+        "main/check.js"
       ]
     },
     "components/page/history/history": {
@@ -84,8 +87,15 @@ require.resourceMap({
       "type": "js",
       "deps": [
         "component_modules/vue.js",
-        "main/pintuer.js",
-        "main/service.js"
+        "main/service.js",
+        "main/check.js"
+      ]
+    },
+    "loading/loading": {
+      "url": "/admin/static/components/component/loading/loading.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js"
       ]
     },
     "nav/nav": {
@@ -102,6 +112,7 @@ require.resourceMap({
         "component_modules/vue.js",
         "component_modules/director.js",
         "components/page/user/user.js",
+        "loading/loading.js",
         "nav/nav.js"
       ]
     }

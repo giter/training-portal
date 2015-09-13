@@ -1,23 +1,27 @@
-<div class="page-user">
+<div class="page-bus">
     <div class="panel admin-panel">
         <div class="panel-head">
             <strong>
-                用户列表
+                车辆列表
             </strong>
         </div>
         <div class="padding border-bottom">
-            <input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:addUser" value="新增用户" />
+            <input type="button" class="button button-small bg-main" data-mask="1" data-width="50%"  v-on="click:addBus" value="新增车辆" />
         </div>
         <table class="table table-hover">
-            <tr><th width="100">用户名</th><th width="*">邮箱</th><th width="100">手机号码</th><th width="100">OpenID</th><th width="100">订票限制</th><th width="100">用户类型</th><th width="100">操作</th></tr>
-            <tr v-repeat="c in users">
+            <tr><th width="100">车辆名</th><th width="100">车牌号</th><th width="*">目的地</th><th width="100">发车时间</th><th width="100">当前座位数</th><th width="200">操作</th></tr>
+            <tr v-repeat="c in buses">
                 <td>{{c.name}}</td>
-                <td>{{c.email}}</td>
-                <td>{{c.mobile}}</td>
-                <td>{{c.openid}}</td>
-                <td>{{c.limit}}</td>
-                <td>{{c.admin == 1?"管理员":"普通用户"}}</td>
-                <td><a v-on="click:editUser(c)" class="button border-blue button-little" href="javascript:;">修改</a> <a class="button border-yellow button-little" v-on="click:delUser(c._id)" href="javascript:;" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a> </td></tr>
+                <td>{{c.sn}}</td>
+                <td>{{c.destination}}</td>
+                <td>{{c.goff}}</td>
+                <td>0</td>
+                <td>
+                    <a v-on="click:editBus(c)" class="button border-blue button-little" href="javascript:;">修改</a>
+                    <a class="button border-yellow button-little" v-on="click:delBus(c._id)" href="javascript:;" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a>
+                    <a href="#/home/bus/{{c._id}}" class="button border-blue button-little" href="javascript:;">车位管理</a>
+                </td>
+            </tr>
         </table>
 
         <div class="panel-foot text-center">
@@ -29,57 +33,55 @@
         </div>
 
         <div class="dialog-mask" style="display: none;"></div>
-        <div id="user-dialog" class="dialog-win" style="position: fixed; width: 50%; z-index: 11;display: none;">
+        <div id="bus-dialog" class="dialog-win" style="position: fixed; width: 50%; z-index: 11;display: none;">
             <div class="dialog open">
                 <div class="dialog-head">
                     <span class="close" v-on="click:closeDialog"></span>
-                    <strong>{{user._type}}</strong>
+                    <strong>{{bus._type}}</strong>
                 </div>
                 <div class="dialog-body">
                     <div class="form-x">
                         <div class="form-group">
                             <div class="label">
-                                用户名
+                                车辆名
                             </div>
                             <div class="field">
-                                <input type="text" class="input" v-model="user.name" placeholder="请填写用户名">
+                                <input type="text" class="input" v-model="bus.name" placeholder="请填写车辆名">
                                 <div v-show="!validation.name" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="label">
-                                邮箱
+                                车牌号
                             </div>
                             <div class="field">
-                                <input type="text" class="input" v-model="user.email" placeholder="请填写邮箱">
-                                <div v-show="!validation.email" class="input-help  check-error"><ul><li>请填写邮箱格式</li></ul></div>
+                                <input type="text" class="input" v-model="bus.sn" placeholder="请填写车牌号">
+                                <div v-show="!validation.sn" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="label">
-                                手机号
+                                目的地
                             </div>
                             <div class="field">
-                                <input type="text" class="input" v-model="user.mobile" placeholder="请填写手机号">
-                                <div v-show="!validation.mobile" class="input-help  check-error"><ul><li>请填写正确手机号码</li></ul></div>
+                                <input type="text" class="input" v-model="bus.destination" placeholder="请填写目的地">
+                                <div v-show="!validation.destination" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="label">
-                                用户类型
+                                发出时间
                             </div>
                             <div class="field">
-                                <select class="input" v-model="user.admin">
-                                    <option value="0">普通用户</option>
-                                    <option value="1">管理员</option>
-                                </select>
+                                <input type="text" class="input" v-model="bus.goff" placeholder="请填写目的地">
+                                <div v-show="!validation.goff" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="dialog-foot">
                     <button class="button dialog-close" v-on="click:closeDialog">取消</button>
-                    <button class="button bg-green" v-disabled="isValid" v-on="click:postUser" >确认</button>
+                    <button class="button bg-green" v-disabled="isValid" v-on="click:postBus">确认</button>
                 </div>
             </div>
         </div>
@@ -87,3 +89,4 @@
     </div>
 
 </div>
+
