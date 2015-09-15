@@ -7,7 +7,7 @@ public class User extends Basic<User> {
   /**
    * 用户类型 0. 普通用户 1. 外包用户
    */
-  public static final String FIELD_UTYPE = "utype";
+  public static final String FIELD_TYPE = "type";
 
   /**
    * 外包商
@@ -49,13 +49,13 @@ public class User extends Basic<User> {
    */
   public static final String FIELD_ADMIN = "admin";
 
-  public String getUtype() {
+  public String getType() {
 
-    return getString(FIELD_UTYPE);
+    return getString(FIELD_TYPE);
   }
 
-  public User setUtype(String utype) {
-    put(FIELD_UTYPE, utype);
+  public User setType(String type) {
+    put(FIELD_TYPE, type);
     return this;
   }
 

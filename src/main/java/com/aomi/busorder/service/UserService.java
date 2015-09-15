@@ -70,8 +70,8 @@ public class UserService {
 
     BasicDBObjectBuilder ob = BasicDBObjectBuilder.start();
 
-    if (param.utype != null)
-      ob.add("utype", param.utype);
+    if (param.type != null)
+      ob.add("type", param.type);
 
     return ob.get();
   }
