@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aomi.busorder.misc.Utils;
+import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.Page;
@@ -61,12 +62,13 @@ public class UserAdminCtrl {
   @ResponseBody
   @RequestMapping(value = "/admin/data/users.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages(
+  public String pages(@RequestParam(required = false) UserParam userParam,
       @RequestParam(required = false, defaultValue = "0") int page,
       @RequestParam(required = false, defaultValue = "10") int limit) {
 
-    return RESTResponse.of(Page.of(service.count(), service.page(page, limit)))
-        .toString();
+    return RESTResponse
+        .of(Page.of(service.count(userParam),
+            service.page(userParam, page, limit))).toString();
   }
 
 }

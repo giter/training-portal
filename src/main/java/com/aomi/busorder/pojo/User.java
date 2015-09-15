@@ -5,6 +5,16 @@ public class User extends Basic<User> {
   private static final long serialVersionUID = 1L;
 
   /**
+   * 用户类型 0. 普通用户 1. 外包用户
+   */
+  public static final String FIELD_UTYPE = "utype";
+
+  /**
+   * 外包商
+   */
+  public static final String FIELD_COMPANY = "company";
+
+  /**
    * 邮箱
    */
   public static final String FIELD_EMAIL = "email";
@@ -38,6 +48,26 @@ public class User extends Basic<User> {
    * 管理员标志
    */
   public static final String FIELD_ADMIN = "admin";
+
+  public String getUtype() {
+
+    return getString(FIELD_UTYPE);
+  }
+
+  public User setUtype(String utype) {
+    put(FIELD_UTYPE, utype);
+    return this;
+  }
+
+  public String getCompany() {
+
+    return getString(FIELD_COMPANY);
+  }
+
+  public User setCompany(String company) {
+    put(FIELD_COMPANY, company);
+    return this;
+  }
 
   public String getName() {
 
@@ -95,7 +125,7 @@ public class User extends Basic<User> {
    */
   public int getLimit() {
 
-    return getInt(FIELD_LIMIT, (getAdmin()==1) ? 999999 : 0);
+    return getInt(FIELD_LIMIT, (getAdmin() == 1) ? 999999 : 0);
   }
 
   public User setLimit(int limit) {

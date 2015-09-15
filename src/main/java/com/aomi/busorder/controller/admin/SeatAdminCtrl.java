@@ -66,6 +66,14 @@ public class SeatAdminCtrl {
   }
 
   @ResponseBody
+  @RequestMapping(value = "/admin/data/bus/{id}/seat.json", method = { RequestMethod.DELETE })
+  public String removeAll(@PathVariable("id") String id) {
+
+    service.removeAll(id);
+    return RESTResponse.of(null).toString();
+  }
+
+  @ResponseBody
   @RequestMapping(value = "/admin/data/bus/{id}/seats.json", method = {
       RequestMethod.GET, RequestMethod.POST })
   public String pages(@PathVariable("id") String id,

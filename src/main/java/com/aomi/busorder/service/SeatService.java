@@ -46,6 +46,11 @@ public class SeatService {
         Seat.FIELD_ID, _id).get());
   }
 
+  public void removeAll(String bus) {
+
+    dao.seat.remove(BasicDBObjectBuilder.start(Seat.FIELD_BUS, bus).get());
+  }
+
   public List<DBObject> items() {
 
     return dao.seat.find().toArray();

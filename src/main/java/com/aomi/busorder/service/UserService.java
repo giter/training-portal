@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.User;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
@@ -65,15 +66,26 @@ public class UserService {
     return dao.user.find().toArray();
   }
 
-  public List<DBObject> page(int page, int limit) {
+  public DBObject query(UserParam param) {
 
-    return dao.user.find().sort(BasicDBObjectBuilder.start("_id", -1).get())
-        .limit(limit).skip(limit * page).toArray();
+    BasicDBObjectBuilder ob = BasicDBObjectBuilder.start();
+
+    if (param.utype != null)
+      ob.add("utype", param.utype);
+
+    return ob.get();
   }
 
-  public long count() {
+  public List<DBObject> page(UserParam param, int page, int limit) {
 
-    return dao.user.count();
+    return dao.user.find(query(param))
+        .sort(BasicDBObjectBuilder.start("_id", -1).get()).limit(limit)
+        .skip(limit * page).toArray();
+  }
+
+  public long count(UserParam param) {
+
+    return dao.user.count(query(param));
   }
 
 }
