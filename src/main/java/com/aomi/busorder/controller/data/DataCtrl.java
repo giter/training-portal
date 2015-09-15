@@ -9,9 +9,9 @@ import java.util.TreeSet;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,31 +60,22 @@ public class DataCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/users.json", method = { RequestMethod.GET })
-  public String users(@RequestParam(required = false) Integer type,
-      @RequestParam(required = false) String company,
-      @RequestParam(required = false, defaultValue = "0") int page,
-      @RequestParam(required = false, defaultValue = "100") int limit) {
-    
-    UserParam userParam = new UserParam();
+  public String users(@ModelAttribute UserParam userParam) {
 
-    userParam.type = type;
-    userParam.company = company;
-    
     return RESTResponse.of(
-        Page.of(userService.count(userParam),
-            userService.page(userParam, page, limit))).toString();
+        Page.of(userService.count(userParam), userService.page(userParam)))
+        .toString();
   }
 
   @ResponseBody
   @RequestMapping(value = "/data/companies.json", method = { RequestMethod.GET })
-  public String companies() {
+  public String companies(@ModelAttribute UserParam param) {
 
-    UserParam param = new UserParam();
-    param.hasCompany = true;
+    param.setHasCompany(true);
 
     Set<String> companies = new TreeSet<String>();
 
-    for (DBObject r : userService.page(param, 0, 100000)) {
+    for (DBObject r : userService.page(param)) {
 
       User u = (User) r;
       companies.add(u.getCompany());

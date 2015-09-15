@@ -22,4 +22,5 @@ public class Utils {
 
     return JSON.parseObject(s, clazz);
   }
+
 }

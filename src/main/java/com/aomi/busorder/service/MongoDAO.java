@@ -6,6 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.aomi.busorder.pojo.Authorize;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
@@ -31,6 +32,8 @@ public class MongoDAO implements InitializingBean {
 
   public DBCollection ticket;
 
+  public DBCollection authorize;
+
   @Override
   public void afterPropertiesSet() throws Exception {
 
@@ -47,6 +50,9 @@ public class MongoDAO implements InitializingBean {
 
     ticket = client.getDB(db_name).getCollection("ticket");
     ticket.setObjectClass(Ticket.class);
+
+    authorize = client.getDB(db_name).getCollection("authorize");
+    authorize.setObjectClass(Authorize.class);
 
   }
 

@@ -76,9 +76,10 @@ public class SeatAdminCtrl {
   @ResponseBody
   @RequestMapping(value = "/admin/data/bus/{id}/seats.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages(@PathVariable("id") String id,
-      @RequestParam(required = false, defaultValue = "0") int page,
-      @RequestParam(required = false, defaultValue = "100") int limit) {
+  public String pages(
+      @PathVariable("id") String id,
+      @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+      @RequestParam(value = "limit", required = false, defaultValue = "100") int limit) {
 
     return RESTResponse.of(
         Page.of(service.count(id), service.page(id, page, limit))).toString();

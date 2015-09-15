@@ -8,8 +8,10 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.aomi.busorder.misc.PinYinUtils;
+import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.pojo.Bus;
 import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 @Service
@@ -63,16 +65,35 @@ public class BusService {
     return dao.bus.find().toArray();
   }
 
-  public List<DBObject> page(int page, int limit) {
+  public DBObject query(BusParam param) {
 
-    return dao.bus.find()
-        .sort(BasicDBObjectBuilder.start(Bus.FIELD_ID, -1).get()).limit(limit)
-        .skip(limit * page).toArray();
+    BasicDBObjectBuilder ob = BasicDBObjectBuilder.start();
+
+    if (param == null)
+      return ob.get();
+
+    return ob.get();
   }
 
-  public long count() {
+  public List<DBObject> page(BusParam param) {
 
-    return dao.bus.count();
+    DBCursor cursor = dao.bus.find(query(param)).sort(
+        BasicDBObjectBuilder.start(Bus.FIELD_ID, -1).get());
+
+    if (param.getLimit() > 0) {
+      cursor.limit(param.getLimit());
+    }
+
+    if (param.getPage() > 0) {
+      cursor.skip(param.getLimit() * param.getPage());
+    }
+
+    return cursor.toArray();
+  }
+
+  public long count(BusParam param) {
+
+    return dao.bus.count(query(param));
   }
 
 }

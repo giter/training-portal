@@ -37,7 +37,7 @@ public class User extends Basic<User> {
   /**
    * OpenID
    */
-  public static final String FIELD_OPEN_ID = "openID";
+  public static final String FIELD_OPENID = "openID";
 
   /**
    * 日订票限制
@@ -111,12 +111,12 @@ public class User extends Basic<User> {
 
   public String getOpenID() {
 
-    return getString(FIELD_OPEN_ID);
+    return getString(FIELD_OPENID);
   }
 
   public User setOpenID(String openID) {
 
-    put(FIELD_OPEN_ID, openID);
+    put(FIELD_OPENID, openID);
     return this;
   }
 

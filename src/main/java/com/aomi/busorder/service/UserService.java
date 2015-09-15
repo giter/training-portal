@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.User;
 import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 @Service
@@ -21,7 +22,8 @@ public class UserService {
   /***
    * 用户绑定
    */
-  public void bind() {
+  public void bind(String email, String openID) {
+
     throw new UnsupportedOperationException();
   }
 
@@ -73,17 +75,49 @@ public class UserService {
     if (param == null)
       return ob.get();
 
-    if (param.type != null)
-      ob.add("type", param.type);
+    if (param.getType() != null)
+      ob.add("type", param.getType());
+
+    if (param.getCompany() != null) {
+      ob.add("company", param.getCompany());
+    }
+
+    if (param.getHasCompany() != null) {
+      ob.push("company").add("$exists", true).pop();
+    }
+
+    if (param.getEmail() != null) {
+      ob.add("email", param.getEmail());
+    }
+
+    if (param.getName() != null) {
+      ob.add("name", param.getName());
+    }
+
+    if (param.getOpenID() != null) {
+      ob.add("openID", param.getOpenID());
+    }
 
     return ob.get();
   }
 
-  public List<DBObject> page(UserParam param, int page, int limit) {
+  @SuppressWarnings("unchecked")
+  public List<User> page(UserParam param) {
 
-    return dao.user.find(query(param))
-        .sort(BasicDBObjectBuilder.start("_id", -1).get()).limit(limit)
-        .skip(limit * page).toArray();
+    DBCursor cursor = dao.user.find(query(param)).sort(
+        BasicDBObjectBuilder.start("_id", -1).get());
+
+    if (param.getLimit() > 0) {
+      cursor.limit(param.getLimit());
+    }
+
+    if (param.getPage() > 0) {
+      cursor.skip(param.getLimit() * param.getPage());
+    }
+
+    List<?> users = cursor.limit(param.getLimit()).toArray();
+
+    return (List<User>) users;
   }
 
   public long count(UserParam param) {

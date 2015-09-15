@@ -5,14 +5,15 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aomi.busorder.misc.Utils;
+import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.service.BusService;
 import com.aomi.busorder.vo.Page;
@@ -61,12 +62,10 @@ public class BusAdminCtrl {
   @ResponseBody
   @RequestMapping(value = "/admin/data/buses.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages(
-      @RequestParam(required = false, defaultValue = "0") int page,
-      @RequestParam(required = false, defaultValue = "10") int limit) {
+  public String pages(@ModelAttribute BusParam busParam) {
 
-    return RESTResponse.of(Page.of(service.count(), service.page(page, limit)))
-        .toString();
+    return RESTResponse.of(
+        Page.of(service.count(busParam), service.page(busParam))).toString();
   }
 
 }
