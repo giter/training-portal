@@ -24,7 +24,7 @@ public class UserAdminCtrl {
 
   @Resource
   UserService service;
-
+  
   @ResponseBody
   @RequestMapping(value = "/admin/data/user/{id}.json", method = { RequestMethod.GET })
   public String get(@PathVariable("id") String id) {

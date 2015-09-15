@@ -4,18 +4,30 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aomi.busorder.param.UserParam;
+import com.aomi.busorder.pojo.User;
+import com.aomi.busorder.service.UserService;
+import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
 
 @RestController
 public class DataCtrl {
+
+  @Resource
+  UserService userService;
 
   @ResponseBody
   @RequestMapping(value = "/data/calendar.json", method = { RequestMethod.GET })
@@ -45,11 +57,41 @@ public class DataCtrl {
 
     return RESTResponse.of(rs).toString();
   }
-  
-  /**
+
   @ResponseBody
-  @RequestMapping(value = "/data/whither.json", method = { RequestMethod.GET })
-  public String whither() {
-    
-  }*/
+  @RequestMapping(value = "/data/users.json", method = { RequestMethod.GET })
+  public String users(@RequestParam(required = false) UserParam userParam,
+      @RequestParam(required = false, defaultValue = "0") int page,
+      @RequestParam(required = false, defaultValue = "100") int limit) {
+
+    return RESTResponse.of(
+        Page.of(userService.count(userParam),
+            userService.page(userParam, page, limit))).toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/companies.json", method = { RequestMethod.GET })
+  public String companies() {
+
+    UserParam param = new UserParam();
+    param.hasCompany = true;
+
+    Set<String> companies = new TreeSet<String>();
+
+    for (DBObject r : userService.page(param, 0, 100000)) {
+
+      User u = (User) r;
+      companies.add(u.getCompany());
+    }
+
+    return RESTResponse.of(companies).toString();
+  }
+
+  /**
+   * @ResponseBody
+   * @RequestMapping(value = "/data/whither.json", method = { RequestMethod.GET
+   *                       }) public String whither() {
+   * 
+   *                       }
+   */
 }
