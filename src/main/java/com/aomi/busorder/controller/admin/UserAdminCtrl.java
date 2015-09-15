@@ -24,7 +24,7 @@ public class UserAdminCtrl {
 
   @Resource
   UserService service;
-  
+
   @ResponseBody
   @RequestMapping(value = "/admin/data/user/{id}.json", method = { RequestMethod.GET })
   public String get(@PathVariable("id") String id) {
@@ -62,9 +62,15 @@ public class UserAdminCtrl {
   @ResponseBody
   @RequestMapping(value = "/admin/data/users.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages(@RequestParam(required = false) UserParam userParam,
+  public String pages(@RequestParam(required = false) Integer type,
+      @RequestParam(required = false) String company,
       @RequestParam(required = false, defaultValue = "0") int page,
       @RequestParam(required = false, defaultValue = "10") int limit) {
+
+    UserParam userParam = new UserParam();
+
+    userParam.type = type;
+    userParam.company = company;
 
     return RESTResponse
         .of(Page.of(service.count(userParam),

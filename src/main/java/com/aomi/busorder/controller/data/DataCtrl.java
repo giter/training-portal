@@ -60,10 +60,16 @@ public class DataCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/users.json", method = { RequestMethod.GET })
-  public String users(@RequestParam(required = false) UserParam userParam,
+  public String users(@RequestParam(required = false) Integer type,
+      @RequestParam(required = false) String company,
       @RequestParam(required = false, defaultValue = "0") int page,
       @RequestParam(required = false, defaultValue = "100") int limit) {
+    
+    UserParam userParam = new UserParam();
 
+    userParam.type = type;
+    userParam.company = company;
+    
     return RESTResponse.of(
         Page.of(userService.count(userParam),
             userService.page(userParam, page, limit))).toString();

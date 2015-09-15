@@ -49,12 +49,12 @@ public class User extends Basic<User> {
    */
   public static final String FIELD_ADMIN = "admin";
 
-  public String getType() {
+  public int getType() {
 
-    return getString(FIELD_TYPE);
+    return getInt(FIELD_TYPE, 0);
   }
 
-  public User setType(String type) {
+  public User setType(int type) {
     put(FIELD_TYPE, type);
     return this;
   }

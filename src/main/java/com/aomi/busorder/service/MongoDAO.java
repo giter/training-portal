@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
+import com.aomi.busorder.pojo.Ticket;
 import com.aomi.busorder.pojo.User;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.WriteConcern;
 
 @Component
 public class MongoDAO implements InitializingBean {
@@ -27,8 +29,12 @@ public class MongoDAO implements InitializingBean {
 
   public DBCollection seat;
 
+  public DBCollection ticket;
+
   @Override
   public void afterPropertiesSet() throws Exception {
+
+    client.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 
     user = client.getDB(db_name).getCollection("user");
     user.setObjectClass(User.class);
@@ -38,6 +44,10 @@ public class MongoDAO implements InitializingBean {
 
     seat = client.getDB(db_name).getCollection("seat");
     seat.setObjectClass(Seat.class);
+
+    ticket = client.getDB(db_name).getCollection("ticket");
+    ticket.setObjectClass(Ticket.class);
+
   }
 
 }
