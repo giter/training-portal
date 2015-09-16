@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import com.aomi.busorder.param.SeatParam;
 import com.aomi.busorder.pojo.Seat;
 import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 @Service
@@ -51,21 +53,46 @@ public class SeatService {
     dao.seat.remove(BasicDBObjectBuilder.start(Seat.FIELD_BUS, bus).get());
   }
 
+  public DBObject query(SeatParam param) {
+
+    BasicDBObjectBuilder ob = BasicDBObjectBuilder.start();
+
+    if (param == null)
+      return ob.get();
+
+    if (param.getBus() != null) {
+      ob.add(Seat.FIELD_BUS, param.getBus());
+    }
+
+    return ob.get();
+  }
+
   public List<DBObject> items() {
 
     return dao.seat.find().toArray();
   }
 
-  public List<DBObject> page(String bus, int page, int limit) {
+  @SuppressWarnings("unchecked")
+  public List<Seat> page(SeatParam param) {
 
-    return dao.seat.find(BasicDBObjectBuilder.start(Seat.FIELD_BUS, bus).get())
-        .sort(BasicDBObjectBuilder.start(Seat.FIELD_ID, -1).get()).limit(limit)
-        .skip(limit * page).toArray();
+    DBCursor cursor = dao.seat.find(query(param)).sort(
+        BasicDBObjectBuilder.start(Seat.FIELD_ID, -1).get());
+
+    if (param.getLimit() > 0) {
+      cursor.limit(param.getLimit());
+    }
+
+    if (param.getPage() > 0) {
+      cursor.skip(param.getLimit() * param.getPage());
+    }
+
+    List<?> seat = cursor.toArray();
+    return (List<Seat>) seat;
   }
 
-  public long count(String id) {
+  public long count(SeatParam param) {
 
-    return dao.seat.count(BasicDBObjectBuilder.start(Seat.FIELD_BUS, id).get());
+    return dao.seat.count(query(param));
   }
 
 }

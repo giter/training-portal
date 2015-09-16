@@ -79,7 +79,8 @@ public class BusService {
     return ob.get();
   }
 
-  public List<DBObject> page(BusParam param) {
+  @SuppressWarnings("unchecked")
+  public List<Bus> page(BusParam param) {
 
     DBCursor cursor = dao.bus.find(query(param)).sort(
         BasicDBObjectBuilder.start(Bus.FIELD_ID, -1).get());
@@ -92,7 +93,8 @@ public class BusService {
       cursor.skip(param.getLimit() * param.getPage());
     }
 
-    return cursor.toArray();
+    List<?> buses = cursor.toArray();
+    return (List<Bus>) buses;
   }
 
   public long count(BusParam param) {

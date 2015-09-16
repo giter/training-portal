@@ -10,11 +10,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.mail.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.aomi.busorder.form.BindForm;
 import com.aomi.busorder.misc.Utils;
@@ -26,7 +26,7 @@ import com.aomi.busorder.service.MailService;
 import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.RESTResponse;
 
-@RestController
+@Controller
 public class UserCtrl {
 
   static Logger LOGGER = LoggerFactory.getLogger(UserCtrl.class);

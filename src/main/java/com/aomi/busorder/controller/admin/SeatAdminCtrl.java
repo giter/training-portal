@@ -5,14 +5,15 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aomi.busorder.misc.Utils;
+import com.aomi.busorder.param.SeatParam;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.service.SeatService;
 import com.aomi.busorder.vo.Page;
@@ -74,15 +75,12 @@ public class SeatAdminCtrl {
   }
 
   @ResponseBody
-  @RequestMapping(value = "/admin/data/bus/{id}/seats.json", method = {
+  @RequestMapping(value = "/admin/data/bus/{bus}/seats.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages(
-      @PathVariable("id") String id,
-      @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-      @RequestParam(value = "limit", required = false, defaultValue = "100") int limit) {
+  public String pages(@ModelAttribute SeatParam param) {
 
-    return RESTResponse.of(
-        Page.of(service.count(id), service.page(id, page, limit))).toString();
+    return RESTResponse.of(Page.of(service.count(param), service.page(param)))
+        .toString();
   }
 
 }
