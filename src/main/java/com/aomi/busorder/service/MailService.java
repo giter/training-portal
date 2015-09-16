@@ -44,6 +44,7 @@ public class MailService {
     smtp.setTo(m);
 
     smtp.setSubject(title);
+    smtp.setCharset("UTF-8");
     smtp.setMsg(message);
 
     smtp.send();

@@ -3,10 +3,12 @@ package com.aomi.busorder.service;
 import javax.annotation.Resource;
 
 import org.bson.types.ObjectId;
+import org.springframework.stereotype.Service;
 
 import com.aomi.busorder.pojo.Authorize;
 import com.mongodb.BasicDBObjectBuilder;
 
+@Service
 public class AuthorizeService {
 
   @Resource

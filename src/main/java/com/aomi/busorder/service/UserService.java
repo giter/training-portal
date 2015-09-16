@@ -76,26 +76,26 @@ public class UserService {
       return ob.get();
 
     if (param.getType() != null)
-      ob.add("type", param.getType());
+      ob.add(User.FIELD_TYPE, param.getType());
 
     if (param.getCompany() != null) {
-      ob.add("company", param.getCompany());
+      ob.add(User.FIELD_COMPANY, param.getCompany());
     }
 
     if (param.getHasCompany() != null) {
-      ob.push("company").add("$exists", true).pop();
+      ob.push(User.FIELD_COMPANY).add("$exists", true).pop();
     }
 
     if (param.getEmail() != null) {
-      ob.add("email", param.getEmail());
+      ob.add(User.FIELD_EMAIL, param.getEmail());
     }
 
     if (param.getName() != null) {
-      ob.add("name", param.getName());
+      ob.add(User.FIELD_NAME, param.getName());
     }
 
     if (param.getOpenID() != null) {
-      ob.add("openID", param.getOpenID());
+      ob.add(User.FIELD_OPENID, param.getOpenID());
     }
 
     return ob.get();

@@ -49,6 +49,11 @@ public class Bus extends Basic<Bus> {
    */
   public static final String FIELD_LIMIT = "limit";
 
+  /**
+   * 车辆维护标志 0 维护中 1 可用
+   */
+  public static final String FIELD_ONLINE = "online";
+
   public String getName() {
 
     return getString(FIELD_NAME);
@@ -145,6 +150,17 @@ public class Bus extends Basic<Bus> {
   public Bus setLimit(String limit) {
 
     put(FIELD_LIMIT, limit);
+    return this;
+  }
+
+  public int getOnline() {
+
+    return getInt(FIELD_ONLINE, 0);
+  }
+
+  public Bus setOnline(Integer online) {
+
+    put(FIELD_ONLINE, online);
     return this;
   }
 }

@@ -72,6 +72,10 @@ public class BusService {
     if (param == null)
       return ob.get();
 
+    if (param.getOnline() != null) {
+      ob.add(Bus.FIELD_ONLINE, param.getOnline());
+    }
+
     return ob.get();
   }
 
