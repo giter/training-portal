@@ -20,7 +20,7 @@ import org.springframework.core.io.ClassPathResource;
 public class Application {
 
   static Pattern RESOURCES = Pattern
-      .compile("\\.(html|jpg|gif|png|js|css|ttf|json)$");
+      .compile("\\.(html|jpg|gif|png|js|css|ttf|json|mp4|flv)$");
 
   public static void main(String[] args) throws Exception {
 

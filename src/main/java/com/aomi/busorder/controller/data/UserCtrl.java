@@ -104,7 +104,6 @@ public class UserCtrl {
     return RESTResponse.of(Pair.of(true, "已申请绑定，请通过邮箱验证！")).toString();
   }
 
-  @ResponseBody
   @RequestMapping(value = "/data/user/bind/{id}.json", method = { RequestMethod.GET })
   public String activate(@PathVariable("id") String id) throws IOException {
 
