@@ -18,7 +18,7 @@ module.exports = Vue.extend({
         }
     },
     ready: function () {
-        $(".page-car > .mui-content").height(document.documentElement.clientHeight -88).css("overflow-y","auto");
+        $(".page-bus > .mui-content").height(document.documentElement.clientHeight -88).css("overflow-y","auto");
         var self = this;
         Service.getCarSeat(1,function (rep) {
             if(rep.Code == 0){

@@ -93,6 +93,13 @@ router.on("/relation",function(){
     })
 });
 
+/*承包商*/
+router.on("/company",function(){
+    require.async(["components/page/company/company"], function (p) {
+        doRouter("company",p);
+    })
+});
+
 router.on("/car/:id", function (id) {
     require.async(["components/page/car/car"], function (p) {
         doRouter("car",p);

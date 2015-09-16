@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -112,6 +112,14 @@ require.resourceMap({
     },
     "components/page/relation/relation": {
       "url": "/static/components/page/relation/relation.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js"
+      ]
+    },
+    "components/page/company/company": {
+      "url": "/static/components/page/company/company.js",
       "type": "js",
       "deps": [
         "component_modules/vue.js",
