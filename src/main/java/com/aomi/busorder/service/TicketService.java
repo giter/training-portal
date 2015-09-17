@@ -71,9 +71,12 @@ public class TicketService {
 
   public Ticket getByDate(String date, String seatId) {
 
-    return (Ticket) dao.ticket.findOne(BasicDBObjectBuilder
-        .start(Ticket.FIELD_DATE, date).add(Ticket.FIELD_SEAT + "._id", seatId)
-        .get());
+    DBObject query = BasicDBObjectBuilder.start(Ticket.FIELD_DATE, date)
+        .add(Ticket.FIELD_SEAT + "._id", seatId).get();
+
+    System.out.println(query);
+
+    return (Ticket) dao.ticket.findOne(query);
   }
 
   /**
@@ -112,7 +115,7 @@ public class TicketService {
 
       sum += generateByBus(date, bus);
     }
-    
+
     return sum;
   }
 
