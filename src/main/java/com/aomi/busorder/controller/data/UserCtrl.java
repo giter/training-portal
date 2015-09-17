@@ -67,8 +67,8 @@ public class UserCtrl {
             + "          \"type\":\"view\",\r\n"
             + "          \"name\":\"企业资讯\",\r\n"
             + "          \"key\":\"http://www.baidu.com/\"\r\n"
-            + "        },\r\n" + "\r\n" + "        ]\r\n" + "    }\r\n"
-            + "  }\r\n" + "}");
+            + "        }\r\n" + "\r\n" + "        ]\r\n" + "    \r\n"
+            + "  }\r\n" + "}\r\n" + "\r\n" + "");
     weixin.getService().menuCreate(menus);
     return "+OK";
   }
