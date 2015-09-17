@@ -90,7 +90,7 @@ public class UserCtrl {
     if (user != null) {
 
       session.setAttribute("openID", user.getOpenID());
-      return "/index.html";
+      return "redirect:/index.html";
     }
 
     return "redirect:/index.html?openID=" + openID + "#/bind";
