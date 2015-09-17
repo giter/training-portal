@@ -35,7 +35,7 @@ public abstract class PinYinUtils {
     StringBuffer sb = new StringBuffer();
 
     if (s != null) {
-      for (int i = 0; i < s.length(); i++) {
+      for (int i = 0; i < 1; i++) {
         sb.append(captial(s.charAt(i)));
       }
     }
@@ -85,7 +85,7 @@ public abstract class PinYinUtils {
         if (s != null && s.length() > 0) {
           p += s.charAt(0);
         }
-        
+
         return p.toUpperCase();
       }
 
