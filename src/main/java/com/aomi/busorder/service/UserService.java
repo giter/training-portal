@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.User;
+import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -37,6 +38,12 @@ public class UserService {
   public User get(String _id) {
 
     return (User) dao.user.findOne(_id);
+  }
+
+  public User getByOpenID(String openID) {
+
+    return (User) dao.user
+        .findOne(new BasicDBObject(User.FIELD_OPENID, openID));
   }
 
   public User insert(User user) {

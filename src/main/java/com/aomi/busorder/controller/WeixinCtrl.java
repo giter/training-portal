@@ -51,6 +51,10 @@ public class WeixinCtrl implements InitializingBean {
   protected WxMpService service;
   protected WxMpMessageRouter router;
 
+  public WxMpService getService() {
+    return service;
+  }
+
   @ResponseBody
   @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
   protected String request(HttpServletRequest request,

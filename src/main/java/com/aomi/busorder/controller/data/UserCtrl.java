@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.mail.EmailException;
@@ -14,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aomi.busorder.controller.WeixinCtrl;
 import com.aomi.busorder.form.BindForm;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
@@ -39,6 +45,29 @@ public class UserCtrl {
 
   @Resource
   AuthorizeService authorizeService;
+
+  @Resource
+  WeixinCtrl weixin;
+
+  @RequestMapping(value = "/oauth-step1.html", method = { RequestMethod.GET })
+  public String oauth(
+      @RequestParam(value = "code", required = false) String code,
+      HttpSession session) throws IOException, WxErrorException {
+
+    WxMpOAuth2AccessToken token = weixin.getService()
+        .oauth2getAccessToken(code);
+
+    User user = userService.getByOpenID(token.getOpenId());
+
+    if (user != null) {
+
+      session.setAttribute("openID", user.getOpenID());
+      return "/index.html";
+
+    }
+
+    return "redirect:/oauth-step2.html?openID=" + token.getOpenId();
+  }
 
   @ResponseBody
   @RequestMapping(value = "/data/user/bind.json", method = { RequestMethod.POST })

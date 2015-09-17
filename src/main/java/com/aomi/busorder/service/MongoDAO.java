@@ -60,6 +60,8 @@ public class MongoDAO implements InitializingBean {
     user = client.getDB(dbName).getCollection(COLLECTION_NAME_USER);
     user.setObjectClass(User.class);
 
+    user.createIndex(BasicDBObjectBuilder.start("openID", 1).get());
+
     bus = client.getDB(dbName).getCollection(COLLECTION_NAME_BUS);
     bus.setObjectClass(Bus.class);
 
