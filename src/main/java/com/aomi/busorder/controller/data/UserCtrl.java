@@ -1,6 +1,7 @@
 package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -83,14 +84,15 @@ public class UserCtrl {
 
     User user = userService.getByOpenID(token.getOpenId());
 
+    String openID = URLEncoder.encode(token.getOpenId(), "utf-8");
+
     if (user != null) {
 
       session.setAttribute("openID", user.getOpenID());
-      return "/index.html?openID=" + token.getOpenId();
-
+      return "/index.html";
     }
 
-    return "redirect:/index.html?openID=" + token.getOpenId() + "#/bind";
+    return "redirect:/index.html?openID=" + openID + "#/bind";
   }
 
   @ResponseBody
