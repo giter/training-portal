@@ -30,4 +30,8 @@ public class RESTResponse<T> {
 
     return JSONObject.toJSONString(this);
   }
+
+  public String get() {
+    return toString();
+  }
 }
