@@ -39,6 +39,9 @@ public class TicketCtrl {
   public String tickets(@RequestParam("dest") String dest,
       @RequestParam("date") String date) {
 
+    System.out.println(dest);
+    System.out.println(date);
+
     BusParam param = new BusParam();
 
     param.setLimit(0);
@@ -48,6 +51,8 @@ public class TicketCtrl {
     List<Map<String, Object>> r = new ArrayList<>();
 
     for (Bus bus : busService.page(param)) {
+
+      System.out.println(bus);
 
       Map<String, Object> mm = new HashMap<>();
 
