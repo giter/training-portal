@@ -1,5 +1,7 @@
 package com.aomi.busorder.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.bson.types.ObjectId;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.param.SeatParam;
+import com.aomi.busorder.param.TicketParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
@@ -14,6 +17,7 @@ import com.aomi.busorder.pojo.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.Bytes;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 @Service
@@ -189,6 +193,39 @@ public class TicketService {
     }
 
     return 0;
+  }
+
+  public DBObject query(TicketParam param) {
+
+    BasicDBObjectBuilder ob = BasicDBObjectBuilder.start();
+
+    if (param == null)
+      return ob.get();
+
+    if (param.getUid() != null) {
+
+      ob.add(Ticket.FIELD_USER + "._id", param.getUid());
+    }
+
+    return ob.get();
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<Ticket> page(TicketParam param) {
+
+    DBCursor cursor = dao.ticket.find(query(param)).sort(
+        BasicDBObjectBuilder.start(Ticket.FIELD_ID, -1).get());
+
+    if (param != null && param.getLimit() > 0) {
+      cursor.limit(param.getLimit());
+    }
+
+    if (param != null && param.getPage() > 0) {
+      cursor.skip(param.getLimit() * param.getPage());
+    }
+
+    List<?> seat = cursor.toArray();
+    return (List<Ticket>) seat;
   }
 
 }

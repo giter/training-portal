@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aomi.busorder.constant.Errors;
 import com.aomi.busorder.controller.WeixinCtrl;
 import com.aomi.busorder.form.BindForm;
 import com.aomi.busorder.misc.Utils;
@@ -181,4 +182,21 @@ public class UserCtrl {
 
     return "redirect:/pc_bind_success.html";
   }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/user/mine.json", method = { RequestMethod.GET })
+  public String back(HttpSession session) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+    }
+
+    return RESTResponse.of(user).toString();
+  }
+
 }

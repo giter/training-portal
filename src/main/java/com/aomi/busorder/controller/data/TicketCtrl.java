@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aomi.busorder.constant.Errors;
 import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.param.SeatParam;
+import com.aomi.busorder.param.TicketParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
@@ -161,5 +162,26 @@ public class TicketCtrl {
     }
 
     return RESTResponse.of(ticketService.take(id, user)).toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/ticket/mine.json", method = { RequestMethod.GET })
+  public String back(HttpSession session) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+    }
+
+    TicketParam param = new TicketParam();
+
+    param.setLimit(0);
+    param.setUid(user.get_id());
+
+    return RESTResponse.of(ticketService.page(param)).toString();
   }
 }
