@@ -74,8 +74,6 @@ public class TicketService {
     DBObject query = BasicDBObjectBuilder.start(Ticket.FIELD_DATE, date)
         .add(Ticket.FIELD_SEAT + "._id", seatId).get();
 
-    System.out.println(query);
-
     return (Ticket) dao.ticket.findOne(query);
   }
 

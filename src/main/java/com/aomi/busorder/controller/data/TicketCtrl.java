@@ -62,6 +62,7 @@ public class TicketCtrl {
       for (Seat seat : seatService.page(sparam)) {
         
         Ticket ticket = ticketService.getByDate(date, seat.get_id());
+        
         if (ticket == null)
           continue;
 
@@ -77,6 +78,8 @@ public class TicketCtrl {
       mm.put("date", String.format("%s %s", date, bus.getGoff()));
       mm.put("void", available);
       mm.put("order", all);
+      
+      r.add(mm);
     }
 
     return RESTResponse.of(r).toString();
