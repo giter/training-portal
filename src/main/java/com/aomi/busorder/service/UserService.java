@@ -42,6 +42,9 @@ public class UserService {
 
   public User getByOpenID(String openID) {
 
+    if (openID == null)
+      return null;
+    
     return (User) dao.user
         .findOne(new BasicDBObject(User.FIELD_OPENID, openID));
   }

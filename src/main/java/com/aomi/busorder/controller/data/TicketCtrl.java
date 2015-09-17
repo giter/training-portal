@@ -6,21 +6,26 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aomi.busorder.constant.Errors;
 import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.param.SeatParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
+import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.BusService;
 import com.aomi.busorder.service.SeatService;
 import com.aomi.busorder.service.TicketService;
+import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.RESTResponse;
 
 @RestController
@@ -28,6 +33,9 @@ public class TicketCtrl {
 
   @Resource
   BusService busService;
+
+  @Resource
+  UserService userService;
 
   @Resource
   SeatService seatService;
@@ -121,5 +129,37 @@ public class TicketCtrl {
     }
 
     return RESTResponse.of(bus).toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/ticket/{id}.json", method = { RequestMethod.PUT })
+  public String take(@PathVariable("id") String id, HttpSession session) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+    }
+
+    return RESTResponse.of(ticketService.take(id, user)).toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/ticket/{id}.json", method = { RequestMethod.DELETE })
+  public String back(@PathVariable("id") String id, HttpSession session) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+    }
+
+    return RESTResponse.of(ticketService.take(id, user)).toString();
   }
 }

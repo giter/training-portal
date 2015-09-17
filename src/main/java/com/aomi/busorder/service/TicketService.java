@@ -37,6 +37,46 @@ public class TicketService {
   }
 
   /***
+   * 退订
+   * 
+   * @param id
+   *          票根
+   * @param user
+   *          用户号
+   * @return
+   */
+  public Ticket back(String id, User user) {
+
+    DBObject query = BasicDBObjectBuilder.start().add("_id", id)
+        .add("user._id", user.get_id()).get();
+
+    DBObject update = BasicDBObjectBuilder.start().push("$unset")
+        .add("user", 1).get();
+
+    return (Ticket) dao.ticket.findAndModify(query, update);
+  }
+
+  /***
+   * 订票
+   * 
+   * @param id
+   *          票号
+   * @param user
+   *          用户
+   * @return 成功=> ticket，失败 => null
+   */
+  public Ticket take(String id, User user) {
+
+    DBObject query = BasicDBObjectBuilder.start().add("_id", id)
+        .push("user._id").add("$exists", false).pop().get();
+
+    DBObject update = BasicDBObjectBuilder.start().push("$set")
+        .add("user", user).get();
+
+    return (Ticket) dao.ticket.findAndModify(query, update);
+  }
+
+  /***
    * 订票
    * 
    * @param date
