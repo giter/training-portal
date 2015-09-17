@@ -43,6 +43,7 @@ public class DataCtrl {
   public String calendar() {
 
     SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
     List<DBObject> rs = new ArrayList<>();
 
@@ -54,6 +55,8 @@ public class DataCtrl {
       BasicDBObjectBuilder o = BasicDBObjectBuilder.start();
 
       o.add("name", sdf.format(instance.getTime()));
+      o.add("value", sdf2.format(instance.getTime()));
+      
       o.add(
           "week",
           "周"
@@ -91,6 +94,13 @@ public class DataCtrl {
     }
 
     return RESTResponse.of(companies).toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/result.json", method = { RequestMethod.GET })
+  public String result() {
+
+    return null;
   }
 
   @ResponseBody
