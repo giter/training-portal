@@ -36,7 +36,7 @@ public class TicketCtrl {
   TicketService ticketService;
 
   @ResponseBody
-  @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.GET })
+  @RequestMapping(value = "/data/tickets/stats.json", method = { RequestMethod.GET })
   public String tickets(@RequestParam("dest") String dest,
       @RequestParam("date") String date) {
 
@@ -54,15 +54,15 @@ public class TicketCtrl {
 
       int all = 0;
       int available = 0;
-      
+
       SeatParam sparam = new SeatParam();
       sparam.setBus(bus.get_id());
       sparam.setLimit(0);
 
       for (Seat seat : seatService.page(sparam)) {
-        
+
         Ticket ticket = ticketService.getByDate(date, seat.get_id());
-        
+
         if (ticket == null)
           continue;
 
@@ -78,11 +78,12 @@ public class TicketCtrl {
       mm.put("date", String.format("%s %s", date, bus.getGoff()));
       mm.put("void", available);
       mm.put("order", all);
-      
+
       r.add(mm);
     }
 
     return RESTResponse.of(r).toString();
   }
 
+  
 }
