@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aomi.busorder.param.BusParam;
+import com.aomi.busorder.param.SeatParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
@@ -53,11 +54,13 @@ public class TicketCtrl {
 
       int all = 0;
       int available = 0;
+      
+      SeatParam sparam = new SeatParam();
+      sparam.setBus(bus.get_id());
+      sparam.setLimit(0);
 
-      for (Seat seat : seatService.page(null)) {
+      for (Seat seat : seatService.page(sparam)) {
         
-        System.out.println(seat);;
-
         Ticket ticket = ticketService.getByDate(date, seat.get_id());
         if (ticket == null)
           continue;
