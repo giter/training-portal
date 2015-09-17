@@ -107,11 +107,11 @@ public class UserService {
     DBCursor cursor = dao.user.find(query(param)).sort(
         BasicDBObjectBuilder.start("_id", -1).get());
 
-    if (param.getLimit() > 0) {
+    if (param != null && param.getLimit() > 0) {
       cursor.limit(param.getLimit());
     }
 
-    if (param.getPage() > 0) {
+    if (param != null && param.getPage() > 0) {
       cursor.skip(param.getLimit() * param.getPage());
     }
 

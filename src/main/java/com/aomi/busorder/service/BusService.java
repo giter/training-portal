@@ -76,6 +76,10 @@ public class BusService {
       ob.add(Bus.FIELD_ONLINE, param.getOnline());
     }
 
+    if (param.getDestination() != null) {
+      ob.add(Bus.FIELD_DESTINATION, param.getDestination());
+    }
+
     return ob.get();
   }
 
@@ -85,11 +89,11 @@ public class BusService {
     DBCursor cursor = dao.bus.find(query(param)).sort(
         BasicDBObjectBuilder.start(Bus.FIELD_ID, -1).get());
 
-    if (param.getLimit() > 0) {
+    if (param != null && param.getLimit() > 0) {
       cursor.limit(param.getLimit());
     }
 
-    if (param.getPage() > 0) {
+    if (param != null && param.getPage() > 0) {
       cursor.skip(param.getLimit() * param.getPage());
     }
 

@@ -56,7 +56,7 @@ public class DataCtrl {
 
       o.add("name", sdf.format(instance.getTime()));
       o.add("value", sdf2.format(instance.getTime()));
-      
+
       o.add(
           "week",
           "周"
@@ -94,13 +94,6 @@ public class DataCtrl {
     }
 
     return RESTResponse.of(companies).toString();
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/data/result.json", method = { RequestMethod.GET })
-  public String result() {
-
-    return null;
   }
 
   @ResponseBody

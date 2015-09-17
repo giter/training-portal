@@ -78,11 +78,11 @@ public class SeatService {
     DBCursor cursor = dao.seat.find(query(param)).sort(
         BasicDBObjectBuilder.start(Seat.FIELD_ID, -1).get());
 
-    if (param.getLimit() > 0) {
+    if (param != null && param.getLimit() > 0) {
       cursor.limit(param.getLimit());
     }
 
-    if (param.getPage() > 0) {
+    if (param != null && param.getPage() > 0) {
       cursor.skip(param.getLimit() * param.getPage());
     }
 

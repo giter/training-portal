@@ -4,6 +4,7 @@ public class PageParam {
 
   private int page;
   private int limit = 20;
+  private String destination;
 
   public int getPage() {
     return page;
@@ -19,5 +20,13 @@ public class PageParam {
 
   public void setLimit(int limit) {
     this.limit = limit;
+  }
+
+  public String getDestination() {
+    return destination;
+  }
+
+  public void setDestination(String destination) {
+    this.destination = destination;
   }
 }
