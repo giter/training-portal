@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import me.chanjar.weixin.common.bean.WxMenu;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 
@@ -48,6 +49,26 @@ public class UserCtrl {
 
   @Resource
   WeixinCtrl weixin;
+
+  @ResponseBody
+  @RequestMapping(value = "/menus/creation.json", method = { RequestMethod.GET })
+  public String menusCreation() throws WxErrorException {
+
+    WxMenu menus = WxMenu
+        .fromJson(" {\r\n"
+            + "     \"button\":[\r\n"
+            + "    { \r\n"
+            + "          \"type\":\"view\",\r\n"
+            + "          \"name\":\"在线订座\",\r\n"
+            + "          \"key\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7d0128b8e445ac1f&redirect_uri=http%3A%2F%2Fhttp://182.254.244.191/%2F/oauth.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect\"\r\n"
+            + "    },\r\n" + "\r\n" + "    { \r\n"
+            + "          \"type\":\"view\",\r\n"
+            + "          \"name\":\"企业资讯\",\r\n"
+            + "          \"key\":\"http://www.baidu.com/\"\r\n" + "    },\r\n"
+            + "\r\n" + "    ]\r\n" + "}\r\n" + "");
+    weixin.getService().menuCreate(menus);
+    return "+OK";
+  }
 
   @RequestMapping(value = "/oauth.html", method = { RequestMethod.GET })
   public String oauth(
