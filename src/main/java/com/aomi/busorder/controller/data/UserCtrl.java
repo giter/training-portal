@@ -49,7 +49,7 @@ public class UserCtrl {
   @Resource
   WeixinCtrl weixin;
 
-  @RequestMapping(value = "/oauth-step1.html", method = { RequestMethod.GET })
+  @RequestMapping(value = "/oauth.html", method = { RequestMethod.GET })
   public String oauth(
       @RequestParam(value = "code", required = false) String code,
       HttpSession session) throws IOException, WxErrorException {
@@ -62,11 +62,11 @@ public class UserCtrl {
     if (user != null) {
 
       session.setAttribute("openID", user.getOpenID());
-      return "/index.html";
+      return "/index.html?openID=" + token.getOpenId();
 
     }
 
-    return "redirect:/oauth-step2.html?openID=" + token.getOpenId();
+    return "redirect:/index.html?openID=" + token.getOpenId() + "#/bind";
   }
 
   @ResponseBody
