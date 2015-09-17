@@ -2,7 +2,6 @@ package com.aomi.busorder.controller.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,19 +95,14 @@ public class TicketCtrl {
     if (bus == null)
       return RESTResponse.of(null).toString();
 
-    Map<String, Object> r = new LinkedHashMap<>();
-
-    r.put("id", bus.get_id());
-    r.put("name", bus.getName());
-    r.put("destination", bus.getDestination());
-    r.put("seats", new ArrayList<Seat>());
+    bus.put("seats", new ArrayList<Seat>());
 
     SeatParam sparam = new SeatParam();
     sparam.setBus(id);
     sparam.setLimit(0);
 
     @SuppressWarnings("unchecked")
-    ArrayList<Seat> seats = (ArrayList<Seat>) r.get("seats");
+    ArrayList<Seat> seats = (ArrayList<Seat>) bus.get("seats");
 
     for (Seat seat : seatService.page(sparam)) {
 
@@ -126,6 +120,6 @@ public class TicketCtrl {
       seats.add(seat);
     }
 
-    return RESTResponse.of(r).toString();
+    return RESTResponse.of(bus).toString();
   }
 }
