@@ -2,6 +2,7 @@ package com.aomi.busorder.controller.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class TicketCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/tickets/stats.json", method = { RequestMethod.GET })
-  public String tickets(@RequestParam("dest") String dest,
+  public String stats(@RequestParam("dest") String dest,
       @RequestParam("date") String date) {
 
     BusParam param = new BusParam();
@@ -85,5 +86,46 @@ public class TicketCtrl {
     return RESTResponse.of(r).toString();
   }
 
-  
+  @ResponseBody
+  @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.GET })
+  public String tickets(@RequestParam("bus") String id,
+      @RequestParam("date") String date) {
+
+    Bus bus = busService.get(id);
+
+    if (bus == null)
+      return RESTResponse.of(null).toString();
+
+    Map<String, Object> r = new LinkedHashMap<>();
+
+    r.put("id", bus.get_id());
+    r.put("name", bus.getName());
+    r.put("destination", bus.getDestination());
+    r.put("seats", new ArrayList<Seat>());
+
+    SeatParam sparam = new SeatParam();
+    sparam.setBus(id);
+    sparam.setLimit(0);
+
+    @SuppressWarnings("unchecked")
+    ArrayList<Seat> seats = (ArrayList<Seat>) r.get("seats");
+
+    for (Seat seat : seatService.page(sparam)) {
+
+      Ticket ticket = ticketService.getByDate(date, seat.get_id());
+
+      if (ticket == null)
+        continue;
+
+      if (ticket.getUser() != null) {
+        seat.put("state", 2);
+      } else {
+        seat.put("state", 1);
+      }
+
+      seats.add(seat);
+    }
+
+    return RESTResponse.of(r).toString();
+  }
 }
