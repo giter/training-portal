@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -130,6 +131,18 @@ public class DataCtrl {
 
     }
 
-    return RESTResponse.of(destinations.entrySet()).toString();
+    List<Map<String, Object>> r = new ArrayList<>();
+
+    for (Entry<String, List<Map<String, String>>> s : destinations.entrySet()) {
+
+      HashMap<String, Object> v = new HashMap<String, Object>();
+
+      v.put("group", s.getKey());
+      v.put("list", s.getValue());
+
+      r.add(v);
+    }
+
+    return RESTResponse.of(r).toString();
   }
 }
