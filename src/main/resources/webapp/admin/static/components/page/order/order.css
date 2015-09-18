@@ -1,0 +1,8 @@
+.dateBlock {
+  text-align: center; }
+
+.dateActive {
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #00AAEE;
+  font-weight: bold; }

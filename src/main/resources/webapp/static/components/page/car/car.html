@@ -1,0 +1,26 @@
+<div class="page-car"  v-transition="slideInRight">
+    <header class="mui-bar mui-bar-nav">
+        <h5 class="mui-title">{{name}}({{destination}})
+        </h5>
+        <a class="mui-icon mui-icon-arrowleft mui-pull-left" href="#/search/result"></a>
+    </header>
+    <div class="mui-content">
+        <div class="car-header">
+
+        </div>
+        <table class="car-seat">
+            <tr v-repeat="row in seats">
+                <td v-repeat="s in row.col">
+                    <a v-class="void-seat:s.st == 1,order-seat:s.st==2">{{s.sn}}</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <nav class="mui-bar mui-bar-footer">
+        <button class="mui-btn mui-btn-block mui-btn-primary">
+            <span class="mui-icon mui-icon-checkmarkempty"></span>
+            预订
+        </button>
+    </nav>
+</div>

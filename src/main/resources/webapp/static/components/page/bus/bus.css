@@ -1,0 +1,53 @@
+.page-bus {
+  background-color: #fff;
+  height: 100%; }
+  .page-bus .bus-header {
+    height: 105px;
+    background-color: #fff;
+    background-image: url("/static/images/carHeader.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; }
+  .page-bus .bus-body {
+    width: 100%;
+    text-align: center;
+    background-color: #fff; }
+    .page-bus .bus-body td {
+      padding: 5px 10px; }
+    @media screen and (max-width: 768px) {
+      .page-bus .bus-body a {
+        display: block;
+        height: 50px;
+        color: #60418c;
+        font-size: 16px;
+        line-height: 35px;
+        font-weight: bold;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat; } }
+    @media screen and (min-width: 768px) {
+      .page-bus .bus-body a {
+        display: block;
+        height: 100px;
+        color: #60418c;
+        font-size: 16px;
+        line-height: 65px;
+        font-weight: bold;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat; } }
+    .page-bus .bus-body td.icon-seat-void {
+      width: inherit; }
+      .page-bus .bus-body td.icon-seat-void a {
+        background-image: url("/static/images/seat-void.png");
+        width: 100%; }
+    .page-bus .bus-body td.icon-seat-order {
+      width: inherit; }
+      .page-bus .bus-body td.icon-seat-order a {
+        background-image: url("/static/images/seat-order.png");
+        width: 100%; }
+    .page-bus .bus-body td.icon-seat-select {
+      width: inherit; }
+      .page-bus .bus-body td.icon-seat-select a {
+        background-image: url("/static/images/seat-select.png") !important;
+        color: yellow;
+        width: 100%; }

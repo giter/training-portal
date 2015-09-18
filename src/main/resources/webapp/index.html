@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>车辆订位系统</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/pkg/all.css" />
+</head>
+<body>
+    <div id="app" class="wrap" >
+        <div v-component="{{currentView}}" ></div>
+    </div>
+
+<script type="text/javascript" src="/static/js/mod.js"></script>
+<script type="text/javascript">/*resourcemap*/
+require.resourceMap({
+  "res": {
+    "component_modules/vue": {
+      "url": "/static/component_modules/vue.js",
+      "type": "js"
+    },
+    "main/check": {
+      "url": "/static/components/component/main/check.js",
+      "type": "js"
+    },
+    "main/service": {
+      "url": "/static/components/component/main/service.js",
+      "type": "js"
+    },
+    "components/page/bind/bind": {
+      "url": "/static/components/page/bind/bind.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/check.js",
+        "main/service.js"
+      ]
+    },
+    "navbar/navbar": {
+      "url": "/static/components/component/navbar/navbar.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js"
+      ]
+    },
+    "components/page/order/order": {
+      "url": "/static/components/page/order/order.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "navbar/navbar.js",
+        "main/service.js"
+      ]
+    },
+    "component_modules/director": {
+      "url": "/static/component_modules/director.js",
+      "type": "js"
+    },
+    "components/page/search/search": {
+      "url": "/static/components/page/search/search.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "navbar/navbar.js",
+        "component_modules/director.js"
+      ]
+    },
+    "component_modules/layer.m": {
+      "url": "/static/component_modules/layer.m.js",
+      "type": "js"
+    },
+    "components/page/search/result/result": {
+      "url": "/static/components/page/search/result/result.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js",
+        "component_modules/director.js",
+        "component_modules/layer.m.js"
+      ]
+    },
+    "components/page/service/service": {
+      "url": "/static/components/page/service/service.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "navbar/navbar.js"
+      ]
+    },
+    "components/page/config/config": {
+      "url": "/static/components/page/config/config.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "navbar/navbar.js"
+      ]
+    },
+    "components/page/whither/whither": {
+      "url": "/static/components/page/whither/whither.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "navbar/navbar.js",
+        "main/service.js",
+        "component_modules/director.js"
+      ]
+    },
+    "components/page/calendar/calendar": {
+      "url": "/static/components/page/calendar/calendar.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js",
+        "component_modules/director.js"
+      ]
+    },
+    "components/page/relation/relation": {
+      "url": "/static/components/page/relation/relation.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js"
+      ]
+    },
+    "components/page/company/company": {
+      "url": "/static/components/page/company/company.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js"
+      ]
+    },
+    "components/page/bus/bus": {
+      "url": "/static/components/page/bus/bus.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js",
+        "component_modules/layer.m.js"
+      ]
+    },
+    "components/page/home/home": {
+      "url": "/static/components/page/home/home.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js"
+      ]
+    },
+    "main/main": {
+      "url": "/static/components/component/main/main.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "component_modules/director.js",
+        "components/page/home/home.js"
+      ]
+    }
+  },
+  "pkg": {}
+});</script>
+<script type="text/javascript" src="/static/js/layer.m.js"></script>
+<script type="text/javascript" src="/static/component_modules/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/mui.js"></script>
+<script type="text/javascript" src="/static/js/mui.indexedlist.js"></script>
+<script type="text/javascript">
+    require(["main/main.js"]);
+</script>
+<script type="text/javascript" charset="utf-8" src="http://192.168.60.221:8132/livereload.js"></script></body>
+</html>
