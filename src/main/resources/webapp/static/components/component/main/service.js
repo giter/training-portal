@@ -17,14 +17,27 @@ $.del = function (url,callback) {
 };
 
 $.put = function (url,data,callback) {
-    return $.ajax({
-        type:"put",
-        contentType:"application/json",
-        success:callback,
-        dataType:"json",
-        data:data,
-        url:url
-    })
+    if(arguments.length == 3){
+        return $.ajax({
+            type:"put",
+            contentType:"application/json",
+            success:callback,
+            error:error,
+            dataType:"json",
+            data:data,
+            url:url
+        })
+    }else if(arguments.length == 2){
+        return $.ajax({
+            type:"put",
+            contentType:"application/json",
+            success:arguments[1],
+            error:error,
+            dataType:"json",
+            url:arguments[0]
+        })
+    }
+
 };
 
 function userBind(p,c){
@@ -60,7 +73,17 @@ function getMyTicket(){
 }
 
 function orderSeat(id,c){
-    $.put(perfix +"/data/ticket/"+id+".json",c);
+    alert(id);
+    $.ajax({
+        type:"put",
+        contentType:"application/json",
+        success:c,
+        error: function (e) {
+            alert(JSON.stringify(e));
+        },
+        dataType:"json",
+        url:perfix +"/data/ticket/"+id+".json"
+    });
 }
 
 function getHashString(name) {
