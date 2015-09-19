@@ -3,7 +3,8 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
-var perfix = "";
+//var perfix = "";
+var perfix = "http://182.254.244.191";
 
 
 $.del = function (url,callback) {
@@ -73,17 +74,11 @@ function getMyTicket(){
 }
 
 function orderSeat(id,c){
-    alert(id);
-    $.ajax({
-        type:"put",
-        contentType:"application/json",
-        success:c,
-        error: function (e) {
-            alert(JSON.stringify(e));
-        },
-        dataType:"json",
-        url:perfix +"/data/ticket/"+id+".json"
-    });
+    $.put(perfix +"/data/ticket/"+id+".json",c);
+}
+
+function getMine(c){
+    $.get(perfix+"/data/user/mine.json", c);
 }
 
 function getHashString(name) {
@@ -116,7 +111,8 @@ module.exports = {
     getOrder:getOrder,
     getUsers:getUsers,
     orderSeat:orderSeat,
-    getMyTicket:getMyTicket
+    getMyTicket:getMyTicket,
+    getMine:getMine
 };
 
 });
