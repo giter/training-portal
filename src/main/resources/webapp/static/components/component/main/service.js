@@ -69,7 +69,7 @@ function getUsers(c){
     $.get(perfix+"/data/users.json", c);
 }
 
-function getMyTicket(){
+function getMyTicket(c){
     $.get(perfix + "/data/ticket/mine.json",c)
 }
 
