@@ -3,8 +3,8 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
-//var perfix = "";
-var perfix = "http://182.254.244.191";
+var perfix = "";
+//var perfix = "http://182.254.244.191";
 
 
 $.del = function (url,callback) {
