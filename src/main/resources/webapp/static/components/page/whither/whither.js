@@ -19,7 +19,6 @@ module.exports =   Vue.extend({
       service.getWhither(function (rep) {
          if(rep.Code == 0){
             self.whithers = rep.Response;
-            alert(JSON.stringify(rep.Response));
             Vue.nextTick(function () {
                self.render();
             })
@@ -33,16 +32,16 @@ module.exports =   Vue.extend({
 
          var lst = $list.find(".mui-indexed-list-group");
          lst.each(function (index,target) {
-            for(var i in self.whithers){
+            for(var i=0;i<self.whithers.length;i++){
                if($(target).data("group") == self.whithers[i].group){
                   var ws = self.whithers[i].list;
-                  for(var l in ws){
+                  for(var l=0;l<ws.length;l++){
                      $(target).after(' <li data-value='+ws[l].id+' data-index='+l+' data-name='+ws[l].name+' data-tags='+ws[l].tag+' class="mui-table-view-cell mui-indexed-list-item">'+ws[l].name+'</li>');
                   }
                }
             }
          });
-         
+
          $list.delegate(".mui-indexed-list-item","click", function (e) {
             var v = $(e.target).data("value"),name = $(e.target).data("name"),index = $(e.target).data("index");
             self.search.whither = name;
