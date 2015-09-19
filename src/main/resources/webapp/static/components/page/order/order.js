@@ -20,14 +20,13 @@ module.exports = Vue.extend({
     },
     compiled: function () {
         var self = this;
-      Service.getOrder(function (rep) {
+      Service.getMyTicket(function (rep) {
           if(rep.Code == 0){
               self.order = rep.Response;
+              alert(JSON.stringify(rep.Response));
           }
       })
     }
-
-
 });
 
 });

@@ -108,7 +108,7 @@ module.exports = Vue.extend({
             }
         },
         _orderSeat: function (id) {
-            Service.orderSeat(id,JSON.stringify({openID:"oXJVPs6KdX-f8C_T55uJiY3WtbX4"}), function (rep) {
+            Service.orderSeat(id, function (rep) {
                 Layer.closeAll();
             });
         },

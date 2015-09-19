@@ -2,7 +2,7 @@
 
 .layermbox{position:absolute; left:0; top:0; width:100%; z-index:19891014;}
 /*.layermbox *{margin:0; bottom:0;}*/
-.layermanim{transition: all .18s; -webkit-transition: all .18s;}
+/*.layermanim{transition: all .18s; -webkit-transition: all .18s;}*/
 .laymshade,
 .layermmain{position:fixed; left:0; top:0; width:100%; height:100%;}
 .laymshade{background-color:rgba(0,0,0, .5); pointer-events:auto;}

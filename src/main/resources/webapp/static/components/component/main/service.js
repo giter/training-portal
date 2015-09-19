@@ -32,31 +32,35 @@ function userBind(p,c){
 }
 
 function getBusSeat(p,c){
-    $.getJSON(perfix+"/data/tickets.json",p,c);
+    $.get(perfix+"/data/tickets.json",p,c);
 }
 
 function getWhither(c){
-    $.getJSON(perfix+"/data/whither.json", c);
+    $.get(perfix+"/data/whither.json", c);
 }
 
 function getCalendar(c){
-    $.getJSON(perfix+"/data/calendar.json", c);
+    $.get(perfix+"/data/calendar.json", c);
 }
 
 function getResult(p,c){
-    $.getJSON(perfix+"/data/tickets/stats.json",p, c);
+    $.get(perfix+"/data/tickets/stats.json",p, c);
 }
 
 function getOrder(c){
-    $.getJSON(perfix+"/data/order.json", c);
+    $.get(perfix+"/data/order.json", c);
 }
 
 function getUsers(c){
-    $.getJSON(perfix+"/data/users.json", c);
+    $.get(perfix+"/data/users.json", c);
 }
 
-function orderSeat(id,p,c){
-    $.put(perfix +"/data/ticket/"+id+".json",p,c);
+function getMyTicket(){
+    $.get(perfix + "/data/ticket/mine.json",c)
+}
+
+function orderSeat(id,c){
+    $.put(perfix +"/data/ticket/"+id+".json",c);
 }
 
 function getHashString(name) {
@@ -88,7 +92,8 @@ module.exports = {
     getResult:getResult,
     getOrder:getOrder,
     getUsers:getUsers,
-    orderSeat:orderSeat
+    orderSeat:orderSeat,
+    getMyTicket:getMyTicket
 };
 
 });
