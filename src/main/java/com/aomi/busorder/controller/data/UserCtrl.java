@@ -14,6 +14,7 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.mail.EmailException;
+import org.apache.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -89,11 +90,15 @@ public class UserCtrl {
 
     if (user != null) {
 
-      session.setAttribute("openID", user.getOpenID());
+      doLogin(session, user);
       return "redirect:/index.html";
     }
 
     return "redirect:/index.html?openID=" + openID + "#/bind";
+  }
+
+  void doLogin(HttpSession session, User user) {
+    session.setAttribute("openID", user.getOpenID());
   }
 
   @ResponseBody
@@ -199,4 +204,19 @@ public class UserCtrl {
     return RESTResponse.of(user).toString();
   }
 
+  @RequestMapping(value = "/login.do", method = { RequestMethod.GET })
+  public String login(
+      @RequestParam(value = "openID", required = false) String openID,
+      HttpSession session, HttpResponse response) throws IOException,
+      WxErrorException {
+
+    User user = userService.getByOpenID(openID);
+    if (user != null) {
+      doLogin(session, user);
+      return "redirect:/index.html";
+    }
+
+    response.setStatusCode(400);
+    return null;
+  }
 }
