@@ -25,7 +25,7 @@ window.app = new Vue({
         "home":home
     },
     ready:function(){
-        this.openid = Service.getHashString("openID");
+        this.openid = Service.getQueryString("openID");
         if(this.openid){
             alert(this.openid);
         }

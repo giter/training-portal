@@ -71,8 +71,16 @@ function getHashString(name) {
     if (r != null) return r[2]; return null;
 }
 
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return r[2]; return null;
+}
+
+
 module.exports = {
     getHashString:getHashString,
+    getQueryString:getQueryString,
     userBind:userBind,
     getBusSeat:getBusSeat,
     getWhither:getWhither,
