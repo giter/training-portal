@@ -5563,7 +5563,7 @@ html, body {
   position: absolute;
   z-index: 1; }
 
-.iconfont + .mui-table-view-cell > .mui-navigate-right {
+.iconfont + .mui-table-view-cell > a {
   padding-left: 45px; }
 
 .icon-target:before {
@@ -5693,7 +5693,7 @@ html, body {
   position: absolute;
   z-index: 1; }
 
-.iconfont + .mui-table-view-cell > .mui-navigate-right {
+.iconfont + .mui-table-view-cell > a {
   padding-left: 45px; }
 
 .icon-target:before {
