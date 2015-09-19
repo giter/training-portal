@@ -61,6 +61,12 @@ function orderSeat(id,p,c){
 
 function getHashString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    if(!window.location.hash){
+        return null;
+    }
+    if(window.location.hash.indexOf("?")==-1){
+        return null;
+    }
     var r = window.location.hash.split("?")[1].match(reg);
     if (r != null) return r[2]; return null;
 }

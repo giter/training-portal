@@ -7,13 +7,30 @@ define('components/page/bus/bus', function(require, exports, module) {
 var Vue = require("component_modules/vue");
 var Service = require("main/service.js");
 var Layer = require("component_modules/layer.m").layer;
+var IScroll = require("component_modules/iscroll-zoom");
+var Router = require("component_modules/director").Router;
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-bus\"  v-transition=\"slideInRight\">\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.name}}({{bus.sn}})\r\n        </h5>\r\n        <a class=\"mui-icon mui-icon-arrowleft mui-pull-left\" href=\"#/search/result\"></a>\r\n    </header>\r\n    <div class=\"mui-content mui-scroll-wrapper\" style=\"padding-bottom: 44px;\">\r\n       <div class=\"mui-scroll\">\r\n           <div class=\"bus-header\">\r\n\r\n           </div>\r\n           <table class=\"bus-body\">\r\n               <tr v-repeat=\"r in bus.rows\">\r\n                   <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\" v-on=\"tap:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                       <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                       </a>\r\n                   </td>\r\n               </tr>\r\n           </table>\r\n       </div>\r\n    </div>\r\n    <nav class=\"mui-bar mui-bar-footer\">\r\n        <button class=\"mui-btn mui-btn-block mui-btn-primary\" v-on=\"tap:orderSeat\">\r\n            <span class=\"mui-icon mui-icon-checkmarkempty\"></span>\r\n            预订\r\n        </button>\r\n    </nav>\r\n</div>",
+    inherit:true,
+    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.name}}({{bus.sn}})\r\n        </h5>\r\n        <a class=\"mui-icon mui-icon-arrowleft mui-pull-left\" href=\"#/search/result\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <ul class=\"mui-table-view\" style=\"margin-top: 0\">\r\n            <li class=\"mui-table-view-cell mui-media\">\r\n                <div class=\"mui-media-body\">\r\n                    <span style=\"font-weight: bold\">目的地：{{bus.destination}}</span>\r\n                    <p class='mui-ellipsis' style=\"font-size: 12px\">\r\n                        {{dateStr}}\r\n                    </p>\r\n                </div>\r\n                <button class=\"mui-btn mui-btn-primary\" v-on=\"tap:orderSeat\">\r\n                    提交预订\r\n                </button>\r\n            </li>\r\n        </ul>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" style=\"font-size: 12px\">\r\n                {{selectText}}\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:151px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"tap:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
     data: function () {
         return {
             bus:{},
             seat:null
+        }
+    },
+    computed:{
+        "dateStr": function () {
+            if(this.calendars&&this.calendars.length>0){
+                return this.calendars[this.search.date].name +" " +this.calendars[this.search.date].week;
+            }
+        },
+        "selectText": function () {
+            if(this.seat){
+                return (this.seat.row+1) +"排" +(this.seat.col+1)+"列  "+this.seat.sn+"座";
+            }else{
+                return "请选择座位";
+            }
         }
     },
     methods:{
@@ -95,12 +112,27 @@ module.exports = Vue.extend({
             Service.orderSeat(id,JSON.stringify({openID:"oXJVPs6KdX-f8C_T55uJiY3WtbX4"}), function (rep) {
                 Layer.closeAll();
             });
+        },
+        renderScroll: function () {
+            myScroll = new IScroll($(".page-bus > .mui-scroll-wrapper")[0], {
+                zoom: true,
+                scrollX: true,
+                scrollY: true,
+                mouseWheel: true,
+                wheelAction: 'zoom'
+            });
         }
     },
     ready: function () {
-        var busid = Service.getHashString("id"),
-            date = Service.getHashString("date");
-        mui(".page-bus > .mui-content").scroll();
+
+        if(!this.search.date){
+            var router = new Router();
+            return router.setRoute("search");
+        }
+
+        var busid = Service.getHashString("id");
+        date  = Service.getHashString("date");
+
         var self = this;
         Layer.open({
             content:"加载中",
@@ -110,12 +142,12 @@ module.exports = Vue.extend({
         Service.getBusSeat({bus:busid,date:date},function (rep) {
             if(rep.Code == 0){
                 self.bus = rep.Response;
+                self.$nextTick(function () {
+                    self.renderScroll();
+                })
             }
             Layer.closeAll();
         })
-    },
-    compiled: function () {
-
     }
 });
 

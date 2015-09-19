@@ -4,6 +4,7 @@ define('main/main', function(require, exports, module) {
 var Vue = require('component_modules/vue');
 var Router = require('component_modules/director').Router;
 var home = require('components/page/home/home');
+var Service = require("main/service.js");
 
 Vue.config.debug = true;
 
@@ -13,14 +14,21 @@ window.app = new Vue({
         "currentView":"home",
         "search":{
             "whither":"请选择",
-            "date":null
+            "date":null,
+            "dateStr":""
         },
         "calendars":[],
         "whithers":[],
-        "openid":"hao3304"
+        "openid":""
     },
     components:{
         "home":home
+    },
+    ready:function(){
+        this.openid = Service.getHashString("openID");
+        if(this.openid){
+            alert(this.openid);
+        }
     }
 });
 

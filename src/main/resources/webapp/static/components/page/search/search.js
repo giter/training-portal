@@ -20,8 +20,10 @@ module.exports = Vue.extend({
    computed:{
       "dateStr": function () {
          if(typeof this.search.date == "number"){
-           return this.calendars[this.search.date].name +" "+ this.calendars[this.search.date].week;
+            this.search.dateStr = this.calendars[this.search.date].name +" "+ this.calendars[this.search.date].week;
+            return this.search.dateStr;
          }else{
+            this.search.dataStr = "";
             return "请选择"
          }
       }

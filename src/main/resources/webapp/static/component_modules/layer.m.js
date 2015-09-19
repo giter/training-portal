@@ -15,7 +15,6 @@ define('component_modules/layer.m', function(require, exports, module) {
 "use strict";
 
 var path = ''; //所在路径，如果非模块加载不用配置
-path = path ? path : document.scripts[document.scripts.length-1].src.match(/[\s\S]*\//)[0];
 
 var doc = document, query = 'querySelectorAll', claname = 'getElementsByClassName', S = function(s){
     return doc[query](s);

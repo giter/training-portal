@@ -23,12 +23,11 @@ module.exports = Vue.extend({
                 this.valid = false;
             }else{
                 this.valid = true;
-                debugger
                 Server.userBind(JSON.stringify({
                     openID:this.openid,
                     email:this.email
                 }), function (rep) {
-                    debugger
+
                 })
             }
         }

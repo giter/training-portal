@@ -24,25 +24,44 @@
 .page-bus {
   background-color: #fff;
   height: 100%; }
+  .page-bus .mui-scroll-wrapper {
+    background-color: #ccc; }
+  .page-bus .mui-scroll {
+    padding: 10px;
+    background-color: #efeff4; }
   .page-bus .bus-header {
-    height: 105px;
-    background-color: #fff;
-    background-image: url("/static/images/carHeader.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat; }
+    text-align: center;
+    font-size: 12px; }
+    .page-bus .bus-header span {
+      padding: 3px 40px;
+      background-color: #dd524d;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 1px #000; }
+    .page-bus .bus-header a {
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-left: 5px; }
+    .page-bus .bus-header .void {
+      background-color: #00BB9C; }
+    .page-bus .bus-header .order {
+      background-color: #33475F; }
   .page-bus .bus-body {
     width: 100%;
     text-align: center;
-    background-color: #fff; }
+    background-color: #efeff4; }
     .page-bus .bus-body td {
-      padding: 5px 10px; }
+      padding: 4px 10px; }
     @media screen and (max-width: 768px) {
       .page-bus .bus-body a {
         display: block;
         height: 50px;
         color: #60418c;
         font-size: 16px;
-        line-height: 35px;
+        line-height: 38px;
         font-weight: bold;
         background-position: center;
         background-size: contain;
@@ -62,18 +81,36 @@
       width: inherit; }
       .page-bus .bus-body td.icon-seat-void a {
         background-image: url("/static/images/seat-void.png");
-        width: 100%; }
+        width: 100%;
+        color: #fff; }
     .page-bus .bus-body td.icon-seat-order {
       width: inherit; }
       .page-bus .bus-body td.icon-seat-order a {
         background-image: url("/static/images/seat-order.png");
-        width: 100%; }
+        width: 100%;
+        color: #fff; }
     .page-bus .bus-body td.icon-seat-select {
       width: inherit; }
       .page-bus .bus-body td.icon-seat-select a {
         background-image: url("/static/images/seat-select.png") !important;
         color: yellow;
         width: 100%; }
+  .page-bus .silder-nav {
+    position: absolute;
+    left: 0;
+    width: 15px;
+    top: 30px;
+    font-size: 12px; }
+    .page-bus .silder-nav li {
+      height: 58px;
+      padding: 0;
+      line-height: 58px;
+      text-align: center;
+      border-right: 1px solid #666; }
+    .page-bus .silder-nav li:first-child {
+      border-top: 1px solid #666; }
+    .page-bus .silder-nav li:last-child {
+      border-bottom: 1px solid #666; }
 
 /*# sourceMappingURL=bus.css.map */
 
@@ -127,25 +164,44 @@
 .page-bus {
   background-color: #fff;
   height: 100%; }
+  .page-bus .mui-scroll-wrapper {
+    background-color: #ccc; }
+  .page-bus .mui-scroll {
+    padding: 10px;
+    background-color: #efeff4; }
   .page-bus .bus-header {
-    height: 105px;
-    background-color: #fff;
-    background-image: url("/static/images/carHeader.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat; }
+    text-align: center;
+    font-size: 12px; }
+    .page-bus .bus-header span {
+      padding: 3px 40px;
+      background-color: #dd524d;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 1px #000; }
+    .page-bus .bus-header a {
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-left: 5px; }
+    .page-bus .bus-header .void {
+      background-color: #00BB9C; }
+    .page-bus .bus-header .order {
+      background-color: #33475F; }
   .page-bus .bus-body {
     width: 100%;
     text-align: center;
-    background-color: #fff; }
+    background-color: #efeff4; }
     .page-bus .bus-body td {
-      padding: 5px 10px; }
+      padding: 4px 10px; }
     @media screen and (max-width: 768px) {
       .page-bus .bus-body a {
         display: block;
         height: 50px;
         color: #60418c;
         font-size: 16px;
-        line-height: 35px;
+        line-height: 38px;
         font-weight: bold;
         background-position: center;
         background-size: contain;
@@ -165,18 +221,36 @@
       width: inherit; }
       .page-bus .bus-body td.icon-seat-void a {
         background-image: url("/static/images/seat-void.png");
-        width: 100%; }
+        width: 100%;
+        color: #fff; }
     .page-bus .bus-body td.icon-seat-order {
       width: inherit; }
       .page-bus .bus-body td.icon-seat-order a {
         background-image: url("/static/images/seat-order.png");
-        width: 100%; }
+        width: 100%;
+        color: #fff; }
     .page-bus .bus-body td.icon-seat-select {
       width: inherit; }
       .page-bus .bus-body td.icon-seat-select a {
         background-image: url("/static/images/seat-select.png") !important;
         color: yellow;
         width: 100%; }
+  .page-bus .silder-nav {
+    position: absolute;
+    left: 0;
+    width: 15px;
+    top: 30px;
+    font-size: 12px; }
+    .page-bus .silder-nav li {
+      height: 58px;
+      padding: 0;
+      line-height: 58px;
+      text-align: center;
+      border-right: 1px solid #666; }
+    .page-bus .silder-nav li:first-child {
+      border-top: 1px solid #666; }
+    .page-bus .silder-nav li:last-child {
+      border-bottom: 1px solid #666; }
 
 /*!/static/css/layer.css*/
 /* layer弹层移动版样式 */
