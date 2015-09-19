@@ -28,13 +28,18 @@ require.resourceMap({
       "url": "/static/components/component/main/service.js",
       "type": "js"
     },
+    "component_modules/layer.m": {
+      "url": "/static/component_modules/layer.m.js",
+      "type": "js"
+    },
     "components/page/bind/bind": {
       "url": "/static/components/page/bind/bind.js",
       "type": "js",
       "deps": [
         "component_modules/vue.js",
         "main/check.js",
-        "main/service.js"
+        "main/service.js",
+        "component_modules/layer.m.js"
       ]
     },
     "navbar/navbar": {
@@ -65,10 +70,6 @@ require.resourceMap({
         "navbar/navbar.js",
         "component_modules/director.js"
       ]
-    },
-    "component_modules/layer.m": {
-      "url": "/static/component_modules/layer.m.js",
-      "type": "js"
     },
     "components/page/search/result/result": {
       "url": "/static/components/page/search/result/result.js",
@@ -172,5 +173,5 @@ require.resourceMap({
 <script type="text/javascript">
     require(["main/main.js"]);
 </script>
-<script type="text/javascript" charset="utf-8" src="http://192.168.99.216:8132/livereload.js"></script></body>
+</body>
 </html>

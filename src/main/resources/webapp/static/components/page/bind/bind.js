@@ -7,6 +7,7 @@ define('components/page/bind/bind', function(require, exports, module) {
 var Vue = require("component_modules/vue");
 var Check = require("main/check.js").check;
 var Server = require("main/service.js");
+var Layer = require("component_modules/layer.m").layer;
 
 module.exports = Vue.extend({
     inherit:true,
@@ -23,11 +24,23 @@ module.exports = Vue.extend({
                 this.valid = false;
             }else{
                 this.valid = true;
+                Layer.open({
+                    content:"提交中",
+                    type:2,
+                    shadeClose:false
+                });
                 Server.userBind(JSON.stringify({
                     openID:this.openid,
                     email:this.email
                 }), function (rep) {
-
+                    Layer.closeAll();
+                    Layer.open({
+                        content:rep.Message,
+                        btn:["确定"],
+                        yes: function () {
+                            WeixinJSBridge.call('closeWindow');
+                        }
+                    })
                 })
             }
         }
