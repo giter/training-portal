@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import me.chanjar.weixin.common.bean.WxMenu;
@@ -14,7 +15,6 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.mail.EmailException;
-import org.apache.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -207,7 +207,7 @@ public class UserCtrl {
   @RequestMapping(value = "/login.do", method = { RequestMethod.GET })
   public String login(
       @RequestParam(value = "openID", required = false) String openID,
-      HttpSession session, HttpResponse response) throws IOException,
+      HttpSession session, HttpServletResponse response) throws IOException,
       WxErrorException {
 
     User user = userService.getByOpenID(openID);
@@ -216,7 +216,7 @@ public class UserCtrl {
       return "redirect:/index.html";
     }
 
-    response.setStatusCode(400);
+    response.sendError(400, "Bad Request.");
     return null;
   }
 }
