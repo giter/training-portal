@@ -19,7 +19,7 @@ module.exports =   Vue.extend({
       service.getWhither(function (rep) {
          if(rep.Code == 0){
             self.whithers = rep.Response;
-
+            alert(JSON.stringify(rep.Response));
             Vue.nextTick(function () {
                self.render();
             })

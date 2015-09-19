@@ -11,12 +11,7 @@ var Layer = require("component_modules/layer.m").layer;
 
 module.exports = Vue.extend({
    inherit:true,
-   template:"<div class=\"page-search-result\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <a class=\"mui-icon mui-icon-arrowleft mui-pull-left\"  href=\"#search\"></a>\r\n        <h5 class=\"mui-title\">\r\n            查询结果\r\n        </h5>\r\n    </header>\r\n\r\n    <div class=\"mui-content\">\r\n        <h5 class=\"mui-content-padded\">\r\n            {{result.length}}/{{result.length}}车次\r\n        </h5>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" v-repeat=\"r in result\">\r\n                <a class=\"mui-navigate-right\" href=\"#bus?id={{r.id}}&&date={{calendars[search.date].value}}\">\r\n                    <h4>\r\n                        {{r.name}} {{r.whither}}\r\n                    </h4>\r\n                    <p>{{r.date}}</p>\r\n                    <h5>\r\n                        空座：{{r.void}} 预订：{{r.order}} 全部：{{r.void + r.order}}\r\n                    </h5>\r\n                </a>\r\n            </li>\r\n        </ul>\r\n\r\n    </div>\r\n\r\n    <nav class=\"mui-bar mui-bar-tab\">\r\n        <div class=\"time-nav\">\r\n            <span class=\"mui-action mui-action-previous mui-icon mui-icon-back\" v-on=\"tap:btnPrev\"></span>\r\n            <span class=\"time\">{{dateStr}}</span>\r\n            <span class=\"mui-action mui-action-next mui-icon mui-icon-forward\" v-on=\"tap:btnNext\"></span>\r\n        </div>\r\n    </nav>\r\n</div>",
-   data: function () {
-      return {
-         result:[]
-      }
-   },
+   template:"<div class=\"page-search-result\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <a class=\"mui-icon mui-icon-arrowleft mui-pull-left\"  href=\"#search\"></a>\r\n        <h5 class=\"mui-title\">\r\n            查询结果\r\n        </h5>\r\n    </header>\r\n\r\n    <div class=\"mui-content\">\r\n        <h5 class=\"mui-content-padded\">\r\n            {{result.length}}/{{result.length}}车次\r\n        </h5>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" v-repeat=\"r in result\">\r\n                <a class=\"mui-navigate-right\" v-on=\"click:selectBus(r.id,calendars[search.date].value)\">\r\n                    <h4>\r\n                        {{r.name}} {{r.whither}}\r\n                    </h4>\r\n                    <p>{{r.date}}</p>\r\n                    <h5>\r\n                        空座：{{r.void}} 预订：{{r.order}} 全部：{{r.void + r.order}}\r\n                    </h5>\r\n                </a>\r\n            </li>\r\n        </ul>\r\n\r\n    </div>\r\n\r\n    <nav class=\"mui-bar mui-bar-tab\">\r\n        <div class=\"time-nav\">\r\n            <span class=\"mui-action mui-action-previous mui-icon mui-icon-back\" v-on=\"tap:btnPrev\"></span>\r\n            <span class=\"time\">{{dateStr}}</span>\r\n            <span class=\"mui-action mui-action-next mui-icon mui-icon-forward\" v-on=\"tap:btnNext\"></span>\r\n        </div>\r\n    </nav>\r\n</div>",
    methods:{
       btnPrev: function () {
          if(this.search.date > 0){
@@ -38,6 +33,22 @@ module.exports = Vue.extend({
             }
             Layer.closeAll();
          })
+      },
+      selectBus: function (busid,date) {
+         var self = this;
+         Layer.open({
+            content:"加载中",
+            type:2,
+            shadeClose:false
+         });
+         Service.getBusSeat({bus:busid,date:date},function (rep) {
+            Layer.closeAll();
+            if(rep.Code == 0){
+               self.bus = rep.Response;
+               var router = new Router();
+               return router.setRoute("bus");
+            }
+         })
       }
    },
    computed:{
@@ -53,12 +64,6 @@ module.exports = Vue.extend({
          var router = new Router();
          return router.setRoute("search");
       }
-      Layer.open({
-         type:2,
-         content:"加载中",
-         closeShade:false
-      });
-      this.getResult();
    }
 });
 

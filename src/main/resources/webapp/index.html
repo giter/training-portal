@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="app" class="wrap" >
-        <div v-component="{{currentView}}" ></div>
+        <div v-component="{{currentView}}" keep-alive></div>
     </div>
 
 <script type="text/javascript" src="/static/js/mod.js"></script>
@@ -68,7 +68,9 @@ require.resourceMap({
       "deps": [
         "component_modules/vue.js",
         "navbar/navbar.js",
-        "component_modules/director.js"
+        "component_modules/director.js",
+        "component_modules/layer.m.js",
+        "main/service.js"
       ]
     },
     "components/page/search/result/result": {

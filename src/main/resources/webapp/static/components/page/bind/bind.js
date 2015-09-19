@@ -34,13 +34,24 @@ module.exports = Vue.extend({
                     email:this.email
                 }), function (rep) {
                     Layer.closeAll();
-                    Layer.open({
-                        content:rep.Message,
-                        btn:["确定"],
-                        yes: function () {
-                            WeixinJSBridge.call('closeWindow');
-                        }
-                    })
+                    if(rep.Code == 0){
+                        Layer.open({
+                            content:"已经发送验证信息到您的邮箱，请先验证后在打开微信。",
+                            btn:["确定"],
+                            yes: function () {
+                                WeixinJSBridge.call('closeWindow');
+                            }
+                        })
+                    }else{
+                        Layer.open({
+                            content:rep.Message,
+                            btn:["确定"],
+                            yes: function () {
+                                WeixinJSBridge.call('closeWindow');
+                            }
+                        })
+                    }
+
                 })
             }
         }

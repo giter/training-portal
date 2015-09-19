@@ -17,6 +17,8 @@ window.app = new Vue({
             "date":null,
             "dateStr":""
         },
+        "result":[],/*查票结果*/
+        "bus":[],/*查询到的车辆信息*/
         "calendars":[],
         "whithers":[],
         "openid":""

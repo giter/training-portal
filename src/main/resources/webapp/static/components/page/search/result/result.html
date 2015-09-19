@@ -12,7 +12,7 @@
         </h5>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell" v-repeat="r in result">
-                <a class="mui-navigate-right" href="#bus?id={{r.id}}&&date={{calendars[search.date].value}}">
+                <a class="mui-navigate-right" v-on="click:selectBus(r.id,calendars[search.date].value)">
                     <h4>
                         {{r.name}} {{r.whither}}
                     </h4>
