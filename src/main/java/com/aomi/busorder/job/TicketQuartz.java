@@ -25,7 +25,7 @@ public class TicketQuartz {
   /**
    * 车票生成作业，提前生成N天的车票，每天0点执行
    */
-  @Scheduled(cron = "0 0 0 * * ?")
+  @Scheduled(cron = "30 0 0 * * ?")
   public void generate() {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
