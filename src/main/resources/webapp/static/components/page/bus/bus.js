@@ -38,7 +38,6 @@ module.exports = Vue.extend({
             for(var i =0;i<list.length;i++){
                 if(list[i].col == c && list[i].row == r){
                     if(list[i].state){
-                        hav = true;
                         switch (list[i].state){
                             case 0:{
                                 return "icon-seat-none";
@@ -114,11 +113,14 @@ module.exports = Vue.extend({
                 type:2,
                 shadeClose:false
             });
+            var self = this;
             Service.orderSeat(id, function (rep) {
                 Layer.closeAll();
                 if(rep.Code == 0){
+                    self.seat = null;
+                    $(".bus-body").find("td").removeClass("icon-seat-select");
                     Layer.open({
-                        content:"恭喜您，订票成功！要返回订票列表吗？",
+                        content:"恭喜您，订票成功！现在要返回订票列表吗？",
                         shadeClose:false,
                         btn:["确定","取消"],
                         yes: function () {

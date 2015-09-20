@@ -3,8 +3,8 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
-//var perfix = "";
-var perfix = "http://182.254.244.191";
+//var prefix = "";
+var prefix = "http://182.254.244.191";
 
 
 $.del = function (url,callback) {
@@ -41,47 +41,47 @@ $.put = function (url,data,callback) {
 };
 
 function userBind(p,c){
-    $.post(perfix+"/data/user/bind.json",p,c);
+    $.post(prefix+"/data/user/bind.json",p,c);
 }
 
 function getBusSeat(p,c){
-    $.get(perfix+"/data/tickets.json",p,c);
+    $.get(prefix+"/data/tickets.json",p,c);
 }
 
 function getWhither(c){
-    $.get(perfix+"/data/whither.json", c);
+    $.get(prefix+"/data/whither.json", c);
 }
 
 function getCalendar(c){
-    $.get(perfix+"/data/calendar.json", c);
+    $.get(prefix+"/data/calendar.json", c);
 }
 
 function getResult(p,c){
-    $.get(perfix+"/data/tickets/stats.json",p, c);
+    $.get(prefix+"/data/tickets/stats.json",p, c);
 }
 
 function getOrder(c){
-    $.get(perfix+"/data/order.json", c);
+    $.get(prefix+"/data/order.json", c);
 }
 
 function getUsers(c){
-    $.get(perfix+"/data/users.json", c);
+    $.get(prefix+"/data/users.json", c);
 }
 
 function getMyTicket(c){
-    $.get(perfix + "/data/ticket/mine.json",c)
+    $.get(prefix + "/data/ticket/mine.json",c)
 }
 
 function orderSeat(id,c){
-    $.put(perfix +"/data/ticket/"+id+".json",c);
+    $.put(prefix +"/data/ticket/"+id+".json",c);
 }
 
 function getMine(c){
-    $.get(perfix+"/data/user/mine.json", c);
+    $.get(prefix+"/data/user/mine.json", c);
 }
 
 function unSubTiket(id,c){
-    $.del(perfix + "/data/ticket/"+id+".json",c);
+    $.del(prefix + "/data/ticket/"+id+".json",c);
 }
 
 function getHashString(name) {
