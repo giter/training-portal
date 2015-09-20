@@ -20,6 +20,7 @@ module.exports =   Vue.extend({
          Layer.open({
             content:"确定解绑该账号？",
             btn:["确定","取消"],
+            shadeClose:false,
             yes: function () {
                Layer.closeAll();
             },
