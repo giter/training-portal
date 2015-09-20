@@ -127,7 +127,12 @@
 /*# sourceMappingURL=search.css.map */
 
 /*!/components/page/order/order.css*/
-
+.page-order {
+  height: 100%; }
+  .page-order .mui-control-content {
+    height: 100%; }
+    .page-order .mui-control-content .mui-content {
+      padding-bottom: 50px; }
 
 /*# sourceMappingURL=order.css.map */
 
@@ -251,6 +256,14 @@
       border-top: 1px solid #666; }
     .page-bus .silder-nav li:last-child {
       border-bottom: 1px solid #666; }
+
+/*!/components/page/order/order.scss*/
+.page-order {
+  height: 100%; }
+  .page-order .mui-control-content {
+    height: 100%; }
+    .page-order .mui-control-content .mui-content {
+      padding-bottom: 50px; }
 
 /*!/static/css/layer.css*/
 /* layer弹层移动版样式 */
