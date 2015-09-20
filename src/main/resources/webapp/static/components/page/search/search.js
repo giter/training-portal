@@ -19,20 +19,43 @@ module.exports = Vue.extend({
          router.setRoute(hash);
       },
       onSearch: function () {
-         var self = this;
-         Layer.open({
-            content:"查询中",
-            type:2,
-            shadeClose:true
-         });
-         Service.getResult({date:self.calendars[self.search.date].value,dest:self.search.whither},function (rep) {
-            Layer.closeAll();
-            if(rep.Code == 0){
-               self.result = rep.Response;
-               var router = new Router();
-               return router.setRoute("search/result");
-            }
-         })
+         if(this.valid()){
+            var self = this;
+            Layer.open({
+               content:"查询中",
+               type:2,
+               shadeClose:true
+            });
+
+            Service.getResult({date:self.calendars[self.search.date].value,dest:self.search.whither},function (rep) {
+               Layer.closeAll();
+               if(rep.Code == 0){
+                  self.result = rep.Response;
+                  var router = new Router();
+                  return router.setRoute("search/result");
+               }
+            })
+         }
+      },
+      valid: function () {
+         var str = null;
+         if(!this.calendars[this.search.date]){
+            str = "请先选择出发时间";
+         }
+         if(this.search.whither =="请选择"){
+            str = "请先选择目的地";
+         }
+         if(str){
+               Layer.open({
+               content:str,
+               shadeClose:false,
+               btn:["确定"],
+               yes: function () {
+                  Layer.closeAll();
+               }
+            })
+         }
+         return !str;
       }
    },
    computed:{
