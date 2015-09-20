@@ -126,6 +126,8 @@ public class TicketCtrl {
         seat.put("state", 1);
       }
 
+      seat.put("ticket", ticket.get_id());
+
       seats.add(seat);
     }
 
@@ -143,6 +145,21 @@ public class TicketCtrl {
     if (openID == null || user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+    }
+
+    Ticket ticket = ticketService.get(id);
+
+    if (ticket == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "查无此票...").toString();
+    }
+
+    if (ticket.getUser() != null) {
+      return RESTResponse.of(Errors.ITEM_BEEN_ORDERED, "该票已被预订...").toString();
+    }
+
+    if (ticketService.countByDate(user.get_id(), ticket.getDate()) >= user
+        .getLimit()) {
+      return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
     }
 
     return RESTResponse.of(ticketService.take(id, user)).toString();

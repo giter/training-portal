@@ -80,6 +80,9 @@ public class MongoDAO implements InitializingBean {
     ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
         .add("seat._id", 1).get());
 
+    ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
+        .add("user._id", 1).get());
+
     authorize = client.getDB(dbName).getCollection(COLLECTION_NAME_AUTHORIZE);
     authorize.setObjectClass(Authorize.class);
 

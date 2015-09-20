@@ -103,6 +103,14 @@ public class TicketService {
     return (Ticket) dao.ticket.findAndModify(query, update);
   }
 
+  public long countByDate(String uid, String date) {
+
+    DBObject query = BasicDBObjectBuilder.start().add("date", date)
+        .add("user._id", "uid").get();
+
+    return dao.ticket.count(query);
+  }
+
   public Ticket insert(Ticket ticket) {
 
     ticket.set_id(new ObjectId().toHexString());

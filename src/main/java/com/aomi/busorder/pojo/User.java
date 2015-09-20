@@ -125,7 +125,7 @@ public class User extends Basic<User> {
    */
   public int getLimit() {
 
-    return getInt(FIELD_LIMIT, (getAdmin() == 1) ? 999999 : 0);
+    return getInt(FIELD_LIMIT, (getAdmin() == 1) ? 999999 : 1);
   }
 
   public User setLimit(int limit) {
