@@ -198,7 +198,7 @@ public class UserCtrl {
 
     if (openID == null || user == null) {
 
-      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
     return RESTResponse.of(user).toString();

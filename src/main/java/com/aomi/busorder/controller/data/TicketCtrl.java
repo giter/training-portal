@@ -145,7 +145,7 @@ public class TicketCtrl {
     }
 
     if (ticket.getUser() != null) {
-      return RESTResponse.of(Errors.ITEM_BEEN_ORDERED, "该票已被预订...").toString();
+      return RESTResponse.of(Errors.ITEM_BEEN_ORDERED, "车票已被预订...").toString();
     }
 
     String openID = (String) session.getAttribute("openID");
@@ -154,7 +154,7 @@ public class TicketCtrl {
 
     if (openID == null || user == null) {
 
-      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
     if (ticketService.countByDate(user.get_id(), ticket.getDate()) >= user
@@ -175,7 +175,7 @@ public class TicketCtrl {
 
     if (openID == null || user == null) {
 
-      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
     return RESTResponse.of(ticketService.take(id, user)).toString();
@@ -191,7 +191,7 @@ public class TicketCtrl {
 
     if (openID == null || user == null) {
 
-      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
     TicketParam param = new TicketParam();
