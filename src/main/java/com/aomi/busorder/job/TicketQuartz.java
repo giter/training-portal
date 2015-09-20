@@ -31,20 +31,20 @@ public class TicketQuartz {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.DATE, 1);
 
     String date = sdf.format(cal.getTime());
-
 
     LOGGER.info(String.format("Clean old ticket %s", date));
     ticketService.clean(date);
 
     for (int i = 0; i < 7; i++) {
 
-      int num = ticketService.generateAll(sdf.format(cal.getTime()));
-      LOGGER.info(String.format("Generate %d ticket on %s", num, date));
-
       cal.add(Calendar.DATE, 1);
+
+      int num = ticketService.generateAll(sdf.format(cal.getTime()));
+      LOGGER.info(String.format("Generate %d ticket on %s", num,
+          sdf.format(cal.getTime())));
+
     }
   }
 }
