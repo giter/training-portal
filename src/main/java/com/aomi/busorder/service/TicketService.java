@@ -106,7 +106,7 @@ public class TicketService {
   public long countByDate(String uid, String date) {
 
     DBObject query = BasicDBObjectBuilder.start().add("date", date)
-        .add("user._id", "uid").get();
+        .add("user._id", uid).get();
 
     return dao.ticket.count(query);
   }

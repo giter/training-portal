@@ -138,15 +138,6 @@ public class TicketCtrl {
   @RequestMapping(value = "/data/ticket/{id}.json", method = { RequestMethod.PUT })
   public String take(@PathVariable("id") String id, HttpSession session) {
 
-    String openID = (String) session.getAttribute("openID");
-
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
-
-      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
-    }
-
     Ticket ticket = ticketService.get(id);
 
     if (ticket == null) {
@@ -155,6 +146,15 @@ public class TicketCtrl {
 
     if (ticket.getUser() != null) {
       return RESTResponse.of(Errors.ITEM_BEEN_ORDERED, "该票已被预订...").toString();
+    }
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定...").toString();
     }
 
     if (ticketService.countByDate(user.get_id(), ticket.getDate()) >= user
