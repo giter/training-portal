@@ -12,7 +12,7 @@ var Router = require("component_modules/director").Router;
 
 module.exports = Vue.extend({
     inherit:true,
-    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.name}}({{bus.sn}})\r\n        </h5>\r\n        <a class=\"mui-icon mui-icon-arrowleft mui-pull-left\" href=\"#/search/result\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <ul class=\"mui-table-view\" style=\"margin-top: 0\">\r\n            <li class=\"mui-table-view-cell mui-media\">\r\n                <div class=\"mui-media-body\">\r\n                    <span style=\"font-weight: bold\">目的地：{{bus.destination}}</span>\r\n                    <p class='mui-ellipsis' style=\"font-size: 12px\">\r\n                        {{dateStr}}\r\n                    </p>\r\n                </div>\r\n                <button class=\"mui-btn mui-btn-primary\" v-on=\"tap:orderSeat\">\r\n                    提交预订\r\n                </button>\r\n            </li>\r\n        </ul>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" style=\"font-size: 12px\">\r\n                {{selectText}}\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:151px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"tap:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
+    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.name}}({{bus.sn}})\r\n        </h5>\r\n        <a class=\"mui-icon mui-icon-arrowleft mui-pull-left\" href=\"#/search/result\"></a>\r\n        <a class=\"mui-icon mui-icon-home-filled mui-pull-right\" href=\"#/search\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <ul class=\"mui-table-view\" style=\"margin-top: 0\">\r\n            <li class=\"mui-table-view-cell mui-media\">\r\n                <div class=\"mui-media-body\">\r\n                    <span style=\"font-weight: bold\">目的地：{{bus.destination}}</span>\r\n                    <p class='mui-ellipsis' style=\"font-size: 12px\">\r\n                        {{dateStr}}\r\n                    </p>\r\n                </div>\r\n                <button class=\"mui-btn mui-btn-primary\" v-on=\"tap:orderSeat\">\r\n                    提交预订\r\n                </button>\r\n            </li>\r\n        </ul>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" style=\"font-size: 12px\">\r\n                {{selectText}}\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:151px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"tap:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
     data: function () {
         return {
             seat:null
@@ -90,7 +90,7 @@ module.exports = Vue.extend({
                     shadeClose:false,
                     btn:["确定","取消"],
                     yes: function () {
-                        self._orderSeat(self.seat._id);
+                        self._orderSeat(self.seat.ticket);
                     },
                     no: function () {
                         Layer.closeAll();
@@ -108,9 +108,37 @@ module.exports = Vue.extend({
             }
         },
         _orderSeat: function (id) {
+            Layer.closeAll();
+            Layer.open({
+                content:"订票中",
+                type:2,
+                shadeClose:false
+            });
             Service.orderSeat(id, function (rep) {
-                alert(JSON.stringify(rep));
                 Layer.closeAll();
+                if(rep.Code == 0){
+                    Layer.open({
+                        content:"恭喜您，订票成功！要返回订票列表吗？",
+                        shadeClose:false,
+                        btn:["确定","取消"],
+                        yes: function () {
+                            Layer.closeAll();
+                            var router = new Router();
+                            return router.setRoute("order");
+                        },no: function () {
+                            Layer.closeAll();
+                        }
+                    });
+                }else{
+                    Layer.open({
+                        content:rep.Message,
+                        shadeClose:false,
+                        btn:["确定"],
+                        yes: function () {
+                            Layer.closeAll();
+                        }
+                    });
+                }
             });
         },
         renderScroll: function () {
