@@ -23,7 +23,7 @@ public class RESTResponse<T> {
 
   public static <V> RESTResponse<V> of(int Code, String Message) {
 
-    return new RESTResponse<V>(0, Message, null);
+    return new RESTResponse<V>(Code, Message, null);
   }
 
   public String toString() {
