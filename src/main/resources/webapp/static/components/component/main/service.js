@@ -33,7 +33,6 @@ $.put = function (url,data,callback) {
             type:"put",
             contentType:"application/json",
             success:arguments[1],
-            error:error,
             dataType:"json",
             url:arguments[0]
         })
