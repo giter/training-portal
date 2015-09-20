@@ -1,5 +1,6 @@
 package com.aomi.busorder;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.core.io.ClassPathResource;
@@ -28,6 +30,12 @@ public class Application {
         "8080")));
 
     WebAppContext wac = new WebAppContext();
+
+    HashSessionManager localSessionManager = new HashSessionManager();
+    localSessionManager.setStoreDirectory(new File("./sessions"));
+    localSessionManager.setIdleSavePeriod(5);
+
+    wac.getSessionHandler().setSessionManager(localSessionManager);
 
     wac.setContextPath("/");
     wac.setResourceBase(new ClassPathResource("ROOT").getURI().toString());
