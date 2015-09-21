@@ -3,22 +3,17 @@
 
 /*# sourceMappingURL=bind.css.map */
 
-/*!/components/page/search/result/result.scss*/
-.page-search-result .time-nav {
-  text-align: center;
-  color: #007aff;
-  line-height: 44px; }
-  .page-search-result .time-nav .mui-action {
-    width: 40px;
-    margin: 3px;
-    color: #007aff;
-    font-size: 20px;
-    padding: 5px 1px;
-    text-align: center;
-    border: 1px solid #ddd; }
-  .page-search-result .time-nav .time {
-    padding-left: 20px;
-    padding-right: 20px; }
+/*!/components/page/search/search.css*/
+.page-search .form-value {
+  color: #60418c;
+  margin-right: 20px; }
+
+#btn-search {
+  padding: 7px 0;
+  margin-top: 40px;
+  color: #0062cc; }
+
+/*# sourceMappingURL=search.css.map */
 
 /*!/components/page/bus/bus.css*/
 .page-bus {
@@ -114,7 +109,7 @@
 
 /*# sourceMappingURL=bus.css.map */
 
-/*!/components/page/search/search.css*/
+/*!/components/page/search/search.scss*/
 .page-search .form-value {
   color: #60418c;
   margin-right: 20px; }
@@ -123,8 +118,6 @@
   padding: 7px 0;
   margin-top: 40px;
   color: #0062cc; }
-
-/*# sourceMappingURL=search.css.map */
 
 /*!/components/page/order/order.css*/
 .page-order {
@@ -136,15 +129,15 @@
 
 /*# sourceMappingURL=order.css.map */
 
-/*!/components/page/search/search.scss*/
-.page-search .form-value {
-  color: #60418c;
-  margin-right: 20px; }
+/*!/components/page/service/service.css*/
+.page-service {
+  height: 100%; }
+  .page-service .mui-control-content {
+    height: 100%; }
+    .page-service .mui-control-content .mui-content {
+      padding-bottom: 50px; }
 
-#btn-search {
-  padding: 7px 0;
-  margin-top: 40px;
-  color: #0062cc; }
+/*# sourceMappingURL=service.css.map */
 
 /*!/components/page/search/result/result.css*/
 .page-search-result .time-nav {
@@ -164,6 +157,14 @@
     padding-right: 20px; }
 
 /*# sourceMappingURL=result.css.map */
+
+/*!/components/page/service/service.scss*/
+.page-service {
+  height: 100%; }
+  .page-service .mui-control-content {
+    height: 100%; }
+    .page-service .mui-control-content .mui-content {
+      padding-bottom: 50px; }
 
 /*!/components/page/bus/bus.scss*/
 .page-bus {
@@ -264,6 +265,23 @@
     height: 100%; }
     .page-order .mui-control-content .mui-content {
       padding-bottom: 50px; }
+
+/*!/components/page/search/result/result.scss*/
+.page-search-result .time-nav {
+  text-align: center;
+  color: #007aff;
+  line-height: 44px; }
+  .page-search-result .time-nav .mui-action {
+    width: 40px;
+    margin: 3px;
+    color: #007aff;
+    font-size: 20px;
+    padding: 5px 1px;
+    text-align: center;
+    border: 1px solid #ddd; }
+  .page-search-result .time-nav .time {
+    padding-left: 20px;
+    padding-right: 20px; }
 
 /*!/static/css/layer.css*/
 /* layer弹层移动版样式 */

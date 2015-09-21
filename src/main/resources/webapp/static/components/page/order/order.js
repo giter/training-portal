@@ -29,6 +29,7 @@ module.exports = Vue.extend({
                 Layer.closeAll();
                 if(rep.Code == 0){
                     self.order = rep.Response;
+                    mui(".page-order .mui-scroll-wrapper").scroll();
                 }
             })
         },
@@ -58,9 +59,6 @@ module.exports = Vue.extend({
     },
     compiled: function () {
         this.render();
-    },
-    ready: function () {
-        mui(".mui-scroll-wrapper").scroll();
     }
 });
 
