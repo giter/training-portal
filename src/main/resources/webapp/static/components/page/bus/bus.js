@@ -129,6 +129,7 @@ module.exports = Vue.extend({
                             return router.setRoute("order");
                         },no: function () {
                             Layer.closeAll();
+                            self.reloadSeat();
                         }
                     });
                 }else{
@@ -138,6 +139,7 @@ module.exports = Vue.extend({
                         btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
+                            self.reloadSeat();
                         }
                     });
                 }
@@ -151,6 +153,22 @@ module.exports = Vue.extend({
                 mouseWheel: true,
                 wheelAction: 'zoom'
             });
+        },
+        reloadSeat: function () {
+            var self = this;
+            Layer.open({
+                content:"加载中",
+                type:2,
+                shadeClose:false
+            });
+            Service.getBusSeat({bus:self.bus._id,date:self.calendars[self.search.date].value},function (rep) {
+                Layer.closeAll();
+                if(rep.Code == 0){
+                    self.bus = rep.Response;
+                    var router = new Router();
+                    return router.setRoute("bus");
+                }
+            })
         }
     },
     ready: function () {

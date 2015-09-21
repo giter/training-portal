@@ -27,6 +27,7 @@ module.exports = Vue.extend({
       },
       getResult: function () {
          var self = this;
+         self.bus = [];
          Service.getResult({date:self.calendars[self.search.date].value,dest:self.search.whither},function (rep) {
             if(rep.Code == 0){
                self.result = rep.Response;
@@ -58,7 +59,7 @@ module.exports = Vue.extend({
    },
    computed:{
       "dateStr": function () {
-         if(this.calendars&&this.search.date){
+         if(this.calendars.length>0){
             return this.calendars[this.search.date].name +" " +this.calendars[this.search.date].week;
          }
       }
