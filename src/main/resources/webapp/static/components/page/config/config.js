@@ -36,7 +36,7 @@ module.exports =   Vue.extend({
          content:"加载中",
          type:2,
          shadeClose:false,
-         shade:false
+         shade:"background-color:rgba(0,0,0,0)"
       });
       Service.getMine(function (rep) {
          Layer.closeAll();
