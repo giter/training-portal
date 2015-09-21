@@ -215,6 +215,16 @@ public class TicketService {
       ob.add(Ticket.FIELD_USER + "._id", param.getUid());
     }
 
+    if (param.getCompany() != null) {
+
+      ob.add(Ticket.FIELD_USER + ".company", param.getCompany());
+    }
+
+    if (param.getDate() != null) {
+
+      ob.add(Ticket.FIELD_DATE, param.getDate());
+    }
+
     return ob.get();
   }
 
