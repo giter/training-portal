@@ -179,7 +179,7 @@ public class TicketCtrl {
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
-    return RESTResponse.of(ticketService.take(id, user)).toString();
+    return RESTResponse.of(ticketService.refund(id, user)).toString();
   }
 
   @ResponseBody

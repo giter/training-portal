@@ -49,7 +49,7 @@ public class TicketService {
    *          用户号
    * @return
    */
-  public Ticket back(String id, User user) {
+  public Ticket refund(String id, User user) {
 
     DBObject query = BasicDBObjectBuilder.start().add("_id", id)
         .add("user._id", user.get_id()).get();
