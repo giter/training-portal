@@ -54,6 +54,16 @@ public class Bus extends Basic<Bus> {
    */
   public static final String FIELD_ONLINE = "online";
 
+  /**
+   * 车辆照片base64
+   */
+  public static final String FIELD_SRC = "src";
+
+  public String getSrc(){
+
+    return  getString(FIELD_SRC);
+  }
+
   public String getName() {
 
     return getString(FIELD_NAME);

@@ -87,6 +87,7 @@ public class TicketCtrl {
       mm.put("date", String.format("%s %s", date, bus.getGoff()));
       mm.put("void", available);
       mm.put("order", all - available);
+      mm.put("src",bus.getSrc());
 
       r.add(mm);
     }
