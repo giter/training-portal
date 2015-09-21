@@ -1,17 +1,17 @@
 <nav class="mui-bar mui-bar-tab"  >
-    <a class="mui-tab-item" v-class="mui-active:view =='search'" v-on="click:onClick('#search')">
+    <a class="mui-tab-item" v-class="mui-active:view =='search'" v-on="tap:onClick('#search')">
         <span class="mui-icon mui-icon-search"></span>
         <span class="mui-tab-label">搜索</span>
     </a>
-    <a class="mui-tab-item" v-class="mui-active:view =='order'" v-on="click:onClick('#order')"  >
+    <a class="mui-tab-item" v-class="mui-active:view =='order'" v-on="tap:onClick('#order')"  >
         <span class="mui-icon icon-font  mui-icon-phone"></span>
         <span class="mui-tab-label">订单</span>
     </a>
-    <a class="mui-tab-item" v-class="mui-active:view =='service'"  v-on="click:onClick('#service')">
+    <a class="mui-tab-item" v-class="mui-active:view =='service'"  v-on="tap:onClick('#service')">
         <span class="mui-icon mui-icon-list"></span>
         <span class="mui-tab-label">服务</span>
     </a>
-    <a class="mui-tab-item" v-class="mui-active:view =='config'" v-on="click:onClick('#config')">
+    <a class="mui-tab-item" v-class="mui-active:view =='config'" v-on="tap:onClick('#config')">
         <span class="mui-icon mui-icon-gear"></span>
         <span class="mui-tab-label">设置</span>
     </a>

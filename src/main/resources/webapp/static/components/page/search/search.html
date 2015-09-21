@@ -9,7 +9,7 @@
             <ul class="mui-table-view mui-list">
                 <i class=" iconfont icon-target"></i>
                 <li class="mui-table-view-cell">
-                    <a class="mui-navigate-right" v-on="click:onClick('whither')">目的地
+                    <a class="mui-navigate-right" v-on="tap:onClick('whither')">目的地
                     <span class="mui-pull-right form-value">
                         {{search.whither}}
                     </span>
@@ -17,7 +17,7 @@
                 </li>
                 <i class="iconfont icon-time"></i>
                 <li class="mui-table-view-cell">
-                    <a class="mui-navigate-right" v-on="click:onClick('calendar')"  >出发时间
+                    <a class="mui-navigate-right" v-on="tap:onClick('calendar')"  >出发时间
                         <span class="mui-pull-right form-value">
                         {{dateStr}}
                     </span>
