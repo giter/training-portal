@@ -13,7 +13,7 @@
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-repeat="r in result">
                 <a class="mui-navigate-right" v-on="click:selectBus(r.id,calendars[search.date].value)">
-                    <img style="width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
+                    <img style="max-width: 62px;width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
                     <div class="mui-media-body">
                         {{r.name}} {{r.whither}}
                         <p>

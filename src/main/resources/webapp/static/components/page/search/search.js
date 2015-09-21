@@ -60,7 +60,7 @@ module.exports = Vue.extend({
    },
    computed:{
       "dateStr": function () {
-         if(typeof this.search.date == "number"){
+         if(typeof this.search.date == "number" && this.calendars.length>0){
             this.search.dateStr = this.calendars[this.search.date].name +" "+ this.calendars[this.search.date].week;
             return this.search.dateStr;
          }else{
