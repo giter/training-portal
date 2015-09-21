@@ -208,7 +208,7 @@ public class UserCtrl {
   }
 
   @ResponseBody
-  @RequestMapping(value = "/data/user/delegation.json", method = { RequestMethod.POST })
+  @RequestMapping(value = "/data/user/delegation.json", method = { RequestMethod.GET })
   public String delegation(HttpSession session) {
 
     String openID = (String) session.getAttribute("openID");
