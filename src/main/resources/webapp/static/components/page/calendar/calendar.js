@@ -17,7 +17,8 @@ module.exports =   Vue.extend({
         Layer.open({
             content:"加载中",
             type:2,
-            shadeClose:false
+            shadeClose:false,
+            shade:false
         });
         Service.getCalendar(function (rep) {
             Layer.closeAll();

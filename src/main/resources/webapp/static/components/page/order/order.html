@@ -13,10 +13,8 @@
                     <li class="mui-table-view-cell mui-media" v-repeat="o in order">
                         <img style="width: 42px;" class="mui-media-object mui-pull-left" v-attr="src:o.bus.src||'/admin/static/images/128.png'">
                         <div class="mui-media-body">
-                            <h4>
                                 {{o.bus.sn}} {{o.bus.destination}}
-                            </h4>
-                            <p>{{o.date}} {{o.bus.goff}} {{o.seat.sn}}号座位</p>
+                            <p class="mui-ellipsis">{{o.date}} {{o.bus.goff}} {{o.seat.sn}}号座位</p>
                         </div>
                         <button class="mui-btn mui-btn-positive mui-btn-outlined" v-on="tap:unSub(o)">
                             退订

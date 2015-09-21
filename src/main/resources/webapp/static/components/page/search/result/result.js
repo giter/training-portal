@@ -39,7 +39,8 @@ module.exports = Vue.extend({
          Layer.open({
             content:"加载中",
             type:2,
-            shadeClose:false
+            shadeClose:false,
+            shade:false
          });
          Service.getBusSeat({bus:busid,date:date},function (rep) {
             Layer.closeAll();
