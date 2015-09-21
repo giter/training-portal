@@ -24,7 +24,6 @@ import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.BusService;
 import com.aomi.busorder.service.UserService;
-import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
@@ -68,15 +67,6 @@ public class DataCtrl {
     }
 
     return RESTResponse.of(rs).toString();
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/data/users.json", method = { RequestMethod.GET })
-  public String users(@ModelAttribute UserParam userParam) {
-
-    return RESTResponse.of(
-        Page.of(userService.count(userParam), userService.page(userParam)))
-        .toString();
   }
 
   @ResponseBody
