@@ -1,6 +1,6 @@
 <div class="page-search-result" >
     <header class="mui-bar mui-bar-nav">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" v-on="tap:toRouter('search')"></a>
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" v-on="click:toRouter('search')"></a>
         <h5 class="mui-title">
             查询结果
         </h5>
@@ -31,9 +31,9 @@
 
     <nav class="mui-bar mui-bar-tab">
         <div class="time-nav">
-            <span class="mui-action mui-action-previous mui-icon mui-icon-back" v-on="tap:btnPrev"></span>
+            <span class="mui-action mui-action-previous mui-icon mui-icon-back" v-on="click:btnPrev"></span>
             <span class="time">{{dateStr}}</span>
-            <span class="mui-action mui-action-next mui-icon mui-icon-forward" v-on="tap:btnNext"></span>
+            <span class="mui-action mui-action-next mui-icon mui-icon-forward" v-on="click:btnNext"></span>
         </div>
     </nav>
 </div>

@@ -4,7 +4,7 @@
             <h5 class="mui-title">
                 订单列表
             </h5>
-            <a class="mui-icon mui-icon-refresh mui-pull-right" v-on="tap:reload"></a>
+            <a class="mui-icon mui-icon-refresh mui-pull-right" v-on="click:reload"></a>
         </header>
         <div class="mui-content mui-scroll-wrapper">
             <div class="mui-scroll">
@@ -16,7 +16,7 @@
                                 {{o.bus.sn}} {{o.bus.destination}}
                             <p class="mui-ellipsis">{{o.date}} {{o.bus.goff}} {{o.seat.sn}}号座位</p>
                         </div>
-                        <button class="mui-btn mui-btn-positive mui-btn-outlined" v-on="tap:unSub(o)">
+                        <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:unSub(o)">
                             退订
                         </button>
                     </li>
