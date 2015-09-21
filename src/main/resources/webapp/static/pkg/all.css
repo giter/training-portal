@@ -5576,6 +5576,9 @@ html, body {
   position: absolute;
   z-index: 1; }
 
+.ellipsis2 .iconfont {
+  padding-top: 10px; }
+
 .iconfont + .mui-table-view-cell > a {
   padding-left: 45px; }
 
@@ -5717,6 +5720,9 @@ html, body {
   padding-left: 15px;
   position: absolute;
   z-index: 1; }
+
+.ellipsis2 .iconfont {
+  padding-top: 10px; }
 
 .iconfont + .mui-table-view-cell > a {
   padding-left: 45px; }
