@@ -1,5 +1,9 @@
 package com.aomi.busorder.pojo;
 
+import java.util.List;
+
+import com.mongodb.BasicDBList;
+
 public class User extends Basic<User> {
 
   private static final long serialVersionUID = 1L;
@@ -49,6 +53,11 @@ public class User extends Basic<User> {
    */
   public static final String FIELD_ADMIN = "admin";
 
+  /***
+   * 授信人
+   */
+  public static final String FIELD_DELEGATION = "delegation";
+
   public int getType() {
 
     return getInt(FIELD_TYPE, 0);
@@ -86,6 +95,42 @@ public class User extends Basic<User> {
 
   public User setMobile(String mobile) {
     put(FIELD_MOBILE, mobile);
+    return this;
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<String> getDelegation() {
+
+    Object lists = get(FIELD_DELEGATION);
+    return (List<String>) (lists == null ? new BasicDBList() : lists);
+  }
+
+  public User setDelegation(List<String> delegation) {
+
+    put(FIELD_DELEGATION, delegation);
+    return this;
+  }
+
+  public User delegate(String uid) throws ArrayIndexOutOfBoundsException {
+
+    List<String> delegation = getDelegation();
+
+    if (delegation.size() < 4)
+      delegation.add(uid);
+    else
+      throw new ArrayIndexOutOfBoundsException(4);
+
+    setDelegation(delegation);
+
+    return this;
+  }
+
+  public User undelegate(String uid) throws ArrayIndexOutOfBoundsException {
+
+    List<String> delegation = getDelegation();
+    delegation.remove(uid);
+    setDelegation(delegation);
+
     return this;
   }
 

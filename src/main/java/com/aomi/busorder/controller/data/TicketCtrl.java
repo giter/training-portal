@@ -87,7 +87,7 @@ public class TicketCtrl {
       mm.put("date", String.format("%s %s", date, bus.getGoff()));
       mm.put("void", available);
       mm.put("order", all - available);
-      mm.put("src",bus.getSrc());
+      mm.put("src", bus.getSrc());
 
       r.add(mm);
     }
@@ -137,7 +137,7 @@ public class TicketCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/ticket/{id}.json", method = { RequestMethod.PUT })
-  public String take(@PathVariable("id") String id, HttpSession session) {
+  public String order(@PathVariable("id") String id, HttpSession session) {
 
     Ticket ticket = ticketService.get(id);
 
@@ -167,8 +167,52 @@ public class TicketCtrl {
   }
 
   @ResponseBody
+  @RequestMapping(value = "/data/ticket/{uid}/{id}.json", method = { RequestMethod.PUT })
+  public String delegateOrder(@PathVariable("uid") String uid,
+      @PathVariable("id") String id, HttpSession session) {
+
+    Ticket ticket = ticketService.get(id);
+
+    if (ticket == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "查无此票...").toString();
+    }
+
+    if (ticket.getUser() != null) {
+      return RESTResponse.of(Errors.ITEM_BEEN_ORDERED, "车票已被预订...").toString();
+    }
+
+    String openID = (String) session.getAttribute("openID");
+
+    User source = userService.getByOpenID(openID);
+
+    if (openID == null || source == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    User user = userService.get(uid);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "被委托人不存在...").toString();
+    }
+
+    if (!user.getDelegation().contains(source.get_id())) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "委托关系不存在...").toString();
+    }
+
+    if (ticketService.countByDate(user.get_id(), ticket.getDate()) >= user
+        .getLimit()) {
+      return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
+    }
+
+    return RESTResponse.of(ticketService.take(id, user)).toString();
+  }
+
+  @ResponseBody
   @RequestMapping(value = "/data/ticket/{id}.json", method = { RequestMethod.DELETE })
-  public String back(@PathVariable("id") String id, HttpSession session) {
+  public String refund(@PathVariable("id") String id, HttpSession session) {
 
     String openID = (String) session.getAttribute("openID");
 
@@ -184,7 +228,7 @@ public class TicketCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/ticket/mine.json", method = { RequestMethod.GET })
-  public String back(HttpSession session) {
+  public String mine(HttpSession session) {
 
     String openID = (String) session.getAttribute("openID");
 

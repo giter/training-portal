@@ -20,19 +20,24 @@ public class UserService {
   @Resource
   MongoDAO dao;
 
-  /***
-   * 用户绑定
-   */
-  public void bind(String email, String openID) {
+  public void delegate(String source, String target) {
 
-    throw new UnsupportedOperationException();
+    DBObject query = new BasicDBObject("_id", source);
+
+    DBObject modifier = BasicDBObjectBuilder.start().push("$addToSet")
+        .add(User.FIELD_DELEGATION, target).pop().get();
+
+    dao.user.update(query, modifier);
   }
 
-  /***
-   * 用户解绑
-   */
-  public void unbind(String _id) {
-    throw new UnsupportedOperationException();
+  public void undelegate(String source, String target) {
+
+    DBObject query = new BasicDBObject("_id", source);
+
+    DBObject modifier = BasicDBObjectBuilder.start().push("$pull")
+        .add(User.FIELD_DELEGATION, target).pop().get();
+
+    dao.user.update(query, modifier);
   }
 
   public User get(String _id) {
@@ -44,7 +49,7 @@ public class UserService {
 
     if (openID == null)
       return null;
-    
+
     return (User) dao.user
         .findOne(new BasicDBObject(User.FIELD_OPENID, openID));
   }

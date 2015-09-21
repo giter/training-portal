@@ -2,6 +2,7 @@ package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import org.apache.commons.mail.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +36,7 @@ import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.AuthorizeService;
 import com.aomi.busorder.service.MailService;
 import com.aomi.busorder.service.UserService;
+import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
 
 @Controller
@@ -204,6 +207,93 @@ public class UserCtrl {
     return RESTResponse.of(user).toString();
   }
 
+  @ResponseBody
+  @RequestMapping(value = "/data/user/delegation.json", method = { RequestMethod.POST })
+  public String delegation(HttpSession session) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    List<User> users = new ArrayList<>();
+
+    for (String s : user.getDelegation()) {
+
+      User u = userService.get(s);
+
+      if (u != null) {
+        users.add(u);
+      }
+    }
+
+    return RESTResponse.of(users).get();
+
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/user/delegation/{uid}.json", method = { RequestMethod.POST })
+  public String delegate(HttpSession session, @PathVariable("uid") String uid) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    User target = userService.get(uid);
+
+    if (target == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "未找到该用户...").toString();
+    }
+
+    userService.delegate(user.get_id(), target.get_id());
+
+    return RESTResponse.of(target).get();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/user/delegation/{uid}.json", method = { RequestMethod.DELETE })
+  public String undelegate(HttpSession session, @PathVariable("uid") String uid) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    User target = userService.get(uid);
+
+    if (target == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "未找到该用户...").toString();
+    }
+
+    userService.undelegate(user.get_id(), target.get_id());
+
+    return RESTResponse.of(target).get();
+
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/users.json", method = { RequestMethod.GET })
+  public String users(@ModelAttribute UserParam param) {
+
+    List<User> users = userService.page(param);
+    long count = userService.count(param);
+
+    return RESTResponse.of(Page.of(count, users)).get();
+  }
+
   @RequestMapping(value = "/login.do", method = { RequestMethod.GET })
   public String login(
       @RequestParam(value = "openID", required = false) String openID,
@@ -219,4 +309,5 @@ public class UserCtrl {
     response.sendError(400, "Bad Request.");
     return null;
   }
+
 }
