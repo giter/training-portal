@@ -18,11 +18,10 @@
                         {{r.name}} {{r.whither}}
                         <p>
                             {{r.date}}
-                        <h5 style="color: #000">
-                            空座：{{r.void}} 预订：{{r.order}} 全部：{{r.void + r.order}}
+                        <h5>
+                            <span style="color: red;font-weight: bold;">空座：{{r.void}}</span> 预订：{{r.order}} 全部：{{r.void + r.order}}
                         </h5>
                         </p>
-
                     </div>
                 </a>
             </li>

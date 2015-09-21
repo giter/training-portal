@@ -122,5 +122,17 @@ html, body {
 .icon-users:before {
   content: "\e602"; }
 
+.icon-plane:before {
+  content: "\e60b"; }
+
+.icon-train:before {
+  content: "\e60a"; }
+
+.icon-car:before {
+  content: "\e60c"; }
+
+.icon-bus:before {
+  content: "\e604"; }
+
 .mui-list:before {
   height: 0; }
