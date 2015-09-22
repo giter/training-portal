@@ -72,7 +72,7 @@ public class UserCtrl {
             + "        },\r\n" + "\r\n" + "        { \r\n"
             + "          \"type\":\"view\",\r\n"
             + "          \"name\":\"企业资讯\",\r\n"
-            + "          \"url\":\"http://www.baidu.com/\"\r\n"
+            + "          \"url\":\"http://sina.cn/?from=wap/\"\r\n"
             + "        }\r\n" + "\r\n" + "        ]\r\n" + "    \r\n"
             + "  }\r\n" + "}\r\n" + "\r\n" + "");
     weixin.getService().menuCreate(menus);
