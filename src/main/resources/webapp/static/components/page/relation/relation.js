@@ -5,22 +5,50 @@ define('components/page/relation/relation', function(require, exports, module) {
  */
 
 var Vue = require("component_modules/vue");
+var Layer = require("component_modules/layer.m").layer;
 var Service = require("main/service.js");
 
 module.exports =   Vue.extend({
-    template:"<div class=\"page-calendar\" v-transition=\"slideInRight\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <a class=\"mui-icon mui-icon-left-nav mui-pull-left\" href=\"#config\"></a>\r\n        <h5 class=\"mui-title\">\r\n            联系人\r\n        </h5>\r\n        <a class=\"mui-pull-right mui-btn-link\" >添加</a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <h5 class=\"mui-content-padded\">\r\n            每个用户最多可以绑定三个联系人\r\n        </h5>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell mui-media\" v-repeat=\"u in users\">\r\n               <a class=\"mui-navigate-right\">\r\n                   <div class=\"mui-media-body\" >\r\n                       {{u.name}}\r\n                       <p>{{u.mail}}</p>\r\n                   </div>\r\n               </a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>",
+    template:"<div class=\"page-relation\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <a class=\"mui-icon mui-icon-left-nav mui-pull-left\" href=\"#config\"></a>\r\n        <h5 class=\"mui-title\">\r\n            联系人\r\n        </h5>\r\n        <a class=\"mui-pull-right mui-icon mui-icon-refresh\" v-on=\"click:getDelegation\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <h5 class=\"mui-content-padded\">\r\n            每个用户最多可以绑定三个联系人\r\n        </h5>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell mui-media\" v-repeat=\"u in delegations\">\r\n                <a >\r\n                    <div class=\"mui-media-body\" >\r\n                        {{u.name}}\r\n                        <p>{{u.email}}</p>\r\n                    </div>\r\n                    <button class=\"mui-btn mui-btn-negative mui-btn-outlined\" v-on=\"click:delDelegation(u._id)\">\r\n                        取消\r\n                    </button>\r\n                </a>\r\n            </li>\r\n        </ul>\r\n        <div style=\"padding: 15px;\">\r\n            <a style=\"padding: 5px;\" v-if=\"delegations.length<3\" class=\"mui-btn mui-btn-primary mui-btn-block\" href=\"#relation/query\">\r\n                <span class=\"mui-icon mui-icon-plus\"></span>\r\n                添加</a>\r\n        </div>\r\n    </div>\r\n</div>",
     data: function () {
         return {
-            users:[]
+            delegations:[]
+        }
+    },
+    methods:{
+        getDelegation: function () {
+            var self = this;
+            Layer.open({
+                content: "加载中",
+                type: 2,
+                shadeClose: false,
+                shade: false
+            });
+            Service.getDelegation(function (rep) {
+                Layer.closeAll();
+                if(rep.Code == 0){
+                    self.delegations = rep.Response;
+                }
+            })
+        },
+        delDelegation: function (id) {
+            var self = this;
+            Layer.open({
+                content: "提交中",
+                type: 2,
+                shadeClose: false,
+                shade: false
+            });
+            Service.delDelegation(id,function (rep) {
+                Layer.closeAll();
+                if(rep.Code == 0){
+                    self.getDelegation();
+                }
+            })
         }
     },
     compiled: function () {
-        var self = this;
-        Service.getUsers(function (rep) {
-            if(rep.Code == 0){
-                self.users = rep.Response;
-            }
-        })
+        this.getDelegation();
     }
 });
 

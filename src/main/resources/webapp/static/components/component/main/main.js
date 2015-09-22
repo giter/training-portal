@@ -68,6 +68,7 @@ router.on("/order",function(){
     })
 });
 
+
 router.on("/list",function(){
     require.async(["page/list/list.js"], function (p) {
         doRouter("list",p);
@@ -114,6 +115,11 @@ router.on("/relation",function(){
         doRouter("relation",p);
     })
 });
+router.on("/relation/query",function(){
+    require.async(["components/page/relation/query/query"], function (p) {
+        doRouter("query",p);
+    })
+});
 
 /*承包商*/
 router.on("/company",function(){
@@ -133,6 +139,7 @@ router.configure({
         router.setRoute("/error/notfound")
     }
 });
+
 
 router.init("/search");
 

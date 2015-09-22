@@ -44,15 +44,15 @@ module.exports = Vue.extend({
                 shadeClose:false,
                 yes: function () {
                     Layer.closeAll();
-                    self._unSubTiket(o._id);
+                    self._unSubTicket(o._id);
                 },no: function () {
                     Layer.closeAll();
                 }
             });
         },
-        _unSubTiket: function (id) {
+        _unSubTicket: function (id) {
             var self = this;
-            Service.unSubTiket(id, function () {
+            Service.unSubTicket(id, function () {
                 self.reload();
             });
         }

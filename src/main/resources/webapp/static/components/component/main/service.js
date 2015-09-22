@@ -64,8 +64,8 @@ function getOrder(c){
     $.get(prefix+"/data/order.json", c);
 }
 
-function getUsers(c){
-    $.get(prefix+"/data/users.json", c);
+function getUsers(p,c){
+    $.get(prefix+"/data/users.json",p, c);
 }
 
 function getMyTicket(c){
@@ -80,8 +80,20 @@ function getMine(c){
     $.get(prefix+"/data/user/mine.json", c);
 }
 
-function unSubTiket(id,c){
+function unSubTicket(id,c){
     $.del(prefix + "/data/ticket/"+id+".json",c);
+}
+
+function getDelegation(c){
+    $.get(prefix + "/data/user/delegation.json",c);
+}
+
+function addDelegation(id,c){
+    $.post(prefix + "/data/user/delegation/"+id+".json",c);
+}
+
+function delDelegation(id,c){
+    $.del(prefix + "/data/user/delegation/"+id+".json",c);
 }
 
 function getHashString(name) {
@@ -114,9 +126,12 @@ module.exports = {
     getOrder:getOrder,
     getUsers:getUsers,
     orderSeat:orderSeat,
-    unSubTiket:unSubTiket,
+    unSubTicket:unSubTicket,
     getMyTicket:getMyTicket,
-    getMine:getMine
+    getMine:getMine,
+    getDelegation:getDelegation,
+    addDelegation:addDelegation,
+    delDelegation:delDelegation
 };
 
 });
