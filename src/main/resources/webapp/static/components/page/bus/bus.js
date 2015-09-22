@@ -172,8 +172,7 @@ module.exports = Vue.extend({
         }
     },
     ready: function () {
-
-        if(!this.search.date){
+        if(typeof this.search.date !="number"){
             var router = new Router();
             return router.setRoute("search");
         }
