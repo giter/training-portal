@@ -24,11 +24,13 @@ import com.aomi.busorder.vo.RESTResponse;
 @Controller
 public class UserAdminCtrl {
 
+  public static final String PATH_ADMIN_USER_LOGIN_JSON = "/admin/user/login.json";
+
   @Resource
   UserService service;
 
   @ResponseBody
-  @RequestMapping(value = "/admin/user/login.json", method = { RequestMethod.POST })
+  @RequestMapping(value = PATH_ADMIN_USER_LOGIN_JSON, method = { RequestMethod.POST })
   public String adminUserLogin(@ModelAttribute LoginForm form,
       HttpSession session) {
 
