@@ -4,14 +4,16 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.aomi.busorder.form.LoginForm;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.User;
@@ -19,11 +21,27 @@ import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
 
-@RestController
+@Controller
 public class UserAdminCtrl {
 
   @Resource
   UserService service;
+
+  @ResponseBody
+  @RequestMapping(value = "/admin/user/login.json", method = { RequestMethod.POST })
+  public String adminUserLogin(@ModelAttribute LoginForm form,
+      HttpSession session) {
+
+    User user = service.getByAccount(form.getEmail(), form.getPassword());
+
+    if (user == null || user.getAdmin() != 1) {
+      return "redirect: /admin/login.html";
+    }
+
+    session.setAttribute("admin", user.get_id());
+
+    return "redirect: /admin/index.html";
+  }
 
   @ResponseBody
   @RequestMapping(value = "/admin/data/user/{id}.json", method = { RequestMethod.GET })

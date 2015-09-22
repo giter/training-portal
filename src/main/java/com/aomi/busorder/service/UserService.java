@@ -45,6 +45,17 @@ public class UserService {
     return (User) dao.user.findOne(_id);
   }
 
+  public User getByAccount(String email, String password) {
+
+    if (email == null || password == null)
+      return null;
+
+    DBObject query = BasicDBObjectBuilder.start(User.FIELD_EMAIL, email)
+        .add(User.FIELD_PASSWORD, password).get();
+
+    return (User) dao.user.findOne(query);
+  }
+
   public User getByOpenID(String openID) {
 
     if (openID == null)
