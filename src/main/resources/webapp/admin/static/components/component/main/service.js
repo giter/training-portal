@@ -3,6 +3,7 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
+//var prefix = "http://182.254.244.191";
 var prefix = "";
 
 $.del = function (url,callback) {
@@ -99,6 +100,14 @@ function getSysInfo(c){
     $.get(prefix + "/data/system.json",c);
 }
 
+function getTicketStats(p,c){
+    $.get(prefix+"/data/tickets/stats.json",p, c);
+}
+
+function getBusTickets(p,c){
+    $.get(prefix +"/data/tickets.json",p,c);
+}
+
 
 
 module.exports = {
@@ -119,7 +128,9 @@ module.exports = {
     getCompanies:getCompanies,
     getCalendar:getCalendar,
     getWhither:getWhither,
-    getSysInfo:getSysInfo
+    getSysInfo:getSysInfo,
+    getTicketStats:getTicketStats,
+    getBusTickets:getBusTickets
 };
 
 });

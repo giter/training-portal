@@ -15,7 +15,7 @@
                 <td>{{c.email}}</td>
                 <td>{{c.mobile}}</td>
                 <td>{{c.openID}}</td>
-                <td>{{c.limit}}</td>
+                <td>{{c.limit?c.limit:1}}</td>
                 <td>{{c.admin == 1?"管理员":"普通用户"}}</td>
                 <td><a v-on="click:editUser(c)" class="button border-blue button-little" href="javascript:;">修改</a> <a class="button border-yellow button-little" v-on="click:delUser(c._id)" href="javascript:;" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a> </td></tr>
         </table>

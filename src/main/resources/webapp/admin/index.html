@@ -73,13 +73,37 @@ require.resourceMap({
         "main/check.js"
       ]
     },
+    "components/page/companyOrder/ticketsStats/ticketsStats": {
+      "url": "/admin/static/components/page/companyOrder/ticketsStats/ticketsStats.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js"
+      ]
+    },
+    "component_modules/iscroll-zoom": {
+      "url": "/admin/static/component_modules/iscroll-zoom.js",
+      "type": "js"
+    },
+    "components/page/companyOrder/busSeat/busSeat": {
+      "url": "/admin/static/components/page/companyOrder/busSeat/busSeat.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "main/service.js",
+        "main/check.js",
+        "component_modules/iscroll-zoom.js"
+      ]
+    },
     "components/page/companyOrder/companyOrder": {
       "url": "/admin/static/components/page/companyOrder/companyOrder.js",
       "type": "js",
       "deps": [
         "component_modules/vue.js",
         "main/service.js",
-        "main/check.js"
+        "main/check.js",
+        "components/page/companyOrder/ticketsStats/ticketsStats.js",
+        "components/page/companyOrder/busSeat/busSeat.js"
       ]
     },
     "components/page/seat/seat": {
@@ -140,6 +164,7 @@ require.resourceMap({
 });</script>
 <script type="text/javascript" src="/admin/static/component_modules/jquery.min.js"></script>
 <script type="text/javascript" src="/admin/static/js/respond.js"></script>
+<script type="text/javascript" src="/admin/static/js/lrz.pc.min.js"></script>
 <script type="text/javascript">
     var CONFIG = {
         OFFTIME:"16:00"

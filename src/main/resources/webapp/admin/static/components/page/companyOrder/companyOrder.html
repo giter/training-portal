@@ -1,78 +1,79 @@
 <div class="page-companyOrder container-layout">
     <div class="line">
-        <div class="x9" style="padding-right: 5px;">
-            <div class="panel admin-panel">
-
-                <div class="padding border-bottom">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="label">
-                                目的地：
-                            </div>
-                            <div class="field">
-                                <select class="input" v-model="selectWhither" options="whither">
-                                    <option>请选择目的地</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="label">
-                                日期：
-                            </div>
-                            <div class="field">
-                                <select class="input" v-model="selectCalendar" options="calendar">
-                                    <option>请选择日期</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="button bg-main float-right" >查询</button>
-                </div>
-            </div>
-
-        </div>
-        <div class="x3">
+        <div class="x4">
             <div class="panel admin-panel">
                 <div class="padding border-bottom">
                     <div class="form-inline">
                         <div class="form-group">
-                            <div class="label">
-                                承包商：
-                            </div>
+
                             <div class="field">
                                 <select class="input" v-model="selectCompany" options="companies">
-                                    <option>请选择承包商</option>
+                                    <option >请选择承包商</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="field">
+                                <select class="input" v-model="selectCalendar" options="calendar">
+                                    <option value="">请选择日期</option>
                                 </select>
                             </div>
                         </div>
 
                     </div>
-
+                    <button class="button bg-main float-right" v-on="click:getCompanyUser" >查询</button>
                 </div>
 
                 <table class="table">
                     <tr>
                         <th width="50">序号</th>
-                        <th width="*">姓名</th>
-                        <th width="50">选择</th>
+                        <th width="100">姓名</th>
+                        <th width="100">车辆</th>
+                        <th width="*">车位</th>
                     </tr>
                 </table>
                 <div v-style="tableStyle" >
                     <table class="table table-hover">
                         <tr v-repeat="u in users" >
-                            <td>
+                            <td width="50">
                                 {{$index+1}}
                             </td>
-                            <td>
+                            <td width="100">
                                 {{u.name}}
                             </td>
-                            <td>
-                                <input type="checkbox">
+                            <td width="100">
+                            </td>
+                            <td width="*">
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
+        </div>
+
+        <div class="x8" style="padding-left: 5px;">
+            <div class="panel admin-panel">
+                <div class="padding border-bottom">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="label">
+                            </div>
+                            <div class="field">
+                                <select v-on="change:searchTicketStats" class="input" v-model="selectWhither" options="whither">
+                                    <option>请选择目的地</option>
+                                </select>
+                            </div>
+                        </div>
+
+                                <span class="badge bg-sub">{{selectCalendar}}</span>
+
+                    </div>
+                </div>
+
+                <div v-component="{{childView}}" keep-alive ></div>
+
+            </div>
+
         </div>
     </div>
 </div>
