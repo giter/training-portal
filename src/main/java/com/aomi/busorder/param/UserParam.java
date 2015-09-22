@@ -12,6 +12,8 @@ public class UserParam extends PageParam {
 
   private String company;
 
+  private String delegateTo;
+
   private Boolean hasCompany;
 
   public Integer getType() {
@@ -60,5 +62,13 @@ public class UserParam extends PageParam {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getDelegateTo() {
+    return delegateTo;
+  }
+
+  public void setDelegateTo(String delegateTo) {
+    this.delegateTo = delegateTo;
   }
 }

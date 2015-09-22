@@ -109,6 +109,10 @@ public class UserService {
       ob.add(User.FIELD_NAME, param.getName());
     }
 
+    if (param.getDelegateTo() != null) {
+      ob.add(User.FIELD_DELEGATION, param.getDelegateTo());
+    }
+
     if (param.getOpenID() != null) {
       ob.add(User.FIELD_OPENID, param.getOpenID());
     }
