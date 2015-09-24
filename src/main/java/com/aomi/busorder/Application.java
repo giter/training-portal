@@ -13,9 +13,7 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.server.session.HashSessionManager;
-import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -38,14 +36,10 @@ public class Application {
     wac.getSessionHandler().setSessionManager(localSessionManager);
 
     wac.setContextPath("/");
-    wac.setResourceBase(new ClassPathResource("ROOT").getURI().toString());
+    wac.setResourceBase(new ClassPathResource("webapp").getURI().toString());
 
     wac.setDefaultsDescriptor("/webdefault.xml");
     server.setHandler(wac);
-
-    final ResourceHandler resources = new ResourceHandler();
-    resources.setDirectoriesListed(false);
-    resources.setBaseResource(Resource.newClassPathResource("/webapp"));
 
     HandlerCollection handlers = new HandlerCollection() {
 
@@ -53,14 +47,6 @@ public class Application {
       public void handle(String target, Request baseRequest,
           HttpServletRequest request, HttpServletResponse response)
           throws IOException, ServletException {
-
-        if (isStarted() && RESOURCES.matcher(target).find()) {
-          resources.handle(target, baseRequest, request, response);
-        }
-
-        if (baseRequest.isHandled()) {
-          return;
-        }
 
         response.setCharacterEncoding("UTF-8");
 

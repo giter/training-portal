@@ -18,6 +18,13 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
     if (!UserAdminCtrl.PATH_ADMIN_USER_LOGIN_JSON.equals(path)) {
 
       if (request.getSession().getAttribute("admin") == null) {
+
+        if (path != null && path.endsWith(".html")) {
+          response.sendRedirect("/admin/login.html");
+        } else {
+          response.sendError(400);
+        }
+
         return false;
       }
     }
