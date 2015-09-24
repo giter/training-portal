@@ -29,7 +29,6 @@ public class UserAdminCtrl {
   @Resource
   UserService service;
 
-  @ResponseBody
   @RequestMapping(value = PATH_ADMIN_USER_LOGIN_JSON, method = { RequestMethod.POST })
   public String adminUserLogin(@ModelAttribute LoginForm form,
       HttpSession session) {
