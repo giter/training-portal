@@ -36,12 +36,12 @@ public class UserAdminCtrl {
     User user = service.getByAccount(form.getEmail(), form.getPassword());
 
     if (user == null || user.getAdmin() != 1) {
-      return "redirect: /admin/login.html";
+      return "redirect:/admin/login.html";
     }
 
     session.setAttribute("admin", user.get_id());
 
-    return "redirect: /admin/index.html";
+    return "redirect:/admin/index.html";
   }
 
   @ResponseBody
