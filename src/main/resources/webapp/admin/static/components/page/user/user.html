@@ -71,8 +71,8 @@
                             </div>
                             <div class="field">
                                 <select class="input" v-model="user.admin">
-                                    <option value="0">普通用户</option>
-                                    <option value="1">管理员</option>
+                                    <option value=0>普通用户</option>
+                                    <option value=1>管理员</option>
                                 </select>
                             </div>
                         </div>
@@ -82,7 +82,6 @@
                             </div>
                             <div class="field">
                                 <input type="text" class="input" v-model="user.password" placeholder="请填写登录密码">
-                                <div v-show="!validation.password" class="input-help  check-error"><ul><li>请填写登录密码</li></ul></div>
                             </div>
                         </div>
                     </div>
