@@ -4,6 +4,7 @@ define('main/main', function(require, exports, module) {
 var Vue = require('component_modules/vue');
 var Router = require('component_modules/director').Router;
 var desk = require('components/page/desk/desk');
+var Service = require('main/service.js');
 
 require("loading/loading.js");
 require("nav/nav.js");
@@ -20,6 +21,9 @@ window.app = new Vue({
     },
     components:{
         "desk":desk
+    },
+    ready: function () {
+
     }
 });
 

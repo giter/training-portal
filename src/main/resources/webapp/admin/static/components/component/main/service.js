@@ -108,6 +108,10 @@ function getBusTickets(p,c){
     $.get(prefix +"/data/tickets.json",p,c);
 }
 
+function userLogin(p,c){
+    $.post(prefix + "/admin/user/login.json",p,c);
+}
+
 
 
 module.exports = {
@@ -130,7 +134,8 @@ module.exports = {
     getWhither:getWhither,
     getSysInfo:getSysInfo,
     getTicketStats:getTicketStats,
-    getBusTickets:getBusTickets
+    getBusTickets:getBusTickets,
+    userLogin:userLogin
 };
 
 });

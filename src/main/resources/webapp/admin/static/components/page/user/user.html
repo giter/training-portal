@@ -9,7 +9,7 @@
             <input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:addUser" value="新增用户" />
         </div>
         <table class="table table-hover">
-            <tr><th width="120">用户名</th><th width="250">邮箱</th><th width="100">手机号码</th><th width="*">OpenID</th><th width="100">订票限制</th><th width="100">用户类型</th><th width="100">操作</th></tr>
+            <tr><th width="120">用户名</th><th width="250">邮箱</th><th width="100">手机号码</th><th width="*">OpenID</th><th width="100">订票限制</th><th width="100">用户类型</th><th width="100">登录密码</th><th width="100">操作</th></tr>
             <tr v-repeat="c in users">
                 <td>{{c.name}}</td>
                 <td>{{c.email}}</td>
@@ -17,6 +17,7 @@
                 <td>{{c.openID}}</td>
                 <td>{{c.limit?c.limit:1}}</td>
                 <td>{{c.admin == 1?"管理员":"普通用户"}}</td>
+                <td>{{c.password}}</td>
                 <td><a v-on="click:editUser(c)" class="button border-blue button-little" href="javascript:;">修改</a> <a class="button border-yellow button-little" v-on="click:delUser(c._id)" href="javascript:;" onclick="{if(confirm('确认删除?')){return true;}return false;}">删除</a> </td></tr>
         </table>
 
@@ -73,6 +74,15 @@
                                     <option value="0">普通用户</option>
                                     <option value="1">管理员</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                登录密码
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="user.password" placeholder="请填写登录密码">
+                                <div v-show="!validation.password" class="input-help  check-error"><ul><li>请填写登录密码</li></ul></div>
                             </div>
                         </div>
                     </div>
