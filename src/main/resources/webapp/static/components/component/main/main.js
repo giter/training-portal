@@ -22,7 +22,8 @@ window.app = new Vue({
         "bus":[],/*查询到的车辆信息*/
         "calendars":[],
         "whithers":[],
-        "openid":""
+        "openid":"",
+        "mine":""
     },
     components:{
         "home":home
@@ -30,6 +31,12 @@ window.app = new Vue({
     ready:function(){
         this.openid = Service.getQueryString("openID");
         Fastclick.FastClick.attach(document.body);
+        var self = this;
+        Service.getMine(function (rep) {
+            if(rep.Code == 0){
+                self.mine = rep.Response;
+            }
+        })
     }
 });
 
@@ -43,7 +50,6 @@ Vue.transition('slideInRight', {
 });
 
 var router = new Router();
-
 function doRouter(target,page){
     var coms = window.app.$options.components;
     if(!coms[target]){
@@ -134,6 +140,14 @@ router.on("/bus", function (id) {
     });
 });
 
+router.on("/bus/select", function (id) {
+    require.async(["page/bus/select/select.js"], function (p) {
+        doRouter("bus-select",p);
+    });
+});
+
+
+
 router.configure({
     notfound: function () {
         router.setRoute("/error/notfound")
@@ -142,6 +156,7 @@ router.configure({
 
 
 router.init("/search");
+
 
 
 

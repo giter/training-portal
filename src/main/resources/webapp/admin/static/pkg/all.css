@@ -1150,7 +1150,7 @@ a:focus,a:hover{color:#09c;} /*链接-悬浮颜色*/
 .page-busSeat .bus-header {
   text-align: center;
   font-size: 12px;
-  padding: 20px 0z; }
+  padding: 20px 0; }
   .page-busSeat .bus-header span {
     padding: 3px 40px;
     background-color: #dd524d;
@@ -1527,7 +1527,7 @@ form .form-group:last-child {
 .page-busSeat .bus-header {
   text-align: center;
   font-size: 12px;
-  padding: 20px 0z; }
+  padding: 20px 0; }
   .page-busSeat .bus-header span {
     padding: 3px 40px;
     background-color: #dd524d;

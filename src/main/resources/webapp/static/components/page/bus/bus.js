@@ -12,10 +12,12 @@ var Router = require("component_modules/director").Router;
 
 module.exports = Vue.extend({
     inherit:true,
-    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.name}}({{bus.sn}})\r\n        </h5>\r\n        <a class=\" mui-icon mui-icon-left-nav mui-pull-left\" href=\"#/search/result\"></a>\r\n        <a class=\"mui-icon mui-icon-home-filled mui-pull-right\" href=\"#/search\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <ul class=\"mui-table-view\" style=\"margin-top: 0\">\r\n            <li class=\"mui-table-view-cell mui-media\">\r\n                <div class=\"mui-media-body\">\r\n                    <span style=\"font-weight: bold\">目的地：{{bus.destination}}</span>\r\n                    <p class='mui-ellipsis' style=\"font-size: 12px\">\r\n                        {{dateStr}}\r\n                    </p>\r\n                </div>\r\n                <button class=\"mui-btn mui-btn-primary\" v-on=\"click:orderSeat\">\r\n                    提交预订\r\n                </button>\r\n            </li>\r\n        </ul>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" style=\"font-size: 12px\">\r\n                {{selectText}}\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:151px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"click:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
+    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.name}}({{bus.sn}})\r\n        </h5>\r\n        <a class=\" mui-icon mui-icon-left-nav mui-pull-left\" href=\"#/search/result\"></a>\r\n        <a class=\"mui-icon mui-icon-home-filled mui-pull-right\" href=\"#/search\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <ul class=\"mui-table-view\" style=\"margin-top: 0\">\r\n            <li class=\"mui-table-view-cell mui-media\">\r\n                <div class=\"mui-media-body\">\r\n                    <span style=\"font-weight: bold\">目的地：{{bus.destination}}</span>\r\n                    <p class='mui-ellipsis' style=\"font-size: 12px\">\r\n                        {{dateStr}}\r\n                    </p>\r\n                </div>\r\n                <button class=\"mui-btn mui-btn-primary\" v-on=\"click:orderSeat\">\r\n                    提交预订\r\n                </button>\r\n            </li>\r\n        </ul>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" style=\"font-size: 12px\">\r\n                {{selectText}}\r\n                    <select class=\"mui-input-select mui-pull-right input-select\" v-model=\"selectDelegate\" options=\"delegate\"></select>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:151px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"click:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
     data: function () {
         return {
-            seat:null
+            seat:null,
+            delegate:[],
+            selectDelegate:""
         }
     },
     computed:{
@@ -28,7 +30,7 @@ module.exports = Vue.extend({
             if(this.seat){
                 return (this.seat.row+1) +"排" +(this.seat.col+1)+"列  "+this.seat.sn+"座";
             }else{
-                return "请选择座位";
+                return "请选择";
             }
         }
     },
@@ -114,7 +116,8 @@ module.exports = Vue.extend({
                 shadeClose:false
             });
             var self = this;
-            Service.orderSeat(id, function (rep) {
+
+            Service.orderSeat(self.selectDelegate,self.mine._id,id, function (rep) {
                 Layer.closeAll();
                 if(rep.Code == 0){
                     self.seat = null;
@@ -169,6 +172,22 @@ module.exports = Vue.extend({
                     return router.setRoute("bus");
                 }
             })
+        },
+        getDelegate: function () {
+            var self = this;
+            Service.getUsers({DelegateTo:this.mine._id}, function (rep) {
+                if(rep.Code == 0){
+                    var list = [{text:self.mine.name,value:self.mine._id}],target = rep.Response.lists;
+                    for(var i in target){
+                        list.push({
+                            text:target[i].name,
+                            value:target[i]._id
+                        })
+                    }
+                    self.delegate = list;
+                    self.selectDelegate = list[0].value;
+                }
+            })
         }
     },
     ready: function () {
@@ -177,7 +196,7 @@ module.exports = Vue.extend({
             return router.setRoute("search");
         }
         this.renderScroll();
-
+        this.getDelegate();
     }
 });
 

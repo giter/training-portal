@@ -11,7 +11,12 @@ var IScroll = require("component_modules/iscroll-zoom");
 
 module.exports = Vue.extend({
    inherit:true,
-   template:"<div class=\"page-busSeat\" >\r\n <div class=\" mui-scroll-wrapper\" style=\"top:151px;height:{{tableStyle.height}};overflow: hidden\">\r\n  <div class=\"mui-scroll\">\r\n   <div class=\"bus-header\">\r\n    <span>车头方向</span>\r\n    <a class=\"void\"></a> 可选\r\n    <a class=\"order\"></a> 已选\r\n   </div>\r\n   <table class=\"bus-body\">\r\n    <tr v-repeat=\"r in bus.rows\">\r\n     <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"tap:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n      <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n      </a>\r\n     </td>\r\n    </tr>\r\n   </table>\r\n  </div>\r\n </div>\r\n</div>",
+   template:"<div class=\"page-busSeat\" >\r\n <div class=\" mui-scroll-wrapper\" style=\"top:151px;height:{{tableStyle.height}};overflow: hidden\">\r\n  <div class=\"mui-scroll\">\r\n   <div class=\"bus-header\">\r\n    <span>车头方向</span>\r\n    <a class=\"void\"></a> 可选\r\n    <a class=\"order\"></a> 已选\r\n   </div>\r\n   <table class=\"bus-body\">\r\n    <tr v-repeat=\"r in bus.rows\">\r\n     <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n      <a style=\"cursor: pointer\" class=\"iconfont\" v-text=\"getText(r,$index)\"  v-on=\"click:clickSeat(this,r,$index)\" >\r\n      </a>\r\n     </td>\r\n    </tr>\r\n   </table>\r\n  </div>\r\n </div>\r\n</div>",
+   data: function () {
+     return {
+
+     }
+   },
    methods:{
       "getText": function (r,c) {
          var list = this.bus.seats;
@@ -52,6 +57,14 @@ module.exports = Vue.extend({
             }
          }
 
+      },
+      clickSeat: function (e,r,c) {
+         var $t = $(e.$el);
+         if($t.hasClass("icon-seat-void")){
+            $(".bus-body").find("td").removeClass("icon-seat-select");
+            $t.addClass("icon-seat-select");
+            this.selectSeat = $t.data("id").ticket;
+         }
       },
       renderScroll: function () {
          myScroll = new IScroll($(".page-busSeat > .mui-scroll-wrapper")[0], {

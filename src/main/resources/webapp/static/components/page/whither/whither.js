@@ -33,6 +33,10 @@ module.exports =   Vue.extend({
       });
    },
    methods:{
+      toRouter: function (url) {
+         var router = new Router();
+         router.setRoute(url);
+      },
       render: function () {
          var self = this,$list = $("#whither-list");
          self.router = new Router();

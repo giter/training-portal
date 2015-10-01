@@ -3,8 +3,8 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
-var prefix = "";
-//var prefix = "http://182.254.244.191";
+//var prefix = "";
+var prefix = "http://182.254.244.191";
 
 
 $.del = function (url,callback) {
@@ -72,8 +72,12 @@ function getMyTicket(c){
     $.get(prefix + "/data/ticket/mine.json",c)
 }
 
-function orderSeat(id,c){
-    $.put(prefix +"/data/ticket/"+id+".json",c);
+function orderSeat(uid,m,id,c){
+    if(uid == m){
+        $.put(prefix +"/data/ticket/"+id+".json",c);
+    }else{
+        $.put(prefix +"/data/ticket/"+uid+"/"+id+".json",c);
+    }
 }
 
 function getMine(c){

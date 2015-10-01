@@ -33,8 +33,8 @@
                     </tr>
                 </table>
                 <div v-style="tableStyle" >
-                    <table class="table table-hover">
-                        <tr v-repeat="u in users" >
+                    <table class="table ">
+                        <tr v-repeat="u in users" style="cursor: pointer" v-on="click:clickUser(u._id)" v-class="bg-main:u._id == selectUser">
                             <td width="50">
                                 {{$index+1}}
                             </td>
@@ -42,8 +42,10 @@
                                 {{u.name}}
                             </td>
                             <td width="100">
+                                {{u.bus}}
                             </td>
                             <td width="*">
+                                {{u.seat}}
                             </td>
                         </tr>
                     </table>
@@ -59,15 +61,15 @@
                             <div class="label">
                             </div>
                             <div class="field">
-                                <select v-on="change:searchTicketStats" class="input" v-model="selectWhither" options="whither">
+                                <select v-attr="disabled:users.length==0" v-on="change:searchTicketStats" class="input" v-model="selectWhither" options="whither">
                                     <option>请选择目的地</option>
                                 </select>
                             </div>
                         </div>
-
-                                <span class="badge bg-sub">{{selectCalendar}}</span>
-
+                        <span class="badge bg-sub">{{selectCalendar}}</span>
                     </div>
+                    <button v-on="click:onOrder" class="button bg-main float-right"  v-attr="disabled:!selectSeat||!selectUser">预订</button>
+
                 </div>
 
                 <div v-component="{{childView}}" keep-alive ></div>
