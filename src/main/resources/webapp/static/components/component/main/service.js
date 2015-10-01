@@ -100,6 +100,15 @@ function delDelegation(id,c){
     $.del(prefix + "/data/user/delegation/"+id+".json",c);
 }
 
+function getCompanies(c){
+    $.get(prefix + "/data/companies.json",c);
+}
+
+function getCompanyTicket(p,c){
+    $.get(prefix +"/admin/data/tickets.json",p,c);
+}
+
+
 function getHashString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     if(!window.location.hash){
@@ -126,6 +135,7 @@ module.exports = {
     getBusSeat:getBusSeat,
     getWhither:getWhither,
     getCalendar:getCalendar,
+    getCompanies:getCompanies,
     getResult:getResult,
     getOrder:getOrder,
     getUsers:getUsers,
@@ -135,7 +145,8 @@ module.exports = {
     getMine:getMine,
     getDelegation:getDelegation,
     addDelegation:addDelegation,
-    delDelegation:delDelegation
+    delDelegation:delDelegation,
+    getCompanyTicket:getCompanyTicket
 };
 
 });
