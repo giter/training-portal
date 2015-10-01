@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aomi.busorder.constant.Errors;
+import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.param.TicketParam;
 import com.aomi.busorder.pojo.Ticket;
 import com.aomi.busorder.pojo.User;

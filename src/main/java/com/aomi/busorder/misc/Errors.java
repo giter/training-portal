@@ -1,4 +1,4 @@
-package com.aomi.busorder.constant;
+package com.aomi.busorder.misc;
 
 public class Errors {
 

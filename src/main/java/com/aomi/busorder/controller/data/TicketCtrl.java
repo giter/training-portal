@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aomi.busorder.constant.Errors;
+import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.param.SeatParam;
 import com.aomi.busorder.param.TicketParam;

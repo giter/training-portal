@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aomi.busorder.constant.Errors;
 import com.aomi.busorder.controller.WeixinCtrl;
 import com.aomi.busorder.form.BindForm;
+import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.Authorize;
