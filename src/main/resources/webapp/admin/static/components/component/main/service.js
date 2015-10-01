@@ -120,6 +120,10 @@ function orderTicket(uid,id,c){
     $.put(prefix +"/admin/data/ticket/"+uid+"/"+id+".json",{},c);
 }
 
+function unTicket(id,c){
+    $.del(prefix +"/data/ticket/"+id+".json",c);
+}
+
 module.exports = {
     getUsers:getUsers,
     addUser:addUser,
@@ -143,7 +147,8 @@ module.exports = {
     getBusTickets:getBusTickets,
     userLogin:userLogin,
     getCompanyTicket:getCompanyTicket,
-    orderTicket:orderTicket
+    orderTicket:orderTicket,
+    unTicket:unTicket
 };
 
 });

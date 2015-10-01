@@ -30,6 +30,7 @@
                         <th width="100">姓名</th>
                         <th width="100">车辆</th>
                         <th width="*">车位</th>
+                        <!--<th width="*">操作</th>-->
                     </tr>
                 </table>
                 <div v-style="tableStyle" >
@@ -47,6 +48,9 @@
                             <td width="*">
                                 {{u.seat}}
                             </td>
+                            <!--<td width="*">-->
+                                <!--<button v-if="u.seat" v-on="click:unSub(u.ticket)" class="button bg-yellow">退订</button>-->
+                            <!--</td>-->
                         </tr>
                     </table>
                 </div>
