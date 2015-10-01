@@ -70,4 +70,34 @@ public class TicketAdminCtrl {
 
     return RESTResponse.of(ticketService.take(id, user)).toString();
   }
+
+  @ResponseBody
+  @RequestMapping(value = "/admin/data/ticket/{uid}/{id}.json", method = { RequestMethod.DELETE })
+  public String refund(@PathVariable("uid") String uid,
+      @PathVariable("id") String id) {
+
+    Ticket ticket = ticketService.get(id);
+
+    if (ticket == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "查无此票...").toString();
+    }
+
+    if (ticket.getUser() == null) {
+
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "车票尚未预订...").toString();
+    }
+
+    User user = userService.get(uid);
+
+    if (user == null) {
+
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "无此用户...").toString();
+    }
+
+    if (!uid.equals(ticket.getUser().get_id())) {
+      return RESTResponse.of(Errors.UNAUTHORIZED, "车票所属错误...").toString();
+    }
+
+    return RESTResponse.of(ticketService.refund(id, user)).toString();
+  }
 }
