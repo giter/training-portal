@@ -155,7 +155,7 @@ router.configure({
 });
 
 
-router.init("/search");
+router.init("/home");
 
 
 

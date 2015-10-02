@@ -2,7 +2,7 @@
     <div class="mui-control-content mui-active" v-show="!isQuery">
         <header class="mui-bar-nav mui-bar">
             <h5 class="mui-title">
-                承包商订位
+                承包商订位查询
             </h5>
             <a class="mui-icon mui-icon-left-nav mui-pull-left" href="#service"></a>
         </header>
@@ -25,6 +25,9 @@
                     </a>
                 </li>
             </ul>
+            <div class="mui-content-padded" style="text-align: center">
+                <h5>手机端只支持查询，订位请到PC管理后台。</h5>
+            </div>
             <button class="mui-btn mui-btn-block" id="btn-search" v-on="click:onSearch()" >
                 <span class="mui-icon mui-icon-search"></span>查询
             </button>

@@ -6,6 +6,8 @@
   .page-bus .mui-scroll {
     padding: 10px;
     background-color: #efeff4; }
+  .page-bus .mui-table-view-cell.mui-active {
+    background-color: #fff; }
   .page-bus .bus-header {
     text-align: center;
     font-size: 12px; }

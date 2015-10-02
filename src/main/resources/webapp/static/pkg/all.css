@@ -29,6 +29,8 @@
   .page-bus .mui-scroll {
     padding: 10px;
     background-color: #efeff4; }
+  .page-bus .mui-table-view-cell.mui-active {
+    background-color: #fff; }
   .page-bus .bus-header {
     text-align: center;
     font-size: 12px; }
@@ -140,6 +142,8 @@
   width: 120px;
   transform: translateY(-50%);
   font-size: 17px; }
+.page-company .mui-table-view-cell > a:not(.mui-btn).mui-active {
+  background-color: #fff; }
 .page-company .table {
   background-color: #fff;
   width: 100%;
@@ -171,15 +175,74 @@
   margin-top: 40px;
   color: #0062cc; }
 
-/*!/components/page/order/order.css*/
-.page-order {
-  height: 100%; }
-  .page-order .mui-control-content {
-    height: 100%; }
-    .page-order .mui-control-content .mui-content {
-      padding-bottom: 50px; }
+/*!/components/page/home/home.css*/
+.spinner1 {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 30px;
+    border-radius: 5em;
+    border-color: #0099ff transparent #0099ff transparent;
+    animation: spin 1s linear infinite;
+}
 
-/*# sourceMappingURL=order.css.map */
+.spinner2 {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 30px;
+    border-radius: 5em;
+    border-color: transparent transparent #0099ff transparent;
+    animation: spin 1s linear infinite;
+}
+
+.dot:before, .dot:after {
+    content: ".";
+}
+.dot {
+    animation: fade 1s linear infinite;
+}
+.dot:after {
+    animation: fade 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#page-home{
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+#wrap {
+    box-sizing: border-box;
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+.item {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
 
 /*!/components/page/service/service.css*/
 .page-service {
@@ -191,24 +254,13 @@
 
 /*# sourceMappingURL=service.css.map */
 
-/*!/components/page/search/result/result.css*/
-.page-search-result .time-nav {
-  text-align: center;
-  color: #007aff;
-  line-height: 44px; }
-  .page-search-result .time-nav .mui-action {
-    width: 40px;
-    margin: 3px;
-    color: #007aff;
-    font-size: 20px;
-    padding: 5px 1px;
-    text-align: center;
-    border: 1px solid #ddd; }
-  .page-search-result .time-nav .time {
-    padding-left: 20px;
-    padding-right: 20px; }
-
-/*# sourceMappingURL=result.css.map */
+/*!/components/page/order/order.scss*/
+.page-order {
+  height: 100%; }
+  .page-order .mui-control-content {
+    height: 100%; }
+    .page-order .mui-control-content .mui-content {
+      padding-bottom: 50px; }
 
 /*!/components/page/service/service.scss*/
 .page-service {
@@ -227,6 +279,8 @@
   .page-bus .mui-scroll {
     padding: 10px;
     background-color: #efeff4; }
+  .page-bus .mui-table-view-cell.mui-active {
+    background-color: #fff; }
   .page-bus .bus-header {
     text-align: center;
     font-size: 12px; }
@@ -324,6 +378,8 @@
   width: 120px;
   transform: translateY(-50%);
   font-size: 17px; }
+.page-company .mui-table-view-cell > a:not(.mui-btn).mui-active {
+  background-color: #fff; }
 .page-company .table {
   background-color: #fff;
   width: 100%;
@@ -343,13 +399,34 @@
     text-align: center;
     font-weight: normal; }
 
-/*!/components/page/order/order.scss*/
+/*!/components/page/order/order.css*/
 .page-order {
   height: 100%; }
   .page-order .mui-control-content {
     height: 100%; }
     .page-order .mui-control-content .mui-content {
       padding-bottom: 50px; }
+
+/*# sourceMappingURL=order.css.map */
+
+/*!/components/page/search/result/result.css*/
+.page-search-result .time-nav {
+  text-align: center;
+  color: #007aff;
+  line-height: 44px; }
+  .page-search-result .time-nav .mui-action {
+    width: 40px;
+    margin: 3px;
+    color: #007aff;
+    font-size: 20px;
+    padding: 5px 1px;
+    text-align: center;
+    border: 1px solid #ddd; }
+  .page-search-result .time-nav .time {
+    padding-left: 20px;
+    padding-right: 20px; }
+
+/*# sourceMappingURL=result.css.map */
 
 /*!/static/css/layer.css*/
 /* layer弹层移动版样式 */
