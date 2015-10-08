@@ -6,6 +6,7 @@ define('main/service', function(require, exports, module) {
 //var prefix = "http://182.254.244.191";
 var prefix = "";
 
+
 $.del = function (url,callback) {
     return $.ajax({
         type:"delete",
@@ -120,8 +121,8 @@ function orderTicket(uid,id,c){
     $.put(prefix +"/admin/data/ticket/"+uid+"/"+id+".json",{},c);
 }
 
-function unTicket(id,c){
-    $.del(prefix +"/data/ticket/"+id+".json",c);
+function unTicket(uid,id,c){
+    $.del(prefix +"/admin/data/ticket/"+uid+"/"+id+".json",c);
 }
 
 module.exports = {

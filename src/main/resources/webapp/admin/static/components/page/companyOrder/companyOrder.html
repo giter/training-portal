@@ -1,6 +1,6 @@
 <div class="page-companyOrder container-layout">
     <div class="line">
-        <div class="x4">
+        <div class="x5">
             <div class="panel admin-panel">
                 <div class="padding border-bottom">
                     <div class="form-inline">
@@ -21,22 +21,22 @@
                         </div>
 
                     </div>
-                    <button class="button bg-main float-right" v-on="click:getCompanyUser" >查询</button>
+                    <!--<button class="button bg-main float-right" v-on="click:getCompanyUser" >查询</button>-->
                 </div>
 
                 <table class="table">
                     <tr>
-                        <th width="50">序号</th>
+                        <th width="60">序号</th>
                         <th width="100">姓名</th>
                         <th width="100">车辆</th>
-                        <th width="*">车位</th>
-                        <!--<th width="*">操作</th>-->
+                        <th width="100">车位</th>
+                        <th width="*">操作</th>
                     </tr>
                 </table>
                 <div v-style="tableStyle" >
                     <table class="table ">
                         <tr v-repeat="u in users" style="cursor: pointer" v-on="click:clickUser(u._id)" v-class="bg-main:u._id == selectUser">
-                            <td width="50">
+                            <td width="60">
                                 {{$index+1}}
                             </td>
                             <td width="100">
@@ -45,19 +45,19 @@
                             <td width="100">
                                 {{u.bus}}
                             </td>
-                            <td width="*">
+                            <td width="100">
                                 {{u.seat}}
                             </td>
-                            <!--<td width="*">-->
-                                <!--<button v-if="u.seat" v-on="click:unSub(u.ticket)" class="button bg-yellow">退订</button>-->
-                            <!--</td>-->
+                            <td width="*">
+                                <button v-if="u.seat" v-on="click:unSub(u._id,u.ticket)" class="button bg-yellow">退订</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="x8" style="padding-left: 5px;">
+        <div class="x7" style="padding-left: 5px;">
             <div class="panel admin-panel">
                 <div class="padding border-bottom">
                     <div class="form-inline">
