@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.session.HashSessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -19,9 +20,8 @@ public class Application {
 
     HashSessionManager localSessionManager = new HashSessionManager();
     localSessionManager.setStoreDirectory(new File("./sessions"));
-    localSessionManager.setIdleSavePeriod(5);
 
-    wac.getSessionHandler().setSessionManager(localSessionManager);
+    wac.setSessionHandler(new SessionHandler(localSessionManager));
 
     wac.setContextPath("/");
     wac.setResourceBase(new ClassPathResource("webapp").getURI().toString());
