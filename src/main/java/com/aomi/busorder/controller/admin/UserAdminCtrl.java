@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.aomi.busorder.form.LoginForm;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
+import com.aomi.busorder.pojo.Trace.TraceAction;
 import com.aomi.busorder.pojo.User;
+import com.aomi.busorder.service.TraceService;
 import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
@@ -29,6 +31,9 @@ public class UserAdminCtrl {
   @Resource
   UserService service;
 
+  @Resource
+  TraceService tracer;
+
   @RequestMapping(value = PATH_ADMIN_USER_LOGIN_JSON, method = { RequestMethod.POST })
   public String adminUserLogin(@ModelAttribute LoginForm form,
       HttpSession session) {
@@ -38,6 +43,8 @@ public class UserAdminCtrl {
     if (user == null || user.getAdmin() != 1) {
       return "redirect:/admin/login.html";
     }
+
+    tracer.trace(user, TraceAction.ACTION_ADMIN_LOGIN);
 
     session.setAttribute("admin", user.get_id());
 

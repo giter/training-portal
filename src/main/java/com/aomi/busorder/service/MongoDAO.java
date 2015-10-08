@@ -10,6 +10,7 @@ import com.aomi.busorder.pojo.Authorize;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
+import com.aomi.busorder.pojo.Trace;
 import com.aomi.busorder.pojo.User;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
@@ -31,6 +32,8 @@ public class MongoDAO implements InitializingBean {
 
   private static final String COLLECTION_NAME_USER = "user";
 
+  private static final String COLLECTION_NAME_TRACE = "trace";
+
   @Value("${mongodb.db}")
   String dbName;
 
@@ -44,6 +47,8 @@ public class MongoDAO implements InitializingBean {
   public DBCollection seat;
 
   public DBCollection ticket;
+
+  public DBCollection trace;
 
   /**
    * 旧票
@@ -79,12 +84,16 @@ public class MongoDAO implements InitializingBean {
 
     ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
         .add("seat._id", 1).get());
-
     ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
         .add("user._id", 1).get());
 
     authorize = client.getDB(dbName).getCollection(COLLECTION_NAME_AUTHORIZE);
     authorize.setObjectClass(Authorize.class);
+
+    trace = client.getDB(dbName).getCollection(COLLECTION_NAME_TRACE);
+    trace.setObjectClass(Trace.class);
+
+    trace.setInternalClass(COLLECTION_NAME_USER, User.class);
 
   }
 
