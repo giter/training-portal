@@ -32,9 +32,11 @@ import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.Authorize;
+import com.aomi.busorder.pojo.Trace.TraceAction;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.AuthorizeService;
 import com.aomi.busorder.service.MailService;
+import com.aomi.busorder.service.TraceService;
 import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
@@ -43,6 +45,9 @@ import com.aomi.busorder.vo.RESTResponse;
 public class UserCtrl {
 
   static Logger LOGGER = LoggerFactory.getLogger(UserCtrl.class);
+
+  @Resource
+  TraceService tracer;
 
   @Resource
   MailService mailService;
@@ -101,6 +106,9 @@ public class UserCtrl {
   }
 
   void doLogin(HttpSession session, User user) {
+
+    tracer.trace(user, TraceAction.ACTION_LOGIN);
+
     session.setAttribute("openID", user.getOpenID());
   }
 
