@@ -64,7 +64,7 @@ public class Trace extends Basic<Trace> {
     /**
      * 管理员登录
      */
-    ACTION_ADMIN_LOGIN(0);
+    ACTION_ADMIN_LOGIN(1);
 
     private final int val;
 
