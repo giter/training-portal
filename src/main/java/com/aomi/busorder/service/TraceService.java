@@ -45,7 +45,7 @@ public class TraceService {
 
   public long count(TraceParam param) {
 
-    return dao.user.count();
+    return dao.trace.count();
   }
 
 }
