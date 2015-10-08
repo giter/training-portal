@@ -26,6 +26,9 @@ public class Trace extends Basic<Trace> {
 
     setUser(user);
     setAction(action);
+
+    setCreated(System.currentTimeMillis());
+    setUpdated(System.currentTimeMillis());
   }
 
   public Trace setUser(User user) {
