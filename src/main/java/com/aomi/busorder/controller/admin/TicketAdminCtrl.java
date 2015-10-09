@@ -35,7 +35,8 @@ public class TicketAdminCtrl {
   }
 
   @ResponseBody
-  @RequestMapping(value = "/admin/data/tickets.json", method = { RequestMethod.GET })
+  @RequestMapping(value = { "/data/admin/tickets.json",
+      "/admin/data/tickets.json" }, method = { RequestMethod.GET })
   public String tickets(@ModelAttribute TicketParam param) {
 
     return RESTResponse.of(ticketService.page(param)).get();
