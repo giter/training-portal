@@ -105,7 +105,7 @@ function getCompanies(c){
 }
 
 function getCompanyTicket(p,c){
-    $.get(prefix +"/admin/data/tickets.json",p,c);
+    $.get(prefix +"/data/admin/tickets.json",p,c);
 }
 
 
