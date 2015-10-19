@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import com.aomi.busorder.param.UserParam;
@@ -15,7 +16,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 @Service
-public class UserService {
+public class UserService implements InitializingBean {
 
   @Resource
   MongoDAO dao;
@@ -153,6 +154,28 @@ public class UserService {
   public long count(UserParam param) {
 
     return dao.user.count(query(param));
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+
+    User user = get("55f984c7e4b0e4c8861ddf4e");
+
+    if (user == null) {
+
+      user = new User();
+
+      user.set_id("55f984c7e4b0e4c8861ddf4e");
+      user.setAdmin(1);
+
+      user.setEmail("admin");
+      user.setName("系统管理员");
+      user.setPassword("p853wxspobascedh");
+      user.setType(0);
+      user.setCreated(System.currentTimeMillis());
+
+      save(user);
+    }
   }
 
 }
