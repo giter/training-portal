@@ -20,15 +20,13 @@ module.exports = Vue.extend({
    },
    template:"<div class=\"page-history\">\r\n    <div class=\"panel admin-panel\">\r\n        <div class=\"panel-head\">\r\n            <strong>\r\n                登陆日志\r\n            </strong>\r\n        </div>\r\n\r\n        <table class=\"table table-hover\">\r\n            <tr><th width=\"200\">用户名</th><th width=\"*\">邮箱</th><th width=\"200\">操作</th><th width=\"200\">时间</th></tr>\r\n            <tr v-repeat=\"v in traces\">\r\n                <td>{{v.user.name}}</td>\r\n                <td>{{v.user.email}}</td>\r\n                <td>{{getAction(v.action)}}</td>\r\n                <td>{{getTime(v.created)}}</td>\r\n            </tr>\r\n        </table>\r\n\r\n        <div class=\"panel-foot text-center\">\r\n            <ul class=\"pagination\"><li><a href=\"javascript:;\" v-on=\"click:prevPage\">上一页</a></li></ul>\r\n            <ul class=\"pagination pagination-group\">\r\n                <li v-on=\"click:toPage\" v-repeat=\"parseInt(((count-1)/limit))+1\" v-class=\"active:$index == (page)\"><a href=\"javascript:;\">{{$index+1}}</a></li>\r\n            </ul>\r\n            <ul class=\"pagination\"><li><a href=\"javascript:;\" v-on=\"click:nextPage\">下一页</a></li></ul>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>",
    compiled: function () {
-      var self = this;
-      self.loading = true;
-      Service.getTraces({page:this.page,limit:this.limit}, function (rep) {
-         self.loading = false;
-         if(rep.Code == 0){
-            self.traces = rep.Response.lists;
-            self.count = rep.Response.count;
-         }
-      })
+      this.getLog();
+   },
+   watch:{
+      "page": function (p) {
+         this.page = p;
+         this.getLog();
+      }
    },
    methods:{
       toPage: function (e) {
@@ -58,6 +56,17 @@ module.exports = Vue.extend({
                return "前台登录"
             }break;
          }
+      },
+      getLog: function () {
+         var self = this;
+         self.loading = true;
+         Service.getTraces({page:this.page,limit:this.limit}, function (rep) {
+            self.loading = false;
+            if(rep.Code == 0){
+               self.traces = rep.Response.lists;
+               self.count = rep.Response.count;
+            }
+         })
       }
    }
 });
