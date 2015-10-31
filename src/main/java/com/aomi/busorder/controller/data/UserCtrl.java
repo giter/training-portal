@@ -162,7 +162,7 @@ public class UserCtrl {
     try {
 
       String url = String.format(
-          "http://182.254.244.191/data/user/bind/%s.json", auth.get_id());
+          "http://www.aomidata.com/data/user/bind/%s.json", auth.get_id());
 
       mailService.mail(users.get(0).getName(), form.email, "网页验证邮件！",
           String.format("请使用以下链接激活帐号： %s", url));
@@ -182,7 +182,7 @@ public class UserCtrl {
     Authorize auth = authorizeService.take(id);
 
     if (auth == null || System.currentTimeMillis() < auth.getExpiration()) {
-      return "redirect:/pc_bind_fail.html";
+      return "redirect:/pc_bind_fail.html?1";
     }
 
     User user = userService.get(auth.getUid());
@@ -190,7 +190,7 @@ public class UserCtrl {
     if (user == null
         || (user.getOpenID() != null && !auth.getOpenID().equals(
             user.getOpenID()))) {
-      return "redirect:/pc_bind_fail.html";
+      return "redirect:/pc_bind_fail.html?2";
     }
 
     user.setOpenID(auth.getOpenID());
