@@ -5,7 +5,7 @@
         { 
           "type":"view",
           "name":"在线订座",
-          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7d0128b8e445ac1f&redirect_uri=http%3A%2F%2Fwww.hao3304.com%2Foauth.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+          "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7d0128b8e445ac1f&redirect_uri=http%3A%2F%2Fwww.aomidata.com%2Foauth.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
         },
 
         { 
