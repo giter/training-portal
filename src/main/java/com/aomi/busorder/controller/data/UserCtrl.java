@@ -181,7 +181,7 @@ public class UserCtrl {
 
     Authorize auth = authorizeService.take(id);
 
-    if (auth == null || System.currentTimeMillis() < auth.getExpiration()) {
+    if (auth == null || System.currentTimeMillis() > auth.getExpiration()) {
       return "redirect:/pc_bind_fail.html?1";
     }
 
