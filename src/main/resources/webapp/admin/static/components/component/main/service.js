@@ -6,6 +6,7 @@ define('main/service', function(require, exports, module) {
 var prefix = "http://115.159.116.241";
 //var prefix = "";
 
+$.ajaxSetup({cache:false});
 
 $.del = function (url,callback) {
     return $.ajax({
