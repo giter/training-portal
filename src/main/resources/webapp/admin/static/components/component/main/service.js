@@ -3,10 +3,9 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
-var prefix = "http://115.159.116.241";
-//var prefix = "";
+//var prefix = "http://115.159.116.241";
+var prefix = "";
 
-$.ajaxSetup({cache:false});
 
 $.del = function (url,callback) {
     return $.ajax({
@@ -31,6 +30,7 @@ $.put = function (url,data,callback) {
 
 
 function getUsers(p,c){
+    p.stamp = Math.random();
     $.get(prefix+ "/admin/data/users.json",p, c,"json");
 }
 
@@ -47,6 +47,7 @@ function updateUser(id,p,c){
 }
 
 function getBuses(p,c){
+    p.stamp = Math.random();
     $.get(prefix+ "/admin/data/buses.json",p, c,"json");
 }
 
@@ -103,10 +104,12 @@ function getSysInfo(c){
 }
 
 function getTicketStats(p,c){
+    p.stamp = Math.random();
     $.get(prefix+"/data/tickets/stats.json",p, c);
 }
 
 function getBusTickets(p,c){
+    p.stamp = Math.random();
     $.get(prefix +"/data/tickets.json",p,c);
 }
 
@@ -115,6 +118,7 @@ function userLogin(p,c){
 }
 
 function getCompanyTicket(p,c){
+    p.stamp = Math.random();
     $.get(prefix +"/admin/data/tickets.json",p,c);
 }
 
@@ -127,6 +131,7 @@ function unTicket(uid,id,c){
 }
 
 function getTraces(p,c){
+    p.stamp = Math.random();
     $.get(prefix +"/admin/data/traces.json",p,c);
 }
 
