@@ -8,7 +8,7 @@ pushd training-portal.git/branches/game/
 
 
 svn update
-mvn package
+mvn clean package
 
 cp target/busorder-*-SNAPSHOT.jar ~
 
