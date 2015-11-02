@@ -25,13 +25,8 @@
             </tr>
         </table>
 
-        <div class="panel-foot text-center">
-            <ul class="pagination"><li><a href="javascript:;" v-on="click:prevPage">上一页</a></li></ul>
-            <ul class="pagination pagination-group">
-                <li v-on="click:toPage" v-repeat="parseInt(((count-1)/limit))+1" v-class="active:$index == (page)"><a href="javascript:;">{{$index+1}}</a></li>
-            </ul>
-            <ul class="pagination"><li><a href="javascript:;" v-on="click:nextPage">下一页</a></li></ul>
-        </div>
+        <c-pager count="{{@ count}}" limit="{{@ limit}}" page="{{@ page}}"></c-pager>
+
 
         <div class="dialog-mask" style="display: none;"></div>
         <div id="bus-dialog" class="dialog-win" style="position: fixed; width: 50%; z-index: 11;display: none;">

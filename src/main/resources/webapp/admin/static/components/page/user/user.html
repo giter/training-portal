@@ -7,6 +7,8 @@
         </div>
         <div class="padding border-bottom">
             <input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:addUser" value="新增用户" />
+            <!--<input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:inputUser" value="导入用户" />-->
+            <!--<input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:dellAllUser" value="删除全部" />-->
         </div>
         <table class="table table-hover">
             <tr><th width="120">用户名</th><th width="200">邮箱</th><th width="100">手机号码</th><th width="*">OpenID</th><th width="100">订票限制</th><th width="100">用户类型</th><th width="100">登录密码</th><th width="140">操作</th></tr>
@@ -21,13 +23,7 @@
                 <td><a v-on="click:editUser(c)" class="button border-blue button-little" href="javascript:;">修改</a> <a class="button border-yellow button-little" v-on="click:delUser(c._id)" href="javascript:;">删除</a> </td></tr>
         </table>
 
-        <div class="panel-foot text-center">
-            <ul class="pagination"><li><a href="javascript:;" v-on="click:prevPage">上一页</a></li></ul>
-            <ul class="pagination pagination-group">
-                <li v-on="click:toPage" v-repeat="parseInt(((count-1)/limit))+1" v-class="active:$index == (page)"><a href="javascript:;">{{$index+1}}</a></li>
-            </ul>
-            <ul class="pagination"><li><a href="javascript:;" v-on="click:nextPage">下一页</a></li></ul>
-        </div>
+        <c-pager count="{{@ count}}" limit="{{@ limit}}" page="{{@ page}}"></c-pager>
 
         <div class="dialog-mask" style="display: none;"></div>
         <div id="user-dialog" class="dialog-win" style="position: fixed; width: 50%; z-index: 11;display: none;">

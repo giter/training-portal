@@ -38,13 +38,21 @@ require.resourceMap({
       "url": "/admin/static/components/component/main/check.js",
       "type": "js"
     },
+    "pager/pager": {
+      "url": "/admin/static/components/component/pager/pager.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js"
+      ]
+    },
     "components/page/user/user": {
       "url": "/admin/static/components/page/user/user.js",
       "type": "js",
       "deps": [
         "component_modules/vue.js",
         "main/service.js",
-        "main/check.js"
+        "main/check.js",
+        "pager/pager.js"
       ]
     },
     "components/page/bus/bus": {
@@ -53,7 +61,8 @@ require.resourceMap({
       "deps": [
         "component_modules/vue.js",
         "main/service.js",
-        "main/check.js"
+        "main/check.js",
+        "pager/pager.js"
       ]
     },
     "components/page/order/order": {
