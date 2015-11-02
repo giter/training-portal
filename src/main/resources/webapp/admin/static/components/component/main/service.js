@@ -68,7 +68,7 @@ function updateBus(id,p,c){
 }
 
 function getSeat(bid,c){
-    $.get(prefix + "/admin/data/bus/"+bid +"/seats.json",c);
+    $.get(prefix + "/admin/data/bus/"+bid +"/seats.json",{limit:999},c);
 }
 
 function addSeat(bid,p,c){
