@@ -8,8 +8,12 @@ public class User extends Basic<User> {
 
   private static final long serialVersionUID = 1L;
 
+  public static final int TYPE_NORMAL = 0;
+  public static final int TYPE_COMPANY = 1;
+  public static final int TYPE_RELATION = 2;
+
   /**
-   * 用户类型 0. 普通用户 1. 外包用户
+   * 用户类型 0. 普通用户 1. 外包用户 2. 关联用户
    */
   public static final String FIELD_TYPE = "type";
 
@@ -17,6 +21,16 @@ public class User extends Basic<User> {
    * 外包商
    */
   public static final String FIELD_COMPANY = "company";
+
+  /***
+   * 单位
+   */
+  public static final String FIELD_UNIT = "unit";
+
+  /***
+   * 处室
+   */
+  public static final String FIELD_DEPARTMENT = "department";
 
   /**
    * 邮箱
@@ -58,6 +72,31 @@ public class User extends Basic<User> {
    */
   public static final String FIELD_DELEGATION = "delegation";
 
+  /***
+   * 身份证
+   */
+  public static final String FIELD_SN = "sn";
+
+  /***
+   * 性别
+   */
+  public static final String FIELD_SEX = "sex";
+
+  /***
+   * 年龄
+   */
+  public static final String FIELD_AGE = "age";
+
+  /***
+   * 关系
+   */
+  public static final String FIELD_RELATION = "relation";
+
+  /***
+   * 关联到
+   */
+  public static final String FIELD_RELATED = "related";
+
   public int getType() {
 
     return getInt(FIELD_TYPE, 0);
@@ -65,6 +104,26 @@ public class User extends Basic<User> {
 
   public User setType(int type) {
     put(FIELD_TYPE, type);
+    return this;
+  }
+
+  public String getDepartment() {
+
+    return getString(FIELD_DEPARTMENT);
+  }
+
+  public User setDepartment(String department) {
+    put(FIELD_DEPARTMENT, department);
+    return this;
+  }
+
+  public String getUnit() {
+
+    return getString(FIELD_UNIT);
+  }
+
+  public User setUnit(String unit) {
+    put(FIELD_UNIT, unit);
     return this;
   }
 
@@ -115,10 +174,10 @@ public class User extends Basic<User> {
 
     List<String> delegation = getDelegation();
 
-    if (delegation.size() < 4)
+    if (delegation.size() < 5)
       delegation.add(uid);
     else
-      throw new ArrayIndexOutOfBoundsException(4);
+      throw new ArrayIndexOutOfBoundsException(5);
 
     setDelegation(delegation);
 
@@ -151,6 +210,46 @@ public class User extends Basic<User> {
 
   public User setPassword(String password) {
     put(FIELD_PASSWORD, password);
+    return this;
+  }
+
+  public String getSn() {
+
+    return getString(FIELD_SN);
+  }
+
+  public User setSn(String sn) {
+    put(FIELD_SN, sn);
+    return this;
+  }
+
+  public String getSex() {
+
+    return getString(FIELD_SEX);
+  }
+
+  public User setSex(String sex) {
+    put(FIELD_SEX, sex);
+    return this;
+  }
+
+  public String getAge() {
+
+    return getString(FIELD_AGE);
+  }
+
+  public User setAge(String age) {
+    put(FIELD_AGE, age);
+    return this;
+  }
+
+  public String getRelated() {
+
+    return getString(FIELD_RELATED);
+  }
+
+  public User setRelated(String related) {
+    put(FIELD_RELATED, related);
     return this;
   }
 
@@ -190,6 +289,17 @@ public class User extends Basic<User> {
   public User setAdmin(int admin) {
 
     put(FIELD_ADMIN, admin);
+    return this;
+  }
+
+  public String getRelation() {
+
+    return getString(FIELD_RELATION);
+  }
+
+  public User setRelation(String relation) {
+
+    put(FIELD_ADMIN, relation);
     return this;
   }
 

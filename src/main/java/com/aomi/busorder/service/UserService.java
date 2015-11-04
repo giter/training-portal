@@ -21,6 +21,25 @@ public class UserService implements InitializingBean {
   @Resource
   MongoDAO dao;
 
+  public void relate(String source, String target, String relation) {
+
+    DBObject query = new BasicDBObject("_id", source);
+    DBObject modifier = BasicDBObjectBuilder.start().push("$set")
+        .add(User.FIELD_RELATED, target).add(User.FIELD_RELATION, target).pop()
+        .get();
+
+    dao.user.update(query, modifier);
+  }
+
+  public void unrelate(String source, String target) {
+
+    DBObject query = new BasicDBObject("_id", source);
+    DBObject modifier = BasicDBObjectBuilder.start().push("$unset")
+        .add(User.FIELD_RELATED, 1).add(User.FIELD_RELATION, 1).pop().get();
+
+    dao.user.update(query, modifier);
+  }
+
   public void delegate(String source, String target) {
 
     DBObject query = new BasicDBObject("_id", source);
@@ -66,6 +85,13 @@ public class UserService implements InitializingBean {
         .findOne(new BasicDBObject(User.FIELD_OPENID, openID));
   }
 
+  public User getByRelation(String related, String sn) {
+
+    return (User) dao.user.findOne(BasicDBObjectBuilder.start()
+        .add(User.FIELD_TYPE, User.TYPE_RELATION)
+        .add(User.FIELD_RELATED, related).add(User.FIELD_SN, sn).get());
+  }
+
   public User insert(User user) {
 
     user.set_id(new ObjectId().toHexString());
@@ -84,10 +110,22 @@ public class UserService implements InitializingBean {
     return user;
   }
 
+  /**
+   * 删除用户
+   * 
+   * @param _id
+   * @return 已删除的用户
+   */
   public User remove(String _id) {
 
-    return (User) dao.user.findAndRemove(BasicDBObjectBuilder.start("_id", _id)
-        .get());
+    User user = (User) dao.user.findAndRemove(BasicDBObjectBuilder.start("_id",
+        _id).get());
+
+    if (user.getRelated() != null) {
+      unrelate(user.getRelated(), user.get_id());
+    }
+
+    return user;
   }
 
   public List<DBObject> items() {
@@ -129,6 +167,11 @@ public class UserService implements InitializingBean {
       ob.add(User.FIELD_OPENID, param.getOpenID());
     }
 
+    if (param.getRelatedTo() != null) {
+      ob.add(User.FIELD_RELATED, param.getRelatedTo());
+      ob.add(User.FIELD_TYPE, User.TYPE_RELATION);
+    }
+
     return ob.get();
   }
 
@@ -146,7 +189,7 @@ public class UserService implements InitializingBean {
       cursor.skip(param.getLimit() * param.getPage());
     }
 
-    List<?> users = cursor.limit(param.getLimit()).toArray();
+    List<?> users = cursor.toArray();
 
     return (List<User>) users;
   }

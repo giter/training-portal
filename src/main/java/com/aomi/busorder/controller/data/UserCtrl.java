@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aomi.busorder.controller.WeixinCtrl;
 import com.aomi.busorder.form.BindForm;
+import com.aomi.busorder.form.RelationForm;
 import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
@@ -110,6 +111,62 @@ public class UserCtrl {
     tracer.trace(user, TraceAction.ACTION_LOGIN);
 
     session.setAttribute("openID", user.getOpenID());
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/user/relation.json", method = { RequestMethod.PUT })
+  public String relation(HttpSession session, HttpServletRequest request)
+      throws IOException {
+
+    RelationForm form = Utils.parseJSON(request.getInputStream(),
+        RelationForm.class);
+
+    if (form == null || form.sn == null || form.name == null
+        || form.relation == null) {
+      return RESTResponse.of(Pair.of(false, "参数不完整，请重新输入！")).toString();
+    }
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    if (userService.getByRelation(user.get_id(), form.sn) != null) {
+
+      return RESTResponse.of(Pair.of(false, "已存在关联帐户，请重新输入！")).toString();
+    }
+
+    User u = new User();
+    u.setName(form.name).setAge(form.age).setSex(form.sex)
+        .setRelated(user.get_id()).setRelation(form.relation);
+
+    return RESTResponse.of(Pair.of(true, userService.insert(user).get_id()))
+        .toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/user/relations.json", method = { RequestMethod.GET })
+  public String relations(HttpSession session, @ModelAttribute UserParam param)
+      throws IOException {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    param.setLimit(0); // NO limit!
+    param.setRelatedTo(user.get_id());
+
+    return RESTResponse.of(userService.page(param)).toString();
+
   }
 
   @ResponseBody

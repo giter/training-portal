@@ -35,6 +35,11 @@ public class Bus extends Basic<Bus> {
   public static final String FIELD_DESTINATION = "destination";
 
   /**
+   * 路线
+   */
+  public static final String FIELD_LINE = "line";
+
+  /**
    * 首字母
    */
   public static final String FIELD_CAPITAL = "capital";
@@ -59,9 +64,9 @@ public class Bus extends Basic<Bus> {
    */
   public static final String FIELD_SRC = "src";
 
-  public String getSrc(){
+  public String getSrc() {
 
-    return  getString(FIELD_SRC);
+    return getString(FIELD_SRC);
   }
 
   public String getName() {
@@ -149,6 +154,17 @@ public class Bus extends Basic<Bus> {
   public Bus setDestination(String destination) {
 
     put(FIELD_DESTINATION, destination);
+    return this;
+  }
+
+  public String getLine() {
+
+    return getString(FIELD_LINE);
+  }
+
+  public Bus setLine(String line) {
+
+    put(FIELD_LINE, line);
     return this;
   }
 
