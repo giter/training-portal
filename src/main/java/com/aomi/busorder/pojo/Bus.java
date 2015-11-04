@@ -30,6 +30,11 @@ public class Bus extends Basic<Bus> {
   public static final String FIELD_GOFF = "goff";
 
   /**
+   * 到达时间
+   */
+  public static final String FIELD_ARRIVE = "arrive";
+
+  /**
    * 目的地
    */
   public static final String FIELD_DESTINATION = "destination";
@@ -143,6 +148,17 @@ public class Bus extends Basic<Bus> {
   public Bus setGoff(String goff) {
 
     put(FIELD_GOFF, goff);
+    return this;
+  }
+
+  public String getArrive() {
+
+    return getString(FIELD_ARRIVE);
+  }
+
+  public Bus setArrive(String arrive) {
+
+    put(FIELD_ARRIVE, arrive);
     return this;
   }
 
