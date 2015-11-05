@@ -164,7 +164,7 @@ module.exports = Vue.extend({
       this.dialog = $("#bus-dialog");
       var x=parseInt($(window).width()-this.dialog.outerWidth())/2;
       var y=parseInt($(window).height()-this.dialog.outerHeight())/2;
-      if (y<=10){y="10"}
+      if (y<=10){y=10}
       this.dialog.css({"left":x,"top":y});
       this.mask = $(".dialog-mask");
    }
