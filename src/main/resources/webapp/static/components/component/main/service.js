@@ -3,8 +3,9 @@ define('main/service', function(require, exports, module) {
 /**
  * Created by jack on 2015/8/17.
  */
+//var prefix = "";
 var prefix = "";
-//var prefix = "http://182.254.244.191";
+
 
 
 $.del = function (url,callback) {
@@ -23,7 +24,6 @@ $.put = function (url,data,callback) {
             type:"put",
             contentType:"application/json",
             success:callback,
-            error:error,
             dataType:"json",
             data:data,
             url:url
@@ -108,6 +108,18 @@ function getCompanyTicket(p,c){
     $.get(prefix +"/data/admin/tickets.json",p,c);
 }
 
+function addRel(p,c){
+    $.put(prefix + "/data/user/relation.json",p,c);
+}
+
+function getRel(c){
+    $.get(prefix + "/data/user/relations.json",c);
+}
+
+function delRel(id,c){
+    $.del(prefix + "/data/user/relation/"+id+".json",c);
+}
+
 
 function getHashString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -146,7 +158,10 @@ module.exports = {
     getDelegation:getDelegation,
     addDelegation:addDelegation,
     delDelegation:delDelegation,
-    getCompanyTicket:getCompanyTicket
+    getCompanyTicket:getCompanyTicket,
+    addRel:addRel,
+    getRel:getRel,
+    delRel:delRel
 };
 
 });

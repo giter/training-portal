@@ -2745,7 +2745,7 @@ select
     height: auto;
     margin-top: 1px;
 
-    border: 0 !important;
+    border: 0 ;
     background-color: #fff;
 }
 select:focus

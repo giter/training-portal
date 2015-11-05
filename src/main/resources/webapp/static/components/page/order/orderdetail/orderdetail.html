@@ -1,0 +1,29 @@
+<div class="page-orderdetail">
+    <header class="mui-bar-nav mui-bar">
+        <h5 class="mui-title">
+            车辆验票
+        </h5>
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" href="#order"></a>
+    </header>
+    <div class="mui-content">
+
+        <div class="mui-card twinkling" style="padding: 8px;">
+            <div>
+                <span STYLE="color: red;font-weight: bold">{{ticket.bus.sn}}</span>
+            </div>
+            <div >
+                <span>{{ticket.date}} {{ticket.bus.goff}} 开</span><span style="float: right"> {{ticket.seat.sn}}座</span>
+            </div>
+            <div style="text-align: center">
+                <h3>方向：{{ticket.bus.destination}}</h3>
+            </div>
+            <h5 style="text-align: center">
+                {{ticket.bus.line}}
+            </h5>
+            <h5 style="text-align: right;padding-top: 5px;">
+                <span style="color: #666;float: left">{{ticket.user.department}}{{ticket.user.unit}}</span> <span style="font-size: 16px;font-weight: bold;color: #000;">{{ticket.user.name}}</span>
+            </h5>
+        </div>
+
+    </div>
+</div>

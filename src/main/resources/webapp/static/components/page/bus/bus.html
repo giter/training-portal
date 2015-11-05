@@ -1,17 +1,17 @@
 <div class="page-bus" >
     <header class="mui-bar mui-bar-nav">
-        <h5 class="mui-title">{{bus.name}}({{bus.sn}})
+        <h5 class="mui-title">{{bus.sn}}
         </h5>
         <a class=" mui-icon mui-icon-left-nav mui-pull-left" href="#/search/result"></a>
-        <a class="mui-icon mui-icon-home-filled mui-pull-right" href="#/search"></a>
+        <a class="mui-icon  mui-icon-refresh mui-pull-right" v-on="click:reloadSeat"></a>
     </header>
     <div class="mui-content">
         <ul class="mui-table-view" style="margin-top: 0">
             <li class="mui-table-view-cell mui-media">
                 <div class="mui-media-body">
-                    <span style="font-weight: bold">目的地：{{bus.destination}}</span>
+                    <span style="font-weight: bold">方向：{{bus.destination}}</span>
                     <p class='mui-ellipsis' style="font-size: 12px">
-                        {{dateStr}}
+                        {{search.date}}
                     </p>
                 </div>
                 <button class="mui-btn mui-btn-primary" v-on="click:orderSeat">
@@ -20,13 +20,13 @@
             </li>
         </ul>
         <ul class="mui-table-view">
-            <li class="mui-table-view-cell" style="font-size: 12px">
+            <li class="mui-table-view-cell" style="padding:6px 15px;line-height: 35px;">
                 {{selectText}}
-                    <select class="mui-input-select mui-pull-right input-select" v-model="selectDelegate" options="delegate"></select>
+                    <select style="width: 120px;height: 35px;" class=" mui-pull-right form-control" v-model="selectDelegate" options="delegate"></select>
             </li>
         </ul>
     </div>
-    <div class=" mui-scroll-wrapper" style="top:152px;">
+    <div class=" mui-scroll-wrapper" style="top:155px;">
         <div class="mui-scroll" >
             <div class="bus-header">
                 <span>车头方向</span>

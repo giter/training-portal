@@ -9,13 +9,15 @@
             <input type="button" class="button button-small bg-main" data-mask="1" data-width="50%"  v-on="click:addBus" value="新增车辆" />
         </div>
         <table class="table table-hover">
-            <tr><th width="120">车辆照片</th><th width="120">车辆名</th><th width="100">车牌号</th><th width="*">目的地</th><th width="100">发车时间</th><th width="100">状态</th><th width="200">操作</th></tr>
+            <tr><th width="120">车辆照片</th><th width="120">车辆名</th><th width="100">车牌号</th><th width="100">方向</th><th width="*">路线</th><th width="80">发车时间</th><th width="80">到达时间</th><th width="80">状态</th><th width="200">操作</th></tr>
             <tr v-repeat="c in buses" >
                 <td ><img width="64" height="64"  class="img-border radius-small" v-attr="src:c.src||'/admin/static/images/128.png'"></td>
                 <td >{{c.name}}</td>
                 <td >{{c.sn}}</td>
                 <td >{{c.destination}}</td>
+                <td >{{c.line}}</td>
                 <td >{{c.goff}}</td>
+                <td >{{c.arrive}}</td>
                 <td >{{c.online == 0?"停用":"启用"}}</td>
                 <td >
                     <a v-on="click:editBus(c)" class="button border-blue button-little" href="javascript:;">修改</a>
@@ -57,7 +59,7 @@
                         </div>
                         <div class="form-group">
                             <div class="label">
-                                目的地
+                                方向
                             </div>
                             <div class="field">
                                 <input type="text" class="input" v-model="bus.destination" placeholder="请填写目的地">
@@ -66,11 +68,29 @@
                         </div>
                         <div class="form-group">
                             <div class="label">
-                                发出时间
+                                路线
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.line" placeholder="请填写路线">
+                                <div v-show="!validation.line" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                发车时间
                             </div>
                             <div class="field">
                                 <input type="text" class="input" v-model="bus.goff" placeholder="请填写目的地">
                                 <div v-show="!validation.goff" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                到达时间
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.arrive" placeholder="请填写到达时间">
+                                <div v-show="!validation.arrive" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                         <div class="form-group">

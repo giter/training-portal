@@ -23,7 +23,8 @@ window.app = new Vue({
         "calendars":[],
         "whithers":[],
         "openid":"",
-        "mine":""
+        "mine":"",
+        "detailTicket":""
     },
     components:{
         "home":home
@@ -71,6 +72,13 @@ router.on("/home",function(){
 router.on("/order",function(){
     require.async(["components/page/order/order"], function (p) {
         doRouter("order",p);
+    })
+});
+
+router.on("/order/:id",function(id){
+    require.async(["components/page/order/orderdetail/orderdetail"], function (p) {
+        window.app.detailTicket = id;
+        doRouter("orderdetail",p);
     })
 });
 
@@ -124,6 +132,11 @@ router.on("/relation",function(){
 router.on("/relation/query",function(){
     require.async(["components/page/relation/query/query"], function (p) {
         doRouter("query",p);
+    })
+});
+router.on("/relation/relatives",function(){
+    require.async(["components/page/relation/relatives/relatives"], function (p) {
+        doRouter("relatives",p);
     })
 });
 

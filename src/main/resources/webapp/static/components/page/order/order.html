@@ -11,14 +11,16 @@
                 <h5 style="padding-left: 15px;">订单</h5>
                 <ul class="mui-table-view mui-list">
                     <li class="mui-table-view-cell mui-media" v-repeat="o in order">
-                        <img style="width: 42px;" class="mui-media-object mui-pull-left" v-attr="src:o.bus.src||'/admin/static/images/128.png'">
-                        <div class="mui-media-body">
-                                {{o.bus.sn}} {{o.bus.destination}}
-                            <p class="mui-ellipsis">{{o.date}} {{o.bus.goff}} {{o.seat.sn}}号座位</p>
-                        </div>
-                        <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:unSub(o)">
-                            退订
-                        </button>
+                       <a href="#order/{{o._id}}">
+                           <img style="width: 42px;" class="mui-media-object mui-pull-left" v-attr="src:o.bus.src||'/admin/static/images/128.png'">
+                           <div class="mui-media-body">
+                               {{o.bus.sn}} {{o.bus.destination}}
+                               <p class="mui-ellipsis">{{o.date}} {{o.bus.goff}} {{o.seat.sn}}号座位</p>
+                           </div>
+                           <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:unSub(o)">
+                               退订
+                           </button>
+                       </a>
                     </li>
                 </ul>
             </div>

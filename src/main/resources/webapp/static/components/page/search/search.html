@@ -6,28 +6,47 @@
             </h5>
         </header>
         <div class="mui-content">
-            <ul class="mui-table-view mui-list">
-                <i class=" iconfont icon-target"></i>
-                <li class="mui-table-view-cell">
-                    <a class="mui-navigate-right" v-on="tap:onClick('whither')">目的地
-                    <span class="mui-pull-right form-value">
-                        {{search.whither}}
-                    </span>
-                    </a>
-                </li>
-                <i class="iconfont icon-time"></i>
-                <li class="mui-table-view-cell">
-                    <a class="mui-navigate-right" v-on="tap:onClick('calendar')"  >出发时间
-                        <span class="mui-pull-right form-value">
-                        {{dateStr}}
-                    </span>
-                    </a>
-                </li>
-            </ul>
 
-            <button class="mui-btn mui-btn-block" id="btn-search" v-on="click:onSearch()" >
-                <span class="mui-icon mui-icon-search"></span>查询
-            </button>
+            <div class="x-control-group">
+
+                <div class="x-label-edit x-label20">
+                    <label class="x-label ">发车时间</label>
+                    <div class="x-edit" >
+                        <select  v-model="search.date" options="date" class="form-control"><option value="">请选择...</option></select>
+                    </div>
+                </div>
+
+<div style="text-align: center;margin-top: 20px;">
+    <button type="button" v-on="click:onSearch('昌江')" class="mui-btn mui-btn-primary mui-btn-block">昌江</button>
+    <button type="button" v-on="click:onSearch('海口')"  class="mui-btn mui-btn-primary mui-btn-block">海口</button>
+</div>
+
+            </div>
+            <!--<ul class="mui-table-view mui-list">-->
+            <!--<li class="mui-table-view-cell">-->
+            <!--<a>出发时间-->
+
+            <!--<select class="app-select" v-model="selectCompany" options="companies">-->
+            <!--<option>请选择</option>-->
+            <!--</select>-->
+
+            <!--</a>-->
+            <!--</li>-->
+            <!--<i class=" iconfont icon-target"></i>-->
+            <!--<li class="mui-table-view-cell">-->
+            <!--<a class="mui-navigate-right" v-on="tap:onClick('whither')">目的地-->
+            <!--<span class="mui-pull-right form-value">-->
+            <!--{{search.whither}}-->
+            <!--</span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+
+            <!--<button class="mui-btn mui-btn-block" id="btn-search" v-on="click:onSearch()" >-->
+                <!--<span class="mui-icon mui-icon-search"></span>查询-->
+            <!--</button>-->
+
+
         </div>
 
     </div>

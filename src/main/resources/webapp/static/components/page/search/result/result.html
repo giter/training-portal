@@ -13,14 +13,15 @@
         </h5>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-repeat="r in result">
-                <a class="mui-navigate-right" v-on="click:selectBus(r.id,calendars[search.date].value)">
+                <a class="mui-navigate-right" v-on="click:selectBus(r.id,search.date)">
                     <img style="max-width: 62px;width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
                     <div class="mui-media-body">
-                        {{r.name}} {{r.whither}}
+                        <h4 style="color: blue">{{r.sn}}</h4>
+                        <div style="color: green">{{r.whither}}方向 {{r.order}}/{{r.void + r.order}}</div>
                         <p>
-                            {{r.date}}
-                        <h5>
-                            <span style="color: red;font-weight: bold;">空座：{{r.void}}</span> 预订：{{r.order}} 全部：{{r.void + r.order}}
+                            {{r.date}}至{{r.arrive}}
+                        <h5 class="mui-ellipsis-2">
+                            {{r.line}}
                         </h5>
                         </p>
                     </div>
@@ -33,7 +34,7 @@
     <nav class="mui-bar mui-bar-tab">
         <div class="time-nav">
             <span class="mui-action mui-action-previous mui-icon mui-icon-back" v-on="click:btnPrev"></span>
-            <span class="time">{{dateStr}}</span>
+            <span class="time">{{search.date}}</span>
             <span class="mui-action mui-action-next mui-icon mui-icon-forward" v-on="click:btnNext"></span>
         </div>
     </nav>
