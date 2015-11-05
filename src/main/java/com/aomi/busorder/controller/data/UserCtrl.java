@@ -142,7 +142,8 @@ public class UserCtrl {
 
     User u = new User();
     u.setName(form.name).setAge(form.age).setSex(form.sex)
-        .setRelated(user.get_id()).setRelation(form.relation);
+        .setRelated(user.get_id()).setRelation(form.relation)
+        .setType(User.TYPE_RELATION);
 
     return RESTResponse.of(userService.insert(u)).toString();
   }
