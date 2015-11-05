@@ -299,7 +299,7 @@ public class User extends Basic<User> {
 
   public User setRelation(String relation) {
 
-    put(FIELD_ADMIN, relation);
+    put(FIELD_RELATION, relation);
     return this;
   }
 
