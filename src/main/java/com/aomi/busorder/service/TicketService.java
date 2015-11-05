@@ -1,9 +1,11 @@
 package com.aomi.busorder.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +80,32 @@ public class TicketService {
         .add("user", user).get();
 
     return (Ticket) dao.ticket.findAndModify(query, update);
+  }
+
+  public List<Ticket> takes(List<Pair<String, User>> tickets) {
+
+    List<Ticket> ts = new ArrayList<>(tickets.size());
+
+    boolean succeed = true;
+    for (Pair<String, User> ticket : tickets) {
+
+      Ticket t = take(ticket.getKey(), ticket.getValue());
+      succeed &= t != null;
+
+      ts.add(t);
+    }
+
+    if (!succeed) {
+
+      for (Pair<String, User> ticket : tickets) {
+
+        refund(ticket.getKey(), ticket.getValue());
+      }
+
+      ts.clear();
+    }
+
+    return ts;
   }
 
   /***
