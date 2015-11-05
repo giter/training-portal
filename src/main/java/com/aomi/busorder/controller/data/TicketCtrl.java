@@ -88,6 +88,9 @@ public class TicketCtrl {
       mm.put("void", available);
       mm.put("order", all - available);
       mm.put("src", bus.getSrc());
+      mm.put("sn", bus.getSn());
+      mm.put("line", bus.getLine());
+      mm.put("arrive", bus.getArrive());
 
       r.add(mm);
     }
