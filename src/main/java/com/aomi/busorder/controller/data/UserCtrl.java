@@ -114,6 +114,31 @@ public class UserCtrl {
   }
 
   @ResponseBody
+  @RequestMapping(value = "/data/user/relation/{id}.json", method = { RequestMethod.DELETE })
+  public String relation(@PathVariable("id") String id, HttpSession session,
+      HttpServletRequest request) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User source = userService.getByOpenID(openID);
+
+    if (openID == null || source == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    User user = userService.get(id);
+
+    if (user != null && user.getRelated() != null
+        && user.getRelated().equals(source.get_id())) {
+
+      userService.remove(user.get_id());
+    }
+
+    return RESTResponse.of(user).toString();
+  }
+
+  @ResponseBody
   @RequestMapping(value = "/data/user/relation.json", method = { RequestMethod.PUT })
   public String relation(HttpSession session, HttpServletRequest request)
       throws IOException {
