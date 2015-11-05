@@ -202,7 +202,10 @@ public class TicketCtrl {
 
     if (!user.getDelegation().contains(source.get_id())) {
 
-      return RESTResponse.of(Errors.UNAUTHORIZED, "委托关系不存在...").toString();
+      if (!(user.getRelated() != null && user.getRelated().equals(
+          source.get_id()))) {
+        return RESTResponse.of(Errors.UNAUTHORIZED, "委托或亲属关系不存在...").toString();
+      }
     }
 
     if (ticketService.countByDate(user.get_id(), ticket.getDate()) >= user
