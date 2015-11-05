@@ -144,8 +144,7 @@ public class UserCtrl {
     u.setName(form.name).setAge(form.age).setSex(form.sex)
         .setRelated(user.get_id()).setRelation(form.relation);
 
-    return RESTResponse.of(Pair.of(true, userService.insert(user).get_id()))
-        .toString();
+    return RESTResponse.of(userService.insert(u)).toString();
   }
 
   @ResponseBody
