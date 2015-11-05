@@ -4,7 +4,7 @@ define('main/service', function(require, exports, module) {
  * Created by jack on 2015/8/17.
  */
 //var prefix = "";
-var prefix = "";
+var prefix = "http://115.159.116.241";
 
 
 
