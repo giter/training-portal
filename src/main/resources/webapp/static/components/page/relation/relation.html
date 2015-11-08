@@ -8,7 +8,7 @@
     </header>
     <div class="mui-content">
         <h5 class="mui-content-padded">
-            每个用户最多可以绑定四个联系人或者亲属
+            每个用户最多可以绑定四个联系人
         </h5>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-repeat="u in delegations">
@@ -18,7 +18,7 @@
                         <p>{{u.email}}</p>
                     </div>
                     <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:delDelegation(u._id)">
-                        取消
+                        删除
                     </button>
                 </a>
             </li>
@@ -38,7 +38,7 @@
                         <p>{{u.relation}}</p>
                     </div>
                     <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:delRel(u._id)">
-                        取消
+                        删除
                     </button>
                 </a>
             </li>

@@ -9,7 +9,7 @@ var Layer = require("component_modules/layer.m").layer;
 var Service = require("main/service.js");
 
 module.exports =   Vue.extend({
-    template:"<div class=\"page-query\"  >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <div class=\"mui-input-row mui-search mui-pull-left\" style=\"width: 80%\">\r\n            <input type=\"search\" class=\"mui-input-clear\" placeholder=\"请输入姓名查询\" v-model=\"name\" >\r\n        </div>\r\n        <a class=\"mui-pull-right mui-btn-link\" href=\"#relation\">取消</a>\r\n    </header>\r\n    <div class=\"mui-content\" v-if=\"list.length>0\">\r\n        <ul class=\"mui-table-view  mui-media\">\r\n            <li class=\"mui-table-view-cell mui-media-body\" v-repeat=\"u in list\">\r\n                {{u.name}}\r\n                <p>{{u.email}}</p>\r\n                <button class=\"mui-btn mui-btn-outlined mui-btn-negative\" v-on=\"click:addDelegation(u._id)\">委托</button>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n</div>",
+    template:"<div class=\"page-query\"  >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <div class=\"mui-input-row mui-search mui-pull-left\" style=\"width: 80%\">\r\n            <input type=\"search\" class=\"mui-input-clear\" placeholder=\"请输入姓名查询\" v-model=\"name\" >\r\n        </div>\r\n        <a class=\"mui-pull-right mui-btn-link\" href=\"#relation\">取消</a>\r\n    </header>\r\n    <div class=\"mui-content\" v-if=\"list.length>0\">\r\n        <ul class=\"mui-table-view  mui-media\">\r\n            <li class=\"mui-table-view-cell mui-media-body\" v-repeat=\"u in list\">\r\n                {{u.name}}\r\n                <p>{{u.email}}</p>\r\n                <button class=\"mui-btn mui-btn-outlined mui-btn-negative\" v-on=\"click:addDelegation(u._id)\">添加</button>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n</div>",
     data: function () {
         return {
             list:[],
@@ -36,7 +36,7 @@ module.exports =   Vue.extend({
                     self._add(id);
                 }else{
                     Layer.open({
-                        content: "最多可以添加三个委托！",
+                        content: "最多可以添加四个委托！",
                         shadeClose: false,
                         btn:["确定"],
                         yes: function () {
@@ -53,7 +53,7 @@ module.exports =   Vue.extend({
                 Layer.closeAll();
                 if(rep.Code == 0){
                     Layer.open({
-                        content: "委托成功！",
+                        content: "已成功添加其为您的代订座人！",
                         shadeClose: false,
                         btn:["确定"],
                         yes: function () {

@@ -12,17 +12,22 @@ var Service =require("main/service.js");
 
 module.exports = Vue.extend({
    inherit:true,
-   template:"<div class=\"page-search\" >\r\n    <div class=\"mui-control-content mui-active\">\r\n        <header class=\"mui-bar-nav mui-bar\">\r\n            <h5 class=\"mui-title\">\r\n                订单查询\r\n            </h5>\r\n        </header>\r\n        <div class=\"mui-content\">\r\n\r\n            <div class=\"x-control-group\">\r\n\r\n                <div class=\"x-label-edit x-label20\">\r\n                    <label class=\"x-label \">发车时间</label>\r\n                    <div class=\"x-edit\" >\r\n                        <select  v-model=\"search.date\" options=\"date\" class=\"form-control\"><option value=\"\">请选择...</option></select>\r\n                    </div>\r\n                </div>\r\n\r\n<div style=\"text-align: center;margin-top: 20px;\">\r\n    <button type=\"button\" v-on=\"click:onSearch('昌江')\" class=\"mui-btn mui-btn-primary mui-btn-block\">昌江</button>\r\n    <button type=\"button\" v-on=\"click:onSearch('海口')\"  class=\"mui-btn mui-btn-green mui-btn-block\">海口</button>\r\n</div>\r\n\r\n            </div>\r\n            <!--<ul class=\"mui-table-view mui-list\">-->\r\n            <!--<li class=\"mui-table-view-cell\">-->\r\n            <!--<a>出发时间-->\r\n\r\n            <!--<select class=\"app-select\" v-model=\"selectCompany\" options=\"companies\">-->\r\n            <!--<option>请选择</option>-->\r\n            <!--</select>-->\r\n\r\n            <!--</a>-->\r\n            <!--</li>-->\r\n            <!--<i class=\" iconfont icon-target\"></i>-->\r\n            <!--<li class=\"mui-table-view-cell\">-->\r\n            <!--<a class=\"mui-navigate-right\" v-on=\"tap:onClick('whither')\">目的地-->\r\n            <!--<span class=\"mui-pull-right form-value\">-->\r\n            <!--{{search.whither}}-->\r\n            <!--</span>-->\r\n            <!--</a>-->\r\n            <!--</li>-->\r\n            <!--</ul>-->\r\n\r\n            <!--<button class=\"mui-btn mui-btn-block\" id=\"btn-search\" v-on=\"click:onSearch()\" >-->\r\n                <!--<span class=\"mui-icon mui-icon-search\"></span>查询-->\r\n            <!--</button>-->\r\n\r\n\r\n        </div>\r\n\r\n    </div>\r\n    <c-nav view=\"search\">\r\n    </c-nav>\r\n</div>",
+   template:"<div class=\"page-search\" v-style=\"style\" style=\"overflow-y:auto\">\r\n    <div class=\"mui-control-content mui-active\">\r\n        <header class=\"mui-bar-nav mui-bar\">\r\n            <h5 class=\"mui-title\">\r\n                班车查询\r\n            </h5>\r\n        </header>\r\n        <div class=\"mui-content\">\r\n\r\n            <!--  <div class=\"x-control-group\">\r\n\r\n                  <div class=\"x-label-edit x-label20\">\r\n                      <label class=\"x-label \">发车时间</label>\r\n                      <div class=\"x-edit\" >\r\n                          &lt;!&ndash;<select  v-model=\"search.date\" options=\"date\" class=\"form-control\"><option value=\"\">请选择...</option></select>&ndash;&gt;\r\n\r\n                      </div>\r\n\r\n                  </div>\r\n\r\n                  <div style=\"text-align: center;margin-top: 20px;\">\r\n                      <button type=\"button\" v-on=\"click:onSearch('昌江')\" class=\"mui-btn mui-btn-primary mui-btn-block\">昌江</button>\r\n                      <button type=\"button\" v-on=\"click:onSearch('海口')\"  class=\"mui-btn mui-btn-green mui-btn-block\">海口</button>\r\n                  </div>\r\n\r\n              </div>-->\r\n\r\n            <h5 class=\"mui-content-padded\">出发时间</h5>\r\n            <div class=\"mui-card\">\r\n                <form class=\"mui-input-group\">\r\n                    <div class=\"mui-input-row mui-radio\" v-repeat=\"d in date\" v-on=\"click:onSelectDate(d)\">\r\n                        <label>{{d.text}}</label>\r\n                        <input name=\"radio1\" type=\"radio\" >\r\n                    </div>\r\n                </form>\r\n            </div>\r\n            <h5 class=\"mui-content-padded\">目的地</h5>\r\n            <div class=\"mui-card\">\r\n                <ul class=\"mui-table-view\">\r\n                    <li class=\"mui-table-view-cell\" v-on=\"click:onSearch('昌江')\">\r\n                        <a class=\"mui-navigate-right\">\r\n                            前往昌江\r\n                        </a>\r\n                    </li>\r\n                    <li class=\"mui-table-view-cell\" v-on=\"click:onSearch('海口')\">\r\n                        <a class=\"mui-navigate-right\">\r\n                            前往海口\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n            <h5 class=\"mui-content-padded\">&nbsp;</h5>\r\n        </div>\r\n\r\n    </div>\r\n    <c-nav view=\"search\">\r\n    </c-nav>\r\n</div>",
    data: function () {
      return {
         date:[],
-        selectDate:""
+        style:{
+           height:0
+        }
      }
    },
    methods:{
       onClick: function (hash) {
          var router = new Router();
          router.setRoute(hash);
+      },
+      onSelectDate: function (d) {
+         this.search.date  = d.value;
       },
       onSearch: function (whither) {
          this.search.whither = whither;
@@ -80,7 +85,7 @@ module.exports = Vue.extend({
             self.calendars =self.date = lst;
          }
       });
-
+      this.style.height = document.documentElement.clientHeight-55 +"px";
    }
 });
 
