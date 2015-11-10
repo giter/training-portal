@@ -185,6 +185,8 @@ public class TicketCtrl {
 
       seat.put("ticket", ticket.get_id());
 
+      seat.put("entity", ticket);
+
       seats.add(seat);
     }
 
