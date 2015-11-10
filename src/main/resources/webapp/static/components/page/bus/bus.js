@@ -12,12 +12,12 @@ var Router = require("component_modules/director").Router;
 
 module.exports = Vue.extend({
     inherit:true,
-    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.sn}}\r\n        </h5>\r\n        <a class=\" mui-icon mui-icon-left-nav mui-pull-left\" href=\"#/search/result\"></a>\r\n        <a class=\"mui-icon  mui-icon-refresh mui-pull-right\" v-on=\"click:reloadSeat\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <ul class=\"mui-table-view\" style=\"margin-top: 0\">\r\n            <li class=\"mui-table-view-cell mui-media\">\r\n                <div class=\"mui-media-body\">\r\n                    <span style=\"font-weight: bold\">方向：{{bus.destination}}</span>\r\n                    <p class='mui-ellipsis' style=\"font-size: 12px\">\r\n                        {{search.date}}\r\n                    </p>\r\n                </div>\r\n                <button class=\"mui-btn mui-btn-primary\" v-on=\"click:orderSeat\">\r\n                    提交预订\r\n                </button>\r\n            </li>\r\n        </ul>\r\n        <ul class=\"mui-table-view\">\r\n            <li class=\"mui-table-view-cell\" style=\"padding:6px 15px;line-height: 35px;\">\r\n                {{selectText}}\r\n                    <select style=\"width: 120px;height: 35px;\" class=\" mui-pull-right form-control\" v-model=\"selectDelegate\" options=\"delegate\"></select>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:155px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"click:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  >\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
+    template:"<div class=\"page-bus\" >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <h5 class=\"mui-title\">{{bus.sn}}\r\n        </h5>\r\n        <a class=\" mui-icon mui-icon-left-nav mui-pull-left\" v-on=\"click:backTo('search/result')\"></a>\r\n        <a class=\"mui-icon  mui-icon-home-filled mui-pull-right\" href=\"#search\"></a>\r\n    </header>\r\n    <div class=\"mui-content\">\r\n        <nav class=\"mui-bar mui-bar-tab user-bar\">\r\n            <a v-repeat=\"u in delegate\" class=\"mui-tab-item\" v-on=\"click:selectUser(u)\" v-class=\"mui-active:u.value==selectDelegate.value\" >\r\n                <span class=\"mui-icon mui-icon-contact\"></span>\r\n                <span class=\"mui-tab-label\">{{u.text}}</span>\r\n            </a>\r\n        </nav>\r\n    </div>\r\n    <div class=\" mui-scroll-wrapper\" style=\"top:95px;\">\r\n        <div class=\"mui-scroll\" >\r\n            <div class=\"bus-header\">\r\n                <span>车头方向</span>\r\n                <a class=\"void\"></a> 可选\r\n                <a class=\"order\"></a> 已选\r\n            </div>\r\n            <table class=\"bus-body\">\r\n                <tr v-repeat=\"r in bus.rows\">\r\n                    <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-on=\"click:selectSeat(this,r,$index)\" v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n                        <a class=\"iconfont\" v-text=\"getText(r,$index)\"  ></a>\r\n                        <p class=\"user-name\" v-text=\"getSeatUserName(r,$index)\"></p>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n\r\n            <ul class=\"mui-table-view silder-nav\" style=\"\">\r\n                <li class=\"mui-table-view-cell\" v-repeat=\"bus.rows\">\r\n                    {{$index+1}}\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n\r\n</div>",
     data: function () {
         return {
             seat:null,
             delegate:[],
-            selectDelegate:""
+            selectDelegate:{}
         }
     },
     computed:{
@@ -70,40 +70,45 @@ module.exports = Vue.extend({
                 }
             }
         },
+        getSeatUserName: function (r,c) {
+            var seat = this.getSeatId(r,c);
+            if(seat){
+                var seat = JSON.parse(seat);
+                if(seat.entity.user){
+                    return seat.entity.user.name;
+                }
+            }
+        },
         "selectSeat": function (e,r,c) {
             var $t = $(e.$el);
             if($t.hasClass("icon-seat-void")){
                 $(".bus-body").find("td").removeClass("icon-seat-select");
                 $t.addClass("icon-seat-select");
                 this.seat = $t.data("id");
-            }
-        },
-        "orderSeat": function () {
-            if(this.seat){
+                var user = this.selectDelegate;
+                //
+
+                //if(!user.ticket){
+                //    this.orderSeat(this.seat.ticket, function (ticket) {
+                //        user.ticket = ticket;
+                //    });
+                //}else{
+                //    this._unSubTicket(user.ticket._id, function () {
+                //        self.orderSeat(self.seat.ticket, function (ticket) {
+                //            user.ticket = ticket;
+                //        });
+                //    });
+                //}
                 var self = this;
-                Layer.open({
-                    content:"确定预订"+this.seat.sn +"号座位吗？",
-                    shadeClose:false,
-                    btn:["确定","取消"],
-                    yes: function () {
-                        self._orderSeat(self.seat.ticket);
-                    },
-                    no: function () {
-                        Layer.closeAll();
-                    }
-                });
-            }else{
-                Layer.open({
-                    content:"请先选择座位!",
-                    shadeClose:false,
-                    btn:["确定"],
-                    yes: function () {
-                        Layer.closeAll();
-                    }
+                this._unSubTicket(function () {
+                    self.orderSeat(self.seat.ticket, function (ticket) {
+                        user.ticket = ticket;
+                    });
                 })
+
             }
         },
-        _orderSeat: function (id) {
+        orderSeat: function (id,callback) {
             Layer.closeAll();
             Layer.open({
                 content:"订票中",
@@ -111,35 +116,13 @@ module.exports = Vue.extend({
                 shadeClose:false
             });
             var self = this;
-
-            Service.orderSeat(self.selectDelegate,self.mine._id,id, function (rep) {
+            Service.orderSeat(self.selectDelegate.value,self.mine._id,id, function (rep) {
                 Layer.closeAll();
                 if(rep.Code == 0){
-                    self.seat = null;
+                    callback?callback.call(this,rep.Response):null;
                     $(".bus-body").find("td").removeClass("icon-seat-select");
-                    Layer.open({
-                        content:"恭喜您，订票成功！现在要返回订票列表吗？",
-                        shadeClose:false,
-                        btn:["确定","取消"],
-                        yes: function () {
-                            Layer.closeAll();
-                            var router = new Router();
-                            return router.setRoute("order");
-                        },no: function () {
-                            Layer.closeAll();
-                            self.reloadSeat();
-                        }
-                    });
-                }else{
-                    Layer.open({
-                        content:rep.Message,
-                        shadeClose:false,
-                        btn:["确定"],
-                        yes: function () {
-                            Layer.closeAll();
-                            self.reloadSeat();
-                        }
-                    });
+                    self.seat = null;
+                    self.reloadSeat();
                 }
             });
         },
@@ -168,19 +151,27 @@ module.exports = Vue.extend({
                 }
             })
         },
+        backTo: function (url) {
+            this.$parent.$broadcast("backReload","search");
+            var router = new Router();
+            router.setRoute(url);
+        },
         getDelegate: function () {
             var self = this;
-            Service.getUsers({DelegateTo:this.mine._id}, function (rep) {
+            Service.getUsers({delegateTo:this.mine._id},function (rep) {
                 if(rep.Code == 0){
-                    var list = [{text:self.mine.name,value:self.mine._id}],target = rep.Response.lists;
+                    var list = [{text:self.mine.name,value:self.mine._id,ticket:""}],target = rep.Response.lists;
                     for(var i in target){
                         list.push({
                             text:target[i].name,
-                            value:target[i]._id
+                            value:target[i]._id,
+                            ticket:""
                         })
                     }
                     self.delegate = list;
-                    self.selectDelegate = list[0].value;
+                    self.selectDelegate = list[0];
+
+                    self.getRels();
                 }
             })
         },
@@ -188,22 +179,44 @@ module.exports = Vue.extend({
             var self = this;
             Service.getUsers({relatedTo:this.mine._id}, function (rep) {
                 if(rep.Code == 0){
-                  var lst = rep.Response.lists;
+                    var lst = rep.Response.lists;
                     for(var i=0;i<lst.length;i++){
-                        self.delegate.push({text:lst[i].name,value:lst[i]._id});
+                        self.delegate.push({text:lst[i].name,value:lst[i]._id,ticket:""});
                     }
                 }
             })
+        },
+        _unSubTicket: function (callback) {
+            var self = this,seats = this.bus.seats;
+            var tid = null;
+            for(var i= 0;i<seats.length;i++){
+                if(seats[i].entity.user){
+                    if(seats[i].entity.user._id == this.selectDelegate.value){
+                        tid = seats[i].ticket;
+                    }
+                }
+            }
+
+            if(tid){
+                Service.unSubTicket(tid, function () {
+                    callback.call(this);
+                });
+            }else{
+                callback.call(this);
+            }
+        },
+        selectUser: function (u) {
+            this.selectDelegate = u;
         }
     },
     ready: function () {
         if(typeof this.search.date !="string"){
             var router = new Router();
-            return router.setRoute("search");
+            router.setRoute("search");
+            window.location.reload();
         }
         this.renderScroll();
         this.getDelegate();
-        this.getRels();
     }
 });
 

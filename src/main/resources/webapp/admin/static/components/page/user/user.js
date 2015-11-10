@@ -29,7 +29,8 @@ module.exports = Vue.extend({
             "unit":"",
             "admin":0,
             "type":0, //0 普通用户 1 承包商
-            "password":""
+            "password":"",
+            "limit":1
          }
       }
    },
@@ -50,7 +51,8 @@ module.exports = Vue.extend({
             "unit":"",
             "admin":0,
             "type":0, //0 普通用户 1 承包商
-            "password":""
+            "password":"",
+            "limit":1
          };
          this.openDialog();
       },

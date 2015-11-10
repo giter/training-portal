@@ -24,7 +24,9 @@ window.app = new Vue({
         "whithers":[],
         "openid":"",
         "mine":"",
-        "detailTicket":""
+        "detailTicket":"",
+        "beginTime":1800,/*提前30分钟*/
+        "endTime":10800/*提前30分钟*/
     },
     components:{
         "home":home
@@ -37,7 +39,9 @@ window.app = new Vue({
             if(rep.Code == 0){
                 self.mine = rep.Response;
             }
-        })
+        });
+
+
     }
 });
 
@@ -58,6 +62,7 @@ function doRouter(target,page){
     }
     window.app.$data.currentView = target;
 }
+
 
 router.on("/bind",function(){
     require.async(["components/page/bind/bind"], function (p) {
@@ -100,9 +105,9 @@ router.on("/search/result",function(){
     })
 });
 
-router.on("/service",function(){
-    require.async(["components/page/service/service"], function (p) {
-        doRouter("service",p);
+router.on("/validate",function(){
+    require.async(["components/page/validate/validate"], function (p) {
+        doRouter("validate",p);
     })
 });
 

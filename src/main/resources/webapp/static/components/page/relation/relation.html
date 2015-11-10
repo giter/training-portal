@@ -15,7 +15,7 @@
                 <a >
                     <div class="mui-media-body" >
                         {{u.name}}
-                        <p>{{u.email}}</p>
+                        <p>{{u.department}}</p>
                     </div>
                     <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:delDelegation(u._id)">
                         删除
@@ -25,9 +25,9 @@
         </ul>
         <div style="padding: 15px;">
 
-            <a style="padding: 5px;" v-if="delegations.length<4" class="mui-btn mui-btn-primary mui-btn-block" href="#relation/query">
+            <a style="padding: 5px;" v-if="delegations.length<2" class="mui-btn mui-btn-primary mui-btn-block" href="#relation/query">
                 <span class="mui-icon mui-icon-plus"></span>
-                添加联系人</a>
+                添加本公司人员</a>
         </div>
 
         <ul class="mui-table-view">
@@ -44,9 +44,9 @@
             </li>
         </ul>
         <div style="padding: 15px;">
-            <a style="padding: 5px;" v-if="relatives.length<4" class="mui-btn mui-btn-primary mui-btn-block" href="#relation/relatives">
+            <a style="padding: 5px;" v-if="relatives.length<2" class="mui-btn mui-btn-primary mui-btn-block" href="#relation/relatives">
                 <span class="mui-icon mui-icon-plus"></span>
-                添加亲属</a>
+                添加非本公司人员</a>
         </div>
 
         <h5 style="text-align: center">刷新页面查看最新关联。</h5>

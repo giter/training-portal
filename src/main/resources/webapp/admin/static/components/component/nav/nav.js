@@ -28,7 +28,7 @@ module.exports = Vue.component("c-nav",{
                             class: "icon-user"
                         },
                         {
-                            name: "车辆管理",
+                            name: "发车管理",
                             key: "bus",
                             class: "icon-bus",
                             child: [

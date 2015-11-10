@@ -96,6 +96,14 @@ function addDelegation(id,c){
     $.post(prefix + "/data/user/delegation/"+id+".json",c);
 }
 
+function addForDelegation(id,c){
+    $.post(prefix + "/data/user/delegate-for/"+id+".json",c);
+}
+
+function delForDelegation(id,c){
+    $.del(prefix + "/data/user/delegate-for/"+id+".json",c);
+}
+
 function delDelegation(id,c){
     $.del(prefix + "/data/user/delegation/"+id+".json",c);
 }
@@ -156,6 +164,8 @@ module.exports = {
     getMyTicket:getMyTicket,
     getMine:getMine,
     getDelegation:getDelegation,
+    addForDelegation:addForDelegation,
+    delForDelegation:delForDelegation,
     addDelegation:addDelegation,
     delDelegation:delDelegation,
     getCompanyTicket:getCompanyTicket,

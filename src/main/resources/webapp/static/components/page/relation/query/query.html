@@ -8,7 +8,7 @@
     <div class="mui-content" v-if="list.length>0">
         <ul class="mui-table-view  mui-media">
             <li class="mui-table-view-cell mui-media-body" v-repeat="u in list">
-                {{u.name}}
+                {{u.name}}({{u.department}})
                 <p>{{u.email}}</p>
                 <button class="mui-btn mui-btn-outlined mui-btn-negative" v-on="click:addDelegation(u._id)">添加</button>
             </li>

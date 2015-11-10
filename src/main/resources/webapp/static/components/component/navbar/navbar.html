@@ -7,6 +7,10 @@
         <span class="mui-icon icon-font  mui-icon-phone"></span>
         <span class="mui-tab-label">订单</span>
     </a>
+    <a class="mui-tab-item" v-class="mui-active:view =='validate'"  v-on="tap:onClick('#validate')">
+        <span class="mui-icon mui-icon-compose"></span>
+        <span class="mui-tab-label">验票</span>
+    </a>
     <a class="mui-tab-item" v-class="mui-active:view =='config'" v-on="tap:onClick('#config')">
         <span class="mui-icon mui-icon-list"></span>
         <span class="mui-tab-label">服务</span>

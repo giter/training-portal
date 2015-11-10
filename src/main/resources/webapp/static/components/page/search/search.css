@@ -4,3 +4,110 @@
     height: 100%; }
     .page-search .mui-control-content .mui-content {
       padding-bottom: 50px; }
+
+.x-control-group {
+  width: auto;
+  height: auto;
+  padding: 0.625em;
+  box-sizing: border-box;
+  background: #ffffff; }
+
+.x-control-group-title {
+  background-color: #f5f5f5;
+  margin-bottom: 0.625em;
+  padding: 0.625em;
+  border-radius: 4px;
+  color: #555555;
+  font-weight: bold;
+  font-size: 1.125em;
+  cursor: pointer; }
+
+.x-label-edit {
+  padding: 0.5em 0; }
+
+.x-label-edit, .x-label-edit.x-label-left {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-flex-line-pack: center;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  -moz-align-item: center;
+  -ms-flex-pack: center;
+  -ms-flex-align: center;
+  flex-align: center;
+  align-content: center;
+  align-items: center; }
+
+.x-label20.x-label-edit .x-label {
+  width: 30%; }
+
+.x-label-edit .x-label {
+  display: block; }
+
+.x-label {
+  margin: 0;
+  padding: 0 0.625em 0 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: normal; }
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold; }
+
+.x-label20.x-label-edit .x-edit {
+  width: 70%; }
+
+.x-label-edit .x-edit {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1; }
+
+select.form-control {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  padding: 0 12px;
+  padding-right: 16px;
+  text-indent: 0px;
+  background-image: url(/static/images/chevron.png);
+  background-repeat: no-repeat;
+  background-position: 100%; }
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 38px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin: 0; }
+
+.form-control:focus {
+  border-color: #356635;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b; }
+
+.data-list {
+  padding: 0; }
+  .data-list li {
+    list-style: none;
+    height: 32px;
+    background-color: #fff; }
