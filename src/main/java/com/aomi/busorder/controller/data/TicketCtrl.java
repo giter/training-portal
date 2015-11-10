@@ -300,7 +300,6 @@ public class TicketCtrl {
 
     TicketParam param = new TicketParam();
 
-    param.setLimit(0);
     param.setUid(user.get_id());
 
     return RESTResponse.of(ticketService.page(param)).toString();
