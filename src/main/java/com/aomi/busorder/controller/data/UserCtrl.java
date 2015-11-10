@@ -326,6 +326,56 @@ public class UserCtrl {
   }
 
   @ResponseBody
+  @RequestMapping(value = "/data/user/delegate-for/{uid}.json", method = { RequestMethod.POST })
+  public String delegateFor(HttpSession session, @PathVariable("uid") String uid) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    User target = userService.get(uid);
+
+    if (target == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "未找到该用户...").toString();
+    }
+
+    userService.delegate(target.get_id(), user.get_id());
+
+    return RESTResponse.of(target).get();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/user/delegate-for/{uid}.json", method = { RequestMethod.DELETE })
+  public String undelegateAs(HttpSession session,
+      @PathVariable("uid") String uid) {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    if (openID == null || user == null) {
+
+      return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
+    }
+
+    User target = userService.get(uid);
+
+    if (target == null) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, "未找到该用户...").toString();
+    }
+
+    userService.undelegate(target.get_id(), user.get_id());
+
+    return RESTResponse.of(target).get();
+
+  }
+
+  @ResponseBody
   @RequestMapping(value = "/data/user/delegation/{uid}.json", method = { RequestMethod.POST })
   public String delegate(HttpSession session, @PathVariable("uid") String uid) {
 
