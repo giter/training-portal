@@ -266,7 +266,7 @@ public class TicketCtrl {
       return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
     }
 
-    return RESTResponse.of(ticketService.take(id, user)).toString();
+    return RESTResponse.of(ticketService.take(id, user, source)).toString();
   }
 
   @ResponseBody

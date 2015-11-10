@@ -10,6 +10,8 @@ public class Ticket extends Basic<Ticket> {
 
   public static final String FIELD_USER = "user";
 
+  public static final String FIELD_SOURCE = "source";
+
   public static final String FIELD_SEAT = "seat";
 
   public String getDate() {
@@ -38,6 +40,15 @@ public class Ticket extends Basic<Ticket> {
 
   public User getUser() {
     return (User) get(FIELD_USER);
+  }
+
+  public Ticket setSource(User source) {
+    put(FIELD_SOURCE, source);
+    return this;
+  }
+
+  public User getSource() {
+    return (User) get(FIELD_SOURCE);
   }
 
   public Ticket setSeat(Seat seat) {

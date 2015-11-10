@@ -62,6 +62,17 @@ public class TicketService {
     return (Ticket) dao.ticket.findAndModify(query, update);
   }
 
+  public Ticket take(String id, User user, User source) {
+
+    DBObject query = BasicDBObjectBuilder.start().add("_id", id)
+        .push("user._id").add("$exists", false).pop().get();
+
+    DBObject update = BasicDBObjectBuilder.start().push("$set")
+        .add(Ticket.FIELD_USER, user).add("source", source).get();
+
+    return (Ticket) dao.ticket.findAndModify(query, update);
+  }
+
   /***
    * 订票
    * 
@@ -73,13 +84,7 @@ public class TicketService {
    */
   public Ticket take(String id, User user) {
 
-    DBObject query = BasicDBObjectBuilder.start().add("_id", id)
-        .push("user._id").add("$exists", false).pop().get();
-
-    DBObject update = BasicDBObjectBuilder.start().push("$set")
-        .add("user", user).get();
-
-    return (Ticket) dao.ticket.findAndModify(query, update);
+    return take(id, user, null);
   }
 
   public List<Ticket> takes(List<Pair<String, User>> tickets) {
