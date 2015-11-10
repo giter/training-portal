@@ -87,14 +87,14 @@ public class TicketService {
     return take(id, user, null);
   }
 
-  public List<Ticket> takes(List<Pair<String, User>> tickets) {
+  public List<Ticket> takes(User source, List<Pair<String, User>> tickets) {
 
     List<Ticket> ts = new ArrayList<>(tickets.size());
 
     boolean succeed = true;
     for (Pair<String, User> ticket : tickets) {
 
-      Ticket t = take(ticket.getKey(), ticket.getValue());
+      Ticket t = take(ticket.getKey(), ticket.getValue(), source);
       succeed &= t != null;
 
       ts.add(t);
