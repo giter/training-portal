@@ -253,6 +253,13 @@ public class TicketService {
       ob.add(Ticket.FIELD_USER + "._id", param.getUid());
     }
 
+    if (param.getBy() != null) {
+
+      ob.add("$or", new Object[] {
+          new BasicDBObject(Ticket.FIELD_USER + "._id", param.getUid()),
+          new BasicDBObject(Ticket.FIELD_SOURCE + "._id", param.getUid()) });
+    }
+
     if (param.getCompany() != null) {
 
       ob.add(Ticket.FIELD_USER + ".company", param.getCompany());

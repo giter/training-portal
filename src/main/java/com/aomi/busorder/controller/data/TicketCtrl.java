@@ -304,7 +304,7 @@ public class TicketCtrl {
 
     TicketParam param = new TicketParam();
 
-    param.setUid(user.get_id());
+    param.setBy(user.get_id());
 
     return RESTResponse.of(ticketService.page(param)).toString();
   }

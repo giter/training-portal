@@ -4,6 +4,8 @@ public class TicketParam extends PageParam {
 
   private String uid;
 
+  private String by;
+
   private String date;
 
   private String company;
@@ -30,5 +32,13 @@ public class TicketParam extends PageParam {
 
   public void setCompany(String company) {
     this.company = company;
+  }
+
+  public String getBy() {
+    return by;
+  }
+
+  public void setBy(String by) {
+    this.by = by;
   }
 }
