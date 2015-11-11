@@ -256,8 +256,8 @@ public class TicketService {
     if (param.getBy() != null) {
 
       ob.add("$or", new Object[] {
-          new BasicDBObject(Ticket.FIELD_USER + "._id", param.getUid()),
-          new BasicDBObject(Ticket.FIELD_SOURCE + "._id", param.getUid()) });
+          new BasicDBObject(Ticket.FIELD_USER + "._id", param.getBy()),
+          new BasicDBObject(Ticket.FIELD_SOURCE + "._id", param.getBy()) });
     }
 
     if (param.getCompany() != null) {
