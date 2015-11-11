@@ -1,13 +1,12 @@
 package com.aomi.busorder.vo;
 
 import com.aomi.busorder.pojo.Ticket;
-import com.aomi.busorder.pojo.User;
 
 public class VTUser {
 
-  private User user;
+  private Object user;
 
-  private User source;
+  private Object source;
 
   public VTUser() {
 
@@ -19,19 +18,19 @@ public class VTUser {
     this.setSource(ticket.getSource());
   }
 
-  public User getUser() {
+  public Object getUser() {
     return user;
   }
 
-  public void setUser(User user) {
+  public void setUser(Object user) {
     this.user = user;
   }
 
-  public User getSource() {
+  public Object getSource() {
     return source;
   }
 
-  public void setSource(User source) {
+  public void setSource(Object source) {
     this.source = source;
   }
 
