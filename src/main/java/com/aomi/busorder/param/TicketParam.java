@@ -8,6 +8,10 @@ public class TicketParam extends PageParam {
 
   private String date;
 
+  private String begin;
+
+  private String end;
+
   private String company;
 
   public String getUid() {
@@ -40,5 +44,21 @@ public class TicketParam extends PageParam {
 
   public void setBy(String by) {
     this.by = by;
+  }
+
+  public String getBegin() {
+    return begin;
+  }
+
+  public void setBegin(String begin) {
+    this.begin = begin;
+  }
+
+  public String getEnd() {
+    return end;
+  }
+
+  public void setEnd(String end) {
+    this.end = end;
   }
 }

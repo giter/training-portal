@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -291,7 +292,7 @@ public class TicketCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/ticket/mine.json", method = { RequestMethod.GET })
-  public String mine(HttpSession session) {
+  public String mine(HttpSession session, @ModelAttribute TicketParam param) {
 
     String openID = (String) session.getAttribute("openID");
 
@@ -301,8 +302,6 @@ public class TicketCtrl {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
-
-    TicketParam param = new TicketParam();
 
     param.setBy(user.get_id());
 

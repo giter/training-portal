@@ -272,6 +272,22 @@ public class TicketService {
       ob.add(Ticket.FIELD_DATE, param.getDate());
     }
 
+    if (param.getBegin() != null) {
+
+      ob.push(Ticket.FIELD_DATE).add("$gte", param.getBegin());
+
+      if (param.getEnd() != null) {
+        ob.add("$lte", param.getEnd());
+      }
+
+      ob.pop();
+    }
+
+    if (param.getEnd() != null) {
+
+      ob.push(Ticket.FIELD_DATE).add("$lte", param.getEnd());
+    }
+
     return ob.get();
   }
 
