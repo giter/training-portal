@@ -52,7 +52,9 @@ module.exports = Vue.extend({
       filterBus: function (data) {
          var now = Date.parse(new Date())/1000,list = [];
          for(var i in data){
-            alert(1);
+            alert(data[i].date);
+            alert(new Date("2015/01/01"));
+            alert(new Date("2015/01/01 11:11"));
             var time = Date.parse(new Date(data[i].date.replace("-","/")))/1000;
             alert(time);
             var diff = now - time;
