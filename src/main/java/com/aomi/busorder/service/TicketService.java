@@ -58,11 +58,13 @@ public class TicketService {
         .add("_id", id)
         .add(
             "$or",
-            new Object[] { new BasicDBObject("user._id", user.get_id()),
-                new BasicDBObject("source._id", user.get_id()) }).get();
+            new Object[] {
+                new BasicDBObject(Ticket.FIELD_USER + "._id", user.get_id()),
+                new BasicDBObject(Ticket.FIELD_SOURCE + "._id", user.get_id()) })
+        .get();
 
     DBObject update = BasicDBObjectBuilder.start().push("$unset")
-        .add("user", 1).get();
+        .add(Ticket.FIELD_USER, 1).add(Ticket.FIELD_SOURCE, 1).pop().get();
 
     return (Ticket) dao.ticket.findAndModify(query, update);
   }
