@@ -15,8 +15,8 @@ public class VTUser {
 
   public VTUser(Ticket ticket) {
 
-    this.setUser(user);
-    this.setSource(getSource());
+    this.setUser(ticket.getUser());
+    this.setSource(ticket.getSource());
   }
 
   public User getUser() {
