@@ -53,7 +53,6 @@ module.exports = Vue.extend({
          var now = Date.parse(new Date())/1000,list = [];
          for(var i in data){
             var time = Date.parse(new Date(data[i].date.replace(/-/g,"/")))/1000;
-            alert(time);
             var diff = now - time;
             if(diff <= 0){
                list.push(data[i]);
