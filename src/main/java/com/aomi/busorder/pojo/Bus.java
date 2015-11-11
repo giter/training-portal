@@ -74,6 +74,12 @@ public class Bus extends Basic<Bus> {
     return getString(FIELD_SRC);
   }
 
+  public Bus setSrc(String src) {
+
+    put(FIELD_SRC, src);
+    return this;
+  }
+
   public String getName() {
 
     return getString(FIELD_NAME);

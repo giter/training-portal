@@ -161,6 +161,7 @@ public class TicketCtrl {
     if (bus == null)
       return RESTResponse.of(null).toString();
 
+    bus.setSrc(null);
     bus.put("seats", new ArrayList<Seat>());
 
     SeatParam sparam = new SeatParam();
