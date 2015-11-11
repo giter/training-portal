@@ -27,6 +27,7 @@ import com.aomi.busorder.param.TicketParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
+import com.aomi.busorder.pojo.TicketUser;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.BusService;
 import com.aomi.busorder.service.SeatService;
@@ -186,7 +187,7 @@ public class TicketCtrl {
 
       seat.put("ticket", ticket.get_id());
 
-      seat.put("entity", ticket);
+      seat.put("entity", new TicketUser(ticket));
 
       seats.add(seat);
     }
