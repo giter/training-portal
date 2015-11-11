@@ -27,13 +27,13 @@ import com.aomi.busorder.param.TicketParam;
 import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
-import com.aomi.busorder.pojo.TicketUser;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.BusService;
 import com.aomi.busorder.service.SeatService;
 import com.aomi.busorder.service.TicketService;
 import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.RESTResponse;
+import com.aomi.busorder.vo.VTUser;
 
 @RestController
 public class TicketCtrl {
@@ -187,7 +187,7 @@ public class TicketCtrl {
 
       seat.put("ticket", ticket.get_id());
 
-      seat.put("entity", new TicketUser(ticket));
+      seat.put("entity", new VTUser(ticket));
 
       seats.add(seat);
     }

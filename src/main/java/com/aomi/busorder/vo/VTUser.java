@@ -1,16 +1,19 @@
-package com.aomi.busorder.pojo;
+package com.aomi.busorder.vo;
 
-public class TicketUser {
+import com.aomi.busorder.pojo.Ticket;
+import com.aomi.busorder.pojo.User;
+
+public class VTUser {
 
   private User user;
 
   private User source;
 
-  public TicketUser() {
+  public VTUser() {
 
   }
 
-  public TicketUser(Ticket ticket) {
+  public VTUser(Ticket ticket) {
 
     this.setUser(user);
     this.setSource(getSource());
