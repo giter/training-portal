@@ -10,8 +10,8 @@
             <div class="mui-scroll">
                 <ul class="mui-table-view mui-list">
                     <div v-repeat="tickets in order">
-                        <li class="mui-table-view-divider">{{$key}}</li>
-                        <li class="mui-table-view-cell mui-media" v-repeat="o in tickets">
+                        <li class="mui-table-view-divider">{{tickets.date}}</li>
+                        <li class="mui-table-view-cell mui-media" v-repeat="o in tickets.data">
                             <a>
                                 <img style="width: 42px;" class="mui-media-object mui-pull-left" v-attr="src:o.bus.src||'/admin/static/images/128.png'">
                                 <div class="mui-media-body">
@@ -21,6 +21,8 @@
                                 <button v-show="canRefund(o)" class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:unSub(o)">
                                     退订
                                 </button>
+
+                                <span v-show="!canRefund(o)" class="mui-badge">已过期</span>
                             </a>
                         </li>
                     </div>

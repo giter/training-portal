@@ -68,8 +68,8 @@ function getUsers(p,c){
     $.get(prefix+"/data/users.json",p, c);
 }
 
-function getMyTicket(c){
-    $.get(prefix + "/data/ticket/mine.json",c)
+function getMyTicket(p,c){
+    $.get(prefix + "/data/ticket/mine.json",p,c)
 }
 
 function orderSeat(uid,m,id,c){

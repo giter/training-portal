@@ -42,12 +42,24 @@ module.exports = Vue.extend({
             Service.getResult({date:self.search.date,dest:whither},function (rep) {
                Layer.closeAll();
                if(rep.Code == 0){
-                  self.result = rep.Response;
+                  self.result = self.filterBus(rep.Response);
                   var router = new Router();
                   return router.setRoute("search/result");
                }
             })
          }
+      },
+      filterBus: function (data) {
+         var now = Date.parse(new Date())/1000,list = [];
+         for(var i in data){
+            var time = Date.parse(new Date(data[i].date.replace("-","/")))/1000;
+            var diff = now - time;
+
+            if(diff <= 0){
+               list.push(data[i]);
+            }
+         }
+         return list;
       },
       valid: function () {
          var str = null;

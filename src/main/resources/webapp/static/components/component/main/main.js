@@ -76,6 +76,7 @@ router.on("/home",function(){
 
 router.on("/order",function(){
     require.async(["components/page/order/order"], function (p) {
+        window.app.$broadcast("ReloadOrder");
         doRouter("order",p);
     })
 });
@@ -108,6 +109,7 @@ router.on("/search/result",function(){
 router.on("/validate",function(){
     require.async(["components/page/validate/validate"], function (p) {
         doRouter("validate",p);
+
     })
 });
 
