@@ -285,7 +285,7 @@ public class TicketService {
 
     if (param.getEnd() != null) {
 
-      ob.push(Ticket.FIELD_DATE).add("$lte", param.getEnd());
+      ob.push(Ticket.FIELD_DATE).add("$lte", param.getEnd()).pop();
     }
 
     return ob.get();
