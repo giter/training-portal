@@ -78,9 +78,10 @@ public class MongoDAO implements InitializingBean {
 
     ticket.setObjectClass(Ticket.class);
 
-    ticket.setInternalClass(COLLECTION_NAME_USER, User.class);
-    ticket.setInternalClass(COLLECTION_NAME_BUS, Bus.class);
-    ticket.setInternalClass(COLLECTION_NAME_SEAT, Seat.class);
+    ticket.setInternalClass(Ticket.FIELD_USER, User.class);
+    ticket.setInternalClass(Ticket.FIELD_SOURCE, User.class);
+    ticket.setInternalClass(Ticket.FIELD_BUS, Bus.class);
+    ticket.setInternalClass(Ticket.FIELD_SEAT, Seat.class);
 
     ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
         .add("seat._id", 1).get());
