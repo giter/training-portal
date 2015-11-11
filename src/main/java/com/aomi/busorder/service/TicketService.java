@@ -53,9 +53,13 @@ public class TicketService {
    */
   public Ticket refund(String id, User user) {
 
-    DBObject query = BasicDBObjectBuilder.start().add("_id", id).push("$or")
-        .add("user._id", user.get_id()).add("source._id", user.get_id()).pop()
-        .get();
+    DBObject query = BasicDBObjectBuilder
+        .start()
+        .add("_id", id)
+        .add(
+            "$or",
+            new Object[] { new BasicDBObject("user._id", user.get_id()),
+                new BasicDBObject("source._id", user.get_id()) }).get();
 
     DBObject update = BasicDBObjectBuilder.start().push("$unset")
         .add("user", 1).get();
