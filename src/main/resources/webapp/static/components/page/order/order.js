@@ -83,7 +83,7 @@ module.exports = Vue.extend({
         },
         canRefund: function (o) {
             var now = Date.parse(new Date())/1000,list = [];
-            var time = Date.parse(new Date(o.date.replace("-","/")+" "+o.bus.goff))/1000;
+            var time = Date.parse(new Date(o.date.replace(/-/g,"/")+" "+o.bus.goff))/1000;
             var diff = now - time;
 
             return diff<this.beginTime;

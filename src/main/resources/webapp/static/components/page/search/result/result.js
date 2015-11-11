@@ -73,7 +73,7 @@ module.exports = Vue.extend({
       filterBus: function (data) {
          var now = Date.parse(new Date())/1000,list = [];
          for(var i in data){
-            var time = Date.parse(new Date(data[i].date.replace("-","/")))/1000;
+            var time = Date.parse(new Date(data[i].date.replace(/-/g,"/")))/1000;
             var diff = now - time;
 
             if(diff <= 0){
