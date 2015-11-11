@@ -90,6 +90,14 @@ module.exports =   Vue.extend({
 
         this.getDelegation();
         this.getRelatives();
+
+        var self = this;
+        this.$on("backReload", function (type) {
+            if(type == "relation"){
+                self.getDelegation();
+                self.getRelatives();
+            }
+        });
     }
 });
 

@@ -16,9 +16,9 @@
                                 <img style="width: 42px;" class="mui-media-object mui-pull-left" v-attr="src:o.bus.src||'/admin/static/images/128.png'">
                                 <div class="mui-media-body">
                                     <h4 style="color: blue;font-weight: bold;font-size: 20px;"> {{o.bus.line}}</h4>
-                                    <p class="mui-ellipsis">{{o.user.name}} {{o.bus.name}} {{o.seat.sn}}号座位</p>
+                                    <p class="mui-ellipsis">{{o.user.name}}<span v-show="o.source" class="mui-badge mui-badge-warning">代</span> {{o.bus.name}} {{o.seat.sn}}号座位</p>
                                 </div>
-                                <button class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:unSub(o)">
+                                <button v-show="canRefund(o)" class="mui-btn mui-btn-negative mui-btn-outlined" v-on="click:unSub(o)">
                                     退订
                                 </button>
                             </a>
