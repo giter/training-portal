@@ -1,6 +1,8 @@
 .page-bus {
   background-color: #fff;
   height: 100%; }
+  .page-bus .bus-backDoor {
+    position: absolute; }
   .page-bus .user-bar {
     top: 45px;
     background-color: #fff; }
@@ -14,13 +16,17 @@
   .page-bus .bus-header {
     text-align: center;
     font-size: 12px; }
-    .page-bus .bus-header span {
-      padding: 3px 40px;
-      background-color: #dd524d;
-      border-radius: 10px;
+    .page-bus .bus-header .bus-driver {
+      float: left;
+      width: 12%;
+      margin-left: 5%; }
+    .page-bus .bus-header .bus-door {
+      float: right;
+      display: inline-block;
+      width: 20px;
+      margin-right: 5%;
       color: #fff;
-      font-weight: bold;
-      text-shadow: 1px 1px 1px #000; }
+      background-color: #929292; }
     .page-bus .bus-header a {
       height: 15px;
       width: 15px;
@@ -28,13 +34,22 @@
       display: inline-block;
       margin-left: 5px; }
     .page-bus .bus-header .void {
-      background-color: #B8BA98; }
+      background-color: #007aff; }
     .page-bus .bus-header .order {
-      background-color: #947DAA; }
+      background-color: #B8BA98; }
   .page-bus .bus-body {
     width: 100%;
     text-align: center;
     background-color: #fff; }
+    .page-bus .bus-body .bus-text {
+      background-color: #929292;
+      float: right;
+      padding: 4px;
+      margin-right: 15px; }
+      .page-bus .bus-body .bus-text a {
+        color: #fff;
+        font-size: 12px;
+        font-weight: normal; }
     .page-bus .bus-body td {
       padding: 4px 10px; }
       .page-bus .bus-body td .user-name {
@@ -43,7 +58,8 @@
         color: #000;
         width: 100%;
         padding: 0 10px;
-        left: 0; }
+        left: 0;
+        font-size: 12px; }
     @media screen and (max-width: 768px) {
       .page-bus .bus-body a {
         display: block;
