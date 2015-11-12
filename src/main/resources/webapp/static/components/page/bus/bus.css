@@ -8,6 +8,8 @@
     background-color: #fff; }
   .page-bus .mui-scroll-wrapper {
     background-color: #fff; }
+    .page-bus .mui-scroll-wrapper .mui-scroll {
+      padding-bottom: 50px; }
   .page-bus .mui-scroll {
     padding: 10px;
     background-color: #fff; }
@@ -26,7 +28,7 @@
       width: 20px;
       margin-right: 5%;
       color: #fff;
-      background-color: #929292; }
+      background-color: #B8BA98; }
     .page-bus .bus-header a {
       height: 15px;
       width: 15px;
@@ -42,7 +44,7 @@
     text-align: center;
     background-color: #fff; }
     .page-bus .bus-body .bus-text {
-      background-color: #929292;
+      background-color: #B8BA98;
       float: right;
       padding: 4px;
       margin-right: 15px; }
