@@ -2,6 +2,8 @@ package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +103,20 @@ public class TicketCtrl {
 
       r.add(mm);
     }
+
+    Collections.sort(r, new Comparator<Map<String, Object>>() {
+
+      @Override
+      public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+
+        int c1 = o1.get("date").toString().compareTo(o2.get("date").toString());
+
+        if (c1 != 0)
+          return c1;
+
+        return o1.get("name").toString().compareTo(o2.get("name").toString());
+      }
+    });
 
     return RESTResponse.of(r).toString();
   }
