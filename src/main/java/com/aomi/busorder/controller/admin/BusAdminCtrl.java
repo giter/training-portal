@@ -18,6 +18,7 @@ import com.aomi.busorder.pojo.Bus;
 import com.aomi.busorder.service.BusService;
 import com.aomi.busorder.vo.Page;
 import com.aomi.busorder.vo.RESTResponse;
+import com.mongodb.BasicDBObjectBuilder;
 
 @RestController
 public class BusAdminCtrl {
@@ -64,8 +65,10 @@ public class BusAdminCtrl {
       RequestMethod.GET, RequestMethod.POST })
   public String pages(@ModelAttribute BusParam busParam) {
 
+    busParam.setSort(BasicDBObjectBuilder.start().add(Bus.FIELD_DESTINATION, 1)
+        .add(Bus.FIELD_NAME, 1).add(Bus.FIELD_ARRIVE, 1).get());
+
     return RESTResponse.of(
         Page.of(service.count(busParam), service.page(busParam))).toString();
   }
-
 }
