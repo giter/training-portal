@@ -114,6 +114,15 @@ public class TicketCtrl {
         if (c1 != 0)
           return c1;
 
+        int c2 = o1.get("arrive").toString()
+            .compareTo(o2.get("arrive").toString());
+        if (c2 != 0)
+          return c2;
+
+        int c3 = o1.get("line").toString().compareTo(o2.get("line").toString());
+        if (c3 != 0)
+          return c3;
+
         return o1.get("name").toString().compareTo(o2.get("name").toString());
       }
     });
