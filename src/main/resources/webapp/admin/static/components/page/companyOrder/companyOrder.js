@@ -69,7 +69,7 @@ module.exports = Vue.extend({
                      for(var u = 0;u< users.length; u++){
                         for(var i =0;i< list.length; i++){
                            if(users[u]._id == list[i].user._id){
-                              users[u].bus = list[i].bus.sn;
+                              users[u].bus = list[i].bus.name;
                               users[u].seat = list[i].seat.sn;
                               users[u].ticket = list[i]._id;
                            }
@@ -158,10 +158,10 @@ module.exports = Vue.extend({
          if(rep.Code == 0){
             var target = rep.Response;
             var lst = [];
-            for(var i in target){
+            for(var i=0;i<target.length;i++){
                lst.push({
                   value:target[i].value,
-                  text:target[i].name +"-" +target[i].week
+                  text:target[i].name +"-" +target[i].week + (i==0?"（今天）":"")
                })
             }
             self.calendar = lst;

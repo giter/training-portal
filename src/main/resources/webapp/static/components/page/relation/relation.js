@@ -14,7 +14,8 @@ module.exports =   Vue.extend({
     data: function () {
         return {
             delegations:[],
-            relatives:[]
+            relatives:[],
+            len:0
         }
     },
     methods:{

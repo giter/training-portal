@@ -84,13 +84,15 @@ module.exports = Vue.extend({
    ready: function () {
       var self = this;
       Service.getCalendar(function (rep) {
+
          if(rep.Code == 0){
+
             var target = rep.Response;
             var lst = [];
-            for(var i in target){
+            for(var i=0;i<target.length;i++){
                lst.push({
                   value:target[i].value,
-                  text:target[i].name +" " + target[i].week
+                  text:target[i].name +" " + target[i].week + ( (i==0) ? "（今天）":"")
                })
             }
             self.calendars =self.date = lst;
