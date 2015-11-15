@@ -87,7 +87,8 @@ public class BusService {
   public List<Bus> page(BusParam param) {
 
     DBCursor cursor = dao.bus.find(query(param)).sort(
-        BasicDBObjectBuilder.start(Bus.FIELD_ID, -1).get());
+        param.getSort() != null ? param.getSort() : BasicDBObjectBuilder.start(
+            Bus.FIELD_ID, -1).get());
 
     if (param != null && param.getLimit() > 0) {
       cursor.limit(param.getLimit());
