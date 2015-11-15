@@ -11,6 +11,7 @@ public class User extends Basic<User> {
   public static final int TYPE_NORMAL = 0;
   public static final int TYPE_COMPANY = 1;
   public static final int TYPE_RELATION = 2;
+  public static final int TYPE_ORDER = 3;
 
   /**
    * 用户类型 0. 普通用户 1. 外包用户 2. 关联用户
