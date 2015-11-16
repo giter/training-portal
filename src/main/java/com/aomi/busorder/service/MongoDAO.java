@@ -34,6 +34,8 @@ public class MongoDAO implements InitializingBean {
 
   private static final String COLLECTION_NAME_TRACE = "trace";
 
+  private static final String COLLECTION_NAME_SYSTEM = "system";
+
   @Value("${mongodb.db}")
   String dbName;
 
@@ -49,6 +51,8 @@ public class MongoDAO implements InitializingBean {
   public DBCollection ticket;
 
   public DBCollection trace;
+
+  public DBCollection system;
 
   /**
    * 旧票
@@ -99,6 +103,8 @@ public class MongoDAO implements InitializingBean {
     trace.createIndex(BasicDBObjectBuilder.start(Trace.FIELD_ACTION, 1).get());
     trace.createIndex(BasicDBObjectBuilder.start("user._id", 1)
         .add(Trace.FIELD_ACTION, 1).get());
+
+    system = client.getDB(dbName).getCollection(COLLECTION_NAME_SYSTEM);
 
   }
 

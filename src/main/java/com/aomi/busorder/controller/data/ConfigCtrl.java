@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aomi.busorder.service.BusSystemContextService;
+import com.aomi.busorder.service.ContextService;
 import com.aomi.busorder.vo.RESTResponse;
 
 @RestController
 public class ConfigCtrl {
 
   @Resource
-  BusSystemContextService service;
+  ContextService service;
 
   @ResponseBody
   @RequestMapping(value = "/data/ctx.json", method = { RequestMethod.GET })
