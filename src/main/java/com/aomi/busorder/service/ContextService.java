@@ -20,7 +20,7 @@ public class ContextService {
     return dao.system.findOne("context");
   }
 
-  public synchronized Object save(String context) throws IOException {
+  public synchronized String save(String context) throws IOException {
 
     DBObject parsed = (DBObject) JSON.parse(context);
     parsed.put("_id", "context");
