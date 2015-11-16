@@ -15,7 +15,7 @@ import com.aomi.busorder.service.ContextService;
 import com.aomi.busorder.vo.RESTResponse;
 
 @RestController
-public class ConfigAdminCtrl {
+public class ContextAdminCtrl {
 
   @Resource
   ContextService service;
