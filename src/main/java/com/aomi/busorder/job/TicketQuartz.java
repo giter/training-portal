@@ -37,7 +37,7 @@ public class TicketQuartz {
     LOGGER.info(String.format("Clean old ticket %s", date));
     ticketService.clean(date);
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 10; i++) {
 
       cal.add(Calendar.DATE, 1);
 
