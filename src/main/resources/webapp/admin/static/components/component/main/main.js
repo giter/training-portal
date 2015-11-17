@@ -129,7 +129,7 @@ router.on("/sys/history",function(){
 
 router.on("/sys/config",function(){
     require.async(["components/page/system/config"], function (p) {
-        doRouter("sys","history","","history",p);
+        doRouter("sys","config","","config",p);
     })
 });
 

@@ -64,7 +64,7 @@ module.exports = Vue.component("c-nav",{
 						{
                             name: "系统配置",
                             key: "config",
-                            class: "icon-file-text"
+                            class: "icon-cog"
                         }
                     ]
                 }
