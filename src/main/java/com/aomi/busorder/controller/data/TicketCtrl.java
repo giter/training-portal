@@ -1,9 +1,12 @@
 package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +66,25 @@ public class TicketCtrl {
     param.setLimit(0);
     param.setOnline(1);
     param.setDestination(dest);
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    try {
+      Date dt = sdf.parse(date);
+
+      @SuppressWarnings("deprecation")
+      int weekday = dt.getDay();
+
+      if (weekday == 0) {
+        weekday = 7;
+        weekday = weekday - 1;
+      }
+
+      param.setWeek(weekday);
+
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
 
     List<Map<String, Object>> r = new ArrayList<>();
 

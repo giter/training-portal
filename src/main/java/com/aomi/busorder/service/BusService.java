@@ -80,6 +80,10 @@ public class BusService {
       ob.add(Bus.FIELD_DESTINATION, param.getDestination());
     }
 
+    if (param.getWeek() != null) {
+      ob.add("weeks." + param.getWeek(), true);
+    }
+
     return ob.get();
   }
 
