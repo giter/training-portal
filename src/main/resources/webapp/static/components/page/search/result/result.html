@@ -16,8 +16,8 @@
                 <a class="mui-navigate-right" v-on="click:selectBus(r.id,search.date)">
                     <img style="max-width: 62px;width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
                     <div class="mui-media-body">
-                        <h4 style="font-weight: bold;font-size: 16px;color: #007aff;"> {{r.line}}</h4>
-                        <div style="color: green">{{r.name}} {{r.order}}/{{r.void + r.order}}</div>
+                        <h4 style="font-weight: bold;font-size: 14px;color: #007aff;"> {{r.line}}</h4>
+                        <div style="color: #8f8f94">{{r.name}} {{r.order}}/{{r.void + r.order}}</div>
                         <p>
                             {{r.date}}至{{r.arrive}}
                         <h5 class="mui-ellipsis-2">

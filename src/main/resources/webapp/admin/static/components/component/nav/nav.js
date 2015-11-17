@@ -60,6 +60,11 @@ module.exports = Vue.component("c-nav",{
                             name: "登录日志",
                             key: "history",
                             class: "icon-file-text"
+                        },
+						{
+                            name: "系统配置",
+                            key: "config",
+                            class: "icon-file-text"
                         }
                     ]
                 }

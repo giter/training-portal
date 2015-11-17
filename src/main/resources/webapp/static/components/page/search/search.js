@@ -49,17 +49,12 @@ module.exports = Vue.extend({
             })
          }
       },
+	
       filterBus: function (data) {
-         var now = Date.parse(new Date())/1000,list = [];
-         for(var i in data){
-            var time = Date.parse(new Date(data[i].date.replace(/-/g,"/")))/1000;
-            var diff = now - time;
-            if(diff <= 0){
-               list.push(data[i]);
-            }
-         }
-         return list;
-      },
+
+		 return Service.filterBus(data);
+   },
+	
       valid: function () {
          var str = null;
          if(!this.search.date){
@@ -82,8 +77,14 @@ module.exports = Vue.extend({
       }
    },
    ready: function () {
+	  
       var self = this;
-      Service.getCalendar(function (rep) {
+
+	  var ctx = Service.getContext({});
+
+	  var advance = ctx['config'] ? (ctx['config']['advance'] || 7) : 7;
+	
+      Service.getCalendar({max:advance}, function (rep) {
 
          if(rep.Code == 0){
 
