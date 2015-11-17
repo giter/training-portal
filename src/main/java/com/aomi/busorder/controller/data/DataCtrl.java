@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,14 +40,15 @@ public class DataCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/calendar.json", method = { RequestMethod.GET })
-  public String calendar() {
+  public String calendar(
+      @RequestParam(value = "max", required = false, defaultValue = "7") Integer max) {
 
     SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
     SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
     List<DBObject> rs = new ArrayList<>();
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < max; i++) {
 
       Calendar instance = Calendar.getInstance();
       instance.add(Calendar.DATE, i);
