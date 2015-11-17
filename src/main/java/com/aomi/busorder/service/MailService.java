@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
   @Value("${mail.host}")
-  String host;
+  public String host;
 
   @Value("${mail.account}")
-  String account;
+  public String account;
 
   @Value("${mail.password}")
-  String password;
+  public String password;
 
   public void mail(String name, String email, String title, String message)
       throws EmailException {
