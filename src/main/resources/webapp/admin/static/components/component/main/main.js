@@ -111,6 +111,12 @@ router.on("/home/companyOrder",function(view){
     })
 });
 
+router.on("/home/check",function(){
+    require.async(["components/page/check/check"], function (p) {
+        doRouter("home","check","","check",p);
+    })
+});
+
 router.on("home/bus/:id", function (id) {
     require.async(["components/page/seat/seat"], function (p) {
         doRouter("home","bus","seat","seat",p);

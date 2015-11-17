@@ -48,6 +48,11 @@ module.exports = Vue.component("c-nav",{
                             name: "承包商订票",
                             key: "companyOrder",
                             class: "icon-file-text"
+                        },
+						{
+                            name: "订票查询",
+                            key: "check",
+                            class: "icon-file-text"
                         }
                     ]
                 },

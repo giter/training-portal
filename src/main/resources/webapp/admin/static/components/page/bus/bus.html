@@ -104,6 +104,35 @@
                                 </select>
                             </div>
                         </div>
+						<div class="form-group">
+                            <div class="label">
+                                发车日
+                            </div>
+                            <div class="field">
+
+								<label for='bus-week-0'>星期一</label>
+								<input id='bus-week-0' type='checkbox' v-model="bus.weeks['0']" number value=1 />
+
+								<label for='bus-week-1'>星期二</label>
+								<input id='bus-week-1' type='checkbox' v-model="bus.weeks['1']" number value=1 />
+
+								<label for='bus-week-2'>星期三</label>
+								<input id='bus-week-2' type='checkbox' v-model="bus.weeks['2']" number value=1 />
+
+								<label for='bus-week-3'>星期四</label>
+								<input id='bus-week-3' type='checkbox' v-model="bus.weeks['3']" number value=1 />
+
+								<label for='bus-week-4'>星期五</label>
+								<input id='bus-week-4' type='checkbox' v-model="bus.weeks['4']" number value=1 />
+
+								<label for='bus-week-5'>星期六</label>
+								<input id='bus-week-5' type='checkbox' v-model="bus.weeks['5']" number value=1 />
+
+								<label for='bus-week-6'>星期日</label>
+								<input id='bus-week-6' type='checkbox' v-model="bus.weeks['6']" number value=1 /> 
+
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="label">
                                 照片

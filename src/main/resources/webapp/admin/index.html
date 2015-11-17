@@ -115,6 +115,35 @@ require.resourceMap({
         "components/page/companyOrder/busSeat/busSeat"
       ]
     },
+    "components/page/check/ticketsStats/ticketsStats": {
+      "url": "/admin/static/components/page/check/ticketsStats/ticketsStats.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ]
+    },
+    "components/page/check/busSeat/busSeat": {
+      "url": "/admin/static/components/page/check/busSeat/busSeat.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "component_modules/iscroll-zoom"
+      ]
+    },
+    "components/page/check/check": {
+      "url": "/admin/static/components/page/check/check.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "components/page/check/ticketsStats/ticketsStats",
+        "components/page/check/busSeat/busSeat"
+      ]
+    },
     "components/page/seat/seat": {
       "url": "/admin/static/components/page/seat/seat.js",
       "type": "js",
