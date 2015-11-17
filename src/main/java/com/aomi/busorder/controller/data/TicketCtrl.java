@@ -77,8 +77,9 @@ public class TicketCtrl {
 
       if (weekday == 0) {
         weekday = 7;
-        weekday = weekday - 1;
       }
+
+      weekday = weekday - 1;
 
       param.setWeek(weekday);
 
