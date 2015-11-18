@@ -11,7 +11,7 @@ var IScroll = require("component_modules/iscroll-zoom");
 
 module.exports = Vue.extend({
    inherit:true,
-   template:"<style>\r\n\t\t.lefter {display:none;}\r\n\t\t#admin-nav{display:none;}\r\n\t\t.admin { left:0; top:0}\r\n\r\n</style>\r\n\r\n<div class=\"page-busSeat\" style=\"height:{{tableStyle2.height}};\">\r\n <div class=\" mui-scroll-wrapper\" style=\"top:151px;height:{{tableStyle2.height}};overflow: hidden\">\r\n  <div class=\"mui-scroll\">\r\n   <div class=\"bus-header\">\r\n    <span>车头方向</span>\r\n    <a class=\"void\"></a> 可选\r\n    <a class=\"order\"></a> 已选\r\n\r\n\t<button v-on=\"click:onPrint\" class=\"button bg-main float-right\" >打印</button>\r\n\r\n   </div>\r\n   <table class=\"bus-body\" >\r\n    <tr v-repeat=\"r in bus.rows\">\r\n     <td v-repeat=\"bus.cols\" class=\"seat\" data-id=\"{{getSeatId(r,$index)}}\"  v-class=\"seatClass(r,$index)\" style=\"position: relative;\">\r\n      <a style=\"cursor: default\" class=\"iconfont\" v-text=\"getText(r,$index)\" >\r\n      </a>\r\n\t  <p class=\"user-name\" v-text=\"getSeatUserName(r,$index)\"></p>\r\n     </td>\r\n    </tr>\r\n   </table>\r\n  </div>\r\n </div>\r\n</div>",
+   template:"<style>\r\n\t@media print {\r\n\t\t@page { size: A4 portrait;}\r\n\t\t.lefter {display:none;}\r\n\t\t#admin-nav{display:none;}\r\n\t\t.admin { left:0; top:0; padding: 0;}\r\n\t\t.printer {display:none;}\r\n\t\t.bus-body { width: auto;}\r\n\t\t.page-companyOrder {padding: 0;}\r\n\t\t.page-busSeat .bus-header{padding: 10px 0;}\r\n\t}\r\n\r\n</style>\r\n\r\n<div class=\"page-busSeat\">\r\n <div class=\" mui-scroll-wrapper\" style=\"top:151px;\">\r\n  <div class=\"mui-scroll\">\r\n   <div class=\"bus-header\">\r\n    <span>车头方向</span>\r\n    <a class=\"void\"></a> 可选\r\n    <a class=\"order\"></a> 已选\r\n\r\n\t<button v-on=\"click:onPrint\" class=\"button bg-main float-right printer\" >打印</button>\r\n\r\n   </div>\r\n   <table class=\"bus-body\" style='width: 100%;margin: 0 auto;'>\r\n    <tr v-repeat=\"r in bus.rows\">\r\n     <td v-repeat=\"bus.cols\" style=\"position: relative;padding:0;width:80px; border: 1px solid #000;\">\r\n      <a style=\"cursor: default; line-height: 16px; height: 16px;\" class=\"iconfont\" v-text=\"getText(r,$index)\" >\r\n      </a>\r\n\t  <p class=\"user-name\" v-text=\"getSeatUserName(r,$index)\" style='margin-bottom: 4px;'></p>\r\n     </td>\r\n    </tr>\r\n   </table>\r\n  </div>\r\n </div>\r\n</div>",
    data: function () {
      return {
 
@@ -65,13 +65,17 @@ module.exports = Vue.extend({
       },
 
 	  getSeatUserName: function (r,c) {
+
             var seat = this.getSeatId(r,c);
+
             if(seat){
                 var seat = JSON.parse(seat);
                 if(seat.entity.user){
                     return seat.entity.user.name;
                 }
             }
+
+			return "";
         },
 
       clickSeat: function (e,r,c) {
@@ -81,15 +85,6 @@ module.exports = Vue.extend({
             $t.addClass("icon-seat-select");
             this.selectSeat = $t.data("id").ticket;
          }
-      },
-      renderScroll: function () {
-         myScroll = new IScroll($(".page-busSeat > .mui-scroll-wrapper")[0], {
-            zoom: true,
-            scrollX: true,
-            scrollY: true,
-            mouseWheel: true,
-            wheelAction: 'zoom'
-         });
       }
    },
    watch:{
@@ -98,7 +93,6 @@ module.exports = Vue.extend({
    ready: function () {
       var self = this;
       Vue.nextTick(function () {
-         self.renderScroll();
       })
    }
 });
