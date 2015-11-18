@@ -10,6 +10,34 @@ module.exports = Vue.component("c-nav",{
     template:"\r\n<div class=\"lefter\">\r\n    <div class=\"logo\"><img style=\"height: 40px\" src=\"/admin/static/images/logo.png\" alt=\"后台管理系统\" /></div>\r\n</div>\r\n<div class=\"righter nav-navicon\" id=\"admin-nav\">\r\n    <div class=\"mainer\">\r\n        <div class=\"admin-navbar\">\r\n            <span class=\"float-right\">\r\n                <a class=\"button button-little bg-yellow\" href=\"login.html\">注销登录</a>\r\n            </span>\r\n            <ul class=\"nav nav-inline admin-nav\">\r\n                <li v-class=\"active:f.key == amenu\"  v-repeat=\"f in func\" >\r\n                    <a href=\"#/{{f.key}}\" class=\"{{f.class}}\"> {{f.name}}</a>\r\n                    <ul>\r\n                        <li v-class=\"active:c.key==bmenu\" v-repeat=\"c in f.child\"><a href=\"#/{{f.key}}/{{c.key}}\">{{c.name}}</a></li>\r\n                    </ul>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n        <div class=\"admin-bread\">\r\n            <span>您好，管理员，欢迎您的光临。</span>\r\n            <ul class=\"bread\">\r\n                <li><a href=\"#/{{bread1.key}}\" class=\"{{bread1.class}}\">&nbsp;{{bread1.name}}</a></li>\r\n                <li class=\"{{bread2.class}}\">&nbsp;\r\n                    <template v-if=\"!bread3.name\">\r\n                            {{bread2.name}}\r\n                    </template>\r\n                    <template v-if=\"bread3.name\">\r\n                        <a href=\"#/{{bread1.key}}/{{bread2.key}}\">\r\n                            {{bread2.name}}\r\n                        </a>\r\n                    </template>\r\n                </li>\r\n                <li  class=\"{{bread3.class}}\">&nbsp;{{bread3.name}}</li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>\r\n",
     props:["amenu","bmenu","cmenu","view"],
     data: function () {
+
+		if(window.location.search == "?3"){
+				return return {
+				"func": [
+					{
+						name: "首页",
+						key: "home",
+						class: "icon-home",
+						child: [
+							{
+								name: "外围管理",
+								key: "company",
+								class: "icon-user"
+							},
+							{
+								name: "承包商订票",
+								key: "companyOrder",
+								class: "icon-file-text"
+							}
+						]
+					}
+				],
+				bread1: {},
+				bread2: {},
+				bread3:{}
+			};
+		}
+
         return {
             "func": [
                 {
