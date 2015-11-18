@@ -175,7 +175,7 @@ function filterBus(data){
 
 	 var ctx = getContext({}); 
 
-	 var ENDS = (ctx['config'] ?  (ctx['config']['end'] || 0) : 0) * 3600;
+	 var ENDS = (ctx['config'] ?  (ctx['config']['end'] || {}) : {});
 	 var QUOTA = ctx['quota'] || {};
 
 	 var now = Date.parse(new Date())/1000,list = [];
