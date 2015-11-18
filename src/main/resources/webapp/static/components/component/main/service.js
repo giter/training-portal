@@ -197,7 +197,7 @@ function filterBus(data){
 
 	 for(var i=0;i<data.length;i++){
 
-		var week = (new Date(data[i]['date'])).getDay();
+		var week = (new Date(data[i]['date'].replace(/-/g,"/"))).getDay();
 		week = (week == 0 ? 7 : week) - 1;
 
 		var destination = data[i]['whither'];
