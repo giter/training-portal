@@ -9,7 +9,7 @@ public class User extends Basic<User> {
   private static final long serialVersionUID = 1L;
 
   public static final int TYPE_NORMAL = 0;
-  public static final int TYPE_COMPANY = 1;
+  public static final int TYPE_ADMIN = 1;
   public static final int TYPE_RELATION = 2;
   public static final int TYPE_ORDER = 3;
 
@@ -98,6 +98,11 @@ public class User extends Basic<User> {
    */
   public static final String FIELD_RELATED = "related";
 
+  /***
+   * 创建人
+   */
+  public static final String FIELD_CREATOR = "creator";
+
   public int getType() {
 
     return getInt(FIELD_TYPE, 0);
@@ -115,6 +120,16 @@ public class User extends Basic<User> {
 
   public User setDepartment(String department) {
     put(FIELD_DEPARTMENT, department);
+    return this;
+  }
+
+  public String getCreator() {
+
+    return getString(FIELD_CREATOR);
+  }
+
+  public User setCreator(String creator) {
+    put(FIELD_CREATOR, creator);
     return this;
   }
 

@@ -10,6 +10,8 @@ public class UserParam extends PageParam {
 
   private String email;
 
+  private String creator;
+
   private String company;
 
   private String delegateTo;
@@ -80,5 +82,13 @@ public class UserParam extends PageParam {
 
   public void setRelatedTo(String relatedTo) {
     this.relatedTo = relatedTo;
+  }
+
+  public String getCreator() {
+    return creator;
+  }
+
+  public void setCreator(String creator) {
+    this.creator = creator;
   }
 }

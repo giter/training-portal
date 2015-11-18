@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,9 +74,13 @@ public class DataCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/companies.json", method = { RequestMethod.GET })
-  public String companies(@ModelAttribute UserParam param) {
+  public String companies(@ModelAttribute UserParam param, HttpSession session) {
 
     param.setHasCompany(true);
+
+    if (session.getAttribute("admin") != null) {
+      param.setCreator(session.getAttribute("admin").toString());
+    }
 
     Set<String> companies = new TreeSet<String>();
 

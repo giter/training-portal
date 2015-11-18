@@ -40,7 +40,8 @@ public class UserAdminCtrl {
 
     User user = service.getByAccount(form.getEmail(), form.getPassword());
 
-    if (user == null || user.getAdmin() != 1) {
+    if (user == null
+        || (user.getAdmin() != User.TYPE_ORDER && user.getAdmin() != User.TYPE_ADMIN)) {
       return "redirect:/admin/login.html";
     }
 
@@ -48,7 +49,7 @@ public class UserAdminCtrl {
 
     session.setAttribute("admin", user.get_id());
 
-    return "redirect:/admin/index.html";
+    return "redirect:/admin/index.html?" + user.getType();
   }
 
   @ResponseBody
@@ -60,9 +61,12 @@ public class UserAdminCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/admin/data/user.json", method = { RequestMethod.POST })
-  public String insert(HttpServletRequest request) throws IOException {
+  public String insert(HttpServletRequest request, HttpSession session)
+      throws IOException {
 
     User user = Utils.parseJSON(request.getInputStream(), User.class);
+    user.setCreator(session.getAttribute("admin").toString());
+
     return RESTResponse.of(service.insert(user)).toString();
 
   }
@@ -88,7 +92,11 @@ public class UserAdminCtrl {
   @ResponseBody
   @RequestMapping(value = "/admin/data/users.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages(@ModelAttribute UserParam userParam) {
+  public String pages(@ModelAttribute UserParam userParam, HttpSession session) {
+
+    if (userParam.getCompany() != null) {
+      userParam.setCreator(session.getAttribute("admin").toString());
+    }
 
     return RESTResponse.of(
         Page.of(service.count(userParam), service.page(userParam))).toString();

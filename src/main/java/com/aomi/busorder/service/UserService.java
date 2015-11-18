@@ -172,6 +172,11 @@ public class UserService implements InitializingBean {
       ob.add(User.FIELD_TYPE, User.TYPE_RELATION);
     }
 
+    if (param.getCreator() != null) {
+
+      ob.add(User.FIELD_CREATOR, param.getCreator());
+    }
+
     return ob.get();
   }
 
