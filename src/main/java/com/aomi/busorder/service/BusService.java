@@ -52,6 +52,9 @@ public class BusService {
 
     dao.bus.save(bus);
 
+    dao.ticket.update(new BasicDBObject("bus._id", bus.get_id()),
+        BasicDBObjectBuilder.start().push("$set").add("bus", bus).get());
+
     return bus;
   }
 
