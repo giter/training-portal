@@ -79,7 +79,11 @@ public class DataCtrl {
     param.setHasCompany(true);
 
     if (session.getAttribute("admin") != null) {
-      param.setCreator(session.getAttribute("admin").toString());
+
+      User admin = userService.get(session.getAttribute("admin").toString());
+      if (admin.getAdmin() > 1) {
+        param.setCreator(session.getAttribute("admin").toString());
+      }
     }
 
     Set<String> companies = new TreeSet<String>();
