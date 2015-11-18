@@ -93,7 +93,9 @@ public class UserAdminCtrl {
       RequestMethod.GET, RequestMethod.POST })
   public String pages(@ModelAttribute UserParam userParam, HttpSession session) {
 
-    if (userParam.getCompany() != null) {
+    User admin = service.get(session.getAttribute("admin").toString());
+
+    if (admin.getAdmin() > 1 || userParam.getCompany() != null) {
       userParam.setCreator(session.getAttribute("admin").toString());
     }
 
