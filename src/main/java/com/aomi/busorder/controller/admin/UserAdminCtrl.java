@@ -95,7 +95,7 @@ public class UserAdminCtrl {
 
     User admin = service.get(session.getAttribute("admin").toString());
 
-    if (admin.getAdmin() > 1 || userParam.getCompany() != null) {
+    if (admin.getAdmin() > 1 && userParam.getCompany() != null) {
       userParam.setCreator(session.getAttribute("admin").toString());
     }
 
