@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.aomi.busorder.misc.PinYinUtils;
 import com.aomi.busorder.param.BusParam;
 import com.aomi.busorder.pojo.Bus;
+import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -73,7 +74,10 @@ public class BusService {
       return ob.get();
 
     if (param.getOnline() != null) {
-      ob.add(Bus.FIELD_ONLINE, param.getOnline());
+
+      ob.add(Bus.FIELD_ONLINE,
+          new BasicDBObject("$in", new Object[] { param.getOnline(),
+              param.getOnline().toString() }));
     }
 
     if (param.getDestination() != null) {
