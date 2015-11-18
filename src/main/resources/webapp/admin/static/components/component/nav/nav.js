@@ -12,7 +12,7 @@ module.exports = Vue.component("c-nav",{
     data: function () {
 
 		if(window.location.search == "?3"){
-				return return {
+				return {
 				"func": [
 					{
 						name: "首页",
