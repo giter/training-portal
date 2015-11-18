@@ -209,7 +209,7 @@ function filterBus(data){
 		var PERCENTAGE = quota['percentage'] || 0.9;
 		
 		data[i]["percent"] = data[i]["order"] * 1.0 / (data[i]["void"]+data[i]["order"]); 
-		if(data[i]["void"] <= 0) continue;
+		/*if(data[i]["void"] <= 0) continue;*/
 
 		if(i>0){
 
