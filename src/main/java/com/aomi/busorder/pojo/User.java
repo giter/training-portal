@@ -9,7 +9,7 @@ public class User extends Basic<User> {
   private static final long serialVersionUID = 1L;
 
   public static final int TYPE_NORMAL = 0;
-  public static final int TYPE_ADMIN = 1;
+  public static final int TYPE_COMPANY = 1;
   public static final int TYPE_RELATION = 2;
   public static final int TYPE_ORDER = 3;
 

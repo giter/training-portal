@@ -40,8 +40,7 @@ public class UserAdminCtrl {
 
     User user = service.getByAccount(form.getEmail(), form.getPassword());
 
-    if (user == null
-        || (user.getAdmin() != User.TYPE_ORDER && user.getAdmin() != User.TYPE_ADMIN)) {
+    if (user == null || user.getAdmin() <= 0) {
       return "redirect:/admin/login.html";
     }
 
@@ -49,7 +48,7 @@ public class UserAdminCtrl {
 
     session.setAttribute("admin", user.get_id());
 
-    return "redirect:/admin/index.html?" + user.getType();
+    return "redirect:/admin/index.html?" + user.getAdmin();
   }
 
   @ResponseBody
