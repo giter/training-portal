@@ -208,8 +208,8 @@ function filterBus(data){
 		var MAXIMUM = quota['maximum'] || 11;
 		var PERCENTAGE = quota['percentage'] || 0.9;
 		
-		data[i]["percent"] = data[i]["order"] * 1.0 / data[i]["void"]; 
-		if(data[i]["order"] >= data[i]["void"]) continue;
+		data[i]["percent"] = data[i]["order"] * 1.0 / (data[i]["void"]+data[i]["order"]); 
+		if(data[i]["void"] <= 0) continue;
 
 		if(i>0){
 
