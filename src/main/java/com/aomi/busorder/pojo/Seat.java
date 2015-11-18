@@ -15,6 +15,11 @@ public class Seat extends Basic<Seat> {
   public static final String FIELD_NAME = "name";
 
   /**
+   * 座号
+   */
+  public static final String FIELD_SN = "sn";
+
+  /**
    * 列号
    */
   public static final String FIELD_COL = "col";
@@ -37,6 +42,17 @@ public class Seat extends Basic<Seat> {
   public Seat setName(String name) {
 
     put(FIELD_NAME, name);
+    return this;
+  }
+
+  public String getSn() {
+
+    return getString(FIELD_SN);
+  }
+
+  public Seat setSn(String sn) {
+
+    put(FIELD_SN, sn);
     return this;
   }
 

@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,6 +102,9 @@ public class TicketCtrl {
       sparam.setLimit(0);
 
       for (Seat seat : seatService.page(sparam)) {
+
+        if (!NumberUtils.isNumber(seat.getSn()))
+          continue;
 
         Ticket ticket = ticketService.getByDate(date, seat.get_id());
 
