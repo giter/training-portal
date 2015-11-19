@@ -1,7 +1,6 @@
 package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +94,7 @@ public class UserCtrl {
 
     User user = userService.getByOpenID(token.getOpenId());
 
-    String openID = URLEncoder.encode(token.getOpenId(), "utf-8");
+    String openID = token.getOpenId();
 
     if (user != null) {
 
