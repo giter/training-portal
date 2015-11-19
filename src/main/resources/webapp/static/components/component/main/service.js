@@ -224,7 +224,7 @@ function filterBus(data){
 						pc[line] = (pc[line] || 0) + 1;
 					}
 
-				}else if (pc[line] >= LEAST && data[i-1]["percent"] > PERCENTAGE){
+				}else if ((pc[line] >= LEAST && data[i-1]["percent"] > PERCENTAGE) || data[i]["order"] > 0){
 
 					list.push(data[i]); 
 					lv[line] = (lv[line] || 0) + 1;
