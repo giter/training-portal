@@ -1,6 +1,7 @@
 package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +91,10 @@ public class UserCtrl {
       @RequestParam(value = "code", required = false) String code,
       HttpSession session) throws IOException, WxErrorException {
 
-    WxMpOAuth2AccessToken token = weixin.getService()
-        .oauth2getAccessToken(code);
+    String decoded = URLDecoder.decode(code, "UTF-8");
+
+    WxMpOAuth2AccessToken token = weixin.getService().oauth2getAccessToken(
+        decoded);
 
     User user = userService.getByOpenID(token.getOpenId());
 
