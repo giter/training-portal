@@ -2,6 +2,8 @@ package com.aomi.busorder.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
@@ -141,6 +143,36 @@ public class TicketService {
         .add("user", user).get();
 
     return (Ticket) dao.ticket.findAndModify(query, update);
+  }
+
+  public boolean exceedLimit(User user, String date) {
+
+    TicketParam tp = new TicketParam();
+
+    tp.setLimit(1000);
+    tp.setDate(date);
+    tp.setUid(user.get_id());
+
+    Map<String, Integer> limits = new TreeMap<>();
+
+    for (Ticket t : page(tp)) {
+
+      if (t.getBus() == null)
+        continue;
+
+      if (t.getBus().getGoff() == null)
+        continue;
+
+      if (!limits.containsKey(t.getBus().getGoff()))
+        limits.put(t.getBus().getGoff(), 0);
+
+      limits.put(t.getBus().getGoff(), limits.get(t.getBus().getGoff()) + 1);
+
+      if (limits.get(t.getBus().getGoff()) >= user.getLimit())
+        return true;
+    }
+
+    return false;
   }
 
   public long countByDate(String uid, String date) {
