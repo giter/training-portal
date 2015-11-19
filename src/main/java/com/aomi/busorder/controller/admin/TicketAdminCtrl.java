@@ -64,7 +64,7 @@ public class TicketAdminCtrl {
       return RESTResponse.of(Errors.NO_SUCH_ITEM, "无此用户...").toString();
     }
 
-    if (ticketService.exceedLimit(user, ticket.getDate())) {
+    if (ticketService.exceedLimit(user, ticket)) {
       return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
     }
 

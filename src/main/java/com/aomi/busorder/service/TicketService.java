@@ -2,8 +2,6 @@ package com.aomi.busorder.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
@@ -145,34 +143,19 @@ public class TicketService {
     return (Ticket) dao.ticket.findAndModify(query, update);
   }
 
-  public boolean exceedLimit(User user, String date) {
+  public boolean exceedLimit(User user, Ticket ticket) {
 
     TicketParam tp = new TicketParam();
 
-    tp.setLimit(1000);
-    tp.setDate(date);
+    tp.setLimit(0);
+    tp.setDate(ticket.getDate());
+
+    if (ticket.getBus() != null && ticket.getBus().getGoff() != null)
+      tp.setGoff(ticket.getBus().getGoff());
+
     tp.setUid(user.get_id());
 
-    Map<String, Integer> limits = new TreeMap<>();
-
-    for (Ticket t : page(tp)) {
-
-      if (t.getBus() == null)
-        continue;
-
-      if (t.getBus().getGoff() == null)
-        continue;
-
-      if (!limits.containsKey(t.getBus().getGoff()))
-        limits.put(t.getBus().getGoff(), 0);
-
-      limits.put(t.getBus().getGoff(), limits.get(t.getBus().getGoff()) + 1);
-
-      if (limits.get(t.getBus().getGoff()) >= user.getLimit())
-        return true;
-    }
-
-    return false;
+    return count(tp) >= user.getLimit();
   }
 
   public long countByDate(String uid, String date) {
@@ -304,6 +287,10 @@ public class TicketService {
       ob.add(Ticket.FIELD_DATE, param.getDate());
     }
 
+    if (param.getGoff() != null) {
+      ob.add(Ticket.FIELD_BUS + "." + Bus.FIELD_GOFF, param.getGoff());
+    }
+
     if (param.getBegin() != null) {
 
       ob.push(Ticket.FIELD_DATE).add("$gte", param.getBegin());
@@ -339,6 +326,11 @@ public class TicketService {
 
     List<?> seat = cursor.toArray();
     return (List<Ticket>) seat;
+  }
+
+  public int count(TicketParam param) {
+
+    return (int) dao.ticket.count(query(param));
   }
 
 }

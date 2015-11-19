@@ -271,7 +271,7 @@ public class TicketCtrl {
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
-    if (ticketService.exceedLimit(user, ticket.getDate())) {
+    if (ticketService.exceedLimit(user, ticket)) {
       return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
     }
 
@@ -317,7 +317,7 @@ public class TicketCtrl {
       }
     }
 
-    if (ticketService.exceedLimit(user, ticket.getDate())) {
+    if (ticketService.exceedLimit(user, ticket)) {
       return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
     }
 

@@ -8,6 +8,8 @@ public class TicketParam extends PageParam {
 
   private String date;
 
+  private String goff;
+
   private String begin;
 
   private String end;
@@ -60,5 +62,13 @@ public class TicketParam extends PageParam {
 
   public void setEnd(String end) {
     this.end = end;
+  }
+
+  public String getGoff() {
+    return goff;
+  }
+
+  public void setGoff(String goff) {
+    this.goff = goff;
   }
 }
