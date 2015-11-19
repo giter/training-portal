@@ -182,7 +182,7 @@ function filterBus(data){
 
 	 for(var i=0;i<data.length;i++){
 
-		var END = ENDS[data[i]['whither']] || 1;
+		var END = (ENDS[data[i]['whither']] || 1) * 3600;
 
 		var time = Date.parse(new 
 		Date(data[i].date.replace(/-/g,"/")))/1000; var diff = time - now;
