@@ -1,6 +1,7 @@
 package com.aomi.busorder.controller.data;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +103,8 @@ public class UserCtrl {
       return "redirect:/index.html";
     }
 
-    return "redirect:/index.html?openID=" + openID + "#/bind";
+    return "redirect:/index.html?openID=" + URLEncoder.encode(openID, "utf-8")
+        + "#/bind";
   }
 
   void doLogin(HttpSession session, User user) {
