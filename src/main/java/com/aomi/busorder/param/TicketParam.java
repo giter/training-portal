@@ -1,5 +1,7 @@
 package com.aomi.busorder.param;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 public class TicketParam extends PageParam {
 
   private String uid;
@@ -8,13 +10,13 @@ public class TicketParam extends PageParam {
 
   private String date;
 
-  private String goff;
-
   private String begin;
 
   private String end;
 
   private String company;
+
+  private Pair<String, String> overlapping;
 
   public String getUid() {
     return uid;
@@ -64,11 +66,11 @@ public class TicketParam extends PageParam {
     this.end = end;
   }
 
-  public String getGoff() {
-    return goff;
+  public Pair<String, String> getOverlapping() {
+    return overlapping;
   }
 
-  public void setGoff(String goff) {
-    this.goff = goff;
+  public void setOverlapping(Pair<String, String> overlapping) {
+    this.overlapping = overlapping;
   }
 }

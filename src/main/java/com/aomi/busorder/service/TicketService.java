@@ -149,10 +149,8 @@ public class TicketService {
 
     tp.setLimit(0);
     tp.setDate(ticket.getDate());
-
-    if (ticket.getBus() != null && ticket.getBus().getGoff() != null)
-      tp.setGoff(ticket.getBus().getGoff());
-
+    tp.setOverlapping(Pair.of(ticket.getBus().getGoff(), ticket.getBus()
+        .getArrive()));
     tp.setUid(user.get_id());
 
     return count(tp) >= user.getLimit();
@@ -287,8 +285,12 @@ public class TicketService {
       ob.add(Ticket.FIELD_DATE, param.getDate());
     }
 
-    if (param.getGoff() != null) {
-      ob.add(Ticket.FIELD_BUS + "." + Bus.FIELD_GOFF, param.getGoff());
+    if (param.getOverlapping() != null) {
+
+      ob.add(Ticket.FIELD_BUS + "." + Bus.FIELD_GOFF, new BasicDBObject("$lte",
+          param.getOverlapping().getRight()));
+      ob.add(Ticket.FIELD_BUS + "." + Bus.FIELD_ARRIVE, new BasicDBObject(
+          "$gte", param.getOverlapping().getLeft()));
     }
 
     if (param.getBegin() != null) {
