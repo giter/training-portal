@@ -189,12 +189,7 @@ public class User extends Basic<User> {
   public User delegate(String uid) throws ArrayIndexOutOfBoundsException {
 
     List<String> delegation = getDelegation();
-
-    if (delegation.size() < 5)
-      delegation.add(uid);
-    else
-      throw new ArrayIndexOutOfBoundsException(5);
-
+    delegation.add(uid);
     setDelegation(delegation);
 
     return this;
