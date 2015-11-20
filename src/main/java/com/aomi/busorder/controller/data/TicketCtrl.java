@@ -271,6 +271,10 @@ public class TicketCtrl {
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
 
+    if (ticketService.expired(ticket)) {
+      return RESTResponse.of(Errors.LIMIT_EXCEED, "订票时间已过...").toString();
+    }
+
     if (ticketService.exceedLimit(user, ticket)) {
       return RESTResponse.of(Errors.LIMIT_EXCEED, "超过本日订票限制...").toString();
     }
@@ -315,6 +319,10 @@ public class TicketCtrl {
           source.get_id()))) {
         return RESTResponse.of(Errors.UNAUTHORIZED, "委托或亲属关系不存在...").toString();
       }
+    }
+
+    if (ticketService.expired(ticket)) {
+      return RESTResponse.of(Errors.LIMIT_EXCEED, "订票时间已过...").toString();
     }
 
     if (ticketService.exceedLimit(user, ticket)) {

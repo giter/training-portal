@@ -1,6 +1,9 @@
 package com.aomi.busorder.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -36,6 +39,9 @@ public class TicketService {
 
   @Resource
   SeatService seatService;
+
+  @Resource
+  ContextService context;
 
   public Ticket get(String id) {
 
@@ -141,6 +147,49 @@ public class TicketService {
         .add("user", user).get();
 
     return (Ticket) dao.ticket.findAndModify(query, update);
+  }
+
+  public boolean expired(Ticket ticket) {
+
+    String destination = ticket.getBus().getDestination();
+
+    DBObject ctx = (DBObject) context.get();
+
+    if (ctx == null) {
+      return false;
+    }
+
+    if (!ctx.containsField("config"))
+      return false;
+
+    DBObject config = (DBObject) ctx.get("config");
+
+    if (!config.containsField("end"))
+      return false;
+
+    DBObject end = (DBObject) config.get("end");
+
+    if (!end.containsField(destination))
+      return false;
+
+    String date = ticket.getDate() + " " + ticket.getBus().getGoff();
+
+    try {
+
+      Date goff = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(date);
+
+      long expired = (long) (goff.getTime() - ((Number) end.get(destination))
+          .doubleValue() * 3600 * 1000);
+
+      if (System.currentTimeMillis() > expired) {
+        return true;
+      }
+
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+
+    return false;
   }
 
   public boolean exceedLimit(User user, Ticket ticket) {
