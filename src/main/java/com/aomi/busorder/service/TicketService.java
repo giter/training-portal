@@ -151,6 +151,18 @@ public class TicketService {
 
   public boolean expired(Ticket ticket) {
 
+    String date = ticket.getDate() + " " + ticket.getBus().getGoff();
+    Date goff;
+
+    try {
+      goff = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(date);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+
+    if (System.currentTimeMillis() >= goff.getTime())
+      return true;
+
     String destination = ticket.getBus().getDestination();
 
     DBObject ctx = (DBObject) context.get();
@@ -172,21 +184,11 @@ public class TicketService {
     if (!end.containsField(destination))
       return false;
 
-    String date = ticket.getDate() + " " + ticket.getBus().getGoff();
+    long expired = (long) (goff.getTime() - ((Number) end.get(destination))
+        .doubleValue() * 3600 * 1000);
 
-    try {
-
-      Date goff = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(date);
-
-      long expired = (long) (goff.getTime() - ((Number) end.get(destination))
-          .doubleValue() * 3600 * 1000);
-
-      if (System.currentTimeMillis() > expired) {
-        return true;
-      }
-
-    } catch (ParseException e) {
-      throw new RuntimeException(e);
+    if (System.currentTimeMillis() > expired) {
+      return true;
     }
 
     return false;
