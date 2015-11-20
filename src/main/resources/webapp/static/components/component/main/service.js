@@ -192,7 +192,9 @@ function filterBus(data){
 		if(diff >= END){ list.push(data[i]); } 
 		else{
 			data[i]["expired"] = true;
-			expired.push(data[i]);
+			if(data[i]["order"] > 0){
+				expired.push(data[i]);
+			}
 		}
 	}
 
