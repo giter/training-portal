@@ -180,6 +180,8 @@ function filterBus(data){
 
 	 var now = Date.parse(new Date())/1000,list = [];
 
+	 var expired = []
+
 	 for(var i=0;i<data.length;i++){
 
 		var END = (ENDS[data[i]['whither']] || 1) * 3600;
@@ -188,6 +190,10 @@ function filterBus(data){
 		Date(data[i].date.replace(/-/g,"/")))/1000; var diff = time - now;
 
 		if(diff >= END){ list.push(data[i]); } 
+		else{
+			data[i]["expired"] = true;
+			expired.push(data[i]);
+		}
 	}
 
 	 data = list; list = [];
@@ -249,7 +255,7 @@ function filterBus(data){
 		}
 	 }
 
-	 return list;
+	 return expired.concat(list);
 }
 
 module.exports = {

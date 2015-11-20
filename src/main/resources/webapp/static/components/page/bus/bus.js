@@ -123,12 +123,15 @@ module.exports = Vue.extend({
             var self = this;
             Service.orderSeat(self.selectDelegate.value,self.mine._id,id, function (rep) {
                 Layer.closeAll();
+
                 if(rep.Code == 0){
                     callback?callback.call(this,rep.Response):null;
                     $(".bus-body").find("td").removeClass("icon-seat-select");
                     self.seat = null;
                     self.reloadSeat();
-                }
+                }else{
+					alert(rep.Message);
+				}
             });
         },
         renderScroll: function () {
