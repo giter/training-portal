@@ -7,15 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.common.util.StringUtils;
@@ -29,6 +20,15 @@ import me.chanjar.weixin.mp.bean.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.WxMpXmlOutTextMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WeixinCtrl implements InitializingBean {
@@ -137,12 +137,8 @@ public class WeixinCtrl implements InitializingBean {
         WxMpUser ui = wxMpService
             .userInfo(wxMessage.getFromUserName(), "zh_CN");
 
-        String nickName = ui.getNickname();
-
-        LOGGER.info("NickName: " + nickName);
-
-        WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content(nickName)
-            .fromUser(wxMessage.getToUserName())
+        WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT()
+            .content(ui.getOpenId()).fromUser(wxMessage.getToUserName())
             .toUser(wxMessage.getFromUserName()).build();
         return m;
       }
