@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEE,6BAAS;EACP,UAAU,EAAE,MAAM;EAClB,KAAK,EAAE,OAAO;EACd,WAAW,EAAE,IAAI;EAEjB,yCAAW;IACT,KAAK,EAAE,IAAI;IACX,MAAM,EAAE,GAAG;IACX,KAAK,EAAE,OAAO;IACd,SAAS,EAAE,IAAI;IACf,OAAO,EAAE,OAAO;IAChB,UAAU,EAAE,MAAM;IAClB,MAAM,EAAE,cAAc;EAGxB,mCAAK;IACH,YAAY,EAAE,IAAI;IAClB,aAAa,EAAE,IAAI",
+"sources": ["../../../../../../??????/front/components/page/search/result/result.scss"],
+"names": [],
+"file": "result.css"
+}

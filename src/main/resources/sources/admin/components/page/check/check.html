@@ -1,0 +1,39 @@
+<div class="page-companyOrder container-layout">
+    <div class="line">
+        
+        <div class="x12" style="padding-left: 5px;">
+            <div class="panel admin-panel">
+                <div class="padding border-bottom">
+                    <div class="form-inline">
+                        <div class="form-group">
+
+                            
+
+							<div class="field">
+                                <select class="input" v-model="selectCalendar" options="calendar">
+                                    <option value="">请选择日期</option>
+                                </select>
+                            </div>
+							<div class="label">
+								&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="field">
+
+                                <select v-on="change:searchTicketStats" class="input" v-model="selectWhither" options="whither">
+                                    <option>请选择目的地</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="badge bg-sub">{{selectCalendar}}</span>
+                        <span class="badge bg-sub">{{busname}}</span>
+                        <span class="badge bg-sub">{{line}}</span>
+                    </div>
+                </div>
+
+                <div v-component="{{childView}}" keep-alive ></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

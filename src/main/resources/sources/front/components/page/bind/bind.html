@@ -1,0 +1,24 @@
+<div class="bind-container mui-content">
+<header class="mui-bar-nav mui-bar">
+    <h5 class="mui-title">
+        用户绑定
+    </h5>
+    <a class=" mui-icon mui-icon-left-nav mui-pull-left" href="#config"></a>
+</header>
+   <div class="mui-content">
+
+       <h5 style="text-align: center;margin: 10px;">请输入您的企业邮箱地址进行绑定</h5>
+       <div class="mui-card">
+           <form class="mui-input-group">
+              <div class="mui-input-row">
+                  <label>邮箱</label>
+                  <input type="text" class="mui-input-clear" v-model="email" placeholder="请输入邮箱地址">
+              </div>
+          </form>
+       </div>
+       <h5 style="color: red;text-align: center" v-show="!valid">请输入正确邮箱格式</h5>
+       <div style="padding: 15px">
+        <a style="padding: 6px 0" class="mui-btn mui-btn-block mui-btn-blue" v-on="click:onBind">绑定</a>
+    </div>
+   </div>
+</div>

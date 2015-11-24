@@ -1,0 +1,29 @@
+<div class="page-history">
+    <div class="panel admin-panel">
+        <div class="panel-head">
+            <strong>
+                登陆日志
+            </strong>
+        </div>
+
+        <table class="table table-hover">
+            <tr><th width="200">用户名</th><th width="*">邮箱</th><th width="200">操作</th><th width="200">时间</th></tr>
+            <tr v-repeat="v in traces">
+                <td>{{v.user.name}}</td>
+                <td>{{v.user.email}}</td>
+                <td>{{getAction(v.action)}}</td>
+                <td>{{getTime(v.created)}}</td>
+            </tr>
+        </table>
+
+        <div class="panel-foot text-center">
+            <ul class="pagination"><li><a href="javascript:;" v-on="click:prevPage">上一页</a></li></ul>
+            <ul class="pagination pagination-group">
+                <li v-on="click:toPage" v-repeat="parseInt(((count-1)/limit))+1" v-class="active:$index == (page)"><a href="javascript:;">{{$index+1}}</a></li>
+            </ul>
+            <ul class="pagination"><li><a href="javascript:;" v-on="click:nextPage">下一页</a></li></ul>
+        </div>
+
+    </div>
+
+</div>

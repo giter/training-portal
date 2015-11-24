@@ -1,0 +1,61 @@
+.page-seat{
+
+  .seat-container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .bus-info{
+      text-align: center;
+      padding-bottom: 10px;
+      font-size: 20px;
+      color: #666;
+      text-shadow: 1px 1px 1px #0099CC;
+    }
+
+    table{
+      margin: 0 auto;
+
+      tr{
+
+
+        td{
+          height: 100px;
+          width: 100px;
+          padding-right: 6px;
+          padding-bottom: 5px;
+          a{
+            border-radius: 5px;
+            border: solid 1px #ddd;
+            background-color: #f5f5f5;
+            display: block;
+            text-align: center;
+            height: 100%;
+            padding:0 5px;
+          }
+
+          a:hover{
+            background-color:#0a8;
+            cursor: pointer;
+            color: #fff;
+            h3{
+              color: #fff;
+            }
+          }
+
+
+          h3{
+            font-size: 32px;
+            color:#0099CC;
+            font-weight: bold;
+            line-height: 50px;
+          }
+
+        }
+
+
+
+      }
+    }
+  }
+
+}

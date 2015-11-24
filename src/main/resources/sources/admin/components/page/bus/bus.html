@@ -1,0 +1,161 @@
+<div class="page-bus">
+    <div class="panel admin-panel">
+        <div class="panel-head">
+            <strong>
+                发车管理
+            </strong>
+        </div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small bg-main" data-mask="1" data-width="50%"  v-on="click:addBus" value="新增车辆" />
+        </div>
+        <table class="table table-hover">
+            <tr><th width="120">车辆照片</th><th width="120">车辆名</th><th width="100">车牌号</th><th width="100">方向</th><th width="*">路线</th><th width="80">发车时间</th><th width="80">到达时间</th><th width="80">状态</th><th width="200">操作</th></tr>
+            <tr v-repeat="c in buses" >
+                <td ><img width="64" height="64"  class="img-border radius-small" v-attr="src:c.src||'/admin/static/images/128.png'"></td>
+                <td >{{c.name}}</td>
+                <td >{{c.sn}}</td>
+                <td >{{c.destination}}</td>
+                <td >{{c.line}}</td>
+                <td >{{c.goff}}</td>
+                <td >{{c.arrive}}</td>
+                <td >{{c.online == 0?"停用":"启用"}}</td>
+                <td >
+                    <a v-on="click:editBus(c)" class="button border-blue button-little" href="javascript:;">修改</a>
+                    <a class="button border-yellow button-little" v-on="click:delBus(c._id)" href="javascript:;" >删除</a>
+                    <a href="#/home/bus/{{c._id}}" class="button border-blue button-little" href="javascript:;">车位管理</a>
+                </td>
+            </tr>
+        </table>
+
+        <c-pager count="{{@ count}}" limit="{{@ limit}}" page="{{@ page}}"></c-pager>
+
+
+        <div class="dialog-mask" style="display: none;"></div>
+        <div id="bus-dialog" class="dialog-win" style="position: fixed; width: 50%; z-index: 11;display: none;">
+            <div class="dialog open">
+                <div class="dialog-head">
+                    <span class="close" v-on="click:closeDialog"></span>
+                    <strong>{{bus._type}}</strong>
+                </div>
+                <div class="dialog-body">
+                    <div class="form-x">
+                        <div class="form-group">
+                            <div class="label">
+                                车辆名
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.name" placeholder="请填写车辆名">
+                                <div v-show="!validation.name" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                车牌号
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.sn" placeholder="请填写车牌号">
+                                <div v-show="!validation.sn" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                方向
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.destination" placeholder="请填写目的地">
+                                <div v-show="!validation.destination" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                路线
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.line" placeholder="请填写路线">
+                                <div v-show="!validation.line" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                发车时间
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.goff" placeholder="请填写目的地">
+                                <div v-show="!validation.goff" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                到达时间
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" v-model="bus.arrive" placeholder="请填写到达时间">
+                                <div v-show="!validation.arrive" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                状态
+                            </div>
+                            <div class="field">
+                                <select class="input" v-model="bus.online">
+                                    <option value=0>停用</option>
+                                    <option value=1>启用</option>
+                                </select>
+                            </div>
+                        </div>
+						<div class="form-group">
+                            <div class="label">
+                                发车日
+                            </div>
+                            <div class="field">
+
+								<label for='bus-week-0'>星期一</label>
+								<input id='bus-week-0' type='checkbox' v-model="bus.weeks['0']" number value=1 />
+
+								<label for='bus-week-1'>星期二</label>
+								<input id='bus-week-1' type='checkbox' v-model="bus.weeks['1']" number value=1 />
+
+								<label for='bus-week-2'>星期三</label>
+								<input id='bus-week-2' type='checkbox' v-model="bus.weeks['2']" number value=1 />
+
+								<label for='bus-week-3'>星期四</label>
+								<input id='bus-week-3' type='checkbox' v-model="bus.weeks['3']" number value=1 />
+
+								<label for='bus-week-4'>星期五</label>
+								<input id='bus-week-4' type='checkbox' v-model="bus.weeks['4']" number value=1 />
+
+								<label for='bus-week-5'>星期六</label>
+								<input id='bus-week-5' type='checkbox' v-model="bus.weeks['5']" number value=1 />
+
+								<label for='bus-week-6'>星期日</label>
+								<input id='bus-week-6' type='checkbox' v-model="bus.weeks['6']" number value=1 /> 
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                照片
+                            </div>
+                            <div class="field">
+                                <a class="button bg-main input-file" href="javascript:void(0);">
+                                    + 上传照片
+                                    <input size="100" type="file" v-on="change:upLoadImg" accept="image/gif, image/jpeg, image/png" />
+                                </a>
+                                <img v-if="bus.src" v-attr="src:bus.src"  width="128" height="128" class="img-border radius-small" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="dialog-foot">
+                    <button class="button dialog-close" v-on="click:closeDialog">取消</button>
+                    <button class="button bg-green" v-disabled="isValid" v-on="click:postBus">确认</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

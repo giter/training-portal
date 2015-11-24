@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit"><title>通勤车安全乘坐管理平台</title>
+    <link rel="stylesheet" href="/static/css/pintuer.css"/>
+    <style>
+        .admin-nav ul {
+            display: none;
+        }
+    </style>
+</head>
+<body style="background-color: #f2f9fd">
+    <div id="app" class="wrap" >
+       <c-nav view="{{currentView}}"  amenu="{{amenu}}"  bmenu="{{bmenu}}" cmenu="{{cmenu}}" ></c-nav>
+        <div class="admin" ><div  v-transition="slide" v-component="{{currentView}}"></div>
+        </div>
+        <c-loading show="{{loading}}"></c-loading>
+    </div>
+    <script src="/component_modules/jquery.min.js"></script>
+    <script src="/static/js/respond.js"></script>
+    <script src="/static/js/mod.js"></script>
+    <script src="/static/js/lrz.pc.min.js"></script>
+<script type="text/javascript">
+    var CONFIG = {
+        OFFTIME:"16:00"
+    };
+
+    require(["main/main.js"]);
+</script>
+</body>
+</html>
