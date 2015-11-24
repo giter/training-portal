@@ -20,12 +20,12 @@ module.exports = Vue.component("c-nav",{
 						class: "icon-home",
 						child: [
 							{
-								name: "外围管理",
+								name: "合作单位管理",
 								key: "company",
 								class: "icon-user"
 							},
 							{
-								name: "承包商订票",
+								name: "合作单位订票",
 								key: "companyOrder",
 								class: "icon-file-text"
 							}
@@ -68,12 +68,12 @@ module.exports = Vue.component("c-nav",{
                             ]
                         },
                         {
-                            name: "外围管理",
+                            name: "合作单位管理",
                             key: "company",
                             class: "icon-user"
                         },
                         {
-                            name: "承包商订票",
+                            name: "合作单位订票",
                             key: "companyOrder",
                             class: "icon-file-text"
                         },

@@ -13,7 +13,7 @@ var bSeat = require("components/page/check/busSeat/busSeat");
 
 module.exports = Vue.extend({
    inherit:true,
-   template:"<div class=\"page-companyOrder container-layout\">\r\n    <div class=\"line\">\r\n        \r\n        <div class=\"x12\" style=\"padding-left: 5px;\">\r\n            <div class=\"panel admin-panel\">\r\n                <div class=\"padding border-bottom\">\r\n                    <div class=\"form-inline\">\r\n                        <div class=\"form-group\">\r\n\r\n                            \r\n\r\n\t\t\t\t\t\t\t<div class=\"field\">\r\n                                <select class=\"input\" v-model=\"selectCalendar\" options=\"calendar\">\r\n                                    <option value=\"\">请选择日期</option>\r\n                                </select>\r\n                            </div>\r\n\t\t\t\t\t\t\t<div class=\"label\">\r\n\t\t\t\t\t\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;\r\n                            </div>\r\n                            <div class=\"field\">\r\n\r\n                                <select v-on=\"change:searchTicketStats\" class=\"input\" v-model=\"selectWhither\" options=\"whither\">\r\n                                    <option>请选择目的地</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <span class=\"badge bg-sub\">{{selectCalendar}}</span>\r\n                    </div>\r\n                </div>\r\n\r\n                <div v-component=\"{{childView}}\" keep-alive ></div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>",
+   template:"<div class=\"page-companyOrder container-layout\">\r\n    <div class=\"line\">\r\n        \r\n        <div class=\"x12\" style=\"padding-left: 5px;\">\r\n            <div class=\"panel admin-panel\">\r\n                <div class=\"padding border-bottom\">\r\n                    <div class=\"form-inline\">\r\n                        <div class=\"form-group\">\r\n\r\n                            \r\n\r\n\t\t\t\t\t\t\t<div class=\"field\">\r\n                                <select class=\"input\" v-model=\"selectCalendar\" options=\"calendar\">\r\n                                    <option value=\"\">请选择日期</option>\r\n                                </select>\r\n                            </div>\r\n\t\t\t\t\t\t\t<div class=\"label\">\r\n\t\t\t\t\t\t\t\t&nbsp;&nbsp;&nbsp;&nbsp;\r\n                            </div>\r\n                            <div class=\"field\">\r\n\r\n                                <select v-on=\"change:searchTicketStats\" class=\"input\" v-model=\"selectWhither\" options=\"whither\">\r\n                                    <option>请选择目的地</option>\r\n                                </select>\r\n                            </div>\r\n                        </div>\r\n                        <span class=\"badge bg-sub\">{{selectCalendar}}</span>\r\n                        <span class=\"badge bg-sub\">{{busname}}</span>\r\n                        <span class=\"badge bg-sub\">{{line}}</span>\r\n                    </div>\r\n                </div>\r\n\r\n                <div v-component=\"{{childView}}\" keep-alive ></div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>",
    components:{
       stats:tStats,
       seats:bSeat,
@@ -38,6 +38,8 @@ module.exports = Vue.extend({
             "overflow-y":"auto"
          },
          bus:{},
+         line:"",
+         busname:"",
          childView:"",
          tStats:[] /*查票*/
       }

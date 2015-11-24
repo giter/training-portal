@@ -9,7 +9,7 @@
             <div class="form-inline">
                 <div class="form-group">
                     <div class="label">
-                        承包商：
+                        合作单位：
                     </div>
                     <div class="field">
                         <select class="input" v-model="selected" options="companies">
@@ -26,7 +26,7 @@
             <input type="button" class="button button-small bg-main "  data-target="#user-dialog" style="float: right" data-mask="1" data-width="50%"  v-on="click:addUser" value="新增用户" />
         </div>
         <table class="table table-hover">
-            <tr><th width="150">用户名</th><th width="*">承包商</th><th width="200">手机号码</th><th width="100">操作</th></tr>
+            <tr><th width="150">用户名</th><th width="*">合作单位</th><th width="200">手机号码</th><th width="100">操作</th></tr>
             <tr v-repeat="c in users">
                 <td>{{c.name}}</td>
                 <td>{{c.company}}</td>
@@ -62,10 +62,10 @@
                         </div>
                         <div class="form-group">
                             <div class="label">
-                                承包商
+                                合作单位
                             </div>
                             <div class="field">
-                                <input type="text" class="input" v-model="user.company" placeholder="请填写承包商名称">
+                                <input type="text" class="input" v-model="user.company" placeholder="请填写合作单位名称">
                                 <div v-show="!validation.company" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>

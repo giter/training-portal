@@ -28,7 +28,7 @@ module.exports = Vue.extend({
             "department":"",
             "unit":"",
             "admin":0,
-            "type":0, //0 普通用户 1 承包商
+            "type":0, //0 普通用户 1 合作单位
             "password":"",
             "limit":1
          }
@@ -50,7 +50,7 @@ module.exports = Vue.extend({
             "department":"",
             "unit":"",
             "admin":0,
-            "type":0, //0 普通用户 1 承包商
+            "type":0, //0 普通用户 1 合作单位
             "password":"",
             "limit":1
          };
