@@ -7,7 +7,7 @@
         <a class="mui-icon mui-icon-refresh mui-pull-right" v-on="click:getResult"></a>
     </header>
 
-    <div class="mui-content" v-show="result.length>0" style='padding-bottom: 50px;'>
+    <div class="mui-content" v-show="result.length>0" >
         <h5 class="mui-content-padded">
             {{result.length}}/{{result.length}}车次
         </h5>
@@ -28,6 +28,7 @@
                 </a>
             </li>
         </ul>
+		<div style="height:50px;"></div>
     </div>
     
     <div v-show="result.length==0" class="mui-content-padded mui-text-center" style="padding-top: 50px;">
