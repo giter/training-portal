@@ -49,7 +49,7 @@ module.exports = Vue.extend({
    },
    methods:{
       addUser: function (e) {
-         this.user = _user;
+         this.initData();
          this.openDialog();
       },
       editUser: function (model) {
@@ -126,11 +126,6 @@ module.exports = Vue.extend({
          }
       },
       openDialog: function () {
-         this.user.name = "";
-         this.user.email = "";
-         this.user.company = "";
-         this.user.effective = "";
-         this.user.mobile = "";
 
          this.dialog.show();
          this.mask.show();
@@ -138,6 +133,13 @@ module.exports = Vue.extend({
       closeDialog: function () {
          this.dialog.hide();
          this.mask.hide();
+      },
+      initData: function () {
+         this.user.name = "";
+         this.user.email = "";
+         this.user.company = "";
+         this.user.effective = "";
+         this.user.mobile = "";
       },
       filterCompanies: function () {
          var self = this;
@@ -190,7 +192,7 @@ module.exports = Vue.extend({
       laydate.skin('molv');
       laydate({
          elem: '#effective',
-         min:laydate.now(),
+         //min:laydate.now(),
          choose: function (datas) {
             self.user.effective = datas;
          }

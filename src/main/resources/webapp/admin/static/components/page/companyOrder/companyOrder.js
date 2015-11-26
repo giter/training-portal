@@ -54,6 +54,7 @@ module.exports = Vue.extend({
             limit:999,
             type:1,
             booktype:1,
+            effective:true,
             company:self.selectCompany
          }, function (rep) {
             if(rep.Code == 0){
