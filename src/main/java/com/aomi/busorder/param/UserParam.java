@@ -12,6 +12,8 @@ public class UserParam extends PageParam {
 
   private String unit;
 
+  private String department;
+
   private String creator;
 
   private String company;
@@ -69,6 +71,14 @@ public class UserParam extends PageParam {
   public void setUnit(String unit){
     this.unit = unit;
   }
+
+  public String getDepartment(){
+    return  department;
+  }
+  public void setDepartment(String department){
+    this.department = department;
+  }
+
 
   public String getEmail() {
     return email;
