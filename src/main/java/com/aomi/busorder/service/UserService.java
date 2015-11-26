@@ -163,8 +163,8 @@ public class UserService implements InitializingBean {
       ob.add(User.FIELD_UNIT, param.getUnit());
     }
 
-    if (param.getBookType() != null) {
-      ob.add(User.FIELD_BOOKTYPE, param.getBookType());
+    if (param.getBooktype() != null) {
+      ob.add(User.FIELD_BOOKTYPE, param.getBooktype());
     }
 
     if (param.getDepartment() != null) {

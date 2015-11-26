@@ -81,10 +81,10 @@ public class UserParam extends PageParam {
     this.department = department;
   }
 
-  public String getBookType(){
+  public String getBooktype(){
     return  booktype;
   }
-  public void setBookType(String booktype){
+  public void setBooktype(String booktype){
     this.booktype = booktype;
   }
 
