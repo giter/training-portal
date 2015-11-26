@@ -26,6 +26,8 @@ public class UserParam extends PageParam {
 
   private Boolean hasCompany;
 
+  private Boolean effective;
+
   public Integer getType() {
     return type;
   }
@@ -66,28 +68,29 @@ public class UserParam extends PageParam {
     this.name = name;
   }
 
-  public String getUnit(){
-    return  unit;
+  public String getUnit() {
+    return unit;
   }
 
-  public void setUnit(String unit){
+  public void setUnit(String unit) {
     this.unit = unit;
   }
 
-  public String getDepartment(){
-    return  department;
+  public String getDepartment() {
+    return department;
   }
-  public void setDepartment(String department){
+
+  public void setDepartment(String department) {
     this.department = department;
   }
 
-  public String getBooktype(){
-    return  booktype;
-  }
-  public void setBooktype(String booktype){
-    this.booktype = booktype;
+  public String getBooktype() {
+    return booktype;
   }
 
+  public void setBooktype(String booktype) {
+    this.booktype = booktype;
+  }
 
   public String getEmail() {
     return email;
@@ -119,5 +122,13 @@ public class UserParam extends PageParam {
 
   public void setCreator(String creator) {
     this.creator = creator;
+  }
+
+  public Boolean getEffective() {
+    return effective;
+  }
+
+  public void setEffective(Boolean effective) {
+    this.effective = effective;
   }
 }

@@ -96,7 +96,7 @@ public class User extends Basic<User> {
   /***
    * 承包商短期用户 到期时间
    */
-  public static final String FIELD_EFFE = "effective";
+  public static final String FIELD_EFFECTIVE = "effective";
 
   /***
    * 关系
@@ -274,11 +274,11 @@ public class User extends Basic<User> {
   }
 
   public String getEffective() {
-    return getString(FIELD_EFFE);
+    return getString(FIELD_EFFECTIVE);
   }
 
   public User setEffective(String effe) {
-    put(FIELD_EFFE, effe);
+    put(FIELD_EFFECTIVE, effe);
     return this;
   }
 

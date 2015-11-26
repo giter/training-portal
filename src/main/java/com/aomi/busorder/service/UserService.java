@@ -1,5 +1,7 @@
 package com.aomi.busorder.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -187,6 +189,12 @@ public class UserService implements InitializingBean {
     if (param.getCreator() != null) {
 
       ob.add(User.FIELD_CREATOR, param.getCreator());
+    }
+
+    if (param.getEffective()) {
+
+      ob.add(User.FIELD_EFFECTIVE, new BasicDBObject("$gte",
+          new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
     }
 
     return ob.get();
