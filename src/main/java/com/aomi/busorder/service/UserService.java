@@ -191,7 +191,7 @@ public class UserService implements InitializingBean {
       ob.add(User.FIELD_CREATOR, param.getCreator());
     }
 
-    if (param.getEffective()) {
+    if (param.getEffective() != null && param.getEffective()) {
 
       ob.add(User.FIELD_EFFECTIVE, new BasicDBObject("$gte",
           new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
