@@ -14,6 +14,8 @@ public class UserParam extends PageParam {
 
   private String department;
 
+  private String booktype;
+
   private String creator;
 
   private String company;
@@ -77,6 +79,13 @@ public class UserParam extends PageParam {
   }
   public void setDepartment(String department){
     this.department = department;
+  }
+
+  public String getBookType(){
+    return  booktype;
+  }
+  public void setBookType(String booktype){
+    this.booktype = booktype;
   }
 
 
