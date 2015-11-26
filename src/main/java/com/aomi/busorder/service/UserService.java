@@ -159,6 +159,10 @@ public class UserService implements InitializingBean {
       ob.add(User.FIELD_NAME, param.getName());
     }
 
+    if (param.getUnit() != null) {
+      ob.add(User.FIELD_UNIT, param.getUnit());
+    }
+
     if (param.getDelegateTo() != null) {
       ob.add(User.FIELD_DELEGATION, param.getDelegateTo());
     }
