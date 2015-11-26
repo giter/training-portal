@@ -4,7 +4,7 @@
 
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
-
+var pager = require("pager/pager.js");
 
 module.exports = Vue.extend({
    inherit:true,

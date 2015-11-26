@@ -6,7 +6,39 @@
             </strong>
         </div>
         <div class="padding border-bottom">
-            <input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:addUser" value="新增用户" />
+            <div class="form-inline">
+                <div class="form-group">
+                    <div class="label">
+                        处室：
+                    </div>
+                    <div class="field">
+                        <input type="text" v-model="query.department" class="input" placeholder="处室">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        科室：
+                    </div>
+                    <div class="field">
+                        <input type="text" v-model="query.unit" class="input" placeholder="科室">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="button  bg-green" v-on="click:onQuery" data-target="#user-dialog" data-mask="1" data-width="50%"    >
+                        <span class="icon-search"></span>搜索</button>
+                    </button>
+
+                </div>
+                <div class="form-group">
+                    <button class="button  bg-red-light" v-on="click:onReset" data-target="#user-dialog" data-mask="1" data-width="50%"    >
+                        <span class="icon-recycle"></span>重置</button>
+                    </button>
+
+                </div>
+
+            </div>
+            <input type="button" class="button  bg-main float-right" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:addUser" value="新增用户" />
+
             <!--<input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:inputUser" value="导入用户" />-->
             <!--<input type="button" class="button button-small bg-main" data-target="#user-dialog" data-mask="1" data-width="50%"  v-on="click:dellAllUser" value="删除全部" />-->
         </div>
@@ -86,7 +118,7 @@
                                 <select class="input" v-model="user.admin" number>
                                     <option value=0>普通用户</option>
                                     <option value=1>管理员</option>
-									<option value=3>订票员</option>
+                                    <option value=3>订票员</option>
                                 </select>
                             </div>
                         </div>

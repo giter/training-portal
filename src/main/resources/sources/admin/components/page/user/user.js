@@ -29,6 +29,10 @@ module.exports = Vue.extend({
             "type":0, //0 普通用户 1 合作单位
             "password":"",
             "limit":1
+         },
+         query:{
+            department:"",
+            unit:""
          }
       }
    },
@@ -59,10 +63,20 @@ module.exports = Vue.extend({
          this.user = JSON.parse(JSON.stringify(model));
          this.openDialog();
       },
+      onQuery: function () {
+         this.getUsers();
+      },
+      onReset: function () {
+         this.query = {
+            department:"",
+            unit:""
+         }
+         this.getUsers();
+      },
       getUsers:function(param){
          var self = this;
          this.loading = true;
-         Service.getUsers({page:self.page,limit:self.limit,type:self.user.type},function (rep) {
+         Service.getUsers({page:self.page,limit:self.limit,type:self.user.type,unit:this.query.unit?this.query.unit:undefined,department:this.query.department?this.query.department:undefined},function (rep) {
             self.loading = false;
             if(rep.Code == 0){
                self.users = rep.Response.lists;
@@ -142,7 +156,7 @@ module.exports = Vue.extend({
 
             var i = 0,len = rep.length;
 
-           var timer =  setInterval(function () {
+            var timer =  setInterval(function () {
                if(i<len){
                   var p = rep[i];
                   p.limit = 1;
@@ -173,7 +187,7 @@ module.exports = Vue.extend({
                   Service.delUser(rep[i]._id, function (rep) {
                      if(rep.Code != 0 ){
                      }else{
-                       console.log(i);
+                        console.log(i);
                      }
                   });
                   i++;
