@@ -89,6 +89,16 @@ public class User extends Basic<User> {
   public static final String FIELD_AGE = "age";
 
   /***
+   * 承包商用户类型  0 长期用户 1短期用户
+   */
+  public static final String FIELD_BOOKTYPE = "booktype";
+
+  /***
+   * 承包商短期用户 到期时间
+   */
+  public static final String FIELD_EFFE = "effective";
+
+  /***
    * 关系
    */
   public static final String FIELD_RELATION = "relation";
@@ -251,6 +261,24 @@ public class User extends Basic<User> {
 
   public User setAge(String age) {
     put(FIELD_AGE, age);
+    return this;
+  }
+
+  public String getBookType() {
+    return getString(FIELD_BOOKTYPE);
+  }
+
+  public User setBookType(String bt) {
+    put(FIELD_BOOKTYPE, bt);
+    return this;
+  }
+
+  public String getEffective() {
+    return getString(FIELD_EFFE);
+  }
+
+  public User setEffective(String effe) {
+    put(FIELD_EFFE, effe);
     return this;
   }
 
