@@ -53,6 +53,7 @@ module.exports = Vue.extend({
             page:0,
             limit:999,
             type:1,
+            booktype:1,
             company:self.selectCompany
          }, function (rep) {
             if(rep.Code == 0){
