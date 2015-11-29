@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -184,8 +185,9 @@ public class TicketService {
     if (!end.containsField(destination))
       return false;
 
-    long expired = (long) (goff.getTime() - ((Number) end.get(destination))
-        .doubleValue() * 3600 * 1000);
+    double a = NumberUtils.toDouble(end.get(destination).toString());
+
+    long expired = (long) (goff.getTime() - a * 3600 * 1000);
 
     if (System.currentTimeMillis() > expired) {
       return true;
