@@ -26,7 +26,12 @@ window.app = new Vue({
         "mine":"",
         "detailTicket":"",
         "beginTime":1800,/*提前30分钟*/
-        "endTime":10800/*提前30分钟*/
+        "endTime":10800,/*提前30分钟*/
+        "busQuery":{
+            id:"",
+            date:"",
+            off:false
+        }
     },
     components:{
         "home":home
@@ -42,8 +47,9 @@ window.app = new Vue({
       }
     },
     ready:function(){
-        if(this.is_weixin()){
-        //if(true){
+        //if(this.is_weixin()){
+
+        if(true){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;
@@ -168,8 +174,14 @@ router.on("/company",function(){
     })
 });
 
-router.on("/bus", function (id) {
+router.on("/bus/:id/:date/:off", function (id,date,off) {
     require.async(["components/page/bus/bus"], function (p) {
+        window.app.$data.busQuery.id = id;
+        window.app.$data.busQuery.date = date;
+        window.app.$data.busQuery.off = off;
+
+        window.app.$broadcast("busQuery");
+
         doRouter("bus",p);
     });
 });

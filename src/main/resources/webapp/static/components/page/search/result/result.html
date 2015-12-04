@@ -13,7 +13,7 @@
         </h5>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-repeat="r in result">
-                <a v-class="mui-navigate-right:!r.offTime" v-on="click:selectBus(r.id,search.date,r.offTime)">
+                <a v-class="mui-navigate-right:!r.offTime" href="#bus/{{r.id}}/{{search.date}}/{{r.offTime}}" >
                     <img style="max-width: 62px;width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
                     <div class="mui-media-body">
                         <h4 class="mui-ellipsis-2" style="font-weight: bold;font-size: 14px;color: #007aff;"> {{r.line}}</h4>
