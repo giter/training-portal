@@ -172,8 +172,7 @@ function getContext(p){
 }
 
 function filterBus(data){
-
-	 var ctx = getContext({}); 
+	 var ctx = getContext({});
 
 	 var ENDS = (ctx['config'] ?  (ctx['config']['end'] || {}) : {});
 	 var QUOTA = ctx['quota'] || {};
