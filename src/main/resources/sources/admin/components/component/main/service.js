@@ -4,7 +4,6 @@
 var prefix = "";
 //var prefix = "http://115.159.116.241";
 
-
 $.del = function (url,callback) {
     return $.ajax({
         type:"delete",

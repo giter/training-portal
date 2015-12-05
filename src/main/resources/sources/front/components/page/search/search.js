@@ -12,12 +12,12 @@ module.exports = Vue.extend({
    inherit:true,
    template:__inline("search.html"),
    data: function () {
-     return {
-        date:[],
-        style:{
-           height:0
-        }
-     }
+      return {
+         date:[],
+         style:{
+            height:0
+         }
+      }
    },
    methods:{
       onClick: function (hash) {
@@ -40,19 +40,28 @@ module.exports = Vue.extend({
             Service.getResult({date:self.search.date,dest:whither},function (rep) {
                Layer.closeAll();
                if(rep.Code == 0){
-                  self.result = self.filterBus(rep.Response);
+                  self.result = self._checkOutBus(self.filterBus(rep.Response));
                   var router = new Router();
                   return router.setRoute("search/result");
                }
             })
          }
       },
-	
       filterBus: function (data) {
-
-		 return Service.filterBus(data);
-   },
-	
+         return Service.filterBus(data);
+      },
+      _checkOutBus: function (data) {
+         var now = Date.parse(new Date());
+         for(var i in data){
+            var t = Date.parse(new Date(data[i].date.replace(/-/g,"/")));
+            if(now > t){
+               data[i].offTime = true;
+            }else{
+               data[i].offTime = false;
+            }
+         }
+         return data;
+      },
       valid: function () {
          var str = null;
          if(!this.search.date){
@@ -62,7 +71,7 @@ module.exports = Vue.extend({
             str = "请先选择目的地！";
          }
          if(str){
-               Layer.open({
+            Layer.open({
                content:str,
                shadeClose:false,
                btn:["确定"],
@@ -75,13 +84,13 @@ module.exports = Vue.extend({
       }
    },
    ready: function () {
-	  
+
       var self = this;
 
-	  var ctx = Service.getContext({});
+      var ctx = Service.getContext({});
 
-	  var advance = ctx['config'] ? (ctx['config']['advance'] || 7) : 7;
-	
+      var advance = ctx['config'] ? (ctx['config']['advance'] || 7) : 7;
+
       Service.getCalendar({max:advance}, function (rep) {
 
          if(rep.Code == 0){

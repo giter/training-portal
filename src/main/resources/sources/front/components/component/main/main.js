@@ -24,22 +24,42 @@ window.app = new Vue({
         "mine":"",
         "detailTicket":"",
         "beginTime":1800,/*提前30分钟*/
-        "endTime":10800/*提前30分钟*/
+        "endTime":10800,/*提前30分钟*/
+        "busQuery":{
+            id:"",
+            date:"",
+            off:false
+        }
     },
     components:{
         "home":home
     },
+    methods:{
+      is_weixin: function () {
+          var ua = navigator.userAgent.toLowerCase();
+          if(ua.match(/MicroMessenger/i)=="micromessenger") {
+              return true;
+          } else {
+              return false;
+          }
+      }
+    },
     ready:function(){
-        this.openid = Service.getQueryString("openID");
-        Fastclick.FastClick.attach(document.body);
-        var self = this;
-        Service.getMine(function (rep) {
-            if(rep.Code == 0){
-                self.mine = rep.Response;
-            }
-        });
+        //if(this.is_weixin()){
 
-
+        if(true){
+            this.openid = Service.getQueryString("openID");
+            Fastclick.FastClick.attach(document.body);
+            var self = this;
+            Service.getMine(function (rep) {
+                if(rep.Code == 0){
+                    self.mine = rep.Response;
+                }
+            });
+        }else{
+            alert("请在微信中打开");
+            window.location.href = "http://mp.weixin.qq.com/s?__biz=MzIxOTEwMDcwOQ==&mid=400376477&idx=1&sn=aaf861f22ac9ffc3a18bf13eaf858eb7&scene=18#wechat_redirect";
+        }
     }
 });
 
@@ -152,8 +172,14 @@ router.on("/company",function(){
     })
 });
 
-router.on("/bus", function (id) {
+router.on("/bus/:id/:date/:off", function (id,date,off) {
     require.async(["page/bus/bus.js"], function (p) {
+        window.app.$data.busQuery.id = id;
+        window.app.$data.busQuery.date = date;
+        window.app.$data.busQuery.off = off;
+
+        window.app.$broadcast("busQuery");
+
         doRouter("bus",p);
     });
 });

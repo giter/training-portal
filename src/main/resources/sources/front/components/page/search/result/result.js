@@ -44,39 +44,57 @@ module.exports = Vue.extend({
             shade: false
          });
          Service.getResult({date:self.search.date,dest:self.search.whither},function (rep) {
-            
-			if(rep.Code == 0){
-               self.result = self.filterBus(rep.Response);
-            }
-            Layer.closeAll();
-         })
-      },
 
-      selectBus: function (busid,date) {
-         var self = this;
-         Layer.open({
-            content:"加载中",
-            type:2,
-            shadeClose:false,
-            shade:"background-color:rgba(0,0,0,0)"
-         });
-         Service.getBusSeat({bus:busid,date:date},function (rep) {
-            Layer.closeAll();
             if(rep.Code == 0){
-               self.bus = rep.Response;
-               var router = new Router();
-               return router.setRoute("bus");
+               self.result =self._checkOutBus(self.filterBus(rep.Response));
             }
+            Layer.closeAll();
          })
       },
 
+      selectBus: function (busid,date,off) {
+         if(off){
+            return Layer.open({
+               content: "已超过订车时间，请选择其他班车。",
+               btn:["确定"]
+            });
+         }else{
+            var self = this;
+            Layer.open({
+               content:"加载中",
+               type:2,
+               shadeClose:false,
+               shade:"background-color:rgba(0,0,0,0)"
+            });
+            Service.getBusSeat({bus:busid,date:date},function (rep) {
+               Layer.closeAll();
+               if(rep.Code == 0){
+                  self.bus = rep.Response;
+                  var router = new Router();
+                  return router.setRoute("bus");
+               }
+            })
+         }
+      },
       toRouter: function (url) {
          var router = new Router();
          return router.setRoute(url);
       },
-
       filterBus: function (data) {
-		 return Service.filterBus(data);
+         return Service.filterBus(data);
+      },
+      _checkOutBus: function (data) {
+         var now = Date.parse(new Date());
+         for(var i in data){
+            var t = Date.parse(new Date(data[i].date.replace(/-/g,"/")));
+            if(now > t){
+               data[i].offTime = true;
+            }else{
+               data[i].offTime = false;
+            }
+         }
+         return data;
+
       }
    },
    computed:{

@@ -13,7 +13,7 @@ html{_background-image:url(about:blank); _background-attachment:fixed;}
 .laydate-icon-danlan,
 .laydate-icon-dahong,
 .laydate-icon-molv{height:22px; line-height:22px; padding-right:20px; border:1px solid #C6C6C6; background-repeat:no-repeat; background-position:right center;  background-color:#fff; outline:0;}
-.laydate-icon-default{ background-image:url(../skins/default/icon.png)}
+.laydate-icon-default{ background-image:url(/admin/static/js/laydate/skins/default/icon.png)}
 .laydate-icon-danlan{border:1px solid #B1D2EC; background-image:url(../skins/danlan/icon.png)}
 .laydate-icon-dahong{background-image:url(../skins/dahong/icon.png)}
 .laydate-icon-molv{background-image:url(/admin/static/js/laydate/skins/molv/icon.png)}

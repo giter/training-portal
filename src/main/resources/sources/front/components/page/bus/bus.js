@@ -127,8 +127,8 @@ module.exports = Vue.extend({
                     callback?callback.call(this,rep.Response):null;
                     self.reloadSeat();
                 }else{
-					alert(rep.Message);
-				}
+                    alert(rep.Message);
+                }
             });
         },
         renderScroll: function () {
@@ -212,6 +212,22 @@ module.exports = Vue.extend({
         },
         selectUser: function (u) {
             this.selectDelegate = u;
+        },
+        getBus: function (callback) {
+            var self = this;
+            Layer.open({
+                content:"Мгдижа",
+                type:2,
+                shadeClose:false,
+                shade:"background-color:rgba(0,0,0,0)"
+            });
+            Service.getBusSeat({bus:this.busQuery.id,date:this.busQuery.date},function (rep) {
+                Layer.closeAll();
+                if(rep.Code == 0){
+                    self.bus = rep.Response;
+                    callback.call(this);
+                }
+            })
         }
     },
     ready: function () {
@@ -220,7 +236,30 @@ module.exports = Vue.extend({
             router.setRoute("search");
             window.location.reload();
         }
-        this.renderScroll();
-        this.getDelegate();
+
+        var self = this;
+
+        this.getBus(
+            function () {
+                Vue.nextTick(function () {
+                    self.renderScroll();
+                    self.getDelegate();
+                })
+            }
+        );
+
+
+        this.$on("busQuery", function () {
+            this.getBus(
+                function () {
+                    Vue.nextTick(function () {
+                        self.renderScroll();
+                        self.getDelegate();
+                    })
+                }
+            );
+        })
+
+
     }
 });
