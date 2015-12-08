@@ -59,8 +59,7 @@ window.app = new Vue({
                 }
             });
         }else{
-            alert("请在微信中打开");
-            window.location.href = "http://mp.weixin.qq.com/s?__biz=MzIxOTEwMDcwOQ==&mid=400376477&idx=1&sn=aaf861f22ac9ffc3a18bf13eaf858eb7&scene=18#wechat_redirect";
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=xx&connect_redirect=1#wechat_redirect";
         }
     }
 });
