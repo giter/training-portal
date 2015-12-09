@@ -26,7 +26,7 @@ window.app = new Vue({
         "mine":"",
         "detailTicket":"",
         "beginTime":1800,/*提前30分钟*/
-        "endTime":10800,/*提前30分钟*/
+        "endTime":10800,/*延长三小时*/
         "busQuery":{
             id:"",
             date:"",
@@ -48,7 +48,6 @@ window.app = new Vue({
     },
     ready:function(){
         if(this.is_weixin()){
-
         //if(true){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);

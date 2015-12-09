@@ -26,7 +26,7 @@
             <table class="bus-body">
                 <tr v-repeat="r in bus.rows">
                     <td v-repeat="bus.cols" class="seat" data-id="{{getSeatId(r,$index)}}"  v-on="click:selectSeat(this,r,$index)" v-class="seatClass(r,$index)" style="position: relative;">
-                        <a  v-text="getText(r,$index)"  ></a>
+                        <button  v-text="getText(r,$index)"  ></button>
                         <p class="user-name" v-text="getSeatUserName(r,$index)"></p>
                     </td>
                 </tr>
