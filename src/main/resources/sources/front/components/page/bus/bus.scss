@@ -48,7 +48,7 @@
       background-color: #B8BA98;
     }
 
-    a{
+    button{
       height: 15px;
       width: 15px;
       vertical-align: middle;
@@ -73,10 +73,12 @@
       float: right;
       padding: 4px;
       margin-right: 15px;
-      a{
+      button{
         color: #fff;
         font-size: 12px;
         font-weight: normal;
+        border: none;
+        background: #B8BA98;;
       }
     }
 
@@ -95,7 +97,7 @@
     }
 
     @media screen and (max-width: 768px){
-      a{
+      button{
         display: block;
         height: 50px;
         color: #60418c;
@@ -105,13 +107,14 @@
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
+        border: none;
       }
 
     }
 
     @media screen and (min-width: 768px){
 
-      a{
+      button{
         display: block;
         height: 100px;
         color: #60418c;
@@ -121,13 +124,14 @@
         background-position: center;
         background-size: contain;
         background-repeat: no-repeat;
+        border: none;
       }
 
     }
 
     td.icon-seat-void {
       width: inherit;
-      a{
+      button{
         background-image:url("/static/images/seat-void.png");
         width: 100%;
         color: #fff;
@@ -136,7 +140,7 @@
 
     td.icon-seat-order{
       width: inherit;
-      a{
+      button{
         background-image:url("/static/images/seat-order.png");
         width: 100%;
         color: #fff;
@@ -145,7 +149,7 @@
 
     td.icon-seat-select{
       width: inherit;
-      a{
+      button{
         background-image:url("/static/images/seat-select.png") !important;
         color: yellow;
         width: 100%;

@@ -37,6 +37,11 @@ module.exports = Vue.extend({
         reload: function () {
             this.render();
         },
+        getSourceName: function (o) {
+            if(o){
+                return o.name;
+            }
+        },
         unSub: function (o) {
             var self = this;
             Layer.open({

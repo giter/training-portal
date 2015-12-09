@@ -24,7 +24,7 @@ window.app = new Vue({
         "mine":"",
         "detailTicket":"",
         "beginTime":1800,/*提前30分钟*/
-        "endTime":10800,/*提前30分钟*/
+        "endTime":10800,/*延长三小时*/
         "busQuery":{
             id:"",
             date:"",
@@ -45,9 +45,8 @@ window.app = new Vue({
       }
     },
     ready:function(){
-        //if(this.is_weixin()){
-
-        if(true){
+        if(this.is_weixin()){
+        //if(true){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;
@@ -57,8 +56,7 @@ window.app = new Vue({
                 }
             });
         }else{
-            alert("请在微信中打开");
-            window.location.href = "http://mp.weixin.qq.com/s?__biz=MzIxOTEwMDcwOQ==&mid=400376477&idx=1&sn=aaf861f22ac9ffc3a18bf13eaf858eb7&scene=18#wechat_redirect";
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=xx&connect_redirect=1#wechat_redirect";
         }
     }
 });
