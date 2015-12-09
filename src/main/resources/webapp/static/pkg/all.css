@@ -54,16 +54,20 @@
       margin-right: 5%;
       color: #fff;
       background-color: #B8BA98; }
-    .page-bus .bus-header button {
+    .page-bus .bus-header .void {
+      background-color: #007aff;
       height: 15px;
       width: 15px;
       vertical-align: middle;
       display: inline-block;
       margin-left: 5px; }
-    .page-bus .bus-header .void {
-      background-color: #007aff; }
     .page-bus .bus-header .order {
-      background-color: #B8BA98; }
+      background-color: #B8BA98;
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-left: 5px; }
   .page-bus .bus-body {
     width: 100%;
     text-align: center;
@@ -665,16 +669,20 @@ select.form-control {
       margin-right: 5%;
       color: #fff;
       background-color: #B8BA98; }
-    .page-bus .bus-header button {
+    .page-bus .bus-header .void {
+      background-color: #007aff;
       height: 15px;
       width: 15px;
       vertical-align: middle;
       display: inline-block;
       margin-left: 5px; }
-    .page-bus .bus-header .void {
-      background-color: #007aff; }
     .page-bus .bus-header .order {
-      background-color: #B8BA98; }
+      background-color: #B8BA98;
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-left: 5px; }
   .page-bus .bus-body {
     width: 100%;
     text-align: center;
