@@ -23,6 +23,7 @@ import com.aomi.busorder.pojo.User;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.Bytes;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -79,10 +80,11 @@ public class TicketService {
   public Ticket take(String id, User user, User source) {
 
     DBObject query = BasicDBObjectBuilder.start().add("_id", id)
-        .push("user._id").add("$exists", false).pop().get();
+        .push(Ticket.FIELD_USER + "." + User.FIELD_ID).add("$exists", false)
+        .pop().get();
 
     DBObject update = BasicDBObjectBuilder.start().push("$set")
-        .add(Ticket.FIELD_USER, user).add("source", source).get();
+        .add(Ticket.FIELD_USER, user).add(Ticket.FIELD_SOURCE, source).get();
 
     return (Ticket) dao.ticket.findAndModify(query, update);
   }
@@ -368,7 +370,13 @@ public class TicketService {
   @SuppressWarnings("unchecked")
   public List<Ticket> page(TicketParam param) {
 
-    DBCursor cursor = dao.ticket.find(query(param)).sort(
+    DBCollection coll = dao.ticket;
+
+    if (param.isOld()) {
+      coll = dao.oldticket;
+    }
+
+    DBCursor cursor = coll.find(query(param)).sort(
         BasicDBObjectBuilder.start(Ticket.FIELD_ID, -1).get());
 
     if (param != null && param.getLimit() > 0) {

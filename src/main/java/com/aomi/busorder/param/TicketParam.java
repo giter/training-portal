@@ -4,6 +4,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class TicketParam extends PageParam {
 
+  private boolean old;
+
   private String uid;
 
   private String by;
@@ -72,5 +74,13 @@ public class TicketParam extends PageParam {
 
   public void setOverlapping(Pair<String, String> overlapping) {
     this.overlapping = overlapping;
+  }
+
+  public boolean isOld() {
+    return old;
+  }
+
+  public void setOld(boolean old) {
+    this.old = old;
   }
 }
