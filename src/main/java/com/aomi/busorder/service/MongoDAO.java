@@ -14,6 +14,7 @@ import com.aomi.busorder.pojo.Trace;
 import com.aomi.busorder.pojo.User;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
@@ -87,10 +88,15 @@ public class MongoDAO implements InitializingBean {
     ticket.setInternalClass(Ticket.FIELD_BUS, Bus.class);
     ticket.setInternalClass(Ticket.FIELD_SEAT, Seat.class);
 
-    ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
-        .add("seat._id", 1).get());
-    ticket.createIndex(BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1)
-        .add("user._id", 1).get());
+    for (DBObject i : new DBObject[] {
+        BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1).add("seat._id", 1)
+            .get(),
+        BasicDBObjectBuilder.start(Ticket.FIELD_DATE, 1).add("user._id", 1)
+            .get() }) {
+
+      ticket.createIndex(i);
+      oldticket.createIndex(i);
+    }
 
     authorize = client.getDB(dbName).getCollection(COLLECTION_NAME_AUTHORIZE);
     authorize.setObjectClass(Authorize.class);
