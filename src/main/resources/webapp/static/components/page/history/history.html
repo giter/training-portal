@@ -10,7 +10,7 @@
             <div class="mui-input-group">
                 <div class="mui-input-row">
                     <label>查询日期</label>
-                    <input type="button" v-on="click:showDatePicker" v-attr="value:date" style="height: 40px" >
+                    <input type="button" v-on="click:showDatePicker" v-attr="value:date||'请选择时间'" style="height: 40px" >
                 </div>
             </div>
         </div>
@@ -25,6 +25,7 @@
                 </a>
             </li>
         </ul>
+        <h5 v-show="date!=''&&order.length==0" style="margin-top: 10px;text-align: center" class="text-center" >对不起，没有查询到您的相关订票记录。</h5>
     </div>
 </div>
 
