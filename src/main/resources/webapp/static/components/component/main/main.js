@@ -113,6 +113,12 @@ router.on("/list",function(){
     })
 });
 
+router.on("/history",function(){
+    require.async(["components/page/history/history"], function (p) {
+        doRouter("history",p);
+    })
+});
+
 router.on("/search",function(){
     require.async(["components/page/search/search"], function (p) {
         doRouter("search",p);

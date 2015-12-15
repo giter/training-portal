@@ -139,8 +139,8 @@ module.exports = Vue.extend({
                 scrollX: true,
                 scrollY: true,
                 mouseWheel: true,
-                wheelAction: 'zoom'
-              
+                wheelAction: 'zoom',
+                preventDefault:false
             });
         },
         reloadSeat: function () {
