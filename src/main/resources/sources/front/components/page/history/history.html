@@ -1,0 +1,31 @@
+<div class="page-history">
+    <header class="mui-bar-nav mui-bar">
+        <h5 class="mui-title">
+            历史订单
+        </h5>
+        <a class="mui-icon mui-icon-arrowleft" href="#config"></a>
+    </header>
+    <div class="mui-content " style="height: {{height}}px;overflow-y:auto">
+        <div class="mui-card">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>查询日期</label>
+                    <input type="button" v-on="click:showDatePicker" v-attr="value:date||'请选择时间'" style="height: 40px" >
+                </div>
+            </div>
+        </div>
+        <ul class="mui-table-view" v-show="order.length>0" style="margin-top: 10px;">
+            <li class="mui-table-view-cell mui-media" v-repeat="o in order">
+                <a>
+                    <img style="width: 42px;" class="mui-media-object mui-pull-left" v-attr="src:o.bus.src||'/admin/static/images/128.png'">
+                    <div class="mui-media-body">
+                        <h4 class="mui-ellipsis-2"  style="color: blue;font-weight: bold;font-size: 14px;"> {{o.bus.line}}</h4>
+                        <p class="mui-ellipsis-2" style="padding-right: 55px;">{{o.user.name}}<span v-show="o.source" class="mui-badge mui-badge-warning">{{getSourceName(o.source)}} 代</span> {{o.bus.name}} {{o.seat.sn}}座 {{o.bus.goff}} 出发</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <h5 v-show="date!=''&&order.length==0" style="margin-top: 10px;text-align: center" class="text-center" >对不起，没有查询到您的相关订票记录。</h5>
+    </div>
+</div>
+

@@ -45,6 +45,7 @@ window.app = new Vue({
       }
     },
     ready:function(){
+
         if(this.is_weixin()){
         //if(true){
             this.openid = Service.getQueryString("openID");
@@ -108,6 +109,12 @@ router.on("/order/:id",function(id){
 router.on("/list",function(){
     require.async(["page/list/list.js"], function (p) {
         doRouter("list",p);
+    })
+});
+
+router.on("/history",function(){
+    require.async(["page/history/history.js"], function (p) {
+        doRouter("history",p);
     })
 });
 

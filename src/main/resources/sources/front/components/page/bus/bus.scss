@@ -48,25 +48,28 @@
       background-color: #B8BA98;
     }
 
-    button{
+
+    .void{
+      background-color: #007aff;
       height: 15px;
       width: 15px;
       vertical-align: middle;
       display: inline-block;
       margin-left: 5px;
     }
-    .void{
-      background-color: #007aff;
-    }
     .order{
       background-color: #B8BA98;
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+      display: inline-block;
+      margin-left: 5px;
     }
   }
   .bus-body{
     width: 100%;
     text-align: center;
     background-color: #fff;
-
 
     .bus-text{
       background-color: #B8BA98;
@@ -128,7 +131,6 @@
       }
 
     }
-
     td.icon-seat-void {
       width: inherit;
       button{
@@ -156,8 +158,6 @@
       }
     }
 
-
-
   }
 
   .silder-nav{
@@ -182,7 +182,6 @@
       border-bottom: 1px solid #666;
     }
   }
-
 
   .input-select{
     height: 21px;
