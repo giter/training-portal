@@ -204,10 +204,13 @@ public class UserCtrl {
 
     User user = userService.getByOpenID(openID);
 
-    user.setOpenID(null);
-    userService.save(user);
+    if (user != null) {
 
-    return RESTResponse.of("OK").toString();
+      userService.save(user.setOpenID(null));
+      return RESTResponse.of("OK").toString();
+    }
+
+    return RESTResponse.of(1, "FAIL").toString();
   }
 
   @ResponseBody
