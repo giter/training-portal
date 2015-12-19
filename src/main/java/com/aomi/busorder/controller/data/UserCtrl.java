@@ -196,6 +196,21 @@ public class UserCtrl {
   }
 
   @ResponseBody
+  @RequestMapping(value = "/data/user/unbind.json", method = { RequestMethod.GET })
+  public String unbind(HttpSession session, HttpServletRequest request)
+      throws IOException {
+
+    String openID = (String) session.getAttribute("openID");
+
+    User user = userService.getByOpenID(openID);
+
+    user.setOpenID(null);
+    userService.save(user);
+
+    return RESTResponse.of("OK").toString();
+  }
+
+  @ResponseBody
   @RequestMapping(value = "/data/user/bind.json", method = { RequestMethod.POST })
   public String bind(HttpServletRequest request) throws IOException {
 
