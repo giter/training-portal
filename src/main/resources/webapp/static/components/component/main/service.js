@@ -144,6 +144,9 @@ function delRel(id,c){
     $.del(prefix + "/data/user/relation/"+id+".json",c);
 }
 
+function unbind(c){
+    $.get(prefix + "/data/user/unbind.json",c);
+}
 
 function getHashString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

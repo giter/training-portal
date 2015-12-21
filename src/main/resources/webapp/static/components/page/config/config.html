@@ -55,7 +55,7 @@
                         </a>
                     </li>
                 </ul>
-                <ul class="mui-table-view mui-list" style="margin-top: 25px;margin-bottom: 60px;">
+                <ul class="mui-table-view mui-list" style="margin-top: 25px;">
                     <i class=" mui-pull-left iconfont icon-time"></i>
                     <li class="mui-table-view-cell">
                         <a class="mui-navigate-right" href="#history">
@@ -69,6 +69,11 @@
                         </a>
                     </li>
                 </ul>
+                <div class="mui-content-padded" style="margin-top: 25px;margin-bottom: 60px;">
+                    <button v-on="click:unBind" class="mui-btn mui-btn-block mui-btn-warning" style="padding: 8px;">
+                        解除绑定
+                    </button>
+                </div>
             </div>
         </div>
     </div>
