@@ -36,7 +36,7 @@ module.exports = Vue.extend({
                     Layer.closeAll();
                     if(rep.Code == 0){
                         Layer.open({
-                            content:rep.Response,
+                            content:rep.Response.value,
                             btn:["确定"],
                             yes: function () {
                                 WeixinJSBridge.call('closeWindow');
