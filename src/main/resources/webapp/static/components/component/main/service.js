@@ -287,7 +287,8 @@ module.exports = {
     getRel:getRel,
     delRel:delRel,
 	getContext:getContext,
-	filterBus: filterBus
+	filterBus: filterBus,
+    unbind:unbind
 };
 
 });
