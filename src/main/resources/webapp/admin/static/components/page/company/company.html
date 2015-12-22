@@ -41,7 +41,7 @@
                 <th width="200">合作单位</th>
                 <th width="200">手机号码</th>
                 <th width="100">用户类型</th>
-                <th width="120" v-show="user.booktype==1">到期时间</th>
+                <th width="120" >到期时间</th>
                 <th width="120">状态</th>
                 <th width="100">操作</th></tr>
             <tr v-repeat="c in users">
@@ -50,8 +50,12 @@
                 <td>{{c.company}}</td>
                 <td>{{c.mobile}}</td>
                 <td>{{c.booktype==1?"短期用户":"长期用户"}}</td>
-                <td v-show="user.booktype==1">{{c.effective}}</td>
-                <td><span class="badge bg-green">审核通过</span></td>
+                <td >{{c.effective}}</td>
+                <td ><span class="badge bg-green" v-show="c.zt==2">审核通过</span>
+                     <span class="badge bg-yellow" v-show="c.zt==0">待审核</span>
+                     <span class="badge bg-red" v-show="c.zt==1">审核中</span>
+                     <span class="badge bg-red" v-show="c.zt==3">审核未通过</span>
+                </td>
                 <td><a v-on="click:editUser(c)" class="button border-blue button-little" href="javascript:;">修改</a> <a class="button border-yellow button-little" v-on="click:delUser(c._id)" href="javascript:;">删除</a> </td></tr>
         </table>
 
@@ -74,6 +78,15 @@
                             <div class="field">
                                 <input type="text" class="input" v-model="user.name" placeholder="请填写用户名">
                                 <div v-show="!validation.name" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                身份证号
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input"  v-model="user.sn" placeholder="请填写身份证号">
+                                <div v-show="!validation2.sn" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -103,6 +116,24 @@
                                 <div v-show="!validation.mobile" class="input-help  check-error"><ul><li>请填写正确手机号码</li></ul></div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="label">
+                                到期时间
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input" id="effective" v-model="user.effective" placeholder="请填写到期时间">
+                                <div v-show="!validation2.effective" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                原因
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input"  v-model="user.yy" placeholder="请填写原因">
+                                <div v-show="!validation2.yy" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="dialog-body" v-show="user.booktype==1">
@@ -114,6 +145,15 @@
                             <div class="field">
                                 <input type="text" class="input" v-model="user.name" placeholder="请填写用户名">
                                 <div v-show="!validation2.name" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                身份证号
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input"  v-model="user.sn" placeholder="请填写身份证号">
+                                <div v-show="!validation2.sn" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -139,8 +179,17 @@
                                 到期时间
                             </div>
                             <div class="field">
-                                <input type="text" class="input" id="effective" v-model="user.effective" placeholder="请填写到期时间">
+                                <input type="text" class="input"  v-model="user.effective" placeholder="请填写到期时间">
                                 <div v-show="!validation2.effective" class="input-help  check-error"><ul><li>必填</li></ul></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">
+                                原因
+                            </div>
+                            <div class="field">
+                                <input type="text" class="input"  v-model="user.yy" placeholder="请填写原因">
+                                <div v-show="!validation2.yy" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
                         </div>
                     </div>

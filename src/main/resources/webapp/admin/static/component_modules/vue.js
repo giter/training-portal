@@ -6110,7 +6110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // jQuery variable in tests.
 	    this.hasjQuery = typeof jQuery === 'function'
 	    if (this.hasjQuery) {
-	      jQuery(el).on(this.event, this.listener)
+	      jQuery(el).bind(this.event, this.listener)
 	    } else {
 	      _.on(el, this.event, this.listener)
 	    }
@@ -6147,7 +6147,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  unbind: function () {
 	    var el = this.el
 	    if (this.hasjQuery) {
-	      jQuery(el).off(this.event, this.listener)
+            typeof jQuery.fn.off == "function"?jQuery(el).off(this.event, this.listener):jQuery(el).unbind(this.event, this.listener);
 	    } else {
 	      _.off(el, this.event, this.listener)
 	    }

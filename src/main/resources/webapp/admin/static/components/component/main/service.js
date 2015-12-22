@@ -26,7 +26,13 @@ $.put = function (url,data,callback) {
         url:url
     })
 };
-
+function getDepts(p){
+    $.get(prefix+ "/data/user/finddepts.json",p,"json");
+}
+function getUsersa(p,c){
+    p.stamp = Math.random();
+    $.get(prefix+ "/data/user/finddeptuser.json",p, c,"json");
+}
 
 function getUsers(p,c){
     p.stamp = Math.random();
@@ -171,7 +177,10 @@ module.exports = {
     unTicket:unTicket,
     getTraces:getTraces,
 	getContext:getContext,
-	putContext:putContext
+	
+	putContext:putContext,
+    getDepts:getDepts,
+    getUsersa:getUsersa
 };
 
 });
