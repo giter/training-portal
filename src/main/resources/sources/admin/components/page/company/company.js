@@ -15,6 +15,8 @@ var _user = {
    "admin":0,
    "company":"",
    "effective":"",
+    "yy":"",
+    "sn":"",
    "booktype":"0",
    "type":1  //0 普通用户 1 外包用户
 }
@@ -138,6 +140,9 @@ module.exports = Vue.extend({
          this.user.company = "";
          this.user.effective = "";
          this.user.mobile = "";
+          this.user.yy = "";
+          this.user.sn = "";
+          this.user.zt = "0";
       },
       filterCompanies: function () {
          var self = this;
@@ -160,6 +165,8 @@ module.exports = Vue.extend({
             name: Check.check(this.user.name,"required"),
             effective: Check.check(this.user.effective,"required"),
             company: Check.check(this.user.company,"required"),
+             yy: Check.check(this.user.yy,"required"),
+             sn: Check.check(this.user.sn,"required"),
             mobile: Check.check(this.user.mobile,"mobile")
          }
       },
