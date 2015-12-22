@@ -43,6 +43,7 @@ module.exports = Vue.extend({
    },
    watch:{
       "page": function (p) {
+          alert(1)
          this.page = p;
          this.onTreepage();
       }
@@ -224,10 +225,10 @@ module.exports = Vue.extend({
              this.mask = $(".dialog-mask");
          },
        onTreepage:function(){
-           alert(this.level)
+alert(2)
            var aa=this;
            //this.users = [];
-           Service.getUsersa({page:aa.page,limit:aa.limit,type:aa.user.type,email:this.query.email?this.query.email:undefined,name:this.query.name?this.query.name:undefined,namea: aa.name? aa.name:undefined,level: aa.level? aa.level:undefined},function (rep) {
+           Service.getUsersa({page:aa.page,limit:aa.limit,type:aa.user.type,email:this.query.email?this.query.email:undefined,name:this.query.name?this.query.name:undefined,namea: aa.namea? aa.namea:undefined,level: aa.level? aa.level:undefined},function (rep) {
                if(rep.Code == 0){
                    aa.users = rep.Response.lists;
                    aa.count = rep.Response.count;
