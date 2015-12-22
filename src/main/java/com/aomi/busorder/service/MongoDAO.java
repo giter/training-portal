@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.aomi.busorder.pojo.Authorize;
 import com.aomi.busorder.pojo.Bus;
+import com.aomi.busorder.pojo.Dept;
 import com.aomi.busorder.pojo.Seat;
 import com.aomi.busorder.pojo.Ticket;
 import com.aomi.busorder.pojo.Trace;
@@ -36,6 +37,8 @@ public class MongoDAO implements InitializingBean {
   private static final String COLLECTION_NAME_TRACE = "trace";
 
   private static final String COLLECTION_NAME_SYSTEM = "system";
+  
+  private static final String COLLECTION_NAME_DEPT = "dept";
 
   @Value("${mongodb.db}")
   String dbName;
@@ -61,6 +64,8 @@ public class MongoDAO implements InitializingBean {
   public DBCollection oldticket;
 
   public DBCollection authorize;
+  
+  public DBCollection dept;
 
   @Override
   public void afterPropertiesSet() throws Exception {
@@ -74,6 +79,9 @@ public class MongoDAO implements InitializingBean {
 
     bus = client.getDB(dbName).getCollection(COLLECTION_NAME_BUS);
     bus.setObjectClass(Bus.class);
+    
+    dept = client.getDB(dbName).getCollection(COLLECTION_NAME_DEPT);
+    dept.setObjectClass(Dept.class);
 
     seat = client.getDB(dbName).getCollection(COLLECTION_NAME_SEAT);
     seat.setObjectClass(Seat.class);
