@@ -140,7 +140,6 @@ module.exports = Vue.extend({
                 scrollY: true,
                 mouseWheel: true,
                 wheelAction: 'zoom'
-               
             });
         },
         reloadSeat: function () {
