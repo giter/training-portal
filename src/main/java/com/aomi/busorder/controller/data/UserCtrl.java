@@ -33,9 +33,11 @@ import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.param.UserParam;
 import com.aomi.busorder.pojo.Authorize;
+import com.aomi.busorder.pojo.Dept;
 import com.aomi.busorder.pojo.Trace.TraceAction;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.AuthorizeService;
+import com.aomi.busorder.service.DeptService;
 import com.aomi.busorder.service.MailService;
 import com.aomi.busorder.service.TraceService;
 import com.aomi.busorder.service.UserService;
@@ -55,6 +57,9 @@ public class UserCtrl {
 
   @Resource
   UserService userService;
+  
+  @Resource
+  DeptService deptService;
 
   @Resource
   AuthorizeService authorizeService;
@@ -468,5 +473,224 @@ public class UserCtrl {
     response.sendError(400, "Bad Request.");
     return null;
   }
+  /**
+   * 审批页面
+   * @param open
+   * @param session
+   * @param response
+   * @return
+   * @throws IOException
+   * @throws WxErrorException
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/finduser.json", method = { RequestMethod.GET })
+  public String finduser(
+      @RequestParam(value = "openID", required = false) String open,
+      HttpSession session) {
+	  String openID = (String) session.getAttribute("openID");
+      User user = userService.getByOpenID(openID);
+      User user1=new User();
+	  user1.setAdmin(1);
+	  user1.setDepartment(user.getDepartment());
+	  List<User> list=userService.findusers(user1);
+	  List<User> users=new ArrayList();
+	  List<User> users1=new ArrayList();
+	  String id="";
+	  if(!list.isEmpty()){
+		 
+		 for(int j=0;j<list.size();j++){
+			 id=list.get(j).get_id();
+			 if(user.getAdmin()==4){
+		    	  User user2=new User();
+				  user2.setCreator(id);
+				  user2.setType(1);
+				  user2.setZt("0");
+				  users1=userService.findusers(user2);
+				  users.addAll(users1);
+		    	  
+		      }
+		 }
+		 if(user.getAdmin()==4&&user.getDepartment().equals("公司办公室")){
+  		   
+    		 User user3=new User();
+   		     user3.setType(1);
+   		     user3.setZt("1");
+   		     users.addAll(userService.findusers(user3));
+    	  }
+	  }
+      
 
+    return RESTResponse.of(users).toString();
+  }
+  /**
+   * 全部通过
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   * @throws IOException
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/approveusers.json", method = { RequestMethod.GET })
+  public String approveusers(
+      @RequestParam(value = "_id", required = false) String _id,
+      HttpSession session, HttpServletResponse response) throws IOException {
+	  String openID = (String) session.getAttribute("openID");
+      User user = userService.getByOpenID(openID);
+      User user1=new User();
+	  user1.setAdmin(1);
+	  user1.setDepartment(user.getDepartment());
+	  List<User> list=userService.findusers(user1);
+	  List<User> users=new ArrayList();
+	  List<User> users1=new ArrayList();
+	  String id="";
+	  if(!list.isEmpty()){
+		 
+		 for(int j=0;j<list.size();j++){
+			 id=list.get(j).get_id();
+			 if(user.getAdmin()==4){
+		    	  User user2=new User();
+				  user2.setCreator(id);
+				  user2.setType(1);
+				  user2.setZt("0");
+				  users1=userService.findusers(user2);
+				  users.addAll(users1);
+		    	  
+		      }
+		 }
+		 if(user.getAdmin()==4&&user.getDepartment().equals("公司办公室")){
+  		   
+    		 User user3=new User();
+   		     user3.setType(1);
+   		     user3.setZt("1");
+   		     users.addAll(userService.findusers(user3));
+    	  }
+	  }
+      for(int i=0;i<users.size();i++){
+      if(user.getDepartment().equals("公司办公室")){
+    	  userService.save(users.get(i).setZt("2"));  	  
+      }else{
+    	  userService.save(users.get(i).setZt("1")); 
+      }
+      }
+
+    return RESTResponse.of(users).toString();
+  }
+  /**
+   * 审批通过
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/approveuser.json", method = { RequestMethod.GET })
+  public String approveuser(
+      @RequestParam(value = "_id", required = false) String _id,
+      HttpSession session, HttpServletResponse response){
+	  User user=new User();
+	  user=userService.get(_id);
+	  String openID = (String) session.getAttribute("openID");
+      User user1 = userService.getByOpenID(openID);
+      
+      if(user1.getDepartment().equals("公司办公室")){
+    	  userService.save(user.setZt("2")); 	  
+      }else{
+    	  userService.save(user.setZt("1")); 
+      }
+	  
+
+    return RESTResponse.of(user).toString();
+  }
+  /**
+   * 审批不通过
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/unapproveuser.json", method = { RequestMethod.GET })
+  public String unapproveuser(
+      @RequestParam(value = "_id", required = false) String _id,
+      HttpSession session, HttpServletResponse response){
+	  User user=new User();
+	  user=userService.get(_id);	     
+      userService.save(user.setZt("3")); 	  
+
+    return RESTResponse.of(user).toString();
+  }
+  /**
+   * 审批详情
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/findapproveuser.json", method = { RequestMethod.GET })
+  public String findapproveuser(
+      @RequestParam(value = "_id", required = false) String _id,
+      HttpSession session, HttpServletResponse response){
+	  User user=new User();
+	  user=userService.get(_id);	     
+	  
+    return RESTResponse.of(user).toString();
+  }
+  /**
+   * 查找所有部门
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/finddepts.json", method = { RequestMethod.GET })
+  public String findDept(
+      @RequestParam(value = "id", required = false) String id,
+      HttpSession session, HttpServletResponse response){
+	  Dept dept=new Dept();
+	  List<Dept> depts=deptService.finddepts(dept);
+	     
+	  
+    return RESTResponse.of(depts).toString();
+  }
+  /**
+   * 查找所有部门
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/user/finddeptuser.json", method = { RequestMethod.GET })
+  public String findDeptuser(
+      @RequestParam(value = "level") Integer level,@RequestParam(value = "namea", required = false) String name,
+      @ModelAttribute UserParam userParam,
+      HttpSession session, HttpServletResponse response){
+	 // User user=new User();
+	 // if(level==2){
+	//	  user.setUnit(name);
+	//  }else if(level==1){
+	//	  user.setDepartment(name);
+	//  }
+	//  List<User> users=userService.findusers(user);
+	      
+	  
+   // return RESTResponse.of(users).toString();
+    
+   // UserParam userParam=new UserParam();
+    User admin = userService.get(session.getAttribute("admin").toString());
+  //  userParam.setName(null);
+    if (admin.getAdmin() > 1) {
+      userParam.setCreator(session.getAttribute("admin").toString());
+    }
+    if(level==2){
+    	userParam.setUnit(name);
+	  }else if(level==1){
+		  userParam.setDepartment(name);
+	  }
+    return RESTResponse.of(
+        Page.of(userService.count(userParam), userService.page(userParam))).toString();
+  }
 }
