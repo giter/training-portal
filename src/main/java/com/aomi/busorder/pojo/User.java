@@ -65,6 +65,9 @@ public class User extends Basic<User> {
 
   /**
    * 管理员标志
+   * 1管理员
+   * 3订票员
+   * 4处室负责人
    */
   public static final String FIELD_ADMIN = "admin";
 
@@ -112,7 +115,21 @@ public class User extends Basic<User> {
    * 创建人
    */
   public static final String FIELD_CREATOR = "creator";
+  
+  /***
+   * 状态 0 待审批  1 审批中 2 审批通过  3审批未通过 
+   */
+  public static final String ZT = "zt";
+  
+  public String getZt() {
 
+	 return getString(ZT);
+  }
+
+  public User setZt(String zt) {
+	 put(ZT, zt);
+	 return this;
+  }
   public int getType() {
 
     return getInt(FIELD_TYPE, 0);
