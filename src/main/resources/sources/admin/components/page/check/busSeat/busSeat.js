@@ -69,12 +69,34 @@ module.exports = Vue.extend({
             if(seat){
                 var seat = JSON.parse(seat);
                 if(seat.entity.user){
-                    return seat.entity.user.name;
+                    var a=seat.entity.user.name;
+                    var b=seat.entity.user.department;
+                    var c=a+"("+b+")";
+                    return c;
+
                 }
             }
 
 			return "";
         },
+
+       getSeatUserSource: function (r,c) {
+
+           var seat = this.getSeatId(r,c);
+
+           if(seat){
+               var seat = JSON.parse(seat);
+               if(seat.entity.source){
+                   var a=seat.entity.source.name;
+                   var b=seat.entity.source.department;
+                   var c="代订人："+a+"("+b+")";
+                   return c;
+               }
+           }
+
+           return "";
+       },
+
 
       clickSeat: function (e,r,c) {
          var $t = $(e.$el);
