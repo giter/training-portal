@@ -1,0 +1,61 @@
+
+<div class="page-search-result" >
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" href="#approve"></a>
+        <h5 class="mui-title">
+            合作单位人员审批
+        </h5>
+
+    </header>
+
+
+
+
+    <div class="mui-content" >
+
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media" >
+                <div class="mui-media-body" >
+                    <table class="table">
+
+                        <tr >
+                            <td>姓名：</td>
+                            <td>{{user.name}}</td>
+
+                        </tr>
+                        <tr >
+                            <td>电话：</td>
+                            <td>{{user.mobile}}</td>
+
+                        </tr>
+                        <tr >
+                            <td>身份证号：</td>
+                            <td>{{user.mobile}}</td>
+
+                        </tr>
+                        <tr >
+                            <td>单位：</td>
+                            <td>{{user.company}}</td>
+
+                        </tr>
+                        <tr >
+                            <td> 原因：</td>
+                            <td >{{user.yy}}</td>
+
+                        </tr>
+                    </table>
+                </div>
+
+            </li>
+        </ul>
+        <div style="height:50px;"></div>
+    </div>
+    <button class="mui-btn mui-btn-block"  v-on="click:isApprove(user._id)" >
+        <span class="mui-icon mui-icon-search"></span>同意
+    </button>
+    <button class="mui-btn mui-btn-block"  v-on="click:unApprove(user._id)" >
+        <span class="mui-icon mui-icon-search"></span>不同意
+    </button>
+
+
+</div>
