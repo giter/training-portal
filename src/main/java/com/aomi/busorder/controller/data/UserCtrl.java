@@ -656,7 +656,7 @@ public class UserCtrl {
     return RESTResponse.of(depts).toString();
   }
   /**
-   * 查找所有部门
+   * 查找所选部门人员
    * @param _id
    * @param session
    * @param response
@@ -692,5 +692,67 @@ public class UserCtrl {
 	  }
     return RESTResponse.of(
         Page.of(userService.count(userParam), userService.page(userParam))).toString();
+  }
+  
+  
+  /**
+   * 新增或更新人员信息
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/insert.json", method = { RequestMethod.GET })
+  public String insertuser(
+      @RequestParam(value = "name") String name, 
+      @RequestParam(value = "email") String email, 
+      @RequestParam(value = "mobile") String mobile,
+      @RequestParam(value = "department") String department,
+      @RequestParam(value = "unit") String unit,
+      HttpSession session, HttpServletResponse response){
+	   User user=new User();
+	   user.setEmail(email);
+	   List<User>list=userService.findusers(user);
+	   if(list.isEmpty()){
+		   user.setName(name);
+		   user.setMobile(mobile);
+		   user.setUnit(unit);
+		   user.setDepartment(department);
+		   user.setType(0);
+		   userService.insert(user);
+	   }else{
+		   user=list.get(0);
+		   user.setName(name);
+		   user.setMobile(mobile);
+		   user.setUnit(unit);
+		   user.setDepartment(department);
+		   userService.save(user);
+	   }
+  
+    return "SUCCESS";
+  }
+  /**
+   * 新增或更新人员信息
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/delete.json", method = { RequestMethod.GET })
+  public String deleteuser(
+    
+      @RequestParam(value = "email") String email,     
+      HttpSession session, HttpServletResponse response){
+	   User user=new User();
+	   user.setEmail(email);
+	   List<User>list=userService.findusers(user);
+	   if(!list.isEmpty()){
+		user= list.get(0);
+		userService.remove(user.get_id());
+	   }
+  
+    return "SUCCESS";
   }
 }
