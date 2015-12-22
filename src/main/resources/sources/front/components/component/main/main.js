@@ -11,6 +11,8 @@ window.app = new Vue({
     el:"#app",
     data:{
         "currentView":"home",
+        "users":[],
+        "user":[],
         "search":{
             "whither":"«Î—°‘Ò",
             "date":null,
@@ -47,7 +49,7 @@ window.app = new Vue({
     ready:function(){
 
         if(this.is_weixin()){
-        //if(true){
+      //  if(true){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;
@@ -117,7 +119,16 @@ router.on("/history",function(){
         doRouter("history",p);
     })
 });
-
+router.on("/approve",function(){
+    require.async(["page/approve/approve.js"], function (p) {
+        doRouter("approve",p);
+    })
+});
+router.on("/approve/approvemore",function(){
+    require.async(["page/approve/approvemore/approvemore.js"], function (p) {
+        doRouter("approvemore",p);
+    })
+});
 router.on("/search",function(){
     require.async(["page/search/search.js"], function (p) {
         doRouter("search",p);

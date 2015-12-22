@@ -1,8 +1,8 @@
 /**
  * Created by jack on 2015/8/17.
  */
-var prefix = "";
-//var prefix = "http://115.159.116.241";
+//var prefix = "http://127.0.0.1:8088";
+var prefix = "http://115.159.116.241";
 
 $.sync = function(url, data){
 	
@@ -53,11 +53,27 @@ $.put = function (url,data,callback) {
     }
 
 };
-
+function findApproveuser(id,p){
+    $.get(prefix+"/data/user/findapproveuser.json",id,p);
+}
+function unApproveuser(id,p){
+    $.get(prefix+"/data/user/unapproveuser.json",id,p);
+}
+function Approveuser(id,p){
+    $.get(prefix+"/data/user/approveuser.json",id,p);
+}
+function approveUsers(p){
+    $.get(prefix+"/data/user/approveusers.json",p);
+}
+function findUsers(p){
+    $.get(prefix+"/data/user/finduser.json",p);
+}
 function userBind(p,c){
     $.post(prefix+"/data/user/bind.json",p,c);
 }
-
+function updateUser(id,p,c){
+    $.put(prefix + "/admin/data/user/"+ id+".json",p,c);
+}
 function getBusSeat(p,c){
     $.get(prefix+"/data/tickets.json",p,c);
 }
@@ -282,5 +298,11 @@ module.exports = {
     getRel:getRel,
     delRel:delRel,
 	getContext:getContext,
-	filterBus: filterBus
+	filterBus: filterBus,
+    updateUser:updateUser,
+    findUsers:findUsers,
+    approveUsers:approveUsers,
+    findApproveuser:findApproveuser,
+    Approveuser:Approveuser,
+        unApproveuser:unApproveuser
 };
