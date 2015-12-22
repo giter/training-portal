@@ -3,69 +3,81 @@
     opacity: 0;
     -webkit-transform: translateY(-20px);
     -moz-transform: translateY(-20px);
-    transform: translateY(-20px); }
-
+    transform: translateY(-20px);
+  }
   100% {
     -webkit-transform: none;
-    transform: none; } }
+    transform: none;
+  }
+}
 
 @-moz-keyframes slideInUp {
   from {
     opacity: 0;
     -webkit-transform: translateY(-20px);
     -moz-transform: translateY(-20px);
-    transform: translateY(-20px); }
-
+    transform: translateY(-20px);
+  }
   100% {
     -webkit-transform: none;
-    transform: none; } }
+    transform: none;
+  }
+}
 
 @keyframes slideInUp {
   from {
     opacity: 0;
     -webkit-transform: translateY(-20px);
     -moz-transform: translateY(-20px);
-    transform: translateY(-20px); }
-
+    transform: translateY(-20px);
+  }
   100% {
     -webkit-transform: none;
-    transform: none; } }
+    transform: none;
+  }
+}
 
 @-webkit-keyframes slideInDown {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, 20px, 0);
     -moz-transform: translate3d(0, 20px, 0);
-    transform: translate3d(0, 20px, 0); }
-
+    transform: translate3d(0, 20px, 0);
+  }
   100% {
     opacity: 1;
     -webkit-transform: none;
-    transform: none; } }
+    transform: none;
+  }
+}
 
 @-moz-keyframes slideInDown {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, 20px, 0);
     -moz-transform: translate3d(0, 20px, 0);
-    transform: translate3d(0, 20px, 0); }
-
+    transform: translate3d(0, 20px, 0);
+  }
   100% {
     opacity: 1;
     -webkit-transform: none;
-    transform: none; } }
+    transform: none;
+  }
+}
 
 @keyframes slideInDown {
   from {
     opacity: 0;
     -webkit-transform: translate3d(0, 20px, 0);
     -moz-transform: translate3d(0, 20px, 0);
-    transform: translate3d(0, 20px, 0); }
-
+    transform: translate3d(0, 20px, 0);
+  }
   100% {
     opacity: 1;
     -webkit-transform: none;
-    transform: none; } }
+    transform: none;
+  }
+}
 
 .slideInDown-transition {
   -webkit-animation-duration: .5s;
@@ -73,62 +85,79 @@
   animation-duration: .5s;
   -webkit-animation-fill-mode: both;
   -moz-animation-fill-mode: both;
-  animation-fill-mode: both; }
+  animation-fill-mode: both;
+}
 
 .slideInDown-enter {
   -webkit-animation-name: slideInDown;
   -moz-animation-name: slideInDown;
-  animation-name: slideInDown; }
+  animation-name: slideInDown;
+}
 
 .slideInDown-leave {
-  display: none; }
+  display: none;
+}
 
 @-webkit-keyframes fadeIn {
   0% {
-    opacity: 0; }
-
+    opacity: 0;
+  }
   100% {
-    opacity: 0.92; } }
+    opacity: 0.92;
+  }
+}
 
 @keyframes fadeIn {
   0% {
-    opacity: 0; }
-
+    opacity: 0;
+  }
   100% {
-    opacity: 0.92; } }
+    opacity: 0.92;
+  }
+}
 
 @-moz-keyframes fadeIn {
   0% {
-    opacity: 0; }
-
+    opacity: 0;
+  }
   100% {
-    opacity: 0.92; } }
+    opacity: 0.92;
+  }
+}
 
 .button {
-  transition: none !important; }
+  transition: none !important;
+}
 
 html, body {
   height: 100%;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+}
 
 .page-login .wrap {
   z-index: 10;
   position: absolute;
-  width: 100%; }
-  .page-login .wrap .title {
-    font-size: 38px;
-    color: #fff;
-    font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
-    animation: slideInUp 1s;
-    -webkit-animation: slideInUp 1s;
-    -moz-animation: slideInUp 1s; }
+  width: 100%;
+}
+
+.page-login .wrap .title {
+  font-size: 38px;
+  color: #fff;
+  font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  animation: slideInUp 1s;
+  -webkit-animation: slideInUp 1s;
+  -moz-animation: slideInUp 1s;
+}
+
 .page-login .video-wrap {
   position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
-  left: 0; }
+  left: 0;
+}
+
 .page-login .video-overlay {
   position: absolute;
   height: 100%;
@@ -136,12 +165,17 @@ html, body {
   top: 0;
   left: 0;
   z-index: 5;
-  background: transparent url('/admin/static/images/grid.png') repeat;
-  -webkit-backface-visibility: hidden; }
+  background: transparent url("/admin/static/images/grid.png") repeat;
+  -webkit-backface-visibility: hidden;
+}
+
 .page-login .panel {
   opacity: 0.92;
   animation: fadeIn 2s ease;
   -webkit-animation: fadeIn 2s ease;
-  -moz-animation: fadeIn 2s ease; }
+  -moz-animation: fadeIn 2s ease;
+}
+
 .page-login .panel:hover {
-  opacity: 1; }
+  opacity: 1;
+}

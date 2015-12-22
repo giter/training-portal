@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit"><title>通勤车安全乘坐管理平台</title>
     
 
-    <link rel="stylesheet" type="text/css" href="/admin/static/pkg/all.css" />
+    <link rel="stylesheet" href="/admin/static/pkg/all.css" />
     <style>
         .admin-nav ul {
             display: none;
@@ -22,8 +22,8 @@
         <c-loading show="{{loading}}"></c-loading>
     </div>
 
-<script type="text/javascript" src="/admin/static/js/mod.js"></script>
-<script type="text/javascript">/*resourcemap*/
+<script src="/admin/static/js/mod.js"></script>
+<script>/*resourcemap*/
 require.resourceMap({
   "res": {
     "component_modules/vue": {
@@ -42,53 +42,53 @@ require.resourceMap({
       "url": "/admin/static/components/component/pager/pager.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js"
+        "component_modules/vue"
       ]
     },
     "components/page/user/user": {
       "url": "/admin/static/components/page/user/user.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "pager/pager.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "pager/pager"
       ]
     },
     "components/page/bus/bus": {
       "url": "/admin/static/components/page/bus/bus.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "pager/pager.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "pager/pager"
       ]
     },
     "components/page/order/order": {
       "url": "/admin/static/components/page/order/order.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js"
+        "component_modules/vue",
+        "main/service"
       ]
     },
     "components/page/company/company": {
       "url": "/admin/static/components/page/company/company.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "pager/pager.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "pager/pager"
       ]
     },
     "components/page/companyOrder/ticketsStats/ticketsStats": {
       "url": "/admin/static/components/page/companyOrder/ticketsStats/ticketsStats.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js"
+        "component_modules/vue",
+        "main/service"
       ]
     },
     "component_modules/iscroll-zoom": {
@@ -99,76 +99,76 @@ require.resourceMap({
       "url": "/admin/static/components/page/companyOrder/busSeat/busSeat.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "component_modules/iscroll-zoom.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "component_modules/iscroll-zoom"
       ]
     },
     "components/page/companyOrder/companyOrder": {
       "url": "/admin/static/components/page/companyOrder/companyOrder.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "components/page/companyOrder/ticketsStats/ticketsStats.js",
-        "components/page/companyOrder/busSeat/busSeat.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "components/page/companyOrder/ticketsStats/ticketsStats",
+        "components/page/companyOrder/busSeat/busSeat"
       ]
     },
     "components/page/check/ticketsStats/ticketsStats": {
       "url": "/admin/static/components/page/check/ticketsStats/ticketsStats.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js"
+        "component_modules/vue",
+        "main/service"
       ]
     },
     "components/page/check/busSeat/busSeat": {
       "url": "/admin/static/components/page/check/busSeat/busSeat.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "component_modules/iscroll-zoom.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "component_modules/iscroll-zoom"
       ]
     },
     "components/page/check/check": {
       "url": "/admin/static/components/page/check/check.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js",
-        "components/page/check/ticketsStats/ticketsStats.js",
-        "components/page/check/busSeat/busSeat.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "components/page/check/ticketsStats/ticketsStats",
+        "components/page/check/busSeat/busSeat"
       ]
     },
     "components/page/seat/seat": {
       "url": "/admin/static/components/page/seat/seat.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "main/check.js"
+        "component_modules/vue",
+        "main/service",
+        "main/check"
       ]
     },
     "components/page/history/history": {
       "url": "/admin/static/components/page/history/history.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "pager/pager.js"
+        "component_modules/vue",
+        "main/service",
+        "pager/pager"
       ]
     },
     "components/page/system/config": {
       "url": "/admin/static/components/page/system/config.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js"
+        "component_modules/vue",
+        "main/service"
       ]
     },
     "component_modules/director": {
@@ -179,43 +179,43 @@ require.resourceMap({
       "url": "/admin/static/components/page/desk/desk.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "main/service.js"
+        "component_modules/vue",
+        "main/service"
       ]
     },
     "loading/loading": {
       "url": "/admin/static/components/component/loading/loading.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js"
+        "component_modules/vue"
       ]
     },
     "nav/nav": {
       "url": "/admin/static/components/component/nav/nav.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js"
+        "component_modules/vue"
       ]
     },
     "main/main": {
       "url": "/admin/static/components/component/main/main.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "component_modules/director.js",
-        "components/page/desk/desk.js",
-        "main/service.js",
-        "loading/loading.js",
-        "nav/nav.js"
+        "component_modules/vue",
+        "component_modules/director",
+        "components/page/desk/desk",
+        "main/service",
+        "loading/loading",
+        "nav/nav"
       ]
     }
   },
   "pkg": {}
 });</script>
-<script type="text/javascript" src="/admin/static/component_modules/jquery.min.js"></script>
-<script type="text/javascript" src="/admin/static/js/respond.js"></script>
-<script type="text/javascript" src="/admin/static/js/lrz.pc.min.js"></script>
-<script type="text/javascript" src="/admin/static/js/laydate/laydate.js"></script>
+<script src="/admin/static/component_modules/jquery.min.js"></script>
+<script src="/admin/static/js/respond.js"></script>
+<script src="/admin/static/js/lrz.pc.min.js"></script>
+<script src="/admin/static/js/laydate/laydate.js"></script>
 <script type="text/javascript">
     var CONFIG = {
         OFFTIME:"16:00"
