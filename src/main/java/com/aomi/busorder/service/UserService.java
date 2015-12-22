@@ -245,5 +245,14 @@ public class UserService implements InitializingBean {
       save(user);
     }
   }
+  
+  @SuppressWarnings("unchecked")
+  public List<User> findusers(User user) {
+
+    DBCursor cursor = dao.user.find(user);    
+    List<?> users = cursor.toArray();
+
+    return (List<User>) users;
+  }
 
 }
