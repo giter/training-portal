@@ -49,7 +49,7 @@ window.app = new Vue({
     ready:function(){
 
         if(this.is_weixin()){
-      //  if(true){
+      // if(true){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;
@@ -106,7 +106,11 @@ router.on("/order/:id",function(id){
         doRouter("orderdetail",p);
     })
 });
-
+router.on("/tel",function(){
+    require.async(["page/tel/tel.js"], function (p) {
+        doRouter("tel",p);
+    })
+});
 
 router.on("/list",function(){
     require.async(["page/list/list.js"], function (p) {
