@@ -24,6 +24,7 @@
 
    </div>
    <table class="bus-body" style='width: 100%;margin: 0 auto;'>
+       <tr><td colspan="5">驾驶员：{{bus.jsy}}车牌号：{{bus.sn}}</td></tr>
     <tr v-repeat="r in bus.rows">
      <td v-repeat="bus.cols" style="position: relative;padding:0;width:80px; border: 1px solid #000;">
       <a style="cursor: default; line-height: 16px; height: 16px;" class="iconfont" v-text="getText(r,$index)" >

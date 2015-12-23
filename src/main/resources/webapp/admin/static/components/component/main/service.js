@@ -176,9 +176,8 @@ module.exports = {
     orderTicket:orderTicket,
     unTicket:unTicket,
     getTraces:getTraces,
-	getContext:getContext,
-	
-	putContext:putContext,
+    getContext:getContext,
+    putContext:putContext,
     getDepts:getDepts,
     getUsersa:getUsersa
 };

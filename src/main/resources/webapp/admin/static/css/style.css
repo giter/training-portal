@@ -145,3 +145,6 @@ html, body {
   -moz-animation: fadeIn 2s ease; }
 .page-login .panel:hover {
   opacity: 1; }
+
+.ztree li span.button {
+  padding: 0; }

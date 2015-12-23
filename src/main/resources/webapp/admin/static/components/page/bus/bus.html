@@ -9,11 +9,12 @@
             <input type="button" class="button button-small bg-main" data-mask="1" data-width="50%"  v-on="click:addBus" value="新增车辆" />
         </div>
         <table class="table table-hover">
-            <tr><th width="120">车辆照片</th><th width="120">车辆名</th><th width="100">车牌号</th><th width="100">方向</th><th width="*">路线</th><th width="80">发车时间</th><th width="80">到达时间</th><th width="80">状态</th><th width="200">操作</th></tr>
+            <tr><th width="120">车辆照片</th><th width="120">车辆名</th><th width="100">车牌号</th><th width="100">驾驶员</th><th width="100">方向</th><th width="*">路线</th><th width="80">发车时间</th><th width="80">到达时间</th><th width="80">状态</th><th width="200">操作</th></tr>
             <tr v-repeat="c in buses" >
                 <td ><img width="64" height="64"  class="img-border radius-small" v-attr="src:c.src||'/admin/static/images/128.png'"></td>
                 <td >{{c.name}}</td>
                 <td >{{c.sn}}</td>
+                <td>{{c.jsy}}</td>
                 <td >{{c.destination}}</td>
                 <td >{{c.line}}</td>
                 <td >{{c.goff}}</td>
@@ -56,7 +57,16 @@
                                 <input type="text" class="input" v-model="bus.sn" placeholder="请填写车牌号">
                                 <div v-show="!validation.sn" class="input-help  check-error"><ul><li>必填</li></ul></div>
                             </div>
+                        </div> <div class="form-group">
+                        <div class="label">
+                            驾驶员
                         </div>
+                        <div class="field">
+                            <input type="text" class="input" v-model="bus.jsy" placeholder="请填写驾驶员">
+
+                        </div>
+                    </div>
+
                         <div class="form-group">
                             <div class="label">
                                 方向
