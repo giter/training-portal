@@ -48,8 +48,7 @@ window.app = new Vue({
     },
     ready:function(){
 
-        if(this.is_weixin()){
-      // if(true){
+
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;

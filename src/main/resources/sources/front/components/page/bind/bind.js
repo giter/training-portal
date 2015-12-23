@@ -34,7 +34,7 @@ module.exports = Vue.extend({
                     Layer.closeAll();
                     if(rep.Code == 0){
                         Layer.open({
-                            content:"已经发送验证信息到您的邮箱，请先验证后再打开微信。",
+                            content:rep.Response.value,
                             btn:["确定"],
                             yes: function () {
                                 WeixinJSBridge.call('closeWindow');
