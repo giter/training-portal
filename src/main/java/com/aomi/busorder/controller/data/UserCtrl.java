@@ -510,14 +510,15 @@ public class UserCtrl {
 		    	  
 		      }
 		 }
-		 if(user.getAdmin()==4&&user.getDepartment().equals("公司办公室")){
-  		   
-    		 User user3=new User();
-   		     user3.setType(1);
-   		     user3.setZt("1");
-   		     users.addAll(userService.findusers(user3));
-    	  }
+		 
 	  }
+	  if(user.getAdmin()==4&&user.getDepartment().equals("公司办公室")){
+ 		   
+ 		 User user3=new User();
+		     user3.setType(1);
+		     user3.setZt("1");
+		     users.addAll(userService.findusers(user3));
+ 	  }
       
 
     return RESTResponse.of(users).toString();
