@@ -69,6 +69,21 @@ require.resourceMap({
         "component_modules/layer.m.js"
       ]
     },
+    "component_modules/director": {
+      "url": "/static/component_modules/director.js",
+      "type": "js"
+    },
+    "components/page/tel/tel": {
+      "url": "/static/components/page/tel/tel.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue.js",
+        "navbar/navbar.js",
+        "component_modules/director.js",
+        "component_modules/layer.m.js",
+        "main/service.js"
+      ]
+    },
     "components/page/history/history": {
       "url": "/static/components/page/history/history.js",
       "type": "js",
@@ -77,10 +92,6 @@ require.resourceMap({
         "main/service.js",
         "component_modules/layer.m.js"
       ]
-    },
-    "component_modules/director": {
-      "url": "/static/component_modules/director.js",
-      "type": "js"
     },
     "components/page/approve/approve": {
       "url": "/static/components/page/approve/approve.js",

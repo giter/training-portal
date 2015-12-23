@@ -221,7 +221,7 @@ function filterBus(data){
     lv = {}
     pc = {}
 
-    for(var i=0;i<data.length;i++){
+    for (var i=0;i<data.length;i++){
 
         var week = (new Date(data[i]['date'].replace(/-/g,"/"))).getDay();
         week = (week == 0 ? 7 : week) - 1;
