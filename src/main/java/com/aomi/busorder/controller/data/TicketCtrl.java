@@ -320,12 +320,24 @@ public class TicketCtrl {
 
     return RESTResponse.of(tus).toString();
   }
-
   @ResponseBody
-  @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.GET })
-  public String tickets(@RequestParam("bus") String id,
+  @RequestMapping(value = "/data/ticketsa.json", method = { RequestMethod.GET })
+  public String ticketsa(@RequestParam("bus") String id,
       @RequestParam("date") String date) {
-
+	  int a=0;
+	    int b=0;
+	    try {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMdd");
+	    Date now =new Date();
+	    String nowtime=sdfa.format(now);
+	     a=Integer.parseInt(nowtime);
+	    Date dt = sdf.parse(date);
+	    String time=sdfa.format(dt);
+	     b=Integer.parseInt(time);
+	    } catch (ParseException e) {
+	        throw new RuntimeException(e);
+	      }
     Bus bus = busService.get(id);
 
     if (bus == null)
@@ -342,9 +354,58 @@ public class TicketCtrl {
     ArrayList<Seat> seats = (ArrayList<Seat>) bus.get("seats");
 
     for (Seat seat : seatService.page(sparam)) {
+    	Ticket ticket=new Ticket();
+    	if(a>b){
 
-      Ticket ticket = ticketService.getByDate(date, seat.get_id());
+       ticket = ticketService.getByDatea(date, seat.get_id());
+    	}else{
+    		 ticket = ticketService.getByDate(date, seat.get_id());
+    	}
+      if (ticket == null)
+        continue;
 
+      if (ticket.getUser() != null) {
+        seat.put("state", 2);
+      } else {
+        seat.put("state", 1);
+      }
+
+      seat.put("ticket", ticket.get_id());
+
+      seat.put("entity", new VTUser(ticket));
+
+      seats.add(seat);
+    }
+
+    return RESTResponse.of(bus).toString();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.GET })
+  public String tickets(@RequestParam("bus") String id,
+      @RequestParam("date") String date) {
+	  
+    Bus bus = busService.get(id);
+
+    if (bus == null)
+      return RESTResponse.of(null).toString();
+
+    bus.setSrc(null);
+    bus.put("seats", new ArrayList<Seat>());
+
+    SeatParam sparam = new SeatParam();
+    sparam.setBus(id);
+    sparam.setLimit(0);
+
+    @SuppressWarnings("unchecked")
+    ArrayList<Seat> seats = (ArrayList<Seat>) bus.get("seats");
+
+    for (Seat seat : seatService.page(sparam)) {
+    	Ticket ticket=new Ticket();
+    	
+
+       ticket = ticketService.getByDate(date, seat.get_id());
+    	
       if (ticket == null)
         continue;
 
