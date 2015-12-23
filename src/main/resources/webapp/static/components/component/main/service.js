@@ -190,7 +190,8 @@ function getContext(p){
     return CTX || (CTX = $.sync(prefix +"/data/ctx.json",p).Response);
 }
 
-function filterBus(data){
+/*第一版*/
+/*function filterBus(data){
     var ctx = getContext({});
 
     var ENDS = (ctx['config'] ?  (ctx['config']['end'] || {}) : {});
@@ -215,7 +216,7 @@ function filterBus(data){
             }
         }
     }
-
+debugger
     data = list; list = [];
 
     lv = {}
@@ -235,7 +236,7 @@ function filterBus(data){
         var PERCENTAGE = quota['percentage'] || 0.9;
 
         data[i]["percent"] = data[i]["order"] * 1.0 / (data[i]["void"]+data[i]["order"]);
-        /*if(data[i]["void"] <= 0) continue;*/
+        /!*if(data[i]["void"] <= 0) continue;*!/
 
         if(i>0){
 
@@ -250,7 +251,7 @@ function filterBus(data){
                         pc[line] = (pc[line] || 0) + 1;
                     }
 
-                }else if ((pc[line] >= LEAST && data[i-1]["percent"] > PERCENTAGE) /*|| data[i]["order"] > 0*/){
+                }else if ((pc[line] >= LEAST && data[i-1]["percent"] > PERCENTAGE) /!*|| data[i]["order"] > 0*!/){
 
                     list.push(data[i]);
                     lv[line] = (lv[line] || 0) + 1;
@@ -276,6 +277,123 @@ function filterBus(data){
     }
 
     return expired.concat(list);
+}*/
+
+/*第二版*/
+function filterBus(data){
+
+    if(data.length == 0){
+        return [];
+    }
+
+    var ctx = getContext({});
+    var WEEK =  (new Date(data[0]['date'].replace(/-/g,"/"))).getDay();
+    WEEK = (WEEK == 0 ? 7 : WEEK) - 1;
+    var ENDS = (ctx['config'] ?  (ctx['config']['end'] || {}) : {});
+    var Destination = data[0].whither;
+    var QUOTA = ctx['busConfig'] || {};
+
+    var now = Date.parse(new Date())/1000,list = [];
+
+    var expired = [];
+
+
+    for(var i=0;i<data.length;i++){
+
+        var END = (ENDS[data[i]['whither']] || 1) * 3600;
+
+        var time = Date.parse(new
+                Date(data[i].date.replace(/-/g,"/")))/1000; var diff = time - now;
+
+        if(diff >= END){ list.push(data[i]); }
+        else{
+            data[i]["expired"] = true;
+            if(data[i]["order"] > 0){
+                expired.push(data[i]);
+            }
+        }
+    }
+
+
+    des = {},list = [];  /*目的地*/
+
+    for(var i in data){
+        des[data[i].line] = [];
+    }
+    
+    var isUsable  = function (d) {
+        var destination = d['whither'];
+        var quota = QUOTA[Destination][WEEK];
+        var usable = true;
+        for(var i=0;i< quota.buss.length;i++){
+            if(quota.buss[i].name == d["name"]){
+                usable == quota.buss[i].usable;
+                d.percentage = quota.buss[i].percentage;
+                d.index = quota.buss[i].index;
+            }
+        }
+        return usable;
+    }
+
+    /*按目的地分类*/
+    var nlist = [];
+    for(var i in des){
+        for(var d in data){
+            if(data[d].line == i && isUsable(data[d])){
+                des[i].push(data[d]);
+            }
+        }
+    }
+
+    /*排序*/
+    for(var i in des){
+        if(des[i].length >1){
+            des[i].sort(function (a,b) {
+                return a.index > b.index;
+            })
+        }
+    }
+
+    var quota = QUOTA[Destination][WEEK];
+    var min = quota.min,max = quota.max;
+    for(var i in des){
+
+        if(des[i].length <= min){
+            list = list.concat(des[i]);
+        }else{
+
+            var temp = [];
+            for(var t =0;t<min;t++){
+                temp.push(des[i][t]);
+            }
+            
+            var isValid = function (ll) {
+                var v = true;
+                for(var i in ll){
+                    var p  = ll[i].order*1.0 /(ll[i].void + ll[i].order);
+                    if(p < ll[i].percentage){
+                        v = false;
+                    }
+                }
+                return v;
+            }
+            
+            for(var t = temp.length;t<max;t++){
+                if(isValid(temp)&&t<des[i].length){
+                    if(!des[i][t].expired || des[i][t] >0){
+                        temp.push(des[i][t]);
+                    }
+                }
+
+            }
+
+            list = list.concat(temp);
+
+        }
+
+    }
+
+    return list;
 }
 
 module.exports = {
