@@ -37,18 +37,18 @@ window.app = new Vue({
         "home":home
     },
     methods:{
-      is_weixin: function () {
-          var ua = navigator.userAgent.toLowerCase();
-          if(ua.match(/MicroMessenger/i)=="micromessenger") {
-              return true;
-          } else {
-              return false;
-          }
-      }
+        is_weixin: function () {
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
     },
     ready:function(){
-
-
+        //if(true){
+        if(this.is_weixin()){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;

@@ -128,4 +128,7 @@ html, body {
 .page-login .panel:hover {
   opacity: 1; }
 
+.ztree li span.button {
+  padding: 0; }
+
 /*# sourceMappingURL=style.css.map */

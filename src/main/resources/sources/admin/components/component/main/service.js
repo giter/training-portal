@@ -1,8 +1,8 @@
 /**
  * Created by jack on 2015/8/17.
  */
-//var prefix = "http://127.0.0.1:8088";
-var prefix = "http://115.159.116.241";
+var prefix = "";
+//var prefix = "http://115.159.116.241";
 
 $.del = function (url,callback) {
     return $.ajax({
@@ -174,8 +174,8 @@ module.exports = {
     orderTicket:orderTicket,
     unTicket:unTicket,
     getTraces:getTraces,
-	getContext:getContext,
-	putContext:putContext,
+    getContext:getContext,
+    putContext:putContext,
     getDepts:getDepts,
     getUsersa:getUsersa
 };
