@@ -11,42 +11,48 @@ var Service = require("main/service.js");
 module.exports = Vue.extend({
 
    inherit:true,
-	  
+
    data: function () {
       return {
-		  data : {
-			config: {
-				advance: 7,
-				end: {
-					'昌江': 12,
-					'海口': 1
-				}
-			},
-			quota: {
-				"海口": [
-					{week:"周一", least:3, percentage: 0.9, maximum: 11},
-					{week:"周二", least:3, percentage: 0.9, maximum: 11},
-					{week:"周三", least:3, percentage: 0.9, maximum: 11},
-					{week:"周四", least:3, percentage: 0.9, maximum: 11},
-					{week:"周五", least:3, percentage: 0.9, maximum: 11},
-					{week:"周六", least:3, percentage: 0.9, maximum: 11},
-					{week:"周日", least:3, percentage: 0.9, maximum: 11}
-				],
-				"昌江": [
-					{week:"周一", least:3, percentage: 0.9, maximum: 11},
-					{week:"周二", least:3, percentage: 0.9, maximum: 11},
-					{week:"周三", least:3, percentage: 0.9, maximum: 11},
-					{week:"周四", least:3, percentage: 0.9, maximum: 11},
-					{week:"周五", least:3, percentage: 0.9, maximum: 11},
-					{week:"周六", least:3, percentage: 0.9, maximum: 11},
-					{week:"周日", least:3, percentage: 0.9, maximum: 11}
-				]
-			}
-		  }
+         data : {
+            config: {
+               advance: 7,
+               end: {
+                  '昌江': 12,
+                  '海口': 1
+               }
+            },
+            quota: {
+               "海口": [
+                  {week:"周一", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周二", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周三", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周四", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周五", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周六", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周日", least:3, percentage: 0.9, maximum: 11}
+               ],
+               "昌江": [
+                  {week:"周一", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周二", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周三", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周四", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周五", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周六", least:3, percentage: 0.9, maximum: 11},
+                  {week:"周日", least:3, percentage: 0.9, maximum: 11}
+               ]
+            },
+            busConfig:{
+               "海口":[],
+               "昌江":[]
+            }
+         },
+
+         week:["周一","周二","周三","周四","周五","周六","周日"]
       }
    },
 
-   template:"<div class=\"page-history\">\r\n\r\n\t<div class=\"line-big\">\r\n\t\t<div class=\"xm12\">\r\n\t\t\t<div class=\"panel\">\r\n\t\t\t\t<div class=\"panel-head\"><strong>全局配置</strong></div>\r\n\t\t\t\t<div class=\"panel-body\">\r\n\t\t\t\t\t<form method=\"post\"  onsubmit=\"return false;\">\r\n\t\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t\t<div class=\"label\">\r\n\t\t\t\t\t\t\t\t<label>\r\n\t\t\t\t\t\t\t\t\t提前订座天数</label>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"field\">\r\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input\"   v-model=\"data.config.advance\" placeholder=\"提前订座天数\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"addon\">天</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t\t<div class=\"label\">\r\n\t\t\t\t\t\t\t\t<label>\r\n\t\t\t\t\t\t\t\t\t订座截止时间[海口→昌江]</label>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"field\">\r\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input\"  v-model=\"data.config.end['昌江']\" placeholder=\"提前订座天数\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"addon\">小时</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t\t<div class=\"label\">\r\n\t\t\t\t\t\t\t\t<label>\r\n\t\t\t\t\t\t\t\t\t订座截止时间[昌江→海口]</label>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"field\">\r\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input\"   v-model=\"data.config.end['海口']\" placeholder=\"提前订座天数\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"addon\">小时</span>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</form>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<br>\r\n\t\t\t<div class=\"panel\">\r\n\t\t\t\t<div class=\"panel-head\"><strong>昌江→海口</strong></div>\r\n\t\t\t\t<div class=\"panel-body\">\r\n\t\t\t\t\t<div class=\"table-responsive\">\r\n\t\t\t\t\t\t<table class=\"table\">\r\n\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t星期\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t最初开启车辆数量\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t开启下一辆上座率\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t最大开启车辆台数\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t<tr v-repeat=\"v in data.quota['海口']\">\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t{{v.week}}\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input input-small\" number v-model=\"v.least\">\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input input-small\" number v-model=\"v.percentage\">\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input input-small\" number v-model=\"v.maximum\">\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t</tbody></table>\r\n\t\t\t\t\t</div>\r\n\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<br>\r\n\t\t\t<div class=\"panel\">\r\n\t\t\t\t<div class=\"panel-head\"><strong>海口→昌江</strong></div>\r\n\t\t\t\t<div class=\"panel-body\">\r\n\t\t\t\t\t<div class=\"table-responsive\">\r\n\t\t\t\t\t\t<table class=\"table\">\r\n\t\t\t\t\t\t\t<tbody><tr>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t星期\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t最初开启车辆数量\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t开启下一辆上座率\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t\t<th>\r\n\t\t\t\t\t\t\t\t\t最大开启车辆台数\r\n\t\t\t\t\t\t\t\t</th>\r\n\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t<tr v-repeat=\"v in data.quota['昌江']\">\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t{{v.week}}\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input input-small\" number v-model=\"v.least\">\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input input-small\" number v-model=\"v.percentage\">\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"input input-small\" number v-model=\"v.maximum\">\r\n\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t</tbody></table>\r\n\t\t\t\t\t</div>\r\n\r\n\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"panel-foot\" style=\"text-align: right\">\r\n\r\n\t\t\t\t\t<button class=\"button\" v-on=\"click:getContext\">取消</button>\r\n\t\t\t\t\t<button class=\"button bg-green\" v-disabled=\"isValid\" v-on=\"click:putContext\" >保存</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<br>\r\n\t\t</div>\r\n\r\n\r\n\t</div>\r\n\r\n\r\n\t<!--\t<div class=\"panel admin-panel\">\r\n            <div class=\"panel-head\">\r\n                <strong>\r\n                    系统配置\r\n                </strong>\r\n            </div>\r\n\r\n            <div class=\"padding border-bottom\">\r\n\r\n                <label>\r\n                    提前订座天数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.config.advance\">\r\n                </label>\r\n\r\n                <label>\r\n                    订座截止时间[海口→昌江]（小时）：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.config.end['昌江']\">\r\n                </label>\r\n\r\n                <label>\r\n                    订座截止时间[昌江→海口]（小时）：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.config.end['海口']\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周一<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][0].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][0].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][0].maximum\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周二<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][1].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][1].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][1].maximum\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周三<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][2].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][2].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][2].maximum\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周四<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][3].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][3].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][3].maximum\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周五<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][4].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][4].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][4].maximum\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周六<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][5].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][5].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][5].maximum\">\r\n                </label>\r\n\r\n                昌江→海口<br/>\r\n                周日<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][6].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][6].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['海口'][6].maximum\">\r\n                </label>\r\n\r\n\r\n\r\n                海口→昌江<br/>\r\n                周一<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][0].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][0].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][0].maximum\">\r\n                </label>\r\n\r\n                海口→昌江<br/>\r\n                周二<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][1].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][1].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][1].maximum\">\r\n                </label>\r\n\r\n                海口→昌江<br/>\r\n                周三<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][2].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][2].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][2].maximum\">\r\n                </label>\r\n\r\n                海口→昌江<br/>\r\n                周四<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][3].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][3].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][3].maximum\">\r\n                </label>\r\n\r\n                海口→昌江<br/>\r\n                周五<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][4].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][4].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][4].maximum\">\r\n                </label>\r\n\r\n                海口→昌江<br/>\r\n                周六<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][5].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][5].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][5].maximum\">\r\n                </label>\r\n\r\n                海口→昌江<br/>\r\n                周日<br/>\r\n                <label>\r\n                    最初开启车辆数量：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][6].least\">\r\n                </label>\r\n\r\n                <label>\r\n                    开启下一辆上座率：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][6].percentage\">\r\n                </label>\r\n\r\n                <label>\r\n                    最大开启车辆台数：\r\n                    <input type=\"text\" class=\"input\" number v-model=\"data.quota['昌江'][6].maximum\">\r\n                </label>\r\n\r\n\r\n\r\n\r\n            </div>\r\n\r\n        </div>-->\r\n</div>",
+   template:"<div class=\"page-history\">\r\n\r\n    <div class=\"line-big\">\r\n        <div class=\"xm12\">\r\n            <div class=\"panel\">\r\n                <div class=\"panel-head\"><strong>全局配置</strong></div>\r\n                <div class=\"panel-body\">\r\n                    <form method=\"post\"  onsubmit=\"return false;\">\r\n                        <div class=\"form-group\">\r\n                            <div class=\"label\">\r\n                                <label>\r\n                                    提前订座天数</label>\r\n                            </div>\r\n                            <div class=\"field\">\r\n                                <div class=\"input-group\">\r\n                                    <input type=\"number\" class=\"input\"   v-model=\"data.config.advance\" placeholder=\"提前订座天数\">\r\n                                    <span class=\"addon\">天</span>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <div class=\"label\">\r\n                                <label>\r\n                                    订座截止时间[海口→昌江]</label>\r\n                            </div>\r\n                            <div class=\"field\">\r\n                                <div class=\"input-group\">\r\n                                    <input type=\"number\" class=\"input\"  v-model=\"data.config.end['昌江']\" placeholder=\"提前订座天数\">\r\n                                    <span class=\"addon\">小时</span>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <div class=\"label\">\r\n                                <label>\r\n                                    订座截止时间[昌江→海口]</label>\r\n                            </div>\r\n                            <div class=\"field\">\r\n                                <div class=\"input-group\">\r\n                                    <input type=\"number\" class=\"input\"   v-model=\"data.config.end['海口']\" placeholder=\"提前订座天数\">\r\n                                    <span class=\"addon\">小时</span>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n            <br>\r\n            <div class=\"panel\">\r\n                <div class=\"panel-head\"><strong>昌江→海口</strong></div>\r\n                <div class=\"panel-body\">\r\n                    <div class=\"table-responsive\">\r\n                        <table class=\"table\">\r\n                            <tbody>\r\n                            <tr>\r\n                                <th>\r\n                                    星期\r\n                                </th>\r\n                                <th>\r\n                                    最初开启车辆数量\r\n                                </th>\r\n                                <th>\r\n                                    开启下一辆上座率\r\n                                </th>\r\n                                <th>\r\n                                    最大开启车辆台数\r\n                                </th>\r\n                            </tr>\r\n                            <tr v-repeat=\"v in data.quota['海口']\">\r\n                                <td>\r\n                                    {{v.week}}\r\n                                </td>\r\n                                <td>\r\n                                    <input type=\"number\" class=\"input input-small\" number v-model=\"v.least\">\r\n                                </td>\r\n                                <td>\r\n                                    <input type=\"number\" class=\"input input-small\" number v-model=\"v.percentage\">\r\n                                </td>\r\n                                <td>\r\n                                    <input type=\"number\" class=\"input input-small\" number v-model=\"v.maximum\">\r\n                                </td>\r\n                            </tr>\r\n                            </tbody></table>\r\n                    </div>\r\n\r\n\r\n                </div>\r\n            </div>\r\n            <br>\r\n            <div class=\"panel\">\r\n                <div class=\"panel-head\"><strong>海口→昌江</strong></div>\r\n                <div class=\"panel-body\">\r\n                    <div class=\"table-responsive\">\r\n                        <table class=\"table\">\r\n                            <tbody><tr>\r\n                                <th>\r\n                                    星期\r\n                                </th>\r\n                                <th>\r\n                                    最初开启车辆数量\r\n                                </th>\r\n                                <th>\r\n                                    开启下一辆上座率\r\n                                </th>\r\n                                <th>\r\n                                    最大开启车辆台数\r\n                                </th>\r\n                            </tr>\r\n                            <tr v-repeat=\"v in data.quota['昌江']\">\r\n                                <td>\r\n                                    {{v.week}}\r\n                                </td>\r\n                                <td>\r\n                                    <input type=\"number\" class=\"input input-small\" number v-model=\"v.least\">\r\n                                </td>\r\n                                <td>\r\n                                    <input type=\"number\" class=\"input input-small\" number v-model=\"v.percentage\">\r\n                                </td>\r\n                                <td>\r\n                                    <input type=\"number\" class=\"input input-small\" number v-model=\"v.maximum\">\r\n                                </td>\r\n                            </tr>\r\n                            </tbody></table>\r\n                    </div>\r\n\r\n\r\n                </div>\r\n                <div class=\"panel-foot\" style=\"text-align: right\">\r\n\r\n                    <button class=\"button\" v-on=\"click:getContext\">取消</button>\r\n                    <button class=\"button bg-green\" v-disabled=\"isValid\" v-on=\"click:putContext\" >保存</button>\r\n                </div>\r\n            </div>\r\n            <br>\r\n        </div>\r\n\r\n\r\n    </div>\r\n\r\n\r\n    <div class=\"panel\">\r\n        <div class=\"panel-head\"><strong>海口→昌江</strong></div>\r\n        <div class=\"panel-body\">\r\n            <div class=\"table-responsive\">\r\n                <table class=\"table table-bordered\">\r\n                    <tbody><tr>\r\n                        <th>\r\n                            星期\r\n                        </th>\r\n                        <th>\r\n                            配置\r\n                        </th>\r\n\r\n                    </tr>\r\n                    <tr v-repeat=\"v in data.busConfig['昌江']\">\r\n                        <td>\r\n                            {{v.week}}\r\n                        </td>\r\n                        <td>\r\n                            <table class=\"table\">\r\n                                <thead>\r\n                                <th>车辆名称</th>\r\n                                <th>路线</th>\r\n                                <th>发车时间-到达时间</th>\r\n                                <th>发车序号</th>\r\n                                <th>入座率要求</th>\r\n                                <th>启用状态</th>\r\n                                </thead>\r\n                                <tbody>\r\n                                <tr v-repeat=\"c in v.buss\">\r\n\r\n                                    <td>\r\n                                        {{c.name}}\r\n                                    </td>\r\n                                    <td>\r\n                                        {{c.line}}\r\n                                    </td>\r\n                                    <td>\r\n                                        {{c.goff}}-{{c.arrive}}\r\n                                    </td>\r\n                                    <td>\r\n                                        <input type=\"number\" number v-model=\"c.index\" placeholder=\"发车序号\">\r\n                                    </td>\r\n                                    <td>\r\n                                        <input type=\"number\" number v-model=\"c.percentage\" placeholder=\"入座率要求\">\r\n                                    </td>\r\n                                    <td>\r\n                                        <input type=\"checkbox\"  v-model=\"c.usable\" >\r\n                                    </td>\r\n                                </tr>\r\n                                </tbody>\r\n                            </table>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody></table>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        <div class=\"panel-foot\" style=\"text-align: right\">\r\n\r\n            <button class=\"button\" v-on=\"click:getContext\">取消</button>\r\n            <button class=\"button bg-green\" v-disabled=\"isValid\" v-on=\"click:putContext\" >保存</button>\r\n        </div>\r\n    </div>\r\n\r\n    <br>\r\n    <div class=\"panel\">\r\n        <div class=\"panel-head\"><strong>昌江→海口</strong></div>\r\n        <div class=\"panel-body\">\r\n            <div class=\"table-responsive\">\r\n                <table class=\"table table-bordered\">\r\n                    <tbody><tr>\r\n                        <th>\r\n                            星期\r\n                        </th>\r\n                        <th>\r\n                            配置\r\n                        </th>\r\n\r\n                    </tr>\r\n                    <tr v-repeat=\"v in data.busConfig['海口']\">\r\n                        <td>\r\n                            {{v.week}}\r\n                        </td>\r\n                        <td>\r\n                            <table class=\"table\">\r\n                                <thead>\r\n                                <th>车辆名称</th>\r\n                                <th>路线</th>\r\n                                <th>发车时间-到达时间</th>\r\n                                <th>发车序号</th>\r\n                                <th>入座率要求</th>\r\n                                <th>启用状态</th>\r\n                                </thead>\r\n                                <tbody>\r\n                                <tr v-repeat=\"c in v.buss\">\r\n                                    <td>\r\n                                        {{c.name}}\r\n                                    </td>\r\n                                    <td>\r\n                                        {{c.line}}\r\n                                    </td>\r\n                                    <td>\r\n                                        {{c.goff}}-{{c.arrive}}\r\n                                    </td>\r\n                                    <td>\r\n                                        <input type=\"number\" number v-model=\"c.index\" placeholder=\"发车序号\">\r\n                                    </td>\r\n                                    <td>\r\n                                        <input type=\"number\" number v-model=\"c.percentage\" placeholder=\"入座率要求\">\r\n                                    </td>\r\n                                    <td>\r\n                                        <input type=\"checkbox\"  v-model=\"c.usable\" >\r\n                                    </td>\r\n                                </tr>\r\n                                </tbody>\r\n                            </table>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody></table>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        <div class=\"panel-foot\" style=\"text-align: right\">\r\n\r\n            <button class=\"button\" v-on=\"click:getContext\">取消</button>\r\n            <button class=\"button bg-green\" v-disabled=\"isValid\" v-on=\"click:putContext\" >保存</button>\r\n        </div>\r\n    </div>\r\n</div>",
 
    compiled: function () {
       this.getContext();
@@ -84,8 +90,8 @@ module.exports = Vue.extend({
          })
       },
 
-	  putContext: function () {
-		
+      putContext: function () {
+
          if (!this.isValid){
             return;
          }
@@ -93,16 +99,83 @@ module.exports = Vue.extend({
          var self = this;
          this.loading = true;
 
-		Service.putContext(JSON.stringify(self.data),function (rep) {
-		   if(rep.Code != 0 ){
-			  alert(rep.Message);
-		   }else{
-			  alert("保存成功!");
-			  self.getContext();
-		   }
-		   self.loading = false;
-		});
+         Service.putContext(JSON.stringify(self.data),function (rep) {
+            if(rep.Code != 0 ){
+               alert(rep.Message);
+            }else{
+               alert("保存成功!");
+               self.getContext();
+            }
+            self.loading = false;
+         });
       },
+
+      getBus: function () {
+         var self = this;
+         Service.getBuses({page:0,limit:999},function (rep) {
+            var bus = rep.Response.lists;
+            self.getConfig(bus);
+         });
+      },
+      getConfig: function (bus) {
+
+         var cjList = [];
+         for(var i = 0;i<bus.length;i++){
+            if(bus[i].destination == "昌江"){
+               cjList.push(bus[i]);
+            }
+         }
+         for(var i = 0;i<this.week.length;i++){
+            var tbuss = [];
+            for(var c = 0;c<cjList.length;c++){
+               if(cjList[c].weeks[i]){
+                  tbuss.push({
+                     line:cjList[c].line,
+                     name:cjList[c].name,
+                     goff:cjList[c].goff,
+                     arrive:cjList[c].arrive,
+                     index:c+1,
+                     percentage:0.95,
+                     usable:true
+                  });
+               }
+            }
+            this.data.busConfig["昌江"].push({
+               week:this.week[i],
+               buss:tbuss
+            })
+         }
+
+         var hkList = [];
+         for(var i = 0;i<bus.length;i++){
+            if(bus[i].destination == "海口"){
+               hkList.push(bus[i]);
+            }
+         }
+         for(var i = 0;i<this.week.length;i++){
+            var tbuss = [];
+            for(var c =0;c<hkList.length;c++){
+               if(hkList[c].weeks[i]){
+                  tbuss.push({
+                     line:hkList[c].line,
+                     name:hkList[c].name,
+                     goff:hkList[c].goff,
+                     arrive:hkList[c].arrive,
+                     index:c+1,
+                     percentage:0.95,
+                     usable:true
+                  });
+               }
+            }
+            this.data.busConfig["海口"].push({
+               week:this.week[i],
+               buss:tbuss
+            })
+         }
+      }
+   },
+   ready: function () {
+      this.getBus();
    }
 });
 

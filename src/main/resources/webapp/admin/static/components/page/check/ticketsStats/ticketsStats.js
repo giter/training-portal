@@ -15,7 +15,7 @@ module.exports = Vue.extend({
          var self = this;
          self.line = b.line;
          self.busname = b.name;
-         Service.getBusTickets({bus: b.id,date:this.selectCalendar}, function (rep) {
+         Service.getBusTicketsa({bus: b.id,date:this.selectCalendar}, function (rep) {
             self.bus = rep.Response;
             self.childView = "seats";
          });
