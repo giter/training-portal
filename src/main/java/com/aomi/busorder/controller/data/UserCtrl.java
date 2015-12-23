@@ -720,6 +720,7 @@ public class UserCtrl {
 		   user.setUnit(unit);
 		   user.setDepartment(department);
 		   user.setType(0);
+		   user.setPassword("1234qwer");
 		   userService.insert(user);
 	   }else{
 		   user=list.get(0);

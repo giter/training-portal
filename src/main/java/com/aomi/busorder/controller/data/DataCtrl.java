@@ -40,6 +40,40 @@ public class DataCtrl {
   BusService busService;
 
   @ResponseBody
+  @RequestMapping(value = "/data/calendara.json", method = { RequestMethod.GET })
+  public String calendara(
+      @RequestParam(value = "max", required = false, defaultValue = "17") Integer max) {
+
+    SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+
+    List<DBObject> rs = new ArrayList<>();
+
+    for (int i = 0; i < max; i++) {
+
+      Calendar instance = Calendar.getInstance();
+      instance.add(Calendar.DATE, -10);
+      instance.add(Calendar.DATE, i);
+
+      BasicDBObjectBuilder o = BasicDBObjectBuilder.start();
+
+      o.add("name", sdf.format(instance.getTime()));
+      o.add("value", sdf2.format(instance.getTime()));
+
+      o.add(
+          "week",
+          "周"
+              + Character.toString("日一二三四五六".charAt(instance
+                  .get(Calendar.DAY_OF_WEEK) - 1)));
+      o.add("other", "");
+
+      rs.add(o.get());
+    }
+
+    return RESTResponse.of(rs).toString();
+  }
+  
+  @ResponseBody
   @RequestMapping(value = "/data/calendar.json", method = { RequestMethod.GET })
   public String calendar(
       @RequestParam(value = "max", required = false, defaultValue = "7") Integer max) {

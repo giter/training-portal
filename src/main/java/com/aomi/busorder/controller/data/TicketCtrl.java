@@ -156,7 +156,123 @@ public class TicketCtrl {
 
     return RESTResponse.of(r).toString();
   }
+  /**
+   * 历史订票查询
+   * @param dest
+   * @param date
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/data/tickets/statsa.json", method = { RequestMethod.GET })
+  public String statsa(@RequestParam("dest") String dest,
+      @RequestParam("date") String date) {
 
+    BusParam param = new BusParam();
+
+    param.setLimit(0);
+    param.setOnline(1);
+    param.setDestination(dest);
+    int a=0;
+    int b=0;
+    try {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMdd");
+    Date now =new Date();
+    String nowtime=sdfa.format(now);
+     a=Integer.parseInt(nowtime);
+    Date dt = sdf.parse(date);
+    String time=sdfa.format(dt);
+     b=Integer.parseInt(time);
+    
+      
+
+      @SuppressWarnings("deprecation")
+      int weekday = dt.getDay();
+
+      if (weekday == 0) {
+        weekday = 7;
+      }
+
+      weekday = weekday - 1;
+
+      param.setWeek(weekday);
+
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+
+    List<Map<String, Object>> r = new ArrayList<>();
+
+    for (Bus bus : busService.page(param)) {
+
+      Map<String, Object> mm = new HashMap<>();
+
+      int all = 0;
+      int available = 0;
+
+      SeatParam sparam = new SeatParam();
+      sparam.setBus(bus.get_id());
+      sparam.setLimit(0);
+
+      for (Seat seat : seatService.page(sparam)) {
+
+        if (!NumberUtils.isNumber(seat.getSn()))
+          continue;
+        Ticket ticket=new Ticket();
+        if(a>b){
+         ticket = ticketService.getByDatea(date, seat.get_id());
+        }else{
+        	ticket = ticketService.getByDate(date, seat.get_id());
+        }
+
+        if (ticket == null)
+          continue;
+
+        all++;
+
+        if (ticket.getUser() == null)
+          available++;
+      }
+
+      mm.put("id", bus.get_id());
+      mm.put("name", bus.getName());
+      mm.put("whither", bus.getDestination());
+      mm.put("date", String.format("%s %s", date, bus.getGoff()));
+      mm.put("void", available);
+      mm.put("order", all - available);
+      mm.put("src", bus.getSrc());
+      mm.put("sn", bus.getSn());
+      mm.put("line", bus.getLine());
+      mm.put("arrive", bus.getArrive());
+
+      r.add(mm);
+    }
+
+    Collections.sort(r, new Comparator<Map<String, Object>>() {
+
+      @Override
+      public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+
+        int c1 = o1.get("date").toString().compareTo(o2.get("date").toString());
+
+        if (c1 != 0)
+          return c1;
+
+        int c2 = o1.get("arrive").toString()
+            .compareTo(o2.get("arrive").toString());
+        if (c2 != 0)
+          return c2;
+
+        int c3 = o1.get("line").toString().compareTo(o2.get("line").toString());
+        if (c3 != 0)
+          return c3;
+
+        return o1.get("name").toString().compareTo(o2.get("name").toString());
+      }
+    });
+
+    return RESTResponse.of(r).toString();
+  }
   @ResponseBody
   @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.PUT })
   public String tickets(HttpSession session, HttpServletRequest request)
