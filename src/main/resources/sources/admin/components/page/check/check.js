@@ -104,14 +104,14 @@ module.exports = Vue.extend({
       Service.getCompanies(function (rep) {
          self.companies = rep.Response;
       });
-      Service.getCalendar(function (rep) {
+      Service.getCalendara(function (rep) {
          if(rep.Code == 0){
             var target = rep.Response;
             var lst = [];
             for(var i=0;i<target.length;i++){
                lst.push({
                   value:target[i].value,
-                  text:target[i].name +"-" +target[i].week + (i==0?"（今天）":"")
+                  text:target[i].name +"-" +target[i].week + (i==10?"（今天）":"")
                })
             }
             self.calendar = lst;
