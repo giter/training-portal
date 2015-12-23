@@ -236,6 +236,14 @@ public class TicketService {
 
     return (Ticket) dao.ticket.findOne(query);
   }
+  
+  public Ticket getByDatea(String date, String seatId) {
+
+	    DBObject query = BasicDBObjectBuilder.start(Ticket.FIELD_DATE, date)
+	        .add(Ticket.FIELD_SEAT + "._id", seatId).get();
+
+	    return (Ticket) dao.oldticket.findOne(query);
+	  }
 
   /**
    * 清理该日期以前的车票记录
