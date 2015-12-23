@@ -99,7 +99,9 @@ function getCompanies(c){
 function getCalendar(c){
     $.get(prefix + "/data/calendar.json",c);
 }
-
+function getCalendara(c){
+    $.get(prefix + "/data/calendara.json",c);
+}
 function getWhither(c){
     $.get(prefix + "/data/whither.json",c);
 }
@@ -110,7 +112,7 @@ function getSysInfo(c){
 
 function getTicketStats(p,c){
     p.stamp = Math.random();
-    $.get(prefix+"/data/tickets/stats.json",p, c);
+    $.get(prefix+"/data/tickets/statsa.json",p, c);
 }
 
 function getBusTickets(p,c){
@@ -179,7 +181,8 @@ module.exports = {
     getContext:getContext,
     putContext:putContext,
     getDepts:getDepts,
-    getUsersa:getUsersa
+    getUsersa:getUsersa,
+    getCalendara:getCalendara
 };
 
 });
