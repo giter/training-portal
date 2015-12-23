@@ -13,6 +13,10 @@ public class Bus extends Basic<Bus> {
    * 车牌号
    */
   public static final String FIELD_SN = "sn";
+  /**
+   * 驾驶员
+   */
+  public static final String FIELD_JSY = "jsy";
 
   /**
    * 行数
@@ -102,6 +106,16 @@ public class Bus extends Basic<Bus> {
     return this;
   }
 
+  public String getJsy() {
+
+	    return getString(FIELD_JSY);
+	  }
+
+	  public Bus setJsy(String jsy) {
+
+	    put(FIELD_JSY,jsy);
+	    return this;
+	  }
   public String getCaptial() {
 
     return getString(FIELD_CAPITAL);
