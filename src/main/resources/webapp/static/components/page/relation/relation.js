@@ -30,6 +30,7 @@ module.exports =   Vue.extend({
             Service.getUsers({delegateTo:self.mine._id},function (rep) {
                 Layer.closeAll();
                 if(rep.Code == 0){
+                    self.len += rep.Response.lists.length;
                     self.delegations = rep.Response.lists;
                 }
             })
@@ -45,6 +46,7 @@ module.exports =   Vue.extend({
             Service.getRel(function (rep) {
                 Layer.closeAll();
                 if(rep.Code == 0){
+                    self.len += rep.Response.length;
                     self.relatives = rep.Response;
                 }
             })

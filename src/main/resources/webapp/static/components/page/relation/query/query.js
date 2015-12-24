@@ -39,7 +39,7 @@ module.exports =   Vue.extend({
             });
             var self = this;
             Service.getDelegation(function (rep) {
-                if(rep.Response.length < 2){
+                if(rep.Response.length < 4){
                     self._add(id);
                 }else{
                     Layer.open({

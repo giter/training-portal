@@ -43,6 +43,7 @@ module.exports =   Vue.extend({
                     shadeClose:false,
                     shade: false
                 });
+                var self = this;
                 Service.addRel(JSON.stringify(this.rel), function (rep) {
                     Layer.closeAll();
                     if(rep.Code == 0){
@@ -54,6 +55,7 @@ module.exports =   Vue.extend({
                                 Layer.closeAll();
                                 var router = new Router();
                                 router.setRoute("relation");
+                                self.$parent.$broadcast("backReload","relation");
                             }
                         })
                     }else{
