@@ -3,7 +3,10 @@ package com.aomi.busorder.pojo;
 public class Bus extends Basic<Bus> {
 
   private static final long serialVersionUID = 1L;
-
+  /**
+   * 驾驶员电话
+   */
+  public static final String FIELD_TEL = "tel";
   /**
    * 车辆名
    */
@@ -94,7 +97,16 @@ public class Bus extends Basic<Bus> {
     put(FIELD_NAME, name);
     return this;
   }
+  public String getTel() {
 
+	    return getString(FIELD_TEL);
+	  }
+
+	  public Bus setTel(String tel) {
+
+	    put(FIELD_TEL, tel);
+	    return this;
+	  }
   public String getSn() {
 
     return getString(FIELD_SN);
