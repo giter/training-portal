@@ -32,7 +32,8 @@ function check($pintu,type){
             return /^[a-z]\w{3,}$/i.test($pintu);
             break;
         case "mobile":
-            return /^((\(\d{3}\))|(\d{3}\-))?13[0-9]\d{8}?$|15[089]\d{8}?$|170\d{8}?$|147\d{8}?$/.test($pintu);
+          //  return /^((\(\d{3}\))|(\d{3}\-))?13[0-9]\d{8}?$|15[089]\d{8}?$|170\d{8}?$|147\d{8}?$/.test($pintu);
+            return /^0?1[0-9]\d{9}$/.test($pintu)
             break;
         case "phone":
             return /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/.test($pintu);
