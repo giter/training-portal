@@ -71,9 +71,15 @@ module.exports = Vue.extend({
                 if(seat.entity.user){
                     var a=seat.entity.user.name;
                     var b=seat.entity.user.department;
-                    if (b== 'undefined'){
-                        b='';
+                    if(seat.entity.source){
+                        if(seat.entity.source.relation!=null) {
+                            b = seat.entity.source.relation;
+                        }
                     }
+                    if(seat.entity.user.department==null){
+                        b="";
+                    }
+
                     var c=a+"("+b+")";
                     return c;
 
@@ -92,9 +98,7 @@ module.exports = Vue.extend({
                if(seat.entity.source){
                    var a=seat.entity.source.name;
                    var b=seat.entity.source.department;
-                   if (b== 'undefined'){
-                       b='';
-                   }
+
                    var c="代订人："+a+"("+b+")";
                    return c;
                }
