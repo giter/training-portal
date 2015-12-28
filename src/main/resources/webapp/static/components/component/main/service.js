@@ -7,7 +7,7 @@ var prefix = "";
 //var prefix = "http://115.159.116.241";
 
 $.sync = function(url, data){
-    data.stamp = Math.random();
+    url+= "?stamp=" + Math.random();
     var ret = null;
 
     $.ajax({
