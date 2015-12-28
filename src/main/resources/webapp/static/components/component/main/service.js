@@ -217,7 +217,7 @@ function getContext(p){
             }
         }
     }
-debugger
+
     data = list; list = [];
 
     lv = {}
@@ -349,7 +349,7 @@ function filterBus(data){
     /*排序*/
     for(var i in des){
         if(des[i].length >1){
-            des[i].sort(function (a,b) {
+            des[i] = des[i].sort(function (a,b) {
                 return a.index - b.index;
             })
         }
