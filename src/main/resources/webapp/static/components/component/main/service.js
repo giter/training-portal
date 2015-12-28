@@ -89,6 +89,7 @@ function getCalendar(p, c){
 }
 
 function getResult(p,c){
+    p.stamp = Math.random();
     $.get(prefix+"/data/tickets/stats.json",p, c);
 }
 
