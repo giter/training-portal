@@ -83,11 +83,47 @@ module.exports = Vue.extend({
          Service.getContext({}, function (rep) {
             self.loading = false;
             if(rep.Code == 0){
-               self.data = $.extend(JSON.parse(JSON.stringify(self.data)), rep.Response||{});
+              // var d = $.extend( JSON.parse(JSON.stringify(self.data)),rep.Response||{});
+               self.data = self.extend(rep.Response,JSON.parse(JSON.stringify(self.data)))
             }
          })
       },
+      extend: function (rep,target) {
+         target.config.advance = parseInt(rep.config.advance)||2;
+         target.config.end["昌江"] = parseFloat(rep.config.end["昌江"])||14;
+         target.config.end["海口"] = parseFloat(rep.config.end["海口"])||0.5;
 
+         var trans  = function (t1,r1) {
+            for (var i = 0; i < t1.length; i++) {
+               t1[i].max = r1[i].max;
+               t1[i].min = r1[i].min;
+
+               var tbus = t1[i].buss;
+               var rbus = r1[i].buss;
+               for (var j = 0; j < tbus.length; j++) {
+                  var tb = tbus[j];
+
+                  for (var k = 0; k < rbus.length; k++) {
+                     var rb = rbus[k];
+                     if(tb.name == rb.name){
+                        $.extend(tb,rb);
+                     }
+                  }
+
+               }
+            }
+         }
+
+
+         var r1 = rep.busConfig["昌江"];
+         var t1 = target.busConfig["昌江"];
+         trans(t1,r1);
+         var r2 = rep.busConfig["海口"];
+         var t2 = target.busConfig["海口"];
+         trans(t2,r2);
+
+         return target;
+      },
       putContext: function () {
 
          if (!this.isValid){
