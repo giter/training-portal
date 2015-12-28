@@ -350,7 +350,7 @@ function filterBus(data){
     for(var i in des){
         if(des[i].length >1){
             des[i].sort(function (a,b) {
-                return a.index > b.index;
+                return a.index - b.index;
             })
         }
     }
