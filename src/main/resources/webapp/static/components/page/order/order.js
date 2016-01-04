@@ -91,7 +91,7 @@ module.exports = Vue.extend({
             var time = Date.parse(new Date(o.date.replace(/-/g,"/")+" "+o.bus.goff))/1000;
             var diff = now - time;
 
-            return diff<this.beginTime*-1;
+            return diff < 600;
         },
         _getDateRange: function () {
             var tran = function (d) {
