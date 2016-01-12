@@ -758,4 +758,27 @@ public class UserCtrl {
   
     return "SUCCESS";
   }
+  
+  /**
+   * 新增或更新人员信息
+   * @param _id
+   * @param session
+   * @param response
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value = "/isuser.json", method = { RequestMethod.GET })
+  public String isuser(
+    
+      @RequestParam(value = "email") String email,     
+      HttpSession session, HttpServletResponse response){
+	   User user=new User();
+	   user.setEmail(email);
+	   List<User>list=userService.findusers(user);
+	   if(!list.isEmpty()){
+		   return "1";
+	   }
+  
+    return "0";
+  }
 }
