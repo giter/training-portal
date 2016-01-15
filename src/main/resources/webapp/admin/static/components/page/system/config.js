@@ -105,7 +105,7 @@ module.exports = Vue.extend({
 
                   for (var k = 0; k < rbus.length; k++) {
                      var rb = rbus[k];
-                     if(tb.name == rb.name){
+                     if(tb.name == rb.name && tb.goff == rb.goff){
                         $.extend(tb,rb);
                      }
                   }
