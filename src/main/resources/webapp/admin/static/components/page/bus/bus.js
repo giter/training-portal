@@ -92,6 +92,7 @@ module.exports = Vue.extend({
          }
          var self = this;
          this.loading = true;
+         this.toInt(self.bus);
          if(this.bus._id){
             Service.updateBus(this.bus._id,JSON.stringify(self.bus),function (rep) {
                if(rep.Code != 0 ){
@@ -112,6 +113,12 @@ module.exports = Vue.extend({
                self.loading = false;
                self.closeDialog();
             });
+         }
+      },
+      toInt: function (bus) {
+         var week = bus.weeks;
+         for(var i in week){
+            week[i] = parseInt(week[i]);
          }
       },
       toPage: function (e) {
