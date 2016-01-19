@@ -10,9 +10,16 @@
                             
 
 							<div class="field">
-                                <select class="input" v-model="selectCalendar" options="calendar">
-                                    <option value="">请选择日期</option>
-                                </select>
+                                <label>查询日期</label>
+                                <!--<select class="input" v-model="selectCalendar" options="calendar" >-->
+                                    <!--<option value="">请选择日期</option>-->
+                                <!--</select>-->
+                                <!--<input type="button" v-on="click:showDatePicker" v-attr="value:date||'请选择时间'" style="height: 40px" >-->
+                                <!--<input type="text" style="height: 40px"  v-model="selectCalendar"  name="bdter" id="bdter"readonly="" class="textbox"   value="" />-->
+                             <input class="input" id="selectCalendar" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"/>
+                                <!--<option value="">请选择日期</option>-->
+                                <!--</select>-->
+                                <!--<input type="test" id="selectCalendar" v-on="change:aa()" v-model="selectCalendar"/>-->
                             </div>
 							<div class="label">
 								&nbsp;&nbsp;&nbsp;&nbsp;
@@ -22,6 +29,15 @@
                                 <select v-on="change:searchTicketStats" class="input" v-model="selectWhither" options="whither">
                                     <option>请选择目的地</option>
                                 </select>
+                            </div>
+                            <div class="label">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="field">
+                                <button class="button  bg-green" v-on="click:searchTicketStats" data-target="#user-dialog" data-mask="1" data-width="50%"    >
+                                    <span class="icon-search"></span>搜索</button>
+                                </button>
+                               <!--<input type="button" v-on="click:searchTicketStats" value="查询">-->
                             </div>
                         </div>
                         <span class="badge bg-sub">{{selectCalendar}}</span>

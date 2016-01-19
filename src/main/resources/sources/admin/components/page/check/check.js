@@ -43,7 +43,12 @@ module.exports = Vue.extend({
       }
    },
    methods:{
-      
+       //showDatePicker: function () {
+       //    var self = this;
+       //    this.picker.show(function (d) {
+       //        self.date = d.text;
+       //    });
+       //},
       btnSearch: function () {
 
       },
@@ -51,6 +56,10 @@ module.exports = Vue.extend({
 
       },
       searchTicketStats: function () {
+          //alert(this.selectCalendar);
+          //alert(this.selectWhither);
+          //alert($('#selectCalendar').val())
+          this.selectCalendar=$('#selectCalendar').val();
          if(this.selectCalendar&&this.selectWhither){
             this.loading = true;
             var self = this;
@@ -73,6 +82,7 @@ module.exports = Vue.extend({
       onPrint: function () {
          print();
       },
+
       unSub: function (uid,id) {
          var r = confirm("È·¶¨ÍË¶©£¿");
          var self = this;
@@ -84,7 +94,14 @@ module.exports = Vue.extend({
             })
          }
 
-      }
+      },
+       aa:function(){
+           alert( this.selectCalendar)
+           if( this.selectCalendar){
+               //this.getCompanyUser();
+               this.searchTicketStats();
+           }
+       }
    },
    watch:{
       "selectCompany": function (v) {
@@ -129,5 +146,9 @@ module.exports = Vue.extend({
             self.whither = lst;
          }
       })
+
+
+           //this.picker = new mui.DtPicker({"type":"date","beginYear":2016});
+
    }
 });
