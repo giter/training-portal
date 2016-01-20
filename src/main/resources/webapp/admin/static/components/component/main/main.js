@@ -148,6 +148,4 @@ router.configure({
 router.init("/home");
 
 
-
-
 });
