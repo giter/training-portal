@@ -57,7 +57,7 @@ public class UserCtrl {
 
   @Resource
   UserService userService;
-  
+
   @Resource
   DeptService deptService;
 
@@ -268,7 +268,7 @@ public class UserCtrl {
     try {
 
       String url = String.format(
-          "http://www.aomidata.com/data/user/bind/%s.json", auth.get_id());
+          "http://weixin.hnpc.cc/data/user/bind/%s.json", auth.get_id());
 
       mailService.mail(users.get(0).getName(), form.email, "网页验证邮件！",
           String.format("请使用以下链接激活帐号： %s", url));
@@ -473,8 +473,10 @@ public class UserCtrl {
     response.sendError(400, "Bad Request.");
     return null;
   }
+
   /**
    * 审批页面
+   * 
    * @param open
    * @param session
    * @param response
@@ -487,44 +489,45 @@ public class UserCtrl {
   public String finduser(
       @RequestParam(value = "openID", required = false) String open,
       HttpSession session) {
-	  String openID = (String) session.getAttribute("openID");
-      User user = userService.getByOpenID(openID);
-      User user1=new User();
-	  user1.setAdmin(1);
-	  user1.setDepartment(user.getDepartment());
-	  List<User> list=userService.findusers(user1);
-	  List<User> users=new ArrayList();
-	  List<User> users1=new ArrayList();
-	  String id="";
-	  if(!list.isEmpty()){
-		 
-		 for(int j=0;j<list.size();j++){
-			 id=list.get(j).get_id();
-			 if(user.getAdmin()==4){
-		    	  User user2=new User();
-				  user2.setCreator(id);
-				  user2.setType(1);
-				  user2.setZt("0");
-				  users1=userService.findusers(user2);
-				  users.addAll(users1);
-		    	  
-		      }
-		 }
-		 
-	  }
-	  if(user.getAdmin()==4&&user.getDepartment().equals("公司办公室")){
- 		   
- 		 User user3=new User();
-		     user3.setType(1);
-		     user3.setZt("1");
-		     users.addAll(userService.findusers(user3));
- 	  }
-      
+    String openID = (String) session.getAttribute("openID");
+    User user = userService.getByOpenID(openID);
+    User user1 = new User();
+    user1.setAdmin(1);
+    user1.setDepartment(user.getDepartment());
+    List<User> list = userService.findusers(user1);
+    List<User> users = new ArrayList();
+    List<User> users1 = new ArrayList();
+    String id = "";
+    if (!list.isEmpty()) {
+
+      for (int j = 0; j < list.size(); j++) {
+        id = list.get(j).get_id();
+        if (user.getAdmin() == 4) {
+          User user2 = new User();
+          user2.setCreator(id);
+          user2.setType(1);
+          user2.setZt("0");
+          users1 = userService.findusers(user2);
+          users.addAll(users1);
+
+        }
+      }
+
+    }
+    if (user.getAdmin() == 4 && user.getDepartment().equals("公司办公室")) {
+
+      User user3 = new User();
+      user3.setType(1);
+      user3.setZt("1");
+      users.addAll(userService.findusers(user3));
+    }
 
     return RESTResponse.of(users).toString();
   }
+
   /**
    * 全部通过
+   * 
    * @param _id
    * @param session
    * @param response
@@ -536,50 +539,52 @@ public class UserCtrl {
   public String approveusers(
       @RequestParam(value = "_id", required = false) String _id,
       HttpSession session, HttpServletResponse response) throws IOException {
-	  String openID = (String) session.getAttribute("openID");
-      User user = userService.getByOpenID(openID);
-      User user1=new User();
-	  user1.setAdmin(1);
-	  user1.setDepartment(user.getDepartment());
-	  List<User> list=userService.findusers(user1);
-	  List<User> users=new ArrayList();
-	  List<User> users1=new ArrayList();
-	  String id="";
-	  if(!list.isEmpty()){
-		 
-		 for(int j=0;j<list.size();j++){
-			 id=list.get(j).get_id();
-			 if(user.getAdmin()==4){
-		    	  User user2=new User();
-				  user2.setCreator(id);
-				  user2.setType(1);
-				  user2.setZt("0");
-				  users1=userService.findusers(user2);
-				  users.addAll(users1);
-		    	  
-		      }
-		 }
-		 
-	  }
-	  if(user.getAdmin()==4&&user.getDepartment().equals("公司办公室")){
- 		   
- 		 User user3=new User();
-		     user3.setType(1);
-		     user3.setZt("1");
-		     users.addAll(userService.findusers(user3));
- 	  }
-      for(int i=0;i<users.size();i++){
-      if(user.getDepartment().equals("公司办公室")){
-    	  userService.save(users.get(i).setZt("2"));  	  
-      }else{
-    	  userService.save(users.get(i).setZt("1")); 
+    String openID = (String) session.getAttribute("openID");
+    User user = userService.getByOpenID(openID);
+    User user1 = new User();
+    user1.setAdmin(1);
+    user1.setDepartment(user.getDepartment());
+    List<User> list = userService.findusers(user1);
+    List<User> users = new ArrayList();
+    List<User> users1 = new ArrayList();
+    String id = "";
+    if (!list.isEmpty()) {
+
+      for (int j = 0; j < list.size(); j++) {
+        id = list.get(j).get_id();
+        if (user.getAdmin() == 4) {
+          User user2 = new User();
+          user2.setCreator(id);
+          user2.setType(1);
+          user2.setZt("0");
+          users1 = userService.findusers(user2);
+          users.addAll(users1);
+
+        }
       }
+
+    }
+    if (user.getAdmin() == 4 && user.getDepartment().equals("公司办公室")) {
+
+      User user3 = new User();
+      user3.setType(1);
+      user3.setZt("1");
+      users.addAll(userService.findusers(user3));
+    }
+    for (int i = 0; i < users.size(); i++) {
+      if (user.getDepartment().equals("公司办公室")) {
+        userService.save(users.get(i).setZt("2"));
+      } else {
+        userService.save(users.get(i).setZt("1"));
       }
+    }
 
     return RESTResponse.of(users).toString();
   }
+
   /**
    * 审批通过
+   * 
    * @param _id
    * @param session
    * @param response
@@ -589,23 +594,24 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/approveuser.json", method = { RequestMethod.GET })
   public String approveuser(
       @RequestParam(value = "_id", required = false) String _id,
-      HttpSession session, HttpServletResponse response){
-	  User user=new User();
-	  user=userService.get(_id);
-	  String openID = (String) session.getAttribute("openID");
-      User user1 = userService.getByOpenID(openID);
-      
-      if(user1.getDepartment().equals("公司办公室")){
-    	  userService.save(user.setZt("2")); 	  
-      }else{
-    	  userService.save(user.setZt("1")); 
-      }
-	  
+      HttpSession session, HttpServletResponse response) {
+    User user = new User();
+    user = userService.get(_id);
+    String openID = (String) session.getAttribute("openID");
+    User user1 = userService.getByOpenID(openID);
+
+    if (user1.getDepartment().equals("公司办公室")) {
+      userService.save(user.setZt("2"));
+    } else {
+      userService.save(user.setZt("1"));
+    }
 
     return RESTResponse.of(user).toString();
   }
+
   /**
    * 审批不通过
+   * 
    * @param _id
    * @param session
    * @param response
@@ -615,15 +621,17 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/unapproveuser.json", method = { RequestMethod.GET })
   public String unapproveuser(
       @RequestParam(value = "_id", required = false) String _id,
-      HttpSession session, HttpServletResponse response){
-	  User user=new User();
-	  user=userService.get(_id);	     
-      userService.save(user.setZt("3")); 	  
+      HttpSession session, HttpServletResponse response) {
+    User user = new User();
+    user = userService.get(_id);
+    userService.save(user.setZt("3"));
 
     return RESTResponse.of(user).toString();
   }
+
   /**
    * 审批详情
+   * 
    * @param _id
    * @param session
    * @param response
@@ -633,14 +641,16 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/findapproveuser.json", method = { RequestMethod.GET })
   public String findapproveuser(
       @RequestParam(value = "_id", required = false) String _id,
-      HttpSession session, HttpServletResponse response){
-	  User user=new User();
-	  user=userService.get(_id);	     
-	  
+      HttpSession session, HttpServletResponse response) {
+    User user = new User();
+    user = userService.get(_id);
+
     return RESTResponse.of(user).toString();
   }
+
   /**
    * 查找所有部门
+   * 
    * @param _id
    * @param session
    * @param response
@@ -650,15 +660,16 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/finddepts.json", method = { RequestMethod.GET })
   public String findDept(
       @RequestParam(value = "id", required = false) String id,
-      HttpSession session, HttpServletResponse response){
-	  Dept dept=new Dept();
-	  List<Dept> depts=deptService.finddepts(dept);
-	     
-	  
+      HttpSession session, HttpServletResponse response) {
+    Dept dept = new Dept();
+    List<Dept> depts = deptService.finddepts(dept);
+
     return RESTResponse.of(depts).toString();
   }
+
   /**
    * 查找所选部门人员
+   * 
    * @param _id
    * @param session
    * @param response
@@ -666,39 +677,39 @@ public class UserCtrl {
    */
   @ResponseBody
   @RequestMapping(value = "/data/user/finddeptuser.json", method = { RequestMethod.GET })
-  public String findDeptuser(
-      @RequestParam(value = "level") Integer level,@RequestParam(value = "namea", required = false) String name,
-      @ModelAttribute UserParam userParam,
-      HttpSession session, HttpServletResponse response){
-	 // User user=new User();
-	 // if(level==2){
-	//	  user.setUnit(name);
-	//  }else if(level==1){
-	//	  user.setDepartment(name);
-	//  }
-	//  List<User> users=userService.findusers(user);
-	      
-	  
-   // return RESTResponse.of(users).toString();
-    
-   // UserParam userParam=new UserParam();
+  public String findDeptuser(@RequestParam(value = "level") Integer level,
+      @RequestParam(value = "namea", required = false) String name,
+      @ModelAttribute UserParam userParam, HttpSession session,
+      HttpServletResponse response) {
+    // User user=new User();
+    // if(level==2){
+    // user.setUnit(name);
+    // }else if(level==1){
+    // user.setDepartment(name);
+    // }
+    // List<User> users=userService.findusers(user);
+
+    // return RESTResponse.of(users).toString();
+
+    // UserParam userParam=new UserParam();
     User admin = userService.get(session.getAttribute("admin").toString());
-  //  userParam.setName(null);
+    // userParam.setName(null);
     if (admin.getAdmin() > 1) {
       userParam.setCreator(session.getAttribute("admin").toString());
     }
-    if(level==2){
-    	userParam.setUnit(name);
-	  }else if(level==1){
-		  userParam.setDepartment(name);
-	  }
+    if (level == 2) {
+      userParam.setUnit(name);
+    } else if (level == 1) {
+      userParam.setDepartment(name);
+    }
     return RESTResponse.of(
-        Page.of(userService.count(userParam), userService.page(userParam))).toString();
+        Page.of(userService.count(userParam), userService.page(userParam)))
+        .toString();
   }
-  
-  
+
   /**
    * 新增或更新人员信息
+   * 
    * @param _id
    * @param session
    * @param response
@@ -706,37 +717,38 @@ public class UserCtrl {
    */
   @ResponseBody
   @RequestMapping(value = "/insert.json", method = { RequestMethod.GET })
-  public String insertuser(
-      @RequestParam(value = "name") String name, 
-      @RequestParam(value = "email") String email, 
+  public String insertuser(@RequestParam(value = "name") String name,
+      @RequestParam(value = "email") String email,
       @RequestParam(value = "mobile") String mobile,
       @RequestParam(value = "department") String department,
-      @RequestParam(value = "unit") String unit,
-      HttpSession session, HttpServletResponse response){
-	   User user=new User();
-	   user.setEmail(email);
-	   List<User>list=userService.findusers(user);
-	   if(list.isEmpty()){
-		   user.setName(name);
-		   user.setMobile(mobile);
-		   user.setUnit(unit);
-		   user.setDepartment(department);
-		   user.setType(0);
-		   user.setPassword("1234qwer");
-		   userService.insert(user);
-	   }else{
-		   user=list.get(0);
-		   user.setName(name);
-		   user.setMobile(mobile);
-		   user.setUnit(unit);
-		   user.setDepartment(department);
-		   userService.save(user);
-	   }
-  
+      @RequestParam(value = "unit") String unit, HttpSession session,
+      HttpServletResponse response) {
+    User user = new User();
+    user.setEmail(email);
+    List<User> list = userService.findusers(user);
+    if (list.isEmpty()) {
+      user.setName(name);
+      user.setMobile(mobile);
+      user.setUnit(unit);
+      user.setDepartment(department);
+      user.setType(0);
+      user.setPassword("1234qwer");
+      userService.insert(user);
+    } else {
+      user = list.get(0);
+      user.setName(name);
+      user.setMobile(mobile);
+      user.setUnit(unit);
+      user.setDepartment(department);
+      userService.save(user);
+    }
+
     return "SUCCESS";
   }
+
   /**
    * 新增或更新人员信息
+   * 
    * @param _id
    * @param session
    * @param response
@@ -745,22 +757,23 @@ public class UserCtrl {
   @ResponseBody
   @RequestMapping(value = "/delete.json", method = { RequestMethod.GET })
   public String deleteuser(
-    
-      @RequestParam(value = "email") String email,     
-      HttpSession session, HttpServletResponse response){
-	   User user=new User();
-	   user.setEmail(email);
-	   List<User>list=userService.findusers(user);
-	   if(!list.isEmpty()){
-		user= list.get(0);
-		userService.remove(user.get_id());
-	   }
-  
+
+  @RequestParam(value = "email") String email, HttpSession session,
+      HttpServletResponse response) {
+    User user = new User();
+    user.setEmail(email);
+    List<User> list = userService.findusers(user);
+    if (!list.isEmpty()) {
+      user = list.get(0);
+      userService.remove(user.get_id());
+    }
+
     return "SUCCESS";
   }
-  
+
   /**
    * 新增或更新人员信息
+   * 
    * @param _id
    * @param session
    * @param response
@@ -769,16 +782,16 @@ public class UserCtrl {
   @ResponseBody
   @RequestMapping(value = "/isuser.json", method = { RequestMethod.GET })
   public String isuser(
-    
-      @RequestParam(value = "email") String email,     
-      HttpSession session, HttpServletResponse response){
-	   User user=new User();
-	   user.setEmail(email);
-	   List<User>list=userService.findusers(user);
-	   if(!list.isEmpty()){
-		   return "1";
-	   }
-  
+
+  @RequestParam(value = "email") String email, HttpSession session,
+      HttpServletResponse response) {
+    User user = new User();
+    user.setEmail(email);
+    List<User> list = userService.findusers(user);
+    if (!list.isEmpty()) {
+      return "1";
+    }
+
     return "0";
   }
 }
