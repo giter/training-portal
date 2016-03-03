@@ -1,6 +1,7 @@
 package com.aomi.busorder.controller.admin;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class ContextAdminCtrl {
   public String context(HttpServletRequest request) throws IOException {
 
     return RESTResponse.of(
-        service.save(IOUtils.toString(request.getInputStream()))).toString();
+        service.save(IOUtils.toString(request.getInputStream(),
+            Charset.forName("UTF-8")))).toString();
   }
 }
