@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aomi.busorder.form.LoginForm;
@@ -92,14 +91,14 @@ public class UserAdminCtrl {
   @ResponseBody
   @RequestMapping(value = "/admin/data/users.json", method = {
       RequestMethod.GET, RequestMethod.POST })
-  public String pages( @ModelAttribute UserParam userParam, HttpSession session) {
+  public String pages(@ModelAttribute UserParam userParam, HttpSession session) {
 
     User admin = service.get(session.getAttribute("admin").toString());
 
     if (admin.getAdmin() > 1) {
       userParam.setCreator(session.getAttribute("admin").toString());
     }
-    
+
     return RESTResponse.of(
         Page.of(service.count(userParam), service.page(userParam))).toString();
   }

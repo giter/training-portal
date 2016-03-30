@@ -495,8 +495,8 @@ public class UserCtrl {
     user1.setAdmin(1);
     user1.setDepartment(user.getDepartment());
     List<User> list = userService.findusers(user1);
-    List<User> users = new ArrayList();
-    List<User> users1 = new ArrayList();
+    List<User> users = new ArrayList<>();
+    List<User> users1 = new ArrayList<>();
     String id = "";
     if (!list.isEmpty()) {
 
@@ -545,8 +545,8 @@ public class UserCtrl {
     user1.setAdmin(1);
     user1.setDepartment(user.getDepartment());
     List<User> list = userService.findusers(user1);
-    List<User> users = new ArrayList();
-    List<User> users1 = new ArrayList();
+    List<User> users = new ArrayList<>();
+    List<User> users1 = new ArrayList<>();
     String id = "";
     if (!list.isEmpty()) {
 

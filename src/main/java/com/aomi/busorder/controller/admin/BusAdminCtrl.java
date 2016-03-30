@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,252 +44,244 @@ public class BusAdminCtrl {
     Bus bus = Utils.parseJSON(request.getInputStream(), Bus.class);
     bus.append("rows", 12);
     bus.append("cols", 5);
-    Bus bus1=service.insert(bus);
-    Seat seat=new Seat();
-   seat.setBus(bus1.get_id());
+    Bus bus1 = service.insert(bus);
+    Seat seat = new Seat();
+    seat.setBus(bus1.get_id());
     seat.append("row", 0);
     seat.append("col", 0);
-    seat.setSn("4");   
+    seat.setSn("4");
     seatservice.insert(seat);
-    
+
     seat.append("row", 0);
     seat.append("col", 1);
-    seat.setSn("3");    
+    seat.setSn("3");
     seatservice.insert(seat);
-    
+
     seat.append("row", 0);
     seat.append("col", 3);
-    seat.setSn("2");    
+    seat.setSn("2");
     seatservice.insert(seat);
-    
+
     seat.append("row", 0);
     seat.append("col", 4);
-    seat.setSn("1");    
+    seat.setSn("1");
     seatservice.insert(seat);
-    
+
     seat.append("row", 1);
     seat.append("col", 0);
-    seat.setSn("8");    
+    seat.setSn("8");
     seatservice.insert(seat);
-    
+
     seat.append("row", 1);
     seat.append("col", 1);
-    seat.setSn("7");    
+    seat.setSn("7");
     seatservice.insert(seat);
-    
+
     seat.append("row", 1);
     seat.append("col", 3);
-    seat.setSn("6");    
+    seat.setSn("6");
     seatservice.insert(seat);
-    
+
     seat.append("row", 1);
     seat.append("col", 4);
-    seat.setSn("5");    
+    seat.setSn("5");
     seatservice.insert(seat);
-    
+
     seat.append("row", 2);
     seat.append("col", 0);
-    seat.setSn("12");    
+    seat.setSn("12");
     seatservice.insert(seat);
-    
+
     seat.append("row", 2);
     seat.append("col", 1);
-    seat.setSn("11");    
+    seat.setSn("11");
     seatservice.insert(seat);
-    
+
     seat.append("row", 2);
     seat.append("col", 3);
-    seat.setSn("10");    
+    seat.setSn("10");
     seatservice.insert(seat);
-    
+
     seat.append("row", 2);
     seat.append("col", 4);
-    seat.setSn("9");    
+    seat.setSn("9");
     seatservice.insert(seat);
-    
+
     seat.append("row", 3);
     seat.append("col", 0);
-    seat.setSn("16");    
+    seat.setSn("16");
     seatservice.insert(seat);
-    
+
     seat.append("row", 3);
     seat.append("col", 1);
-    seat.setSn("15");    
+    seat.setSn("15");
     seatservice.insert(seat);
-    
+
     seat.append("row", 3);
     seat.append("col", 3);
-    seat.setSn("14");    
+    seat.setSn("14");
     seatservice.insert(seat);
-    
+
     seat.append("row", 3);
     seat.append("col", 4);
-    seat.setSn("13");    
+    seat.setSn("13");
     seatservice.insert(seat);
-    
+
     seat.append("row", 4);
     seat.append("col", 0);
-    seat.setSn("20");    
+    seat.setSn("20");
     seatservice.insert(seat);
-    
+
     seat.append("row", 4);
     seat.append("col", 1);
-    seat.setSn("19");    
+    seat.setSn("19");
     seatservice.insert(seat);
-    
+
     seat.append("row", 4);
     seat.append("col", 3);
-    seat.setSn("18");    
+    seat.setSn("18");
     seatservice.insert(seat);
-    
+
     seat.append("row", 4);
     seat.append("col", 4);
-    seat.setSn("17");    
+    seat.setSn("17");
     seatservice.insert(seat);
 
     seat.append("row", 5);
     seat.append("col", 0);
-    seat.setSn("22");    
+    seat.setSn("22");
     seatservice.insert(seat);
-    
+
     seat.append("row", 5);
     seat.append("col", 1);
-    seat.setSn("21");    
+    seat.setSn("21");
     seatservice.insert(seat);
-    
-      
+
     seat.append("row", 5);
     seat.append("col", 4);
-    seat.setSn("中");    
+    seat.setSn("中");
     seatservice.insert(seat);
 
     seat.append("row", 6);
     seat.append("col", 0);
-    seat.setSn("24");    
+    seat.setSn("24");
     seatservice.insert(seat);
-    
+
     seat.append("row", 6);
     seat.append("col", 1);
-    seat.setSn("23");    
+    seat.setSn("23");
     seatservice.insert(seat);
-    
-      
+
     seat.append("row", 6);
     seat.append("col", 4);
-    seat.setSn("门");    
+    seat.setSn("门");
     seatservice.insert(seat);
-    
-    
-    
+
     seat.append("row", 7);
     seat.append("col", 0);
-    seat.setSn("28");    
+    seat.setSn("28");
     seatservice.insert(seat);
-    
+
     seat.append("row", 7);
     seat.append("col", 1);
-    seat.setSn("27");    
+    seat.setSn("27");
     seatservice.insert(seat);
-    
+
     seat.append("row", 7);
     seat.append("col", 3);
-    seat.setSn("26");    
+    seat.setSn("26");
     seatservice.insert(seat);
-    
+
     seat.append("row", 7);
     seat.append("col", 4);
-    seat.setSn("25");    
+    seat.setSn("25");
     seatservice.insert(seat);
-    
-    
+
     seat.append("row", 8);
     seat.append("col", 0);
-    seat.setSn("32");    
+    seat.setSn("32");
     seatservice.insert(seat);
-    
+
     seat.append("row", 8);
     seat.append("col", 1);
-    seat.setSn("31");    
+    seat.setSn("31");
     seatservice.insert(seat);
-    
+
     seat.append("row", 8);
     seat.append("col", 3);
-    seat.setSn("30");    
+    seat.setSn("30");
     seatservice.insert(seat);
-    
+
     seat.append("row", 8);
     seat.append("col", 4);
-    seat.setSn("29");    
+    seat.setSn("29");
     seatservice.insert(seat);
-    
-    
+
     seat.append("row", 9);
     seat.append("col", 0);
-    seat.setSn("36");    
+    seat.setSn("36");
     seatservice.insert(seat);
-    
+
     seat.append("row", 9);
     seat.append("col", 1);
-    seat.setSn("35");    
+    seat.setSn("35");
     seatservice.insert(seat);
-    
+
     seat.append("row", 9);
     seat.append("col", 3);
-    seat.setSn("34");    
+    seat.setSn("34");
     seatservice.insert(seat);
-    
+
     seat.append("row", 9);
     seat.append("col", 4);
-    seat.setSn("33");    
+    seat.setSn("33");
     seatservice.insert(seat);
-    
-    
+
     seat.append("row", 10);
     seat.append("col", 0);
-    seat.setSn("40");    
+    seat.setSn("40");
     seatservice.insert(seat);
-    
+
     seat.append("row", 10);
     seat.append("col", 1);
-    seat.setSn("39");    
+    seat.setSn("39");
     seatservice.insert(seat);
-    
+
     seat.append("row", 10);
     seat.append("col", 3);
-    seat.setSn("38");    
+    seat.setSn("38");
     seatservice.insert(seat);
-    
+
     seat.append("row", 10);
     seat.append("col", 4);
-    seat.setSn("37");    
+    seat.setSn("37");
     seatservice.insert(seat);
-    
-    
+
     seat.append("row", 11);
     seat.append("col", 0);
-    seat.setSn("45");    
+    seat.setSn("45");
     seatservice.insert(seat);
-    
+
     seat.append("row", 11);
     seat.append("col", 1);
-    seat.setSn("44");    
+    seat.setSn("44");
     seatservice.insert(seat);
-    
+
     seat.append("row", 11);
     seat.append("col", 2);
-    seat.setSn("43");    
+    seat.setSn("43");
     seatservice.insert(seat);
-    
+
     seat.append("row", 11);
     seat.append("col", 3);
-    seat.setSn("42");    
+    seat.setSn("42");
     seatservice.insert(seat);
-    
+
     seat.append("row", 11);
     seat.append("col", 4);
-    seat.setSn("41");    
+    seat.setSn("41");
     seatservice.insert(seat);
-    
+
     return RESTResponse.of(bus1).toString();
 
   }
