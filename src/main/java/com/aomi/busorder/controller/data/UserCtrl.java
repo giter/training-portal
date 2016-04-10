@@ -129,6 +129,14 @@ public class UserCtrl {
     return RESTResponse.of(1).get();
   }
 
+  @ResponseBody
+  @RequestMapping(value = "/data/user.json", method = { RequestMethod.GET })
+  public String userInfo(HttpSession session, HttpServletRequest request)
+      throws Exception {
+
+    return RESTResponse.of(userService.getFromSession(session)).get();
+  }
+
   void doLogin(HttpSession session, User user) {
 
     tracer.trace(user, TraceAction.ACTION_LOGIN);
