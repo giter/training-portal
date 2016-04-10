@@ -4,6 +4,7 @@ import com.mongodb.DBObject;
 
 public class PageParam {
 
+  private boolean counting = true;
   private int page;
   private int limit = 20;
 
@@ -31,6 +32,14 @@ public class PageParam {
 
   public void setSort(DBObject sort) {
     this.sort = sort;
+  }
+
+  public boolean isCounting() {
+    return counting;
+  }
+
+  public void setCounting(boolean counting) {
+    this.counting = counting;
   }
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.InitializingBean;
@@ -78,6 +79,16 @@ public class UserService implements InitializingBean {
     return (User) dao.user.findOne(query);
   }
 
+  public User getByEmail(String email) {
+
+    if (email == null)
+      return null;
+
+    DBObject query = BasicDBObjectBuilder.start(User.FIELD_EMAIL, email).get();
+
+    return (User) dao.user.findOne(query);
+  }
+
   public User getByOpenID(String openID) {
 
     if (openID == null)
@@ -85,6 +96,27 @@ public class UserService implements InitializingBean {
 
     return (User) dao.user
         .findOne(new BasicDBObject(User.FIELD_OPENID, openID));
+  }
+
+  public User getFromSession(HttpSession session) {
+
+    String openID = (String) session.getAttribute("openID");
+    User user = getByOpenID(openID);
+
+    if (user != null) {
+      return user;
+    }
+
+    String email = (String) session.getAttribute("email");
+
+    user = getByEmail(email);
+
+    if (user != null) {
+      return user;
+    }
+
+    return user;
+
   }
 
   public User getByRelation(String related, String sn) {
@@ -245,11 +277,11 @@ public class UserService implements InitializingBean {
       save(user);
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   public List<User> findusers(User user) {
 
-    DBCursor cursor = dao.user.find(user);    
+    DBCursor cursor = dao.user.find(user);
     List<?> users = cursor.toArray();
 
     return (List<User>) users;

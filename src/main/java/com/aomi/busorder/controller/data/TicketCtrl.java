@@ -156,8 +156,10 @@ public class TicketCtrl {
 
     return RESTResponse.of(r).toString();
   }
+
   /**
    * 历史订票查询
+   * 
    * @param dest
    * @param date
    * @return
@@ -172,19 +174,17 @@ public class TicketCtrl {
     param.setLimit(0);
     param.setOnline(1);
     param.setDestination(dest);
-    int a=0;
-    int b=0;
+    int a = 0;
+    int b = 0;
     try {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMdd");
-    Date now =new Date();
-    String nowtime=sdfa.format(now);
-     a=Integer.parseInt(nowtime);
-    Date dt = sdf.parse(date);
-    String time=sdfa.format(dt);
-     b=Integer.parseInt(time);
-    
-      
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMdd");
+      Date now = new Date();
+      String nowtime = sdfa.format(now);
+      a = Integer.parseInt(nowtime);
+      Date dt = sdf.parse(date);
+      String time = sdfa.format(dt);
+      b = Integer.parseInt(time);
 
       @SuppressWarnings("deprecation")
       int weekday = dt.getDay();
@@ -218,11 +218,11 @@ public class TicketCtrl {
 
         if (!NumberUtils.isNumber(seat.getSn()))
           continue;
-        Ticket ticket=new Ticket();
-        if(a>b){
-         ticket = ticketService.getByDatea(date, seat.get_id());
-        }else{
-        	ticket = ticketService.getByDate(date, seat.get_id());
+        Ticket ticket = new Ticket();
+        if (a > b) {
+          ticket = ticketService.getByDatea(date, seat.get_id());
+        } else {
+          ticket = ticketService.getByDate(date, seat.get_id());
         }
 
         if (ticket == null)
@@ -273,6 +273,7 @@ public class TicketCtrl {
 
     return RESTResponse.of(r).toString();
   }
+
   @ResponseBody
   @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.PUT })
   public String tickets(HttpSession session, HttpServletRequest request)
@@ -281,11 +282,9 @@ public class TicketCtrl {
     List<OrderForm> tus = Utils.parseJSONArray(request.getInputStream(),
         OrderForm.class);
 
-    String openID = (String) session.getAttribute("openID");
+    User source = userService.getFromSession(session);
 
-    User source = userService.getByOpenID(openID);
-
-    if (openID == null || source == null) {
+    if (source == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -320,24 +319,25 @@ public class TicketCtrl {
 
     return RESTResponse.of(tus).toString();
   }
+
   @ResponseBody
   @RequestMapping(value = "/data/ticketsa.json", method = { RequestMethod.GET })
   public String ticketsa(@RequestParam("bus") String id,
       @RequestParam("date") String date) {
-	  int a=0;
-	    int b=0;
-	    try {
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMdd");
-	    Date now =new Date();
-	    String nowtime=sdfa.format(now);
-	     a=Integer.parseInt(nowtime);
-	    Date dt = sdf.parse(date);
-	    String time=sdfa.format(dt);
-	     b=Integer.parseInt(time);
-	    } catch (ParseException e) {
-	        throw new RuntimeException(e);
-	      }
+    int a = 0;
+    int b = 0;
+    try {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat sdfa = new SimpleDateFormat("yyyyMMdd");
+      Date now = new Date();
+      String nowtime = sdfa.format(now);
+      a = Integer.parseInt(nowtime);
+      Date dt = sdf.parse(date);
+      String time = sdfa.format(dt);
+      b = Integer.parseInt(time);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
     Bus bus = busService.get(id);
 
     if (bus == null)
@@ -354,13 +354,13 @@ public class TicketCtrl {
     ArrayList<Seat> seats = (ArrayList<Seat>) bus.get("seats");
 
     for (Seat seat : seatService.page(sparam)) {
-    	Ticket ticket=new Ticket();
-    	if(a>b){
+      Ticket ticket = new Ticket();
+      if (a > b) {
 
-       ticket = ticketService.getByDatea(date, seat.get_id());
-    	}else{
-    		 ticket = ticketService.getByDate(date, seat.get_id());
-    	}
+        ticket = ticketService.getByDatea(date, seat.get_id());
+      } else {
+        ticket = ticketService.getByDate(date, seat.get_id());
+      }
       if (ticket == null)
         continue;
 
@@ -384,7 +384,7 @@ public class TicketCtrl {
   @RequestMapping(value = "/data/tickets.json", method = { RequestMethod.GET })
   public String tickets(@RequestParam("bus") String id,
       @RequestParam("date") String date) {
-	  
+
     Bus bus = busService.get(id);
 
     if (bus == null)
@@ -401,11 +401,10 @@ public class TicketCtrl {
     ArrayList<Seat> seats = (ArrayList<Seat>) bus.get("seats");
 
     for (Seat seat : seatService.page(sparam)) {
-    	Ticket ticket=new Ticket();
-    	
+      Ticket ticket = new Ticket();
 
-       ticket = ticketService.getByDate(date, seat.get_id());
-    	
+      ticket = ticketService.getByDate(date, seat.get_id());
+
       if (ticket == null)
         continue;
 
@@ -439,11 +438,9 @@ public class TicketCtrl {
       return RESTResponse.of(Errors.ITEM_BEEN_ORDERED, "车票已被预订...").toString();
     }
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -476,7 +473,7 @@ public class TicketCtrl {
 
     String openID = (String) session.getAttribute("openID");
 
-    User source = userService.getByOpenID(openID);
+    User source = userService.getFromSession(session);
 
     if (openID == null || source == null) {
 

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aomi.busorder.controller.WeixinCtrl;
 import com.aomi.busorder.form.BindForm;
+import com.aomi.busorder.form.LoginForm;
 import com.aomi.busorder.form.RelationForm;
 import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.misc.Utils;
@@ -112,11 +113,28 @@ public class UserCtrl {
         + "#/bind";
   }
 
+  @ResponseBody
+  @RequestMapping(value = "/data/user/login.json", method = { RequestMethod.DELETE })
+  public String fakeLogin(HttpSession session, HttpServletRequest request)
+      throws Exception {
+
+    LoginForm form = Utils.parseJSON(request.getInputStream(), LoginForm.class);
+    User user = userService.getByAccount(form.getEmail(), form.getPassword());
+
+    if (user == null) {
+      return RESTResponse.of(0).get();
+    }
+
+    doLogin(session, user);
+    return RESTResponse.of(1).get();
+  }
+
   void doLogin(HttpSession session, User user) {
 
     tracer.trace(user, TraceAction.ACTION_LOGIN);
 
     session.setAttribute("openID", user.getOpenID());
+    session.setAttribute("email", user.getEmail());
   }
 
   @ResponseBody
@@ -124,11 +142,9 @@ public class UserCtrl {
   public String relation(@PathVariable("id") String id, HttpSession session,
       HttpServletRequest request) {
 
-    String openID = (String) session.getAttribute("openID");
+    User source = userService.getFromSession(session);
 
-    User source = userService.getByOpenID(openID);
-
-    if (openID == null || source == null) {
+    if (source == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -157,11 +173,9 @@ public class UserCtrl {
       return RESTResponse.of(Pair.of(false, "参数不完整，请重新输入！")).toString();
     }
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -205,9 +219,7 @@ public class UserCtrl {
   public String unbind(HttpSession session, HttpServletRequest request)
       throws IOException {
 
-    String openID = (String) session.getAttribute("openID");
-
-    User user = userService.getByOpenID(openID);
+    User user = userService.getFromSession(session);
 
     if (user != null) {
 
@@ -309,11 +321,9 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/mine.json", method = { RequestMethod.GET })
   public String back(HttpSession session) {
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -325,11 +335,9 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/delegation.json", method = { RequestMethod.GET })
   public String delegation(HttpSession session) {
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -353,11 +361,9 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/delegate-for/{uid}.json", method = { RequestMethod.POST })
   public String delegateFor(HttpSession session, @PathVariable("uid") String uid) {
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -378,11 +384,9 @@ public class UserCtrl {
   public String undelegateAs(HttpSession session,
       @PathVariable("uid") String uid) {
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -403,11 +407,9 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/delegation/{uid}.json", method = { RequestMethod.POST })
   public String delegate(HttpSession session, @PathVariable("uid") String uid) {
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -427,11 +429,9 @@ public class UserCtrl {
   @RequestMapping(value = "/data/user/delegation/{uid}.json", method = { RequestMethod.DELETE })
   public String undelegate(HttpSession session, @PathVariable("uid") String uid) {
 
-    String openID = (String) session.getAttribute("openID");
+    User user = userService.getFromSession(session);
 
-    User user = userService.getByOpenID(openID);
-
-    if (openID == null || user == null) {
+    if (user == null) {
 
       return RESTResponse.of(Errors.UNAUTHORIZED, "尚未绑定或未登录...").toString();
     }
@@ -489,8 +489,8 @@ public class UserCtrl {
   public String finduser(
       @RequestParam(value = "openID", required = false) String open,
       HttpSession session) {
-    String openID = (String) session.getAttribute("openID");
-    User user = userService.getByOpenID(openID);
+
+    User user = userService.getFromSession(session);
     User user1 = new User();
     user1.setAdmin(1);
     user1.setDepartment(user.getDepartment());
@@ -539,9 +539,10 @@ public class UserCtrl {
   public String approveusers(
       @RequestParam(value = "_id", required = false) String _id,
       HttpSession session, HttpServletResponse response) throws IOException {
-    String openID = (String) session.getAttribute("openID");
-    User user = userService.getByOpenID(openID);
+
+    User user = userService.getFromSession(session);
     User user1 = new User();
+
     user1.setAdmin(1);
     user1.setDepartment(user.getDepartment());
     List<User> list = userService.findusers(user1);
@@ -595,10 +596,11 @@ public class UserCtrl {
   public String approveuser(
       @RequestParam(value = "_id", required = false) String _id,
       HttpSession session, HttpServletResponse response) {
+
     User user = new User();
     user = userService.get(_id);
-    String openID = (String) session.getAttribute("openID");
-    User user1 = userService.getByOpenID(openID);
+
+    User user1 = userService.getFromSession(session);
 
     if (user1.getDepartment().equals("公司办公室")) {
       userService.save(user.setZt("2"));

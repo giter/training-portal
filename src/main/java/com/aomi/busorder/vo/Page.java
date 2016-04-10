@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Page<T> {
 
-  public long count;
+  public Long count;
   public List<T> lists;
 
-  public static <V> Page<V> of(long count, List<V> lists) {
+  public static <V> Page<V> of(Long count, List<V> lists) {
 
     Page<V> page = new Page<>();
 

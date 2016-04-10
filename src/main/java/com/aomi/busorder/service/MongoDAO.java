@@ -37,7 +37,7 @@ public class MongoDAO implements InitializingBean {
   private static final String COLLECTION_NAME_TRACE = "trace";
 
   private static final String COLLECTION_NAME_SYSTEM = "system";
-  
+
   private static final String COLLECTION_NAME_DEPT = "dept";
 
   @Value("${mongodb.db}")
@@ -64,9 +64,10 @@ public class MongoDAO implements InitializingBean {
   public DBCollection oldticket;
 
   public DBCollection authorize;
-  
+
   public DBCollection dept;
 
+  @SuppressWarnings("deprecation")
   @Override
   public void afterPropertiesSet() throws Exception {
 
@@ -79,7 +80,7 @@ public class MongoDAO implements InitializingBean {
 
     bus = client.getDB(dbName).getCollection(COLLECTION_NAME_BUS);
     bus.setObjectClass(Bus.class);
-    
+
     dept = client.getDB(dbName).getCollection(COLLECTION_NAME_DEPT);
     dept.setObjectClass(Dept.class);
 

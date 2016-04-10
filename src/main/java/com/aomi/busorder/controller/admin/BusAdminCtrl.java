@@ -27,6 +27,7 @@ public class BusAdminCtrl {
 
   @Resource
   BusService service;
+
   @Resource
   SeatService seatservice;
 
