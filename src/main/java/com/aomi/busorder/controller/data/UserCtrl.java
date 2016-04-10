@@ -114,7 +114,7 @@ public class UserCtrl {
   }
 
   @ResponseBody
-  @RequestMapping(value = "/data/user/login.json", method = { RequestMethod.DELETE })
+  @RequestMapping(value = "/data/user/login.json", method = { RequestMethod.POST })
   public String fakeLogin(HttpSession session, HttpServletRequest request)
       throws Exception {
 
