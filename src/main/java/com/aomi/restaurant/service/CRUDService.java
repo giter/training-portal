@@ -54,7 +54,7 @@ public abstract class CRUDService<T extends Basic<T>, Q extends PageParam> {
     return collection().count(query);
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public List<T> page(Q param) {
 
     DBCursor cursor = collection().find(query(param));
@@ -71,6 +71,7 @@ public abstract class CRUDService<T extends Basic<T>, Q extends PageParam> {
       cursor.sort(param.getSort());
     }
 
-    return (List<T>) cursor.toArray();
+    List a = cursor.toArray();
+    return a;
   }
 }
