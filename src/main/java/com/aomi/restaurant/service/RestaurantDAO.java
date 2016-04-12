@@ -36,7 +36,6 @@ public class RestaurantDAO implements InitializingBean {
 
   public GridFS gridFS;
 
-  @SuppressWarnings("deprecation")
   @Override
   public void afterPropertiesSet() throws Exception {
 
