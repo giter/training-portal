@@ -43,21 +43,21 @@ public class ImageCtrl {
 
     ImageForm form = Utils.parseJSON(request.getInputStream(), ImageForm.class);
 
-    if (form.file != null) {
+    if (form.data != null) {
 
       String b64 = "base64,";
-      int s = form.file.indexOf(b64);
+      int s = form.data.indexOf(b64);
 
       if (s > 0) {
 
-        String image = form.file.substring(s + b64.length());
+        String image = form.data.substring(s + b64.length());
         String id = DigestUtils.md5Hex(image);
 
         if (DAO.gridFS.find(new BasicDBObject("_id", id)).size() == 0) {
 
           byte[] img = Base64.decodeFast(image);
 
-          String contentType = form.file.substring(0, s - 1).substring(5);
+          String contentType = form.data.substring(0, s - 1).substring(5);
           GridFSInputFile file = DAO.gridFS.createFile(img);
           file.setId(id);
           file.setContentType(contentType);
