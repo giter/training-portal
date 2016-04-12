@@ -31,7 +31,7 @@ public abstract class CRUDAdminCtrl<T extends Basic<T>, Q extends PageParam> {
   }
 
   @ResponseBody
-  @RequestMapping(value = "/0.json", method = { RequestMethod.POST })
+  @RequestMapping(value = "/insert.json", method = { RequestMethod.POST })
   public String insert(HttpServletRequest request, HttpSession session)
       throws IOException {
 
@@ -72,7 +72,6 @@ public abstract class CRUDAdminCtrl<T extends Basic<T>, Q extends PageParam> {
       count = service().count(query);
     }
 
-    return RESTResponse.of(Page.of(count, service().page( param)))
-        .toString();
+    return RESTResponse.of(Page.of(count, service().page(param))).toString();
   }
 }
