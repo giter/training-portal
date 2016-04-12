@@ -1,11 +1,8 @@
 package com.aomi.restaurant.pojo;
 
-import org.mongodb.morphia.annotations.Entity;
-
 import com.aomi.busorder.pojo.Basic;
 import com.aomi.busorder.pojo.User;
 
-@Entity
 public class Notice extends Basic<Notice> {
 
   private static final long serialVersionUID = 1L;

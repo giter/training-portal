@@ -2,7 +2,6 @@ package com.aomi.restaurant.service;
 
 import javax.annotation.Resource;
 
-import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,6 @@ public class RestaurantDAO implements InitializingBean {
 
   @Resource
   MongoClient client;
-
-  Datastore store;
 
   @Value("${mongodb.db}")
   String dbName;
