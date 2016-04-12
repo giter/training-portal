@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aomi.busorder.misc.Utils;
+import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.RESTResponse;
 import com.aomi.restaurant.pojo.Notice;
 import com.aomi.restaurant.service.NoticeService;
@@ -23,6 +24,9 @@ public class NoticeAdminCtrl extends CRUDAdminCtrl<Notice, NoticePageParam> {
 
   @Resource
   NoticeService service;
+
+  @Resource
+  UserService userService;
 
   @Override
   public NoticeService service() {
@@ -36,7 +40,8 @@ public class NoticeAdminCtrl extends CRUDAdminCtrl<Notice, NoticePageParam> {
       throws IOException {
 
     Notice t = Utils.parseJSON(request.getInputStream(), service().clazz());
-    t.put("user", session.getAttribute("admin"));
+    t.put("user", userService.get(session.getAttribute("admin").toString())
+        .getName());
 
     return RESTResponse.of(service().insert(t)).toString();
   }

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.util.StreamUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 
 public class Utils {
 
@@ -16,7 +17,7 @@ public class Utils {
   public static <T> T parseJSON(InputStream in, Class<T> clazz)
       throws IOException {
 
-    return JSON.parseObject(StreamUtils.copyToString(in, UTF8), clazz);
+    return new Gson().fromJson(StreamUtils.copyToString(in, UTF8), clazz);
   }
 
   public static <T> List<T> parseJSONArray(InputStream in, Class<T> clazz)
@@ -27,7 +28,7 @@ public class Utils {
 
   public static <T> T parseJSON(String s, Class<T> clazz) throws IOException {
 
-    return JSON.parseObject(s, clazz);
+    return new Gson().fromJson(s, clazz);
   }
 
   public static <T> List<T> parseJSONArray(String s, Class<T> clazz)

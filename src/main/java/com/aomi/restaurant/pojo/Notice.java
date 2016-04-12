@@ -1,7 +1,6 @@
 package com.aomi.restaurant.pojo;
 
 import com.aomi.busorder.pojo.Basic;
-import com.aomi.busorder.pojo.User;
 
 public class Notice extends Basic<Notice> {
 
@@ -51,8 +50,8 @@ public class Notice extends Basic<Notice> {
    * 
    * @return
    */
-  public User getUser() {
-    return (User) get("user");
+  public String getUser() {
+    return getString("user");
   }
 
 }

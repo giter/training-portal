@@ -1,7 +1,7 @@
 package com.aomi.restaurant.pojo;
 
 import com.aomi.busorder.pojo.Basic;
-import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 public class Table extends Basic<Table> {
 
@@ -27,29 +27,13 @@ public class Table extends Basic<Table> {
     return getString("no");
   }
 
-  public Position getPosition() {
+  public DBObject getPosition() {
 
-    return (Position) get("position");
+    return (DBObject) get("position");
   }
 
   public int getVisible() {
     return getInt("visible", 1);
-  }
-
-  public static class Position extends BasicDBObject {
-
-    private static final long serialVersionUID = 1L;
-
-    public int getX() {
-
-      return getInt("x", 0);
-    }
-
-    public int getY() {
-
-      return getInt("y", 0);
-    }
-
   }
 
 }

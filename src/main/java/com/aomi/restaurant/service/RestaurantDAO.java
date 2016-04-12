@@ -11,7 +11,6 @@ import com.aomi.restaurant.pojo.Dish;
 import com.aomi.restaurant.pojo.Notice;
 import com.aomi.restaurant.pojo.Order;
 import com.aomi.restaurant.pojo.Table;
-import com.aomi.restaurant.pojo.Table.Position;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
@@ -48,7 +47,6 @@ public class RestaurantDAO implements InitializingBean {
     table = client.getDB(dbName).getCollection("table");
 
     table.setObjectClass(Table.class);
-    table.setInternalClass("position", Position.class);
 
     dish = client.getDB(dbName).getCollection("dish");
 
