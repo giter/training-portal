@@ -47,7 +47,7 @@ public abstract class CRUDAdminCtrl<T extends Basic<T>, Q extends PageParam> {
 
     T t = Utils.parseJSON(request.getInputStream(), service().clazz());
 
-    return RESTResponse.of(service().insert(t)).toString();
+    return RESTResponse.of(service().update(t)).toString();
   }
 
   @ResponseBody
