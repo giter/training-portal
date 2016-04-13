@@ -15,15 +15,16 @@ public class ContextService {
   @Resource
   MongoDAO dao;
 
-  public Object get() {
+  public Object get(String app) {
 
-    return dao.system.findOne("context");
+    return dao.system.findOne(app);
   }
 
-  public synchronized DBObject save(String context) throws IOException {
+  public synchronized DBObject save(String app, String context)
+      throws IOException {
 
     DBObject parsed = (DBObject) JSON.parse(context);
-    parsed.put("_id", "context");
+    parsed.put("_id", app);
 
     dao.system.save(parsed);
 

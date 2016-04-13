@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,9 @@ public class ConfigCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/ctx.json", method = { RequestMethod.GET })
-  public String context() {
+  public String context(
+      @RequestParam(value = "app", defaultValue = "context") String app) {
 
-    return RESTResponse.of(service.get()).toString();
+    return RESTResponse.of(service.get(app)).toString();
   }
 }

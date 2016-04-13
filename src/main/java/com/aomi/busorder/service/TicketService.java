@@ -168,7 +168,7 @@ public class TicketService {
 
     String destination = ticket.getBus().getDestination();
 
-    DBObject ctx = (DBObject) context.get();
+    DBObject ctx = (DBObject) context.get("context");
 
     if (ctx == null) {
       return false;
@@ -236,14 +236,14 @@ public class TicketService {
 
     return (Ticket) dao.ticket.findOne(query);
   }
-  
+
   public Ticket getByDatea(String date, String seatId) {
 
-	    DBObject query = BasicDBObjectBuilder.start(Ticket.FIELD_DATE, date)
-	        .add(Ticket.FIELD_SEAT + "._id", seatId).get();
+    DBObject query = BasicDBObjectBuilder.start(Ticket.FIELD_DATE, date)
+        .add(Ticket.FIELD_SEAT + "._id", seatId).get();
 
-	    return (Ticket) dao.oldticket.findOne(query);
-	  }
+    return (Ticket) dao.oldticket.findOne(query);
+  }
 
   /**
    * 清理该日期以前的车票记录
