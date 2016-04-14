@@ -47,11 +47,16 @@ public class OrderCtrl {
   @Resource
   TableService tableService;
 
+  @ResponseBody
   @RequestMapping(value = "/data/table/{id}.json", method = { RequestMethod.PUT })
   public String data_table_$id(@PathVariable("id") String id,
       HttpServletRequest request, HttpSession session) throws Exception {
 
     User user = userService.getFromSession(session);
+
+    if (user == null) {
+      return RESTResponse.of(null).get();
+    }
 
     Table table = tableService.get(id);
 
