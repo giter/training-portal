@@ -9,4 +9,6 @@ public class Errors {
   public static final int ITEM_BEEN_ORDERED = 3;
 
   public static final int LIMIT_EXCEED = 4;
+
+  public static final int PARAMETER_ERROR = 5;
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aomi.busorder.misc.Errors;
 import com.aomi.busorder.misc.Utils;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.UserService;
@@ -55,13 +56,13 @@ public class OrderCtrl {
     User user = userService.getFromSession(session);
 
     if (user == null) {
-      return RESTResponse.of(null).get();
+      return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
     }
 
     Table table = tableService.get(id);
 
     if (table == null) {
-      return RESTResponse.of(null).get();
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, null).get();
     }
 
     OrderForm form = Utils.parseJSON(request.getInputStream(), OrderForm.class);
@@ -86,7 +87,7 @@ public class OrderCtrl {
 
     if (order == null || order.getMdate() == null || order.getMtime() == null
         || order.getTable() == null) {
-      return RESTResponse.of(null).get();
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, null).get();
     }
 
     OrderPageParam opp = new OrderPageParam();
