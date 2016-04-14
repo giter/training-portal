@@ -22,6 +22,7 @@ import com.aomi.busorder.service.UserService;
 import com.aomi.busorder.vo.RESTResponse;
 import com.aomi.restaurant.form.ListDishForm;
 import com.aomi.restaurant.form.ListDishForm.DishForm;
+import com.aomi.restaurant.form.OrderForm;
 import com.aomi.restaurant.pojo.Dish;
 import com.aomi.restaurant.pojo.Order;
 import com.aomi.restaurant.pojo.Table;
@@ -58,7 +59,25 @@ public class OrderCtrl {
       return RESTResponse.of(null).get();
     }
 
-    Order order = Utils.parseJSON(request.getInputStream(), Order.class);
+    OrderForm form = Utils.parseJSON(request.getInputStream(), OrderForm.class);
+
+    Order order = new Order();
+
+    order.put("mdate", form.mdate);
+    order.put("mtime", form.mtime);
+    order.put("number", form.number);
+
+    order.put("table", table);
+
+    ArrayList<Object> menu = new ArrayList<>();
+
+    order.put("menu", menu);
+
+    if (form.menu != null) {
+      for (String s : form.menu) {
+        menu.add(dishService.get(s));
+      }
+    }
 
     if (order == null || order.getMdate() == null || order.getMtime() == null
         || order.getTable() == null) {
