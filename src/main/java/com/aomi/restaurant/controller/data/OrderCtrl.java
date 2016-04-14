@@ -155,15 +155,17 @@ public class OrderCtrl {
 
         tableMap.remove(o.getTable().get_id());
       }
+
+      if (o.get("user") != null) {
+        o.put("user", new VOUser((User) o.get("user")));
+      }
     }
 
     for (Table t : tableMap.values()) {
 
       Order o = new Order();
       o.put("table", t);
-      if (o.get("user") != null) {
-        o.put("user", new VOUser((User) o.get("user")));
-      }
+
       orders.add(o);
     }
 
