@@ -4,6 +4,14 @@ import com.aomi.busorder.pojo.Basic;
 
 public class Notice extends Basic<Notice> {
 
+  public Notice() {
+
+    super();
+
+    put("visible", 1);
+    put("top", 0);
+  }
+
   private static final long serialVersionUID = 1L;
 
   /**
