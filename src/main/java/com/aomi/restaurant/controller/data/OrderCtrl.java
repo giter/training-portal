@@ -32,6 +32,7 @@ import com.aomi.restaurant.service.OrderService;
 import com.aomi.restaurant.service.TableService;
 import com.aomi.restaurant.vo.OrderPageParam;
 import com.aomi.restaurant.vo.TablePageParam;
+import com.aomi.restaurant.vo.VOUser;
 
 @Controller
 public class OrderCtrl {
@@ -160,6 +161,9 @@ public class OrderCtrl {
 
       Order o = new Order();
       o.put("table", t);
+      if (o.get("user") != null) {
+        o.put("user", new VOUser((User) o.get("user")));
+      }
       orders.add(o);
     }
 
