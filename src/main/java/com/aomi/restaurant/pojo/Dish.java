@@ -6,14 +6,6 @@ import com.aomi.busorder.pojo.Basic;
 
 public class Dish extends Basic<Dish> {
 
-  public Dish() {
-
-    super();
-
-    put("visible", 1);
-    put("number", 0);
-  }
-
   private static final long serialVersionUID = 1L;
 
   /**

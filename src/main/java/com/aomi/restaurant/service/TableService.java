@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.aomi.restaurant.pojo.Table;
 import com.aomi.restaurant.vo.TablePageParam;
+import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -30,7 +31,11 @@ public class TableService extends CRUDService<Table, TablePageParam> {
 
       if (param.getVisible() != null) {
 
-        builder.add("visible", param.getVisible());
+        if (param.getVisible() != 1) {
+          builder.add("visible", param.getVisible());
+        } else {
+          builder.add("visible", new BasicDBObject("$ne", 1));
+        }
       }
     }
     return builder.get();

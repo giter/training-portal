@@ -5,12 +5,6 @@ import com.mongodb.DBObject;
 
 public class Table extends Basic<Table> {
 
-  public Table() {
-
-    super();
-    put("visible", 1);
-  }
-
   private static final long serialVersionUID = 1L;
 
   /**

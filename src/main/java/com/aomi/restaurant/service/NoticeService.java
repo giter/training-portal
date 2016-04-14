@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.aomi.restaurant.pojo.Notice;
 import com.aomi.restaurant.vo.NoticePageParam;
+import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -30,7 +31,11 @@ public class NoticeService extends CRUDService<Notice, NoticePageParam> {
 
       if (param.getVisible() != null) {
 
-        builder.add("visible", param.getVisible());
+        if (!param.getVisible()) {
+          builder.add("visible", 0);
+        } else {
+          builder.add("visible", new BasicDBObject("$ne", 1));
+        }
       }
     }
 

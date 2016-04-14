@@ -7,14 +7,6 @@ import com.aomi.busorder.pojo.User;
 
 public class Order extends Basic<Order> {
 
-  public Order() {
-
-    super();
-
-    put("state", 1);
-    put("number", 0);
-  }
-
   private static final long serialVersionUID = 1L;
 
   public User getUser() {
@@ -34,7 +26,7 @@ public class Order extends Basic<Order> {
 
   public int getNumber() {
 
-    return getInt("number");
+    return getInt("number", 0);
   }
 
   public Table getTable() {
