@@ -25,7 +25,7 @@ public class DishCtrl {
 
     param.setLimit(-1);
     param.setCounting(false);
-    param.setVisible(true);
+    param.setVisible(1);
 
     return RESTResponse.of(service.page(param)).toString();
   }

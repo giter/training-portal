@@ -75,11 +75,7 @@ public class OrderService extends CRUDService<Order, OrderPageParam> {
 
       if (param.getState() != null) {
 
-        if (param.getState() != 1) {
-          builder.add("state", param.getState());
-        } else {
-          builder.add("state", new BasicDBObject("$ne", 0));
-        }
+        builder.add("state", param.getState());
       }
 
       if (param.getTid() != null) {
@@ -88,6 +84,14 @@ public class OrderService extends CRUDService<Order, OrderPageParam> {
 
     }
     return builder.get();
+  }
+
+  @Override
+  public Order insert(Order t) {
+
+    t.put("state", t.getState());
+
+    return super.insert(t);
   }
 
   @Override

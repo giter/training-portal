@@ -42,15 +42,18 @@ public class DishService extends CRUDService<Dish, DishPageParam> {
 
       if (param.getVisible() != null) {
 
-        if (!param.getVisible()) {
-          builder.add("visible", 0);
-        } else {
-          builder.add("visible", new BasicDBObject("$ne", 1));
-        }
+        builder.add("visible", param.getVisible());
       }
     }
 
     return builder.get();
+  }
+
+  @Override
+  public Dish insert(Dish t) {
+
+    t.put("visible", t.getVisible());
+    return super.insert(t);
   }
 
   @Override

@@ -31,15 +31,20 @@ public class NoticeService extends CRUDService<Notice, NoticePageParam> {
 
       if (param.getVisible() != null) {
 
-        if (!param.getVisible()) {
-          builder.add("visible", 0);
-        } else {
-          builder.add("visible", new BasicDBObject("$ne", 1));
-        }
+        builder.add("visible", new BasicDBObject("$ne", 0));
       }
     }
 
     return builder.get();
+  }
+
+  @Override
+  public Notice insert(Notice t) {
+
+    t.put("visible", t.getVisible());
+    t.put("top", t.getTop());
+
+    return super.insert(t);
   }
 
   @Override

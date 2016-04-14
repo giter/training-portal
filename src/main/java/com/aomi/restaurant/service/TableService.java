@@ -31,14 +31,18 @@ public class TableService extends CRUDService<Table, TablePageParam> {
 
       if (param.getVisible() != null) {
 
-        if (param.getVisible() != 1) {
-          builder.add("visible", param.getVisible());
-        } else {
-          builder.add("visible", new BasicDBObject("$ne", 1));
-        }
+        builder.add("visible", new BasicDBObject("$ne", 0));
       }
     }
     return builder.get();
+  }
+
+  @Override
+  public Table insert(Table t) {
+
+    t.put("visible", t.getVisible());
+
+    return super.insert(t);
   }
 
   @Override
