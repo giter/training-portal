@@ -24,6 +24,7 @@ import com.aomi.busorder.vo.RESTResponse;
 import com.aomi.restaurant.form.ListDishForm;
 import com.aomi.restaurant.form.ListDishForm.DishForm;
 import com.aomi.restaurant.form.OrderForm;
+import com.aomi.restaurant.form.OrderForm.DishList;
 import com.aomi.restaurant.pojo.Dish;
 import com.aomi.restaurant.pojo.Order;
 import com.aomi.restaurant.pojo.Table;
@@ -81,8 +82,16 @@ public class OrderCtrl {
     order.put("menu", menu);
 
     if (form.menu != null) {
-      for (String s : form.menu) {
-        menu.add(dishService.get(s));
+
+      for (DishList s : form.menu) {
+
+        Dish dish = dishService.get(s._id);
+
+        if (dish != null && s.number > 0) {
+
+          dish.put("number", s.number);
+          menu.add(dish);
+        }
       }
     }
 
