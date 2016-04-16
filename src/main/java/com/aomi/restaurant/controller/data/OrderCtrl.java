@@ -181,6 +181,27 @@ public class OrderCtrl {
   }
 
   @ResponseBody
+  @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.GET })
+  public String data_order_$id(HttpSession session, HttpServletRequest request,
+      @RequestParam("id") String id) throws Exception {
+
+    User user = userService.getFromSession(session);
+    Order order = orderService.get(id);
+
+    if (user == null || order == null || order.getUser() == null) {
+      return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
+    }
+
+    if (!order.getUser().get_id().equals(user.get_id())) {
+      return RESTResponse.of(Errors.NO_SUCH_ITEM, null).get();
+    }
+
+    order.put("user", new VOUser(order.getUser()));
+
+    return RESTResponse.of(order).get();
+  }
+
+  @ResponseBody
   @RequestMapping(value = "/data/tables.json", method = { RequestMethod.GET })
   public String data_tables(
       @RequestParam(value = "mdate", required = true) String mdate,
@@ -288,4 +309,5 @@ public class OrderCtrl {
 
     return RESTResponse.of(orderService.page(opp)).get();
   }
+
 }
