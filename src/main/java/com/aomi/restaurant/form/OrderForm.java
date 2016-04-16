@@ -8,7 +8,7 @@ public class OrderForm {
 
   public String mtime;
 
-  public Double number;
+  public Integer number;
 
   public List<DishList> menu;
 

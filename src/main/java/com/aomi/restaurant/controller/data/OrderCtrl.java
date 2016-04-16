@@ -77,6 +77,23 @@ public class OrderCtrl {
 
     order.put("table", table);
 
+    if (order == null || order.getMdate() == null || order.getMtime() == null
+        || order.getTable() == null) {
+      return RESTResponse.of(Errors.PARAMETER_ERROR, null).get();
+    }
+
+    OrderPageParam opp = new OrderPageParam();
+    opp.setLimit(1);
+    opp.setCounting(false);
+    opp.setMdate(order.getMdate());
+    opp.setMtime(order.getMtime());
+    opp.setTid(order.getTable().get_id());
+    opp.setState(1);
+
+    if (orderService.page(opp).size() > 0) {
+      return RESTResponse.of(null).get();
+    }
+
     ArrayList<Object> menu = new ArrayList<>();
 
     order.put("menu", menu);
@@ -95,28 +112,62 @@ public class OrderCtrl {
       }
     }
 
-    if (order == null || order.getMdate() == null || order.getMtime() == null
-        || order.getTable() == null) {
-      return RESTResponse.of(Errors.PARAMETER_ERROR, null).get();
-    }
-
-    OrderPageParam opp = new OrderPageParam();
-
-    opp.setLimit(1);
-    opp.setCounting(false);
-    opp.setMdate(order.getMdate());
-    opp.setMtime(order.getMtime());
-    opp.setTid(order.getTable().get_id());
-
-    opp.setState(1);
-
-    if (orderService.page(opp).size() > 0) {
-      return RESTResponse.of(null).get();
-    }
-
     order.put("user", user);
 
     orderService.insert(order);
+
+    return RESTResponse.of(order).get();
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.POST })
+  public String data_order_$id(@PathVariable("id") String id,
+      HttpServletRequest request, HttpSession session) throws Exception {
+
+    User user = userService.getFromSession(session);
+
+    if (user == null) {
+      return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
+    }
+
+    OrderForm form = Utils.parseJSON(request.getInputStream(), OrderForm.class);
+
+    Order order = orderService.get(id);
+
+    if (!(order.getUser().get_id().equals(user.get_id()))) {
+      return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
+    }
+
+    if (form.mdate != null) {
+      order.put("mdate", form.mdate);
+    }
+
+    if (form.mtime != null) {
+      order.put("mtime", form.mtime);
+    }
+
+    if (form.number != null) {
+      order.put("number", form.number);
+    }
+
+    if (form.menu != null) {
+
+      ArrayList<Object> menu = new ArrayList<>();
+      order.put("menu", menu);
+
+      for (DishList s : form.menu) {
+
+        Dish dish = dishService.get(s._id);
+
+        if (dish != null && s.number > 0) {
+
+          dish.put("number", s.number);
+          menu.add(dish);
+        }
+      }
+    }
+
+    orderService.update(order);
 
     return RESTResponse.of(order).get();
   }
