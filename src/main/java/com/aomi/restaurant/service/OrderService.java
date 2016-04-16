@@ -57,11 +57,11 @@ public class OrderService extends CRUDService<Order, OrderPageParam> {
 
       if (param.getStart() != null) {
 
-        builder.push("mdate").add("$gte", param.getStart()).pop();
-      }
-
-      if (param.getEnd() != null) {
-
+        builder.push("mdate").add("$gte", param.getStart());
+        if (param.getEnd() != null)
+          builder.add("$lte", param.getEnd());
+        builder.pop();
+      } else if (param.getEnd() != null) {
         builder.push("mdate").add("$lte", param.getEnd()).pop();
       }
 
