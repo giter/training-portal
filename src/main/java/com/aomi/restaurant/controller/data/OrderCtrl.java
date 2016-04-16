@@ -97,7 +97,7 @@ public class OrderCtrl {
 
     if (order == null || order.getMdate() == null || order.getMtime() == null
         || order.getTable() == null) {
-      return RESTResponse.of(Errors.NO_SUCH_ITEM, null).get();
+      return RESTResponse.of(Errors.PARAMETER_ERROR, null).get();
     }
 
     OrderPageParam opp = new OrderPageParam();
