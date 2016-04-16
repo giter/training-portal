@@ -183,7 +183,7 @@ public class OrderCtrl {
   @ResponseBody
   @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.GET })
   public String data_order_$id(HttpSession session, HttpServletRequest request,
-      @RequestParam("id") String id) throws Exception {
+      @PathVariable("id") String id) throws Exception {
 
     User user = userService.getFromSession(session);
     Order order = orderService.get(id);
