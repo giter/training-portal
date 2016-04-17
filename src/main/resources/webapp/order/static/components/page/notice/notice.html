@@ -1,0 +1,21 @@
+<header class="mui-bar-nav mui-bar">
+    <h5 class="mui-title">
+        公告列表
+    </h5>
+</header>
+<div class="mui-content">
+    <ul class="mui-table-view">
+        <li v-for="n in notices" class="mui-table-view-cell mui-media">
+            <a href="javascript:;" @click="onShowContent(n)" class="mui-navigate-right">
+                <div class="mui-media-body">
+                    {{n.title}}
+                    <p class="mui-ellipsis">
+                        {{(new Date(n.created)).Format('yyyy-MM hh:dd')}}
+                    </p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<c-nav view="notice"></c-nav>
