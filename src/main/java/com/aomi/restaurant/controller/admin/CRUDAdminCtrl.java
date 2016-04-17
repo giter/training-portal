@@ -46,6 +46,7 @@ public abstract class CRUDAdminCtrl<T extends Basic<T>, Q extends PageParam> {
       throws IOException {
 
     T t = Utils.parseJSON(request.getInputStream(), service().clazz());
+    t.put("_id", id);
 
     return RESTResponse.of(service().update(t)).toString();
   }
