@@ -48,7 +48,11 @@ public class UserAdminCtrl {
 
     session.setAttribute("admin", user.get_id());
 
-    return "redirect:/admin/index.html?" + user.getAdmin();
+    if (form.getRedirect() == null) {
+      form.setRedirect("/admin/index.html");
+    }
+
+    return String.format("redirect:%s?%s", form.getRedirect(), user.getAdmin());
   }
 
   @ResponseBody
