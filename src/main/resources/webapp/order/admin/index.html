@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">    <title>订餐系统</title>
+    <style>
+
+    </style>
+
+
+    <link rel="stylesheet" href="/order/admin/static/pkg/all.css" />
+</head>
+<body id="app" >
+<header>
+    <c-header :view="store.view"></c-header>
+</header>
+<section>
+    <c-nav></c-nav>
+    <router-view transition="slide" transition-mode="out-in" keep-alive></router-view>
+</section>
+<script src="/order/admin/static/js/mod.js"></script>
+<script>/*resourcemap*/
+require.resourceMap({
+  "res": {
+    "component_modules/vue": {
+      "url": "/order/admin/static/component_modules/vue.js",
+      "type": "js"
+    },
+    "component_modules/leaflet-src": {
+      "url": "/order/admin/static/component_modules/leaflet-src.js",
+      "type": "js"
+    },
+    "main/service": {
+      "url": "/order/admin/static/components/component/main/service.js",
+      "type": "js"
+    },
+    "component_modules/leaflet.zoomify": {
+      "url": "/order/admin/static/component_modules/leaflet.zoomify.js",
+      "type": "js",
+      "deps": [
+        "component_modules/leaflet-src"
+      ]
+    },
+    "component_modules/leaflet.draw-src": {
+      "url": "/order/admin/static/component_modules/leaflet.draw-src.js",
+      "type": "js",
+      "deps": [
+        "component_modules/leaflet-src"
+      ]
+    },
+    "form/form": {
+      "url": "/order/admin/static/components/component/form/form.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ]
+    },
+    "components/page/table/table": {
+      "url": "/order/admin/static/components/page/table/table.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "component_modules/leaflet-src",
+        "main/service",
+        "component_modules/leaflet.zoomify",
+        "component_modules/leaflet.draw-src",
+        "form/form"
+      ]
+    },
+    "components/page/order/order": {
+      "url": "/order/admin/static/components/page/order/order.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "form/form"
+      ]
+    },
+    "components/page/order/detail/detail": {
+      "url": "/order/admin/static/components/page/order/detail/detail.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "form/form"
+      ]
+    },
+    "nav/nav": {
+      "url": "/order/admin/static/components/component/nav/nav.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ]
+    },
+    "components/page/notice/notice": {
+      "url": "/order/admin/static/components/page/notice/notice.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "nav/nav",
+        "form/form",
+        "main/service"
+      ]
+    },
+    "components/page/notice/add/add": {
+      "url": "/order/admin/static/components/page/notice/add/add.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "nav/nav",
+        "form/form"
+      ]
+    },
+    "components/page/config/config": {
+      "url": "/order/admin/static/components/page/config/config.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ]
+    },
+    "components/page/menu/menu": {
+      "url": "/order/admin/static/components/page/menu/menu.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "form/form"
+      ]
+    },
+    "component_modules/vue-router": {
+      "url": "/order/admin/static/component_modules/vue-router.js",
+      "type": "js"
+    },
+    "components/page/stat/stat": {
+      "url": "/order/admin/static/components/page/stat/stat.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ]
+    },
+    "components/page/loading/loading": {
+      "url": "/order/admin/static/components/page/loading/loading.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ]
+    },
+    "header/header": {
+      "url": "/order/admin/static/components/component/header/header.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ]
+    },
+    "component_modules/vue-validator": {
+      "url": "/order/admin/static/component_modules/vue-validator.js",
+      "type": "js"
+    },
+    "main/main": {
+      "url": "/order/admin/static/components/component/main/main.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "component_modules/vue-router",
+        "components/page/stat/stat",
+        "components/page/loading/loading",
+        "header/header",
+        "component_modules/vue-validator"
+      ]
+    }
+  },
+  "pkg": {}
+});</script>
+<script src="/order/admin/static/js/jquery.js"></script>
+<script src="/order/admin/static/js/layer/layer.js"></script>
+<script src="/order/admin/static/js/layer/extend/layer.ext.js"></script>
+<script src="/order/admin/static/js/laydate/laydate.js"></script>
+<script src="/order/admin/static/js/jquery.jqprint-0.3.js"></script>
+<script src="/order/admin/static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    require(["main/main.js"]);
+</script>
+</body>
+</html>

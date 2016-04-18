@@ -1,0 +1,67 @@
+<div class="page-menu">
+    <div class="panel panel-default  content">
+        <div class="panel-heading">
+            <ul class="nav nav-pills pull-left">
+                <li role="presentation" class="active"><a href="#">
+                    菜单详情</a></li>
+            </ul>
+            <a v-link="{path:'/order'}" class="btn pull-right">
+                <span class="glyphicon glyphicon-backward"></span>
+                返回
+            </a>
+            <a href="javascript:;" class="btn pull-right" @click="onPrint">
+                <span class="glyphicon glyphicon-print"></span>
+                打印
+            </a>
+        </div>
+        <div class="panel-body" id="order-detail">
+            <h3 class="text-center">
+               {{order.mdate}} {{order.mtime=="dinner"?"晚餐":"中餐"}} {{order.table.no}}号桌({{order.number}}人) {{order.user.name}}预定
+            </h3>
+            <table class="table table-bordered table-hover">
+                <tbody>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        菜品名称
+                    </th>
+                    <th>
+                        数量
+                    </th>
+                    <th>
+                        单位
+                    </th>
+                    <th>
+                        单价(元)
+                    </th>
+                    <th>
+                        总价(元)
+                    </th>
+                </tr>
+                <tr v-for="m in order.menu">
+                    <td>{{$index+1}}</td>
+                    <td>{{m.name}}</td>
+                    <td>{{m.number}}</td>
+                    <td>{{m.unit}}</td>
+                    <td>¥{{m.price}}</td>
+                    <td>¥{{m.price * m.number}}</td>
+                </tr>
+                <tr>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>¥{{total}}</td>
+                </tr>
+                </tbody></table>
+
+        </div>
+    </div>
+
+
+
+
+</div>

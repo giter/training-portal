@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">    <title>订餐系统</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+
+    <link rel="stylesheet" href="/order/admin/static/pkg/all.css" />
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+</head>
+<body>
+
+    <div class="login-page">
+        <section>
+
+            <div class="panel panel-default col-md-3">
+               <div class="panel-body">
+                   <form class="text-center" action="/admin/user/login.json" method="post">
+                       <h4>
+                           <strong>欢迎使用HNPC订餐系统</strong>
+                       </h4>
+                       <br>
+                       <div class="form-group">
+                           <div class="input-group">
+                               <input type="text" class="form-control" name="email" placeholder="登录用户">
+                               <div class="input-group-addon">
+                                   <span class="glyphicon glyphicon-user"></span>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="form-group">
+                           <div class="input-group">
+                               <input type="password" class="form-control" name="password"  placeholder="登录密码">
+                               <div class="input-group-addon">
+                                   <span class=" glyphicon glyphicon-eye-close"></span>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="form-group">
+                               <input type="submit" class="btn btn-primary btn-block"   value="立即登录后台">
+                       </div>
+                   </form>
+               </div>
+            </div>
+        </section>
+
+    </div>
+
+
+
+</body>
+</html>

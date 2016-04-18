@@ -1,0 +1,44 @@
+header {
+  border-right: 1px solid;
+}
+header .logo {
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  background-color: #13283b;
+}
+header .logo strong {
+  font-size: 18px;
+  text-shadow: 1px 0 1px #000;
+}
+header .user {
+  padding: 25px;
+  text-align: center;
+}
+header .user h5 {
+  color: #fff;
+}
+header .list-group .list-group-item {
+  border: none;
+  padding: 15px 20px;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+header .list-group .active.list-group-item,
+header .list-group .active.list-group-item:visited,
+header .list-group .active.list-group-item:active {
+  color: #fff;
+  background-color: #13283b;
+}
+header .list-group .list-group-item:hover {
+  color: #fff;
+  background-color: #1b6d85;
+}

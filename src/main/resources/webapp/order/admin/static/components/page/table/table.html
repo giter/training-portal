@@ -1,0 +1,144 @@
+
+<div class="panel panel-default page-wrap content">
+    <div class="panel-heading">
+
+        <ul class="nav nav-pills pull-left">
+            <li role="presentation" :class="{active:view=='map'}"><a href="javascript:;" @click="onChangeView('map')">
+                地图</a></li>
+            <li role="presentation"  :class="{active:view=='grid'}"><a href="javascript:;" @click="onChangeView('grid')">
+                表格</a></li>
+        </ul>
+
+        <div class="dropdown pull-right" v-show="view=='map'">
+            <a class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                新增热区
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="javascript:;" @click="onAddRect" >
+                    <span class="glyphicon glyphicon-stop"></span>
+                    &nbsp;矩形</a></li>
+                <li><a href="javascript:;" @click="onAddCircle">
+                    <span class="glyphicon glyphicon-record"></span>
+                    &nbsp;圆形</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body" v-show="view=='grid'">
+        <table class="table table-bordered table-hover">
+            <tbody>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    编号
+                </th>
+                <th>
+                    类型
+                </th>
+                <th>
+                    座位数
+                </th>
+                <th>
+                    位置
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+
+            <tr v-for="t in tables">
+                <td>
+                    {{$index+1}}
+                </td>
+                <td>
+                    {{t.no}}
+                </td>
+                <td>
+                    {{t.type==0?"包厢":"大厅"}}
+                </td>
+                <td>
+                    {{t.seat}}
+                </td>
+                <td>
+                    <a href="javascript:;" @click="goTo(t._id)">查看</a>
+                </td>
+                <td>
+                    {{t.visible==0?"禁用":"启用"}}
+                </td>
+                <td>
+                    <a href="">编辑</a>
+                    <a href="javascript:;" @click="onDelTable(t)">删除</a>
+                </td>
+            </tr>
+
+            </tbody></table>
+        <div class="c-pager">
+            <p class="pull-left">共 11 条记录，每页 20 条 1/1 </p>
+
+            <ul  class="pagination pagination-sm">
+                <li>
+                </li>
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span class="glyphicon glyphicon-step-backward"></span>
+                    </a>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-triangle-left"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-triangle-right"></span></a></li>
+
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span class="glyphicon glyphicon-step-forward"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body" id="map" v-show="view=='map'">
+
+    </div>
+
+
+    <c-form :config="modal" @submit="onSubmit">
+        <validator name="valid">
+            <form class="form-horizontal" novalidate >
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" :class="{'has-warning':$valid.no.invalid&&$valid.no.touched}"  >编号</label>
+                    <div class="col-sm-10" :class="{'has-warning':$valid.no.invalid&&$valid.no.touched}">
+                        <input type="number" class="form-control" placeholder="必填" v-validate:no="['required']" v-model="model.no" number>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">类别</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" v-model="model.type" number>
+                            <option value="0">包厢</option>
+                            <option value="1">大厅</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" :class="{'has-warning':$valid.seat.invalid&&$valid.seat.touched}" >座位数</label>
+                    <div class="col-sm-10" :class="{'has-warning':$valid.seat.invalid&&$valid.seat.touched}">
+                        <input type="number" class="form-control" placeholder="必填" v-model="model.seat" v-validate:seat="['required']" number>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" v-model="model.visible" number>
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </validator>
+    </c-form>
+
+</div>
