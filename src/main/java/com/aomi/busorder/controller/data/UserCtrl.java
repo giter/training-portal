@@ -114,9 +114,7 @@ public class UserCtrl {
   }
 
   @RequestMapping(value = "/oauth/{index}.html", method = { RequestMethod.GET })
-  public String oauth_$index(
-
-  @PathVariable("index") String index,
+  public String oauth_$index(@PathVariable("index") String index,
       @RequestParam(value = "code", required = false) String code,
       HttpSession session) throws IOException, WxErrorException {
 
