@@ -80,8 +80,8 @@ function updateTable(id,p,c){
 }
 
 //菜品管理
-function getMenus(c){
-    $.get(prefix +"/admin/data/dish/items.json",co(c));
+function getMenus(p,c){
+    $.get(prefix +"/admin/data/dish/items.json",p,co(c));
 }
 
 function updateMenu(id,p,c){

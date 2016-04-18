@@ -79,24 +79,24 @@
                 </tr>
                 </tbody></table>
             <div class="c-pager">
-                <p class="pull-left">共 {{menu.length}} 条记录，每页 10 条 1/1 </p>
+                <p class="pull-left">共 {{count}} 条记录，{{query.page+1}}/{{Math.ceil(count/10)}}</p>
 
                 <ul  class="pagination pagination-sm">
                     <li>
                     </li>
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span class="glyphicon glyphicon-step-backward"></span>
-                        </a>
-                    </li>
-                    <li><a href="#"><span class="glyphicon glyphicon-triangle-left"></span></a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-triangle-right"></span></a></li>
+                    <!--<li>-->
+                        <!--<a href="#" aria-label="Previous">-->
+                            <!--<span class="glyphicon glyphicon-step-backward"></span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <li><a href="javascript:;" :disabled="query.page==0" @click="toPre"><span class="glyphicon glyphicon-triangle-left"></span></a></li>
+                    <li><a href="javascript:;" @click="toNext"><span class="glyphicon glyphicon-triangle-right"></span></a></li>
 
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span class="glyphicon glyphicon-step-forward"></span>
-                        </a>
-                    </li>
+                    <!--<li>-->
+                        <!--<a href="#" aria-label="Next">-->
+                            <!--<span class="glyphicon glyphicon-step-forward"></span>-->
+                        <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </div>

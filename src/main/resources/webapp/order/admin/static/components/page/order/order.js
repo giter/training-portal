@@ -61,7 +61,7 @@ module.exports = Vue.extend({
            }
         },
         toNext: function () {
-            if(this.query.page < Math.ceil(this.count/10)){
+            if(this.query.page < Math.ceil(this.count/10)-1){
                 this.query.page++;
                 this.renderOrders();
             }
