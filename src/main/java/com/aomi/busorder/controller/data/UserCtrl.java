@@ -309,8 +309,8 @@ public class UserCtrl {
 
     try {
 
-      String url = String.format(
-          "http://weixin.hnpc.cc/data/user/bind/%s.json", auth.get_id());
+      String url = String.format("http://%s/data/user/bind/%s.json",
+          request.getHeader("Host"), auth.get_id());
 
       mailService.mail(users.get(0).getName(), form.email, "网页验证邮件！",
           String.format("请使用以下链接激活帐号： %s", url));
