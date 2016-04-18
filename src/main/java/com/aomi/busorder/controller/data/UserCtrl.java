@@ -113,6 +113,30 @@ public class UserCtrl {
         + "#/bind";
   }
 
+  @RequestMapping(value = "/oauth/{index}.html", method = { RequestMethod.GET })
+  public String oauth_$index(
+
+  @PathVariable("index") String index,
+      @RequestParam(value = "code", required = false) String code,
+      HttpSession session) throws IOException, WxErrorException {
+
+    WxMpOAuth2AccessToken token = weixin.getService()
+        .oauth2getAccessToken(code);
+
+    User user = userService.getByOpenID(token.getOpenId());
+
+    String openID = token.getOpenId();
+
+    if (user != null) {
+
+      doLogin(session, user);
+      return "redirect:/" + index + "/index.html";
+    }
+
+    return "redirect:/index.html?openID=" + URLEncoder.encode(openID, "utf-8")
+        + "#/bind";
+  }
+
   @ResponseBody
   @RequestMapping(value = "/data/user/login.json", method = { RequestMethod.POST })
   public String fakeLogin(HttpSession session, HttpServletRequest request)
