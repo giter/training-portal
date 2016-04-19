@@ -36,9 +36,9 @@ module.exports = Vue.extend({
         onDel: function (n) {
             var self = this;
             layer.confirm("是否删除该通知?",{btn:["确定","取消"]}, function () {
-                self.notices.$remove(n);
                 self.delNotice(n._id,function (rep) {
-                    alert("删除成功!");
+                    self.notices.$remove(n);
+                    layer.alert("删除成功!");
                     layer.closeAll();
                 })
             });

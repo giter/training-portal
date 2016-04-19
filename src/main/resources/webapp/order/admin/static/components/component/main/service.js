@@ -121,6 +121,10 @@ function getOrder(id,c){
     $.get(prefix +"/admin/data/order/{id}.json".replace("{id}",id),co(c));
 }
 
+function delOrder(id,c){
+    $.del(prefix +"/admin/data/order/{id}.json".replace("{id}",id),co(c));
+}
+
 function delNotice(id,c){
     $.del(prefix +"/admin/data/notice/{id}.json".replace("{id}",id),co(c));
 }
@@ -141,6 +145,7 @@ module.exports = {
     getCtx:getCtx,
     getOrders:getOrders,
     getOrder:getOrder,
+    delOrder:delOrder,
     delNotice:delNotice
 };
 
