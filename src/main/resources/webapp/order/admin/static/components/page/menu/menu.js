@@ -28,7 +28,7 @@ module.exports = Vue.extend({
             view:"list",
             count:0,
             menu:[],
-            model:Object.assign({},model),
+            model:$.extend({},model),
             modal:{
                 show:false,
                 title:"新增菜单"
@@ -69,12 +69,12 @@ module.exports = Vue.extend({
           });
         },
         onAdd: function () {
-            this.model = Object.assign(this.model,model);
+            this.model = $.extend(this.model,model);
             this.modal.show = true;
             this.modal.title = "新增菜品";
         },
         onEditMenu: function (m) {
-            this.model = Object.assign(this.model,m);
+            this.model = $.extend(this.model,m);
             this.modal.show = true;
             this.modal.title = "编辑菜品";
         },

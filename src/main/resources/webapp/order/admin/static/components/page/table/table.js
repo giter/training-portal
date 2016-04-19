@@ -31,7 +31,7 @@ module.exports = Vue.extend({
             },
             tables:[],
             count:0,
-            model:Object.assign({},model)
+            model:$.extend({},model)
         }
     },
     methods:{
@@ -84,7 +84,7 @@ module.exports = Vue.extend({
                 feature = new L.rectangle(data.position.latlngs,{weight:1,data:data}).addTo(this.featureLayer);
                 feature.on("click", function () {
                     this.options.data.position.latlngs = this._latlngs;
-                    self.model = Object.assign(self.model,this.options.data);
+                    self.model = $.extend(self.model,this.options.data);
                     self.modal.title="更新餐桌";
                     self.modal.show = true;
                 });
@@ -94,7 +94,7 @@ module.exports = Vue.extend({
                 feature.on("click", function () {
                     this.options.data.position.latlng = this._latlng;
                     this.options.data.position.radius = this._mRadius;
-                    self.model = Object.assign(self.model,this.options.data);
+                    self.model = $.extend(self.model,this.options.data);
                     self.modal.title="更新餐桌";
                     self.modal.show = true;
                 });

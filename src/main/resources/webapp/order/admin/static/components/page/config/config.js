@@ -39,7 +39,7 @@ module.exports = Vue.extend({
             layer.load();
             Service.getCtx("dc_config", function (rep) {
                 if(rep.config){
-                    self.config = Object.assign(self.config,rep.config);
+                    self.config = $.extend(self.config,rep.config);
                 }
                 layer.closeAll();
             });
