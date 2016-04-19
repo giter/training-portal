@@ -224,7 +224,6 @@ router.init("/search");
 
 
 !function(window){
-    debugger
     var ua = window.navigator.userAgent.toLowerCase(),
         reg = /msie|applewebkit.+safari/;
     if(reg.test(ua)){

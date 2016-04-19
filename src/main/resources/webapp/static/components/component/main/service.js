@@ -328,7 +328,7 @@ function filterBus(data){
         var usable = true;
         for(var i=0;i< quota.buss.length;i++){
             if(quota.buss[i].name == d["name"]){
-                usable == quota.buss[i].usable;
+                usable = quota.buss[i].usable;
                 d.percentage = quota.buss[i].percentage;
                 d.index = quota.buss[i].index;
             }
