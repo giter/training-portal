@@ -17,6 +17,25 @@
             </a>
         </div>
         <div v-show="view=='list'" class="panel-body">
+            <!--<form class="form-inline">-->
+                <!--<div class="form-group">-->
+                    <!--<label>名称</label>-->
+                    <!--<input type="text" class="form-control"  v-model="query.name" placeholder="请填写">-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label >类型</label>-->
+                    <!--<select class="form-control" v-model="query.type">-->
+                        <!--<option value="">全部</option>-->
+                        <!--<option value="t.key" v-for="t in types.types">{{t.value}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<button class="btn btn-primary" @click="onQuery">-->
+                    <!--<span class="glyphicon glyphicon-search"></span>-->
+                    <!--查询</button>-->
+                <!--<button type="reset" class="btn btn-default" >-->
+                    <!--<span class="glyphicon glyphicon-refresh"></span>-->
+                    <!--重置</button>-->
+            <!--</form>-->
             <table class="table table-bordered table-hover">
                 <tbody>
                 <tr>
@@ -49,7 +68,7 @@
                         {{$index+1}}
                     </td>
                     <td>
-                        <img v-for="p in m.picture" v-if="m.picture.length>0" :src="'/data/image/'+p+'/100/100.json'" class="img-rounded" style="width: 80px;height: 80px;">
+                        <img  v-for="p in m.picture" v-if="m.picture.length>0" :src="'/data/image/'+p+'/100/100.json'" class="img-rounded" style="width: 80px;margin-left: 5px;height: 80px;">
                         <a href="javascript:;" class="btn btn-default btn-sm upfile">
                             <span class="glyphicon glyphicon-plus"></span>
                             <input type="file" value="浏览" @change="onAddPic(m,$event)" />

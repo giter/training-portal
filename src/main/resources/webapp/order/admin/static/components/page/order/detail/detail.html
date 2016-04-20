@@ -1,5 +1,6 @@
-<div class="page-menu">
-    <div class="panel panel-default  content">
+<div class="page-detail">
+
+    <div class="panel panel-default content" >
         <div class="panel-heading">
             <ul class="nav nav-pills pull-left">
                 <li role="presentation" class="active"><a href="#">
@@ -13,8 +14,12 @@
                 <span class="glyphicon glyphicon-print"></span>
                 打印
             </a>
+            <a href="javascript:;" :disabled="mode=='edit'"  class="btn pull-right" @click="onEdit">
+                <span class="glyphicon glyphicon-edit"></span>
+                编辑(开发中)</a>
+
         </div>
-        <div class="panel-body" id="order-detail">
+        <div class="panel-body" id="order-detail" >
             <h3 class="text-center">
                {{order.mdate}} {{order.mtime=="dinner"?"晚餐":"中餐"}} {{order.table.no}}号桌({{order.number}}人) {{order.user.name}}预定
             </h3>
@@ -39,14 +44,26 @@
                     <th>
                         总价(元)
                     </th>
+                    <th v-if="mode=='edit'">
+                        编辑
+                    </th>
                 </tr>
                 <tr v-for="m in order.menu">
                     <td>{{$index+1}}</td>
-                    <td>{{m.name}}</td>
-                    <td>{{m.number}}</td>
+                    <td>
+                        <span v-if="mode=='detail'">{{m.name}}</span>
+                        <span class="like-input" v-show="mode=='edit'"  @click="onSelectMenu(m)">{{m.name}}</span>
+                    </td>
+                    <td>
+                        <span v-if="mode=='detail'">{{m.number}}</span>
+                        <input type="number" v-if="mode=='edit'" v-model="m.number" number>
+                    </td>
                     <td>{{m.unit}}</td>
                     <td>¥{{m.price}}</td>
                     <td>¥{{m.price * m.number}}</td>
+                    <td v-if="mode=='edit'">
+                        <a href="javascript:;">删除</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>合计</td>
@@ -55,13 +72,51 @@
                     <td></td>
                     <td></td>
                     <td>¥{{total}}</td>
+                    <td v-if="mode=='edit'">
+                        <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></button>
+                    </td>
                 </tr>
                 </tbody></table>
 
         </div>
+
+        <div class="panel-footer text-right" v-if="mode=='edit'">
+            <button class="btn btn-primary">提交</button>
+            <button CLASS="btn btn-default" @click="onCancel">取消</button>
+        </div>
     </div>
 
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">请选择菜品</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" v-for="t in types" :class="{active:selectType==t.key}"><a href="javascript:;" @click="onChangeType(t.key)">{{t.value}}</a></li>
+                    </ul>
 
-
-
+                    <div class="container-fluid" >
+                        <div class="row">
+                            <div class="col-md-2 menu-item" v-for="m in menus" v-if="m.type == selectType">
+                                <div class="thumbnail">
+                                    <img v-for="p in m.picture" v-if="m.picture.length>0&&$index==0" :src="'/data/image/'+p+'/100/100.json'" >
+                                    <div class="caption">
+                                        <h5>{{m.name}}</h5>
+                                        <p>{{m.cates.join(",")}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -32,7 +32,7 @@ function co(callback){
         if(rep.Code == 0){
             callback.call(this,rep.Response);
         }else{
-            layer.alert(rep.Message);
+            window.location.href="login.html";
         }
     }
 }
@@ -43,7 +43,8 @@ $.del = function (url,callback) {
         type:"delete",
         contentType:"application/json",
         dataType:"json",
-        success:callback
+        success:callback,
+        error:callback
     })
 };
 
@@ -54,17 +55,30 @@ $.put = function (url,p,callback) {
         data:p,
         contentType:"application/json",
         dataType:"json",
-        success:callback
-    })
+        success:callback,
+        error:callback
+    });
+};
+
+$.get_s = function (url,p,callback) {
+    return $.ajax({
+        url:url,
+        type:"get",
+        data:p,
+        contentType:"application/json",
+        dataType:"json",
+        success:callback,
+        error:callback
+    });
 };
 
 
 function getDate(c){
-    $.get(prefix +"/api/date.json", co(c));
+    $.get_s(prefix +"/api/date.json",{}, co(c));
 }
 
 function getTable(c){
-    $.get(prefix +"/admin/data/table/items.json",co(c));
+    $.get_s(prefix +"/admin/data/table/items.json",{},co(c));
 }
 
 function addTable(p,c){
@@ -81,7 +95,7 @@ function updateTable(id,p,c){
 
 //菜品管理
 function getMenus(p,c){
-    $.get(prefix +"/admin/data/dish/items.json",p,co(c));
+    $.get_s(prefix +"/admin/data/dish/items.json",p,co(c));
 }
 
 function updateMenu(id,p,c){
@@ -103,7 +117,7 @@ function delMenu(id,c){
 }
 
 function getNotices(c){
-    $.get(prefix +"/admin/data/notice/items.json",co(c));
+    $.get_s(prefix +"/admin/data/notice/items.json",{},co(c));
 }
 
 function putCtx(id,p,c){
@@ -111,14 +125,14 @@ function putCtx(id,p,c){
 }
 
 function getCtx(id,c){
-    $.get(prefix +"/data/ctx.json?app="+id,co(c));
+    $.get_s(prefix +"/data/ctx.json?app="+id,{},co(c));
 }
 
 function getOrders(p,c){
-    $.get(prefix +"/admin/data/order/items.json",p,co(c));
+    $.get_s(prefix +"/admin/data/order/items.json",p,co(c));
 }
 function getOrder(id,c){
-    $.get(prefix +"/admin/data/order/{id}.json".replace("{id}",id),co(c));
+    $.get_s(prefix +"/admin/data/order/{id}.json".replace("{id}",id),{},co(c));
 }
 
 function delOrder(id,c){

@@ -1,3 +1,297 @@
+;/*!/components/component/form/form.js*/
+define('form/form', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/7.
+ */
+
+var Vue = require("component_modules/vue.js");
+
+module.exports = Vue.component("c-form",{
+    template:"<div class=\"c-form\">\n    <div class=\"modal fade\">\n        <div class=\"modal-dialog\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\"  aria-label=\"Close\"><span aria-hidden=\"true\"  @click=\"hideModal\">&times;</span></button>\n                    <h4 class=\"modal-title\">{{config.title}}</h4>\n                </div>\n                <div class=\"modal-body\">\n                   <slot>\n\n                   </slot>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\"  @click=\"hideModal\">取消</button>\n                    <button type=\"button\" class=\"btn btn-primary\" @click=\"onSubmit\">确定</button>\n                </div>\n            </div>\n        </div>\n    </div>\n\n</div>",
+    props:["config"],
+    data: function () {
+        return {
+        }
+    },
+    methods:{
+        toggle:function(){
+            this.config.show?this.$modal.modal("show"):this.$modal.modal("hide");
+        },
+        hideModal: function () {
+            this.config.show = false;
+        },
+        onSubmit: function () {
+            this.$dispatch("submit");
+        }
+    },
+    watch:{
+        config:{
+            deep:true,
+            handler:function(){
+                this.toggle();
+            }
+        }
+    },
+    ready:function(){
+        var self = this;
+        this.$modal = $(this.$el).find(".modal");
+        this.$modal.on("click", function (e) {
+            if($(e.target).hasClass("in")){
+                self.config.show =false;
+            }
+
+            e.stopPropagation();
+        })
+    }
+});
+
+});
+
+;/*!/components/component/header/header.js*/
+define('header/header', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/3.
+ */
+
+var Vue = require("component_modules/vue.js");
+
+module.exports = Vue.component("c-header", {
+    template:"<div>\n    <div class=\"logo\">\n        <strong>订餐管理后台</strong>\n    </div>\n    <div class=\"user\">\n        <img class=\"img-circle\" src=\"/order/admin/static/images/my.jpg\" data-holder-rendered=\"true\" style=\"width: 80px; height: 80px;\">\n        <h5>admin</h5>\n    </div>\n\n    <div class=\"list-group\">\n        <a v-for=\"m in menus\" v-link=\"{path:'/'+m.key}\" class=\"list-group-item\" title=\"{{m.name}}\" :class=\"{active:m.key == view}\">\n            <span class=\"glyphicon  pull-right\" :class=\"m.className\"  title=\"{{m.name}}\" ></span>\n            &nbsp;{{m.name}}\n        </a>\n    </div>\n</div>",
+    props:["view"],
+    data: function () {
+      return {
+          menus:[
+              {
+                  name:"统计报表",
+                  key:"stat",
+                  className:"glyphicon-file"
+              },{
+                  name:"菜单管理",
+                  key:"menu",
+                  className:"glyphicon-list-alt"
+
+              },{
+                  name:"餐桌管理",
+                  key:"table",
+                  className:"glyphicon-inbox"
+              },{
+                  name:"订餐订单管理",
+                  key:"order",
+                  className:"glyphicon-shopping-cart"
+              },{
+                  name:"公告管理",
+                  key:"notice",
+                  className:"glyphicon-list"
+              },{
+                  name:"系统配置",
+                  key:"config",
+                  className:"glyphicon-asterisk"
+              }
+          ]
+      }
+    },
+    ready: function () {
+
+    }
+});
+
+});
+
+;/*!/components/component/main/service.js*/
+define('main/service', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/2/21.
+ */
+
+//var source = "http://xs.demo.hddznet.com:9015/";
+//var prefix = "http://localhost:8002";
+var prefix = "";
+
+Date.prototype.Format = function(fmt)
+{ //author: meizz
+    var o = {
+        "M+" : this.getMonth()+1,                 //月份
+        "d+" : this.getDate(),                    //日
+        "h+" : this.getHours(),                   //小时
+        "m+" : this.getMinutes(),                 //分
+        "s+" : this.getSeconds(),                 //秒
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+        "S"  : this.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
+};
+
+function co(callback){
+    return function (rep) {
+        if(rep.Code == 0){
+            callback.call(this,rep.Response);
+        }else{
+            window.location.href="login.html";
+        }
+    }
+}
+
+$.del = function (url,callback) {
+    return $.ajax({
+        url:url,
+        type:"delete",
+        contentType:"application/json",
+        dataType:"json",
+        success:callback,
+        error:callback
+    })
+};
+
+$.put = function (url,p,callback) {
+    return $.ajax({
+        url:url,
+        type:"put",
+        data:p,
+        contentType:"application/json",
+        dataType:"json",
+        success:callback,
+        error:callback
+    });
+};
+
+$.get_s = function (url,p,callback) {
+    return $.ajax({
+        url:url,
+        type:"get",
+        data:p,
+        contentType:"application/json",
+        dataType:"json",
+        success:callback,
+        error:callback
+    });
+};
+
+
+function getDate(c){
+    $.get_s(prefix +"/api/date.json",{}, co(c));
+}
+
+function getTable(c){
+    $.get_s(prefix +"/admin/data/table/items.json",{},co(c));
+}
+
+function addTable(p,c){
+    $.post(prefix +"/admin/data/table/insert.json",p,co(c));
+}
+
+function delTable(id,c){
+    $.del(prefix +"/admin/data/table/{id}.json".replace("{id}",id),co(c));
+}
+
+function updateTable(id,p,c){
+    $.put(prefix +"/admin/data/table/{id}.json".replace("{id}",id), p,co(c));
+}
+
+//菜品管理
+function getMenus(p,c){
+    $.get_s(prefix +"/admin/data/dish/items.json",p,co(c));
+}
+
+function updateMenu(id,p,c){
+    $.put(prefix +"/admin/data/dish/{id}.json".replace("{id}",id),p,co(c));
+}
+
+//上传照片
+function upPicture(p,c){
+    $.post(prefix +"/admin/data/image.json",p,co(c));
+}
+
+//添加菜品
+function addMenu(p,c){
+    $.post(prefix +"/admin/data/dish/insert.json",p,co(c));
+}
+
+function delMenu(id,c){
+    $.del(prefix +"/admin/data/dish/{id}.json".replace("{id}",id),co(c));
+}
+
+function getNotices(c){
+    $.get_s(prefix +"/admin/data/notice/items.json",{},co(c));
+}
+
+function putCtx(id,p,c){
+    $.put(prefix +"/admin/data/ctx.json?app="+id,p,co(c));
+}
+
+function getCtx(id,c){
+    $.get_s(prefix +"/data/ctx.json?app="+id,{},co(c));
+}
+
+function getOrders(p,c){
+    $.get_s(prefix +"/admin/data/order/items.json",p,co(c));
+}
+function getOrder(id,c){
+    $.get_s(prefix +"/admin/data/order/{id}.json".replace("{id}",id),{},co(c));
+}
+
+function delOrder(id,c){
+    $.del(prefix +"/admin/data/order/{id}.json".replace("{id}",id),co(c));
+}
+
+function delNotice(id,c){
+    $.del(prefix +"/admin/data/notice/{id}.json".replace("{id}",id),co(c));
+}
+
+module.exports = {
+    getDate:getDate,
+    getTable:getTable,
+    delTable:delTable,
+    updateTable:updateTable,
+    getMenus:getMenus,
+    delMenu:delMenu,
+    updateMenu:updateMenu,
+    upPicture:upPicture,
+    addMenu:addMenu,
+    addTable:addTable,
+    getNotices:getNotices,
+    putCtx:putCtx,
+    getCtx:getCtx,
+    getOrders:getOrders,
+    getOrder:getOrder,
+    delOrder:delOrder,
+    delNotice:delNotice
+};
+
+});
+
+;/*!/components/component/nav/nav.js*/
+define('nav/nav', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/3/30.
+ */
+
+
+var Vue = require("component_modules/vue.js");
+
+module.exports = Vue.component("c-nav", {
+    template:"<nav>\n    <span class=\"nav-header\">订餐管理后台</span>\n\n    <a href=\"javascript:;\" class=\"btn btn-primary active\" @click=\"toggle\">\n        <span class=\"glyphicon glyphicon-list\"></span>\n    </a>\n\n\n    <a href=\"login.html\" class=\"pull-right text-warning\">\n        <span class=\"glyphicon glyphicon-log-out\"></span>\n        注销\n    </a>\n</nav>",
+    ready: function () {
+        
+    },
+    methods:{
+        toggle: function () {
+            $(this.$root.$el).toggleClass("hidden-header");
+        }
+    }
+});
+
+});
+
+;/*!/components/page/stat/stat.js*/
 define('components/page/stat/stat', function(require, exports, module) {
 
 /**
@@ -32,6 +326,910 @@ module.exports = Vue.extend({
     },
     ready: function () {
         this.render();
+    }
+});
+
+});
+
+;/*!/components/page/loading/loading.js*/
+define('components/page/loading/loading', function(require, exports, module) {
+
+/**
+ * Created by jack on 2015/12/2.
+ */
+var Vue = require("component_modules/vue.js");
+
+module.exports = Vue.extend({
+    inherit:true,
+    template:"<div class=\"loader\">\n</div>\n\n",
+    props:["view"],
+    data: function () {
+        return {
+
+        }
+    },
+    events:{
+
+    },
+    ready: function () {
+
+    }
+});
+
+});
+
+;/*!/components/component/main/main.js*/
+define('main/main', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/2/17.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Router = require("component_modules/vue-router.js");
+
+
+var stat = require("components/page/stat/stat");
+var loading = require("components/page/loading/loading");
+var header = require("header/header.js");
+
+var vaild = require("component_modules/vue-validator.js");
+
+Vue.use(Router);
+Vue.use(vaild);
+
+
+store = {
+    view:"loading"
+};
+
+function mixin(p,view){
+    return p.extend({
+        route:{
+            activate: function (transition) {
+                store.view = view;
+                transition.next();
+            }
+        }
+    })
+}
+
+
+router = new Router();
+var App = Vue.extend({
+    data: function () {
+        return {
+            store:store
+        }
+    }
+});
+
+router.redirect({
+    "/":"/stat"
+});
+
+router.map({
+    "/stat":{
+        component:function (resolve) {
+            resolve(mixin(stat,"stat"));
+        }
+    },
+    "/table":{
+        component: function (resolve) {
+            require.async(["components/page/table/table"], function (p) {
+                resolve(mixin(p,"table"));
+            });
+        }
+    },
+    "/order":{
+        component: function (resolve) {
+            require.async(["components/page/order/order"], function (p) {
+                resolve(mixin(p,"order"));
+            });
+        }
+    },
+    "/order/:oid":{
+        component: function (resolve) {
+            require.async(["components/page/order/detail/detail"], function (p) {
+                resolve(mixin(p,"detail"));
+            });
+        }
+    },
+    "/notice":{
+        component: function (resolve) {
+            require.async(["components/page/notice/notice"], function (p) {
+                resolve(mixin(p,"notice"));
+            });
+        }
+    },
+    "/order":{
+        component: function (resolve) {
+            require.async(["components/page/order/order"], function (p) {
+                resolve(mixin(p,"order"));
+            });
+        }
+    },
+    "/notice/add": {
+        component: function (resolve) {
+            require.async(["components/page/notice/add/add"], function (p) {
+                resolve(mixin(p,"notice-add"));
+            });
+        }
+    },
+    "/config":{
+        component: function (resolve) {
+            require.async(["components/page/config/config"], function (p) {
+                resolve(mixin(p,"config"));
+            });
+        }
+    },
+    "/menu":{
+        component: function (resolve) {
+            require.async(["components/page/menu/menu"], function (p) {
+                resolve(mixin(p,"menu"));
+            });
+        }
+    }
+});
+
+router.start(App, '#app');
+
+
+
+
+});
+
+;/*!/components/page/table/table.js*/
+define('components/page/table/table', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/3.
+ */
+
+var Vue = require("component_modules/vue.js");
+var L = require("component_modules/leaflet-src.js");
+var Service = require("main/service.js");
+require("component_modules/leaflet.zoomify.js");
+require("component_modules/leaflet.draw-src.js");
+require("form/form.js");
+
+var model = {
+    _id:"",
+    type:0,
+    no:0,
+    position:"",
+    seat:0,
+    visible:1
+};
+
+module.exports = Vue.extend({
+    template:"\n<div class=\"panel panel-default page-wrap content\">\n    <div class=\"panel-heading\">\n\n        <ul class=\"nav nav-pills pull-left\">\n            <li role=\"presentation\" :class=\"{active:view=='map'}\"><a href=\"javascript:;\" @click=\"onChangeView('map')\">\n                地图</a></li>\n            <li role=\"presentation\"  :class=\"{active:view=='grid'}\"><a href=\"javascript:;\" @click=\"onChangeView('grid')\">\n                表格</a></li>\n        </ul>\n\n        <div class=\"dropdown pull-right\" v-show=\"view=='map'\">\n            <a class=\"btn dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                新增热区\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                <li><a href=\"javascript:;\" @click=\"onAddRect\" >\n                    <span class=\"glyphicon glyphicon-stop\"></span>\n                    &nbsp;矩形</a></li>\n                <li><a href=\"javascript:;\" @click=\"onAddCircle\">\n                    <span class=\"glyphicon glyphicon-record\"></span>\n                    &nbsp;圆形</a></li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"panel-body\" v-show=\"view=='grid'\">\n        <table class=\"table table-bordered table-hover\">\n            <tbody>\n            <tr>\n                <th>\n                    #\n                </th>\n                <th>\n                    编号\n                </th>\n                <th>\n                    类型\n                </th>\n                <th>\n                    座位数\n                </th>\n                <th>\n                    位置\n                </th>\n                <th>\n                    状态\n                </th>\n                <th>\n                    操作\n                </th>\n            </tr>\n\n            <tr v-for=\"t in tables\">\n                <td>\n                    {{$index+1}}\n                </td>\n                <td>\n                    {{t.no}}\n                </td>\n                <td>\n                    {{t.type==0?\"包厢\":\"大厅\"}}\n                </td>\n                <td>\n                    {{t.seat}}\n                </td>\n                <td>\n                    <a href=\"javascript:;\" @click=\"goTo(t._id)\">查看</a>\n                </td>\n                <td>\n                    {{t.visible==0?\"禁用\":\"启用\"}}\n                </td>\n                <td>\n                    <a href=\"\">编辑</a>\n                    <a href=\"javascript:;\" @click=\"onDelTable(t)\">删除</a>\n                </td>\n            </tr>\n\n            </tbody></table>\n        <div class=\"c-pager\">\n            <p class=\"pull-left\">共 11 条记录，每页 20 条 1/1 </p>\n\n            <ul  class=\"pagination pagination-sm\">\n                <li>\n                </li>\n                <li>\n                    <a href=\"#\" aria-label=\"Previous\">\n                        <span class=\"glyphicon glyphicon-step-backward\"></span>\n                    </a>\n                </li>\n                <li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                <li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                <li>\n                    <a href=\"#\" aria-label=\"Next\">\n                        <span class=\"glyphicon glyphicon-step-forward\"></span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"panel-body\" id=\"map\" v-show=\"view=='map'\">\n\n    </div>\n\n\n    <c-form :config=\"modal\" @submit=\"onSubmit\">\n        <validator name=\"valid\">\n            <form class=\"form-horizontal\" novalidate >\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.no.invalid&&$valid.no.touched}\"  >编号</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.no.invalid&&$valid.no.touched}\">\n                        <input type=\"number\" class=\"form-control\" placeholder=\"必填\" v-validate:no=\"['required']\" v-model=\"model.no\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">类别</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.type\" number>\n                            <option value=\"0\">包厢</option>\n                            <option value=\"1\">大厅</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.seat.invalid&&$valid.seat.touched}\" >座位数</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.seat.invalid&&$valid.seat.touched}\">\n                        <input type=\"number\" class=\"form-control\" placeholder=\"必填\" v-model=\"model.seat\" v-validate:seat=\"['required']\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">状态</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.visible\" number>\n                            <option value=\"0\">禁用</option>\n                            <option value=\"1\">启用</option>\n                        </select>\n                    </div>\n                </div>\n            </form>\n        </validator>\n    </c-form>\n\n</div>\n",
+    data: function () {
+        return {
+            view:"map",
+            modal:{
+                title:"新增餐桌",
+                show:false
+            },
+            tables:[],
+            count:0,
+            model:$.extend({},model)
+        }
+    },
+    methods:{
+        render: function () {
+            var self = this;
+            self.renderMap();
+            self.renderTable();
+        },
+        renderMap: function () {
+            var w = 2484,h = 3512;
+            this.map = new L.map("map",{
+                center:[0,0],
+                zoom:2,
+                minZoom:0,
+                maxZoom:3,
+                attributionControl:false
+            });
+
+            L.tileLayer.zoomify('./static/images/tables/', {
+                width: w,
+                height: h,
+                tolerance: 0.8,
+                attribution: '二楼小餐厅分布图'
+            }).addTo(this.map);
+
+            this.featureLayer = new L.featureGroup().addTo(this.map);
+
+            this.map.on("click", function (e) {
+            });
+
+            this.initDraw();
+        },
+        renderTable: function () {
+            layer.load();
+            var self = this;
+            Service.getTable(function (rep) {
+
+                self.tables = rep.lists;
+                self.count = rep.count;
+                self.featureLayer.clearLayers();
+                self.tables.forEach(function (d) {
+                    self.renderHot(d);
+                });
+                layer.closeAll();
+            });
+        },
+        renderHot: function (data) {
+            var self = this,feature;
+            if(data.position.type == "rectangle"){
+                feature = new L.rectangle(data.position.latlngs,{weight:1,data:data}).addTo(this.featureLayer);
+                feature.on("click", function () {
+                    this.options.data.position.latlngs = this._latlngs;
+                    self.model = $.extend(self.model,this.options.data);
+                    self.modal.title="更新餐桌";
+                    self.modal.show = true;
+                });
+
+            }else{
+                feature = new L.circle(data.position.latlng,data.position.radius,{weight:1,data:data}).addTo(this.featureLayer);
+                feature.on("click", function () {
+                    this.options.data.position.latlng = this._latlng;
+                    this.options.data.position.radius = this._mRadius;
+                    self.model = $.extend(self.model,this.options.data);
+                    self.modal.title="更新餐桌";
+                    self.modal.show = true;
+                });
+            }
+
+            feature.editing.enable();
+
+
+        },
+        onAddRect: function () {
+            this.drawRectangle.enable();
+        },
+        onAddCircle: function () {
+            this.drawCircle.enable();
+        },
+        initDraw: function () {
+            this.drawCircle = new L.Draw.Circle(this.map,{shapeOptions:{editable:true}});
+            this.drawRectangle = new L.Draw.Rectangle(this.map,{shapeOptions:{editable:true}});
+
+            var self = this;
+            this.map.on("draw:created", function (t) {
+                self.featureLayer.addLayer(t.layer);
+                if(t.layerType == "circle"){
+                    debugger
+                    self.addTable({type: t.layerType,latlng: t.layer._latlng,radius: t.layer._mRadius});
+                }else{
+                    self.addTable({type: t.layerType,latlngs: t.layer._latlngs});
+                }
+            })
+        },
+        addTable: function (position) {
+            this.modal.title = "新增餐桌";
+            this.modal.show = true;
+            this.model.position = position;
+        },
+        onDelTable: function (t) {
+            var self = this;
+            layer.confirm("确定删除该餐桌?",{btn:["确定","取消"]}, function () {
+                Service.delTable(t._id, function () {
+                    self.tables.$remove(t);
+                    layer.closeAll();
+                });
+            });
+        },
+        onSubmit:function(){
+            if(this.$valid.valid){
+                layer.load(1);
+                this.submit();
+            }else{
+                this.$validate(true);
+            }
+        },
+        submit: function () {
+            var self = this;
+            layer.load();
+            if(this.model._id){
+                Service.updateTable(this.model._id,JSON.stringify(this.model), function (rep) {
+                    self.renderTable();
+                    layer.closeAll();
+
+                });
+            } else{
+                Service.addTable(JSON.stringify(this.model), function (rep) {
+                    self.renderTable();
+                    layer.closeAll();
+
+                })
+            }
+            this.modal.show = false;
+        },
+        goTo: function (id) {
+            var self = this;
+            this.view = "map";
+            Vue.nextTick(function () {
+                self.featureLayer.eachLayer(function (layer) {
+                    if(id == layer.options.data._id){
+                        setTimeout(function () {
+                            self.map.setView(layer.getBounds().getCenter(),3);
+                        },200);
+                    }
+                })
+            });
+        },
+        onChangeView: function (v) {
+            this.view = v;
+        }
+    },
+    ready: function () {
+        this.render();
+    }
+});
+
+});
+
+;/*!/components/page/order/order.js*/
+define('components/page/order/order', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/4.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+
+require("form/form.js");
+
+
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-menu\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    订单</a></li>\n            </ul>\n            <a href=\"javascript:;\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-plus\"></span>\n                新增\n            </a>\n        </div>\n        <div class=\"panel-body\">\n            <div class=\"form-inline\">\n                <div class=\"form-group\">\n                    <label>日期</label>\n                    <input type=\"text\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n                </div>\n                <div class=\"form-group\">\n                    <label >餐次 </label>\n                    <select class=\"form-control\" v-model=\"query.mtime\">\n                        <option value=\"\">全部</option>\n                        <option value=\"lunch\">午餐</option>\n                        <option value=\"dinner\">晚餐</option>\n                    </select>\n                </div>\n                <button class=\"btn btn-default\" @click=\"onQuery\">\n                    <span class=\"glyphicon glyphicon-search\"></span>\n                    查询</button>\n            </div>\n            <hr>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        时间\n                    </th>\n                    <th>\n                        餐次\n                    </th>\n                    <th>\n                        下单人\n                    </th>\n                    <th>\n                        人数\n                    </th>\n                    <th>\n                        餐桌\n                    </th>\n                    <th>\n                        菜单\n                    </th>\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"o in orders\" track-by=\"_id\">\n                    <td>{{$index+1 + 10*query.page}}</td>\n                    <td>{{o.mdate}}</td>\n                    <td>{{o.mtime==\"dinner\"?\"晚餐\":\"午餐\"}}</td>\n                    <td>{{o.user.name}}</td>\n                    <td>{{o.number}}</td>\n                    <td>{{o.table.no}}</td>\n                    <td><a v-link=\"{path:'order/'+o._id}\" >查看</a></td>\n                    <td><a @click=\"onCancel(o)\" href=\"javascript:;\">取消订单</a></td>\n                </tr>\n                </tbody></table>\n            <div class=\"c-pager\">\n                <p class=\"pull-left\">共 {{count}} 条记录，每页 10 条 {{query.page+1}}/{{Math.ceil(count/10)}} </p>\n\n                <ul  class=\"pagination pagination-sm\">\n                    <li>\n                    </li>\n                    <!--<li>-->\n                        <!--<a href=\"#\" aria-label=\"Previous\">-->\n                            <!--<span class=\"glyphicon glyphicon-step-backward\"></span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                    <li><a href=\"javascript:;\" :disabled=\"query.page==0\" @click=\"toPre\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                    <li><a href=\"javascript:;\" @click=\"toNext\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                    <!--<li>-->\n                        <!--<a href=\"#\" aria-label=\"Next\">-->\n                            <!--<span class=\"glyphicon glyphicon-step-forward\"></span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                </ul>\n            </div>\n        </div>\n    </div>\n\n\n\n\n</div>\n",
+    data: function () {
+        return {
+            orders:[],
+            count:0,
+            query:{
+                page:0,
+                limit:10,
+                mtime:"",
+                mdate:""
+            }
+        }
+    },
+    methods:{
+        render: function () {
+            this.renderOrders();
+        },
+        renderOrders: function () {
+            var self = this;
+            layer.load();
+            var query = JSON.parse(JSON.stringify(this.query));
+            for(var i in query){
+                if(!query[i]){
+                    delete query[i]
+                }
+            }
+            Service.getOrders(query,function (rep) {
+                self.orders = rep.lists;
+                self.count = rep.count;
+                layer.closeAll();
+            })
+        },
+        onDateClick: function () {
+            var self = this;
+            laydate({istime: true, format: 'YYYY-MM-DD',choose: function (datas) {
+                self.query.mdate = datas;
+            }});
+        },
+        onQuery: function () {
+            this.query.page = 0;
+            this.renderOrders();
+        },
+        onCancel: function (o) {
+            var self = this;
+            layer.confirm("是否取消该订单?",{btn:["确定","取消"]}, function () {
+                Service.delOrder(o._id,function (rep) {
+                    layer.closeAll();
+                    layer.alert("取消成功!");
+                    self.orders.$remove(o);
+                })
+            });
+        },
+        toPre: function () {
+           if(this.query.page>0){
+               this.query.page--;
+               this.renderOrders();
+           }
+        },
+        toNext: function () {
+            if(this.query.page < Math.ceil(this.count/10)-1){
+                this.query.page++;
+                this.renderOrders();
+            }
+        }
+    },
+    ready: function () {
+        this.render();
+    }
+});
+
+});
+
+;/*!/components/page/order/detail/detail.js*/
+define('components/page/order/detail/detail', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/4.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+
+require("form/form.js");
+
+
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-detail\">\n\n    <div class=\"panel panel-default content\" >\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    菜单详情</a></li>\n            </ul>\n            <a v-link=\"{path:'/order'}\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-backward\"></span>\n                返回\n            </a>\n            <a href=\"javascript:;\" class=\"btn pull-right\" @click=\"onPrint\">\n                <span class=\"glyphicon glyphicon-print\"></span>\n                打印\n            </a>\n            <a href=\"javascript:;\" :disabled=\"mode=='edit'\"  class=\"btn pull-right\" @click=\"onEdit\">\n                <span class=\"glyphicon glyphicon-edit\"></span>\n                编辑(开发中)</a>\n\n        </div>\n        <div class=\"panel-body\" id=\"order-detail\" >\n            <h3 class=\"text-center\">\n               {{order.mdate}} {{order.mtime==\"dinner\"?\"晚餐\":\"中餐\"}} {{order.table.no}}号桌({{order.number}}人) {{order.user.name}}预定\n            </h3>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        菜品名称\n                    </th>\n                    <th>\n                        数量\n                    </th>\n                    <th>\n                        单位\n                    </th>\n                    <th>\n                        单价(元)\n                    </th>\n                    <th>\n                        总价(元)\n                    </th>\n                    <th v-if=\"mode=='edit'\">\n                        编辑\n                    </th>\n                </tr>\n                <tr v-for=\"m in order.menu\">\n                    <td>{{$index+1}}</td>\n                    <td>\n                        <span v-if=\"mode=='detail'\">{{m.name}}</span>\n                        <span class=\"like-input\" v-show=\"mode=='edit'\"  @click=\"onSelectMenu(m)\">{{m.name}}</span>\n                    </td>\n                    <td>\n                        <span v-if=\"mode=='detail'\">{{m.number}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.number\" number>\n                    </td>\n                    <td>{{m.unit}}</td>\n                    <td>¥{{m.price}}</td>\n                    <td>¥{{m.price * m.number}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <a href=\"javascript:;\">删除</a>\n                    </td>\n                </tr>\n                <tr>\n                    <td>合计</td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td>¥{{total}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <button class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-plus\"></span></button>\n                    </td>\n                </tr>\n                </tbody></table>\n\n        </div>\n\n        <div class=\"panel-footer text-right\" v-if=\"mode=='edit'\">\n            <button class=\"btn btn-primary\">提交</button>\n            <button CLASS=\"btn btn-default\" @click=\"onCancel\">取消</button>\n        </div>\n    </div>\n\n    <div class=\"modal fade\" id=\"menuModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog  modal-lg\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                    <h4 class=\"modal-title\" id=\"myModalLabel\">请选择菜品</h4>\n                </div>\n                <div class=\"modal-body\">\n                    <ul class=\"nav nav-tabs\">\n                        <li role=\"presentation\" v-for=\"t in types\" :class=\"{active:selectType==t.key}\"><a href=\"javascript:;\" @click=\"onChangeType(t.key)\">{{t.value}}</a></li>\n                    </ul>\n\n                    <div class=\"container-fluid\" >\n                        <div class=\"row\">\n                            <div class=\"col-md-2 menu-item\" v-for=\"m in menus\" v-if=\"m.type == selectType\">\n                                <div class=\"thumbnail\">\n                                    <img v-for=\"p in m.picture\" v-if=\"m.picture.length>0&&$index==0\" :src=\"'/data/image/'+p+'/100/100.json'\" >\n                                    <div class=\"caption\">\n                                        <h5>{{m.name}}</h5>\n                                        <p>{{m.cates.join(\",\")}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>\n                    <button type=\"button\" class=\"btn btn-primary\">确定</button>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+    data: function () {
+        return {
+            order:{
+                table:{},
+                user:{}
+            },
+            types:[],
+            selectType:"",
+            menus:[],
+            oid:"",
+            mode:"detail"
+        }
+    },
+    methods:{
+        render: function () {
+            this.renderTypes();
+            this.renderMenu();
+        },
+        renderOrder: function (id) {
+            var self = this;
+            layer.load();
+            Service.getOrder(id,function (rep) {
+                self.order = rep;
+                layer.closeAll();
+            })
+        },
+        renderTypes: function () {
+            var self = this;
+            Service.getCtx("dc_type", function (rep) {
+                self.types = rep.types.types||[];
+                if(self.types.length>0){
+                    self.selectType = self.types[0].key;
+                }
+            });
+        },
+        renderMenu: function () {
+            layer.load();
+            var self = this;
+            Service.getMenus({},function (rep) {
+                self.menus = rep.lists;
+                layer.closeAll();
+            })
+        },
+        onPrint: function () {
+            $("#order-detail").jqprint();
+        },
+        onEdit: function () {
+            this.mode = "edit";
+        },
+        onSelectMenu: function () {
+            $("#menuModal").modal("show");
+        },
+        onCancel: function () {
+            this.mode = "detail";
+            $(this.$el).removeClass("menus-show");
+        },
+        onChangeType: function (t) {
+            this.selectType = t;
+        }
+
+    },
+    route:{
+        data: function (r) {
+            this.renderOrder(r.to.params.oid);
+            this.mode ="detail";
+        }
+    },
+    computed:{
+        total: function () {
+            var total = 0;
+            if(this.order.menu){
+                this.order.menu.forEach(function (m) {
+                    total +=(m.price* m.number);
+                })
+            }
+            return total;
+        }
+    },
+    ready: function () {
+        this.render();
+    }
+});
+
+});
+
+;/*!/components/page/notice/notice.js*/
+define('components/page/notice/notice', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/3/30.
+ */
+
+var Vue = require("component_modules/vue.js");
+var nav = require("nav/nav.js");
+
+require("form/form.js");
+
+var Service = require("main/service.js");
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-notice\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    公告</a></li>\n            </ul>\n            <a v-link=\"{path:'add',append:true}\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-plus\"></span>\n                新增\n            </a>\n        </div>\n        <div class=\"panel-body\">\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>标题\n                    </th>\n                    <th>\n                        发布时间\n                    </th>\n                    <th>\n                        发布人\n                    </th>\n                    <th>\n                        是否置顶\n                    </th>\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"n in notices\">\n                    <td>\n                        {{$index+1}}\n                    </td>\n                    <td>\n                        {{n.title}}\n                    </td>\n                    <td>\n                        {{(new Date(n.updated).Format(\"yyyy-MM-dd hh:mm\"))}}\n                    </td>\n                    <td>\n                        {{n.user}}\n                    </td>\n                    <td>\n                        {{n.top?'是':'否'}}\n                    </td>\n                    <td>\n                        <a v-link=\"{path:'add?id='+n._id,append:true}\">编辑</a>\n                        <a href=\"javascript:;\" @click=\"onDel(n)\">删除</a>\n                    </td>\n                </tr>\n                </tbody></table>\n            <!--<div class=\"c-pager\">-->\n                <!--<p class=\"pull-left\">共 {{notices.length}} 条记录，每页 10 条 1/1 </p>-->\n\n                <!--<ul  class=\"pagination pagination-sm\">-->\n                    <!--<li>-->\n                    <!--</li>-->\n                    <!--<li>-->\n                        <!--<a href=\"#\" aria-label=\"Previous\">-->\n                            <!--<span class=\"glyphicon glyphicon-step-backward\"></span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                    <!--<li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>-->\n                    <!--<li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>-->\n\n                    <!--<li>-->\n                        <!--<a href=\"#\" aria-label=\"Next\">-->\n                            <!--<span class=\"glyphicon glyphicon-step-forward\"></span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                <!--</ul>-->\n            <!--</div>-->\n        </div>\n    </div>\n    <!--<c-form :show=\"modalShow\" >-->\n\n        <!--<form class=\"form-horizontal\">-->\n            <!--<div class=\"form-group\" v-for=\"m in model\" v-show=\"m.type != 'hidden'\">-->\n                <!--<label class=\"col-sm-2 control-label\">{{m.name}}</label>-->\n                <!--<div class=\"col-sm-10\">-->\n                    <!--{{getStr}}-->\n                <!--</div>-->\n            <!--</div>-->\n        <!--</form>-->\n\n    <!--</c-form>-->\n\n</div>\n",
+    data: function () {
+        return {
+            notices:[],
+            count:0,
+            modal:{
+                show:false
+            }
+        }
+    },
+    methods:{
+        render:function (){
+            this.renderList();
+        },
+        renderList: function () {
+            var self = this;
+            Service.getNotices(function (rep) {
+                self.count = rep.count;
+                self.notices = rep.lists;
+            });
+        },
+        onDel: function (n) {
+            var self = this;
+            layer.confirm("是否删除该通知?",{btn:["确定","取消"]}, function () {
+                self.delNotice(n._id,function (rep) {
+                    self.notices.$remove(n);
+                    layer.alert("删除成功!");
+                    layer.closeAll();
+                })
+            });
+        },
+        delNotice: function (id,callback) {
+            Service.delNotice(id,callback);
+        }
+    },
+    ready: function () {
+        this.render();
+    }
+});
+
+});
+
+;/*!/components/page/notice/add/add.js*/
+define('components/page/notice/add/add', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/3/30.
+ */
+
+var Vue = require("component_modules/vue.js");
+var nav = require("nav/nav.js");
+
+require("form/form.js");
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-notice-add\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            新增公告\n            <a href=\"javascript:history.back()\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-backward\"></span>\n                返回\n            </a>\n        </div>\n        <div class=\"panel-body\">\n            <iframe src=\"./static/wx/index.html\"  frameborder=\"0\"></iframe>\n        </div>\n    </div>\n</div>\n",
+    data: function () {
+        return {
+
+        }
+    }
+});
+
+});
+
+;/*!/components/page/config/config.js*/
+define('components/page/config/config', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/3/30.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+var nav = require("nav/nav.js");
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-config\">\n    <div class=\"panel panel-default content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"javascript:;\">\n                    基础配置</a></li>\n            </ul>\n        </div>\n        <div class=\"panel-body\">\n\n            <div class=\"form-horizontal\">\n               <div class=\"form-group\">\n                   <label class=\"col-sm-2 control-label\">提前预定天数</label>\n                   <div class=\"col-sm-10\">\n                       <input type=\"number\"  class=\"form-control\" v-model=\"config.pre\" >\n                   </div>\n               </div>\n            </div>\n\n            <fieldset>\n                <legend>中餐</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚预定时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\" v-model=\"config.lunch.lastOrder\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚退订时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.lunch.unSub\" >\n                        </div>\n                    </div>\n                </div>\n            </fieldset>\n            <fieldset>\n                <legend>晚餐</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚预定时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.dinner.lastOrder\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚退订时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.dinner.unSub\" >\n                        </div>\n                    </div>\n                </div>\n            </fieldset>\n        </div>\n        <div class=\"panel-footer text-right\">\n            <a href=\"javascript:;\" class=\"btn btn-primary\" @click=\"onSubmit\">提交</a>\n        </div>\n    </div>\n</div>",
+    data: function () {
+      return {
+          config:{
+              pre:4,
+              lunch:{
+                  lastOrder:"12:00",
+                  unSub:"12:20"
+              },
+              dinner:{
+                  lastOrder:"18:00",
+                  unSub:"18:20"
+              }
+          }
+      }
+    },
+    methods:{
+        render: function () {
+            this.renderConfig();
+        },
+        onSubmit: function () {
+            Service.putCtx("dc_config", JSON.stringify({config:this.config}),function (rep) {
+                layer.alert("更新成功!");
+            });
+        },
+        renderConfig: function () {
+            var self = this;
+            layer.load();
+            Service.getCtx("dc_config", function (rep) {
+                if(rep.config){
+                    self.config = $.extend(self.config,rep.config);
+                }
+                layer.closeAll();
+            });
+        }
+        
+    },
+    ready: function () {
+        this.render();
+    },
+    route:{
+        activate: function (transition) {
+            transition.next();
+        }
+    }
+});
+
+
+});
+
+;/*!/components/page/menu/menu.js*/
+define('components/page/menu/menu', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/4.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+
+require("form/form.js");
+
+var model = {
+    _id:"",
+    type:0,
+    unit:"",
+    name:"",
+    price:0,
+    star:0,
+    cates:[],
+    picture:[],
+    visible:1
+};
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-menu\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" :class=\"{active:view=='list'}\" @click=\"changeView('list')\"><a href=\"javascript:;\">\n                    菜品</a></li>\n                <li role=\"presentation\" :class=\"{active:view=='type'}\" @click=\"changeView('type')\"><a href=\"javascript:;\">\n                    分类</a></li>\n            </ul>\n            <a v-show=\"view=='list'\" href=\"javascript:;\" class=\"btn pull-right\" @click=\"onAdd\">\n                <span class=\"glyphicon glyphicon-plus\"></span>\n                新增菜品\n            </a>\n            <a v-show=\"view=='type'\" href=\"javascript:;\" class=\"btn pull-right\" @click=\"onAddType\">\n                <span class=\"glyphicon glyphicon-plus\"></span>\n                新增类型\n            </a>\n        </div>\n        <div v-show=\"view=='list'\" class=\"panel-body\">\n            <!--<form class=\"form-inline\">-->\n                <!--<div class=\"form-group\">-->\n                    <!--<label>名称</label>-->\n                    <!--<input type=\"text\" class=\"form-control\"  v-model=\"query.name\" placeholder=\"请填写\">-->\n                <!--</div>-->\n                <!--<div class=\"form-group\">-->\n                    <!--<label >类型</label>-->\n                    <!--<select class=\"form-control\" v-model=\"query.type\">-->\n                        <!--<option value=\"\">全部</option>-->\n                        <!--<option value=\"t.key\" v-for=\"t in types.types\">{{t.value}}</option>-->\n                    <!--</select>-->\n                <!--</div>-->\n                <!--<button class=\"btn btn-primary\" @click=\"onQuery\">-->\n                    <!--<span class=\"glyphicon glyphicon-search\"></span>-->\n                    <!--查询</button>-->\n                <!--<button type=\"reset\" class=\"btn btn-default\" >-->\n                    <!--<span class=\"glyphicon glyphicon-refresh\"></span>-->\n                    <!--重置</button>-->\n            <!--</form>-->\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>图片\n                    </th>\n                    <th>\n                        名称\n                    </th>\n                    <th>\n                        分类\n                    </th>\n                    <th>\n                        标签\n                    </th>\n                    <th>\n                        价格\n                    </th>\n                    <th>\n                        状态\n                    </th>\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"m in menu\" track-by=\"_id\">\n                    <td>\n                        {{$index+1}}\n                    </td>\n                    <td>\n                        <img  v-for=\"p in m.picture\" v-if=\"m.picture.length>0\" :src=\"'/data/image/'+p+'/100/100.json'\" class=\"img-rounded\" style=\"width: 80px;margin-left: 5px;height: 80px;\">\n                        <a href=\"javascript:;\" class=\"btn btn-default btn-sm upfile\">\n                            <span class=\"glyphicon glyphicon-plus\"></span>\n                            <input type=\"file\" value=\"浏览\" @change=\"onAddPic(m,$event)\" />\n                        </a>\n                    </td>\n                    <td>\n                        {{m.name}}\n                    </td>\n                    <td>\n                        <span v-for=\"t in types.types\" v-if=\"t.key==m.type\">{{t.value}}</span>\n                    </td>\n                    <td>\n                        <span class=\"label label-primary\" v-for=\"c in m.cates\">\n                            {{c}}\n                        </span>\n                    </td>\n                    <td>\n                        ¥{{m.price}}\n                    </td>\n                    <td>\n                        {{m.visible == 0?\"禁用\":\"启用\"}}\n                    </td>\n                    <td>\n                        <a href=\"javascript:;\" @click=\"onEditMenu(m)\">编辑</a>\n                        <a href=\"javascript:;\" @click=\"onDelMenu(m)\">删除</a>\n                    </td>\n                </tr>\n                </tbody></table>\n            <div class=\"c-pager\">\n                <p class=\"pull-left\">共 {{count}} 条记录，{{query.page+1}}/{{Math.ceil(count/10)}}</p>\n\n                <ul  class=\"pagination pagination-sm\">\n                    <li>\n                    </li>\n                    <!--<li>-->\n                        <!--<a href=\"#\" aria-label=\"Previous\">-->\n                            <!--<span class=\"glyphicon glyphicon-step-backward\"></span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                    <li><a href=\"javascript:;\" :disabled=\"query.page==0\" @click=\"toPre\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                    <li><a href=\"javascript:;\" @click=\"toNext\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                    <!--<li>-->\n                        <!--<a href=\"#\" aria-label=\"Next\">-->\n                            <!--<span class=\"glyphicon glyphicon-step-forward\"></span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                </ul>\n            </div>\n        </div>\n        <div v-show=\"view=='type'\" class=\"panel-body\">\n            <table class=\"table table-bordered table-hover\">\n                <thead>\n                <tr>\n                    <th>#</th>\n                    <th>名称</th>\n                    <th>操作</th>\n                </tr>\n                </thead>\n                <tbody>\n                    <tr v-for=\"t in types.types\">\n                        <td>{{t.key}}</td>\n                        <td>{{t.value}}</td>\n                        <td><a href=\"\">编辑</a>\n                      <a href=\"javascript:;\" @click=\"onDelType(t)\">删除</a></td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n    </div>\n\n    <c-form :config=\"modal\" @submit=\"onSubmit\">\n        <validator name=\"valid\">\n            <form class=\"form-horizontal\" novalidate >\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.name.invalid&&$valid.name.touched}\">名称</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.name.invalid&&$valid.name.touched}\">\n                        <input type=\"text\"  class=\"form-control\" placeholder=\"必填\" v-validate:name=\"['required']\" v-model=\"model.name\">\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">分类</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.type\" number>\n                            <option value=\"{{t.key}}\" v-for=\"t in types.types\">{{t.value}}</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"form-group\" >\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.price.invalid&&$valid.price.touched}\" >价格(元)</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.price.invalid&&$valid.price.touched}\">\n                        <input type=\"number\" class=\"form-control\"  v-validate:price=\"['required']\"  v-model=\"model.price\" placeholder=\"必填\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.unit.invalid&&$valid.unit.touched}\" >单位</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.unit.invalid&&$valid.unit.touched}\">\n                        <input type=\"text\" class=\"form-control\" v-model=\"model.unit\" v-validate:unit=\"['required']\" placeholder=\"必填(份/个/等等)\">\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" >标签</label>\n                    <div class=\"col-sm-10\">\n                        <span class=\"label label-primary\" style=\"margin-right: 10px;\" v-for=\"c in model.cates\">\n                            {{c}}\n                          <span class=\"glyphicon glyphicon-remove\" @click=\"onRemoveCate(c)\"></span>\n                        </span>\n                        <a href=\"javascript:;\" class=\"btn btn-default\" @click=\"onAddCate\">\n                            <span class=\"glyphicon glyphicon-plus\"></span>\n                        </a>\n                    </div>\n                </div>\n                <div class=\"form-group\" >\n                    <label class=\"col-sm-2 control-label\">状态</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.visible\" number>\n                            <option value=\"1\">启用</option>\n                            <option value=\"0\">禁用</option>\n                        </select>\n                    </div>\n                </div>\n            </form>\n        </validator>\n    </c-form>\n\n    <c-form :config=\"typeModal\" @submit=\"onSubmitType\" >\n        <form class=\"form-horizontal\">\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label\">值</label>\n                <div class=\"col-sm-10\" >\n                    <input type=\"number\"  class=\"form-control\" v-model=\"type.key\" placeholder=\"必填,请勿重复\"  number>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <label class=\"col-sm-2 control-label\">名称</label>\n                <div class=\"col-sm-10\" >\n                    <input type=\"text\"  class=\"form-control\" v-model=\"type.value\" placeholder=\"必填\" >\n                </div>\n            </div>\n        </form>\n    </c-form>\n</div>\n",
+    data: function () {
+        return {
+            view:"list",
+            count:0,
+            menu:[],
+            model:$.extend({},model),
+            modal:{
+                show:false,
+                title:"新增菜单"
+            },
+            typeModal:{
+                show:false,
+                title:"新增类型"
+            },
+            types:{types:[]},
+            type:{
+                key:null,
+                value:null
+            },
+            query:{
+                limit:10,
+                page:0
+            }
+        }
+    },
+    methods: {
+        render:function (){
+            this.renderMenu();
+            this.renderTypes();
+        },
+        renderMenu: function () {
+            layer.load();
+            var self = this;
+            Service.getMenus(this.query,function (rep) {
+                self.menu = rep.lists;
+                self.count = rep.count;
+                layer.closeAll();
+            })
+        },
+        onQuery: function () {
+          this.renderMenu();
+        },
+        renderTypes: function () {
+            var self = this;
+          Service.getCtx("dc_type", function (rep) {
+              self.types.types = rep.types.types||[];
+          });
+        },
+        onAdd: function () {
+            this.model = $.extend(this.model,model);
+            this.modal.show = true;
+            this.modal.title = "新增菜品";
+        },
+        onEditMenu: function (m) {
+            this.model = $.extend(this.model,m);
+            this.modal.show = true;
+            this.modal.title = "编辑菜品";
+        },
+        onDelMenu: function (m) {
+            var self = this;
+            layer.confirm("是否删除该菜品?",{btn:["确定","取消"]}, function () {
+                Service.delMenu(m._id, function (rep) {
+                    layer.closeAll();
+                    self.menu.$remove(m);
+                })
+            });
+        },
+        onAddCate: function () {
+            var self = this;
+            var index = layer.prompt({title:"添加标签"}, function (r) {
+                if(r){
+                    self.model.cates.push(r);
+                    layer.close(index);
+                }
+            });
+        },
+        onAddPic: function (m,e) {
+            layer.load(1);
+            var self = this;
+            this.readFile(e, function (base,name) {
+                if(base){
+                    Service.upPicture(JSON.stringify({name: name,data:base}), function (rep) {
+                        m.picture.push(rep);
+                        Service.updateMenu(m._id,JSON.stringify(m), function (rep) {
+                            layer.msg("添加图片成功!");
+                        });
+                        layer.closeAll();
+                    });
+                }else{
+                    layer.closeAll();
+                }
+            })
+        },
+        onRemoveCate: function (c) {
+            this.model.cates.$remove(c);
+        },
+        readFile: function (obj,callback) {
+            var file = obj.target.files[0];
+            //判断类型是不是图片
+            if(!/image\/\w+/.test(file.type)){
+                alert("请确保文件为图像类型");
+                callback(false);
+                return false;
+            };
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e){
+               callback(this.result,file.name);
+            }
+        },
+        onSubmit: function () {
+            if(this.$valid.valid){
+                layer.load(1);
+                this.submit();
+            }else{
+                this.$validate(true);
+            }
+        },
+        submit: function () {
+            var self = this;
+            if(this.model._id){
+                Service.updateMenu(this.model._id,JSON.stringify(this.model), function (rep) {
+                    self.modal.show = false;
+                    self.renderMenu();
+                });
+            }else{
+                Service.addMenu(JSON.stringify(this.model), function (rep) {
+                    self.modal.show = false;
+                    self.renderMenu();
+                })
+            }
+        },
+        changeView: function (v) {
+            this.view = v;
+        },
+        onAddType: function () {
+            this.typeModal.show = true;
+        },
+        updateType: function () {
+            Service.putCtx("dc_type",JSON.stringify({types:this.types}), function (rep) {
+            });
+        },
+        onSubmitType: function () {
+            if(typeof this.type.key =="number"&&this.type.value){
+                this.types.types.push(JSON.parse(JSON.stringify(this.type)));
+                this.updateType();
+                this.typeModal.show = false;
+                this.type.key = null;
+                this.type.value = null;
+            }else{
+                alert("请填写完整!");
+            }
+        },
+        onDelType: function (type) {
+            var self = this;
+            layer.confirm("是否删除该类型?",{btn:["确定","取消"]}, function () {
+                self.types.types.$remove(type);
+                self.updateType();
+                layer.closeAll();
+            });
+        },
+        toPre: function () {
+            if(this.query.page>0){
+                this.query.page--;
+                this.renderMenu();
+            }
+        },
+        toNext: function () {
+            if(this.query.page < Math.ceil(this.count/10)-1){
+                this.query.page++;
+                this.renderMenu();
+            }
+        }
+    },
+    ready: function () {
+        this.render();
+    },
+    route:{
+        activate: function (transition) {
+            store.view = "menu";
+            transition.next();
+        }
+    },
+});
+
+});
+
+;/*!/components/page/list/list.js*/
+define('components/page/list/list', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/3/30.
+ */
+
+var Vue = require("component_modules/vue.js");
+
+var nav = require("nav/nav.js");
+
+module.exports = Vue.extend({
+    template:"<div class=\"mui-content\">\n    <div class=\"mui-content-padded\">\n        订单列表\n    </div>\n    <ul class=\"mui-table-view\">\n        <li class=\"mui-table-view-cell mui-media \">\n            <a class=\"mui-navigate-right\">\n                <div class=\"mui-media-body\">\n                    2016-04-01 下午\n                    <p class='mui-ellipsis'>8号桌(包厢) 10人</p>\n                </div>\n            </a>\n        </li>\n    </ul>\n</div>\n\n<c-nav view=\"list\"></c-nav>",
+    data: function () {
+      return {
+      }
     }
 });
 

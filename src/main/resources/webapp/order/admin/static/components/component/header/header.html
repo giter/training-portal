@@ -8,8 +8,8 @@
     </div>
 
     <div class="list-group">
-        <a v-for="m in menus" v-link="{path:'/'+m.key}" class="list-group-item" :class="{active:m.key == view}">
-            <span class="glyphicon  pull-right" :class="m.className"></span>
+        <a v-for="m in menus" v-link="{path:'/'+m.key}" class="list-group-item" title="{{m.name}}" :class="{active:m.key == view}">
+            <span class="glyphicon  pull-right" :class="m.className"  title="{{m.name}}" ></span>
             &nbsp;{{m.name}}
         </a>
     </div>
