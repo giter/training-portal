@@ -1,0 +1,52 @@
+<div class="mui-content page-order">
+    <div class="weui_cells_title">预订日期</div>
+        <form class="mui-input-group">
+            <div class="mui-input-row mui-radio" v-for="d in date">
+                <label :for="d">{{d.value}} {{d.week}}</label>
+                <input name="date" type="radio"  v-model="params.mdate"  :value="d.value" :id="d.value">
+            </div>
+        </form>
+    <div class="weui_cells_title">预订人数</div>
+    <div class="mui-input-row mui-input-range" style="padding-left: 20px;">
+        <h4 class="p-number"><span>{{params.num}}</span> 人</h4>
+        <input type="range" id="block-range" value="5" min="1" max="20" data-input-slider="4" v-model="params.num">
+   </div>
+    <div class="weui_cells_title">预订餐次</div>
+    <div class="mui-card">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell"  >
+                <a class="mui-navigate-right" @click="onSelect('lunch')"  :class="{disabled:!lunch}" >
+                    午餐 <span v-show="!lunch">(今日已过期)</span>
+                </a>
+            </li>
+            <li class="mui-table-view-cell"  >
+                <a  class="mui-navigate-right"  @click="onSelect('dinner')"  :class="{disabled:!dinner}"  >
+                    晚餐 <span v-show="!dinner">(今日已过期)</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--    <div class="mui-content-padded" style="margin-top: 40px">
+            最新公告
+        </div>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media">
+                <a href="" class="mui-navigate-right">
+                    <div class="mui-media-body">
+                        我是公告标题
+                        <p class="mui-pull-right">
+                            03-30 23:22
+                        </p>
+                        <p class="mui-ellipsis">
+                            这是内容的简要
+                            这是内容的简要
+                            这是内容的简要
+                        </p>
+                    </div>
+                </a>
+            </li>
+        </ul>-->
+</div>
+
+<c-nav view="order"></c-nav>

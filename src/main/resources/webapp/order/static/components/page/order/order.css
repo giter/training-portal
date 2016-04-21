@@ -1,0 +1,11 @@
+.page-order .p-number {
+  text-align: center;
+  color: #ec971f;
+  font-size: 20px;
+}
+.page-order .p-number span {
+  font-size: 26px;
+}
+.page-order .disabled {
+  color: #ccc !important;
+}
