@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">    <title>订餐系统</title>
 
-
-    <link rel="stylesheet" href="/order/static/pkg/all.css" />
+    <link rel="stylesheet" href="/order/static/pkg/all_f3d7b69.css" />
 </head>
 <body id="app" >
 <router-view  keep-alive></router-view>
@@ -48,6 +47,16 @@ require.resourceMap({
     },
     "component_modules/mui": {
       "url": "/order/static/component_modules/mui.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui.lazyload.img": {
+      "url": "/order/static/component_modules/mui.lazyload.img.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui.lazyload": {
+      "url": "/order/static/component_modules/mui.lazyload.js",
       "type": "js",
       "pkg": "p0"
     },
@@ -131,6 +140,8 @@ require.resourceMap({
         "component_modules/mui",
         "component_modules/mui.zoom",
         "component_modules/mui.previewimage",
+        "component_modules/mui.lazyload",
+        "component_modules/mui.lazyload.img",
         "nav/nav"
       ],
       "pkg": "p1"
@@ -177,16 +188,16 @@ require.resourceMap({
   },
   "pkg": {
     "p0": {
-      "url": "/order/static/pkg/common.js",
+      "url": "/order/static/pkg/common_eb93bac.js",
       "type": "js"
     },
     "p1": {
-      "url": "/order/static/pkg/app.js",
+      "url": "/order/static/pkg/app_81346f4.js",
       "type": "js"
     }
   }
 });</script>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://weui.github.io/weui/zepto.min.js"></script>
 <script src="/order/static/js/layer/layer.js"></script>
 <script src="/order/static/js/fastclick.js"></script>
 <script type="text/javascript">
