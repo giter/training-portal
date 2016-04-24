@@ -39,6 +39,7 @@
 	
 	<context:component-scan base-package="com.aomi.busorder" />
 	<context:component-scan base-package="com.aomi.restaurant" />
+	<context:component-scan base-package="com.aomi.goods" />
 
 	<task:annotation-driven executor="myExecutor"
 		scheduler="myScheduler" />

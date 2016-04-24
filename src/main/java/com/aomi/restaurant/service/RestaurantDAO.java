@@ -45,6 +45,8 @@ public class RestaurantDAO implements InitializingBean {
     notice.setObjectClass(Notice.class);
     notice.setInternalClass("user", User.class);
 
+    notice.createIndex(BasicDBObjectBuilder.start("visible", 1).get());
+
     table = client.getDB(dbName).getCollection("table");
 
     table.setObjectClass(Table.class);
@@ -62,6 +64,6 @@ public class RestaurantDAO implements InitializingBean {
     order.setInternalClass("menu", Dish.class);
 
     order.createIndex(BasicDBObjectBuilder.start("mdate", 1).add("mtime", 1)
-        .add("state", 1).get());
+        .add("state", 1).add("user._id", 1).get());
   }
 }
