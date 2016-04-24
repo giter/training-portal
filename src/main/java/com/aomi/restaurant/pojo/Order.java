@@ -53,4 +53,8 @@ public class Order extends Basic<Order> {
   public String getRemark() {
     return getString("remark");
   }
+
+  public Long getExact() {
+    return getLong("exact", 0);
+  }
 }

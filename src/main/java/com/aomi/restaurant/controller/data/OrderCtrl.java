@@ -87,6 +87,10 @@ public class OrderCtrl {
       order.put("remark", form.remark);
     }
 
+    if (form.exact != null) {
+      order.put("exact", form.exact);
+    }
+
     order.put("table", table);
 
     if (order == null || order.getMdate() == null || order.getMtime() == null
@@ -164,6 +168,10 @@ public class OrderCtrl {
 
     if (form.remark != null) {
       order.put("remark", form.remark);
+    }
+
+    if (form.exact != null) {
+      order.put("exact", form.exact);
     }
 
     if (form.menu != null) {

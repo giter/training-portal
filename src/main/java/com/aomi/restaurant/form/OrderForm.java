@@ -12,6 +12,8 @@ public class OrderForm {
 
   public String remark;
 
+  public Long exact;
+
   public List<DishList> menu;
 
   public static class DishList {

@@ -1,5 +1,7 @@
 package com.aomi.restaurant.service;
 
+import java.util.regex.Pattern;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -43,6 +45,20 @@ public class DishService extends CRUDService<Dish, DishPageParam> {
       if (param.getVisible() != null) {
 
         builder.add("visible", param.getVisible());
+      }
+
+      if (param.getName() != null) {
+        builder.add("name", param.getName());
+      }
+
+      if (param.getType() != null) {
+        builder.add("type", param.getType());
+      }
+
+      if (param.getPrefix() != null) {
+
+        builder.push("name")
+            .add("$regex", "^" + Pattern.quote(param.getName())).pop();
       }
     }
 
