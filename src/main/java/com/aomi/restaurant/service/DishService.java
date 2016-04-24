@@ -55,10 +55,10 @@ public class DishService extends CRUDService<Dish, DishPageParam> {
         builder.add("type", param.getType());
       }
 
-      if (param.getPrefix() != null) {
+      if (param.getLike() != null) {
 
-        builder.push("name")
-            .add("$regex", "^" + Pattern.quote(param.getName())).pop();
+        builder.push("name").add("$regex", Pattern.quote(param.getName()))
+            .pop();
       }
     }
 

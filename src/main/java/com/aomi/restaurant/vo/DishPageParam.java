@@ -6,7 +6,7 @@ public class DishPageParam extends PageParam {
 
   private String name;
 
-  private String prefix;
+  private String like;
 
   private String type;
 
@@ -28,12 +28,12 @@ public class DishPageParam extends PageParam {
     this.name = name;
   }
 
-  public String getPrefix() {
-    return prefix;
+  public String getLike() {
+    return like;
   }
 
-  public void setPrefix(String prefix) {
-    this.prefix = prefix;
+  public void setLike(String like) {
+    this.like = like;
   }
 
   public String getType() {
