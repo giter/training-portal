@@ -49,4 +49,8 @@ public class Order extends Basic<Order> {
 
     return getInt("state", 1);
   }
+
+  public String getRemark() {
+    return getString("remark");
+  }
 }

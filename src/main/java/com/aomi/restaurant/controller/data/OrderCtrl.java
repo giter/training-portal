@@ -71,9 +71,21 @@ public class OrderCtrl {
 
     Order order = new Order();
 
-    order.put("mdate", form.mdate);
-    order.put("mtime", form.mtime);
-    order.put("number", form.number);
+    if (form.mdate != null) {
+      order.put("mdate", form.mdate);
+    }
+
+    if (form.mtime != null) {
+      order.put("mtime", form.mtime);
+    }
+
+    if (form.number != null) {
+      order.put("number", form.number);
+    }
+
+    if (form.remark != null) {
+      order.put("remark", form.remark);
+    }
 
     order.put("table", table);
 
@@ -148,6 +160,10 @@ public class OrderCtrl {
 
     if (form.number != null) {
       order.put("number", form.number);
+    }
+
+    if (form.remark != null) {
+      order.put("remark", form.remark);
     }
 
     if (form.menu != null) {

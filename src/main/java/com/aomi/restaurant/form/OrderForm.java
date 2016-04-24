@@ -10,6 +10,8 @@ public class OrderForm {
 
   public Integer number;
 
+  public String remark;
+
   public List<DishList> menu;
 
   public static class DishList {
