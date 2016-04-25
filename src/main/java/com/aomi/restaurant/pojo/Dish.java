@@ -11,9 +11,9 @@ public class Dish extends Basic<Dish> {
   /**
    * 分类
    */
-  public String getType() {
+  public Integer getType() {
 
-    return getString("type");
+    return getInt("type", -1);
   }
 
   /**

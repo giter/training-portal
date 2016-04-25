@@ -8,7 +8,7 @@ public class DishPageParam extends PageParam {
 
   private String like;
 
-  private String type;
+  private Integer type;
 
   private Integer visible;
 
@@ -36,11 +36,11 @@ public class DishPageParam extends PageParam {
     this.like = like;
   }
 
-  public String getType() {
+  public Integer getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(Integer type) {
     this.type = type;
   }
 }
