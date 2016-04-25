@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">    <title>订餐系统</title>
 
-    <link rel="stylesheet" href="/order/static/pkg/all_f3d7b69.css" />
+    <link rel="stylesheet" href="/order/static/pkg/all_761b66c.css" />
 </head>
 <body id="app" >
 <router-view  keep-alive></router-view>
@@ -131,6 +131,30 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
+    "ok/ok": {
+      "url": "/order/static/components/component/ok/ok.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/goods/goods": {
+      "url": "/order/static/components/page/goods/goods.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "component_modules/mui",
+        "component_modules/mui.zoom",
+        "component_modules/mui.previewimage",
+        "component_modules/mui.lazyload",
+        "component_modules/mui.lazyload.img",
+        "ok/ok",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
     "components/page/food/food": {
       "url": "/order/static/components/page/food/food.js",
       "type": "js",
@@ -184,15 +208,25 @@ require.resourceMap({
         "nav/nav"
       ],
       "pkg": "p1"
+    },
+    "components/page/list/food/food": {
+      "url": "/order/static/components/page/list/food/food.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
     }
   },
   "pkg": {
     "p0": {
-      "url": "/order/static/pkg/common_eb93bac.js",
+      "url": "/order/static/pkg/common_e6ec98c.js",
       "type": "js"
     },
     "p1": {
-      "url": "/order/static/pkg/app_81346f4.js",
+      "url": "/order/static/pkg/app_f264eb0.js",
       "type": "js"
     }
   }
