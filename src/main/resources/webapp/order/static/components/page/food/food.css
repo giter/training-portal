@@ -5,11 +5,11 @@
   top: 45px;
   bottom: 50px;
   overflow-y: auto;
+  border-right: 1px solid #efefef;
   background-color: #FAFAFA;
 }
 .page-food .left-nav .mui-table-view .mui-table-view-cell {
-  border-right: 1px solid #efefef;
-  background-color: #FAFAFA;
+  background-color: #F5F5F5;
   font-size: 14px;
 }
 .page-food .left-nav .mui-table-view .mui-table-view-cell.active {
@@ -37,7 +37,7 @@
   font-size: 22px;
 }
 .page-food .right-list .mui-table-view .mui-numbox {
-  height: 25px;
+  height: 30px;
 }
 .page-food .right-list .mui-table-view .mui-media-body .dz {
   font-size: 14px;
@@ -65,7 +65,7 @@
   font-size: 22px;
 }
 .page-food .l-menu .mui-table-view .mui-numbox {
-  height: 25px;
+  height: 30px;
 }
 .page-food .l-menu .mui-table-view .mui-media-body .dz {
   font-size: 14px;
@@ -82,4 +82,8 @@
 }
 .page-food .b-submit .mui-btn {
   padding: 10px;
+}
+.page-food .menu-img {
+  height: 50px !important;
+  width: 50px  !important;
 }

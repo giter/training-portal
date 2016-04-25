@@ -5,11 +5,8 @@
         <h5 class="mui-title ">
             结算:¥{{total}}
         </h5>
-        <a class="mui-btn-link mui-pull-right" v-show="!expire"  @click="onRemoveAll">
+        <a class="mui-btn-link mui-pull-right"  @click="onRemoveAll">
             清空
-        </a>
-        <a class="mui-btn-link mui-pull-right" v-show="expire" >
-            已过期
         </a>
         <a class="mui-icon mui-icon-back" v-link="{path:'/list'}" >
         </a>
@@ -18,7 +15,7 @@
         <h5 class="mui-title ">
             结算:¥{{total}}
         </h5>
-        <a class="mui-btn-link mui-pull-right" v-show="!expire"  @click="onCancel">
+        <a class="mui-btn-link mui-pull-right"   @click="onCancel">
             取消订单
         </a>
         <a class="mui-icon mui-icon-back" v-link="{path:'/list'}" >
@@ -37,10 +34,10 @@
         </div>
         <div class="right-list">
             <ul class="mui-table-view" id="menu-container">
-                <li class="mui-table-view-cell mui-media" v-for="l in list" v-show="l.type == selectType" >
+                <li class="mui-table-view-cell mui-media" v-for="l in list" v-if="l.type == selectType" >
                     <template v-for="p in l.picture" >
-                        <img class="mui-media-object mui-pull-left" data-lazyload={{'/data/image/'+p+'/60/60.json'}} data-preview-src="{{'/data/image/'+p+'.json'}}"  data-preview-group="{{l._id}}" v-if="$index==0">
-                        <img class="mui-media-object mui-pull-left" style="display: none" src="" data-preview-src="{{'/data/image/'+p+'.json'}}" data-preview-group="{{l._id}}"    v-if="$index>0">
+                        <img class="mui-media-object mui-pull-left menu-img" data-lazyload={{'/data/image/'+p+'/60/60.json'}} data-preview-src="{{'/data/image/'+p+'/1000/1000.json'}}"  data-preview-group="{{l._id}}" v-if="$index==0">
+                        <img class="mui-media-object mui-pull-left" style="display: none" src="" data-preview-src="{{'/data/image/'+p+'/1000/1000.json'}}" data-preview-group="{{l._id}}"    v-if="$index>0">
                     </template>
                     <div class="mui-media-body">
                         {{l.name}} <span class="dz"><img src="/order/static/images/dz.png" alt="">{{l.star}}</span>
@@ -64,8 +61,8 @@
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-for="l in list" v-if="l.number>0" >
                 <template v-for="p in l.picture" >
-                    <img class="mui-media-object mui-pull-left" :src="'/data/image/'+p+'/60/60.json'" data-preview-src="{{'/data/image/'+p+'.json'}}" data-preview-group="{{'o_'+l._id}}"  v-if="$index==0">
-                    <img class="mui-media-object mui-pull-left" style="display: none" src="" data-preview-src="{{'/data/image/'+p+'.json'}}"  data-preview-group="{{'o_'+l._id}}"    v-if="$index>0">
+                    <img class="mui-media-object mui-pull-left  menu-img" :src="'/data/image/'+p+'/60/60.json'" data-preview-src="{{'/data/image/'+p+'/1000/1000.json'}}" data-preview-group="{{'o_'+l._id}}"  v-if="$index==0">
+                    <img class="mui-media-object mui-pull-left" style="display: none" src="" data-preview-src="{{'/data/image/'+p+'/1000/1000.json'}}"  data-preview-group="{{'o_'+l._id}}"    v-if="$index>0">
                 </template>
                 <div class="mui-media-body">
                     {{l.name}} <span class="dz"><img src="/order/static/images/dz.png" alt="">{{l.star}}</span>
@@ -73,12 +70,11 @@
                 </div>
                 <p class="f-info">
                     <span class="f-price">¥{{l.price}}</span>/{{l.unit}}
-                    <span class="mui-numbox mui-pull-right" v-show="!expire">
+                    <span class="mui-numbox mui-pull-right">
                         <button class="mui-btn mui-numbox-btn-minus" type="button" :disabled="!l.number" @click="onMinusNum(l)" >-</button>
                         <input class="mui-numbox-input" type="number" :value="l.number" />
                         <button class="mui-btn mui-numbox-btn-plus" type="button" @click="onPlusNum(l,$event)">+</button>
                     </span>
-                    <span v-show="expire" @click="onDz(l,$event)" class=" mui-pull-right"><img src="/order/static/images/dz.png" alt=""></span>
                 </p>
             </li>
 
@@ -87,12 +83,12 @@
             </li>
         </ul>
         <div class="b-submit"  v-show="count>0">
-            <button v-show="!expire"  class="mui-btn mui-btn-block mui-btn-success" :disabled="disabled" @click="onSubmit">
+            <button  class="mui-btn mui-btn-block mui-btn-success" :disabled="disabled" @click="onSubmit">
                 提交
             </button>
         </div>
     </div>
-    <nav class="mui-bar mui-bar-tab"  v-show="!expire"  >
+    <nav class="mui-bar mui-bar-tab"  >
         <a class="mui-tab-item"   :class="{'mui-active':view=='list'}"  @click="onChangeView('list')" >
             <span class="mui-icon mui-icon-list"></span>
             <span class="mui-tab-label">菜单</span>

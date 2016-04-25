@@ -223,7 +223,6 @@ define('component_modules/mui.lazyload', function(require, exports, module) {
 			var el = callback.el;
 			var remove = false;
 			var fn = callback.fn;
-			console.log(key,el);
 			if (self.options.force || self._elementInViewport(el, self._windowRegion, self._containerRegion)) {
 				try {
 					remove = fn.call(self, el, key);

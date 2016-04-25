@@ -87,6 +87,10 @@ function getOrders(p,c){
     $.get(prefix +"/data/order/mine.json",p, co(c));
 }
 
+function getGOrders(p,c){
+    $.get(prefix +"/data/basket/mine.json",p,co(c));
+}
+
 //点单
 function putMenu(id,p,c){
     $.post(prefix+"/data/order/{id}.json".replace("{id}",id),p,co(c));
@@ -104,6 +108,26 @@ function dishPlus(oid,dish,c){
     $.put(prefix +"/data/order/"+oid+"/dish/"+dish+"/plus.json",{},co(c));
 }
 
+function getGoods(c){
+    $.get(prefix +"/data/goods.json",co(c));
+}
+
+function getGOrder(id,c){
+    $.get(prefix +"/data/basket/{id}.json".replace("{id}",id),co(c));
+}
+
+function putGoods(p,c){
+    $.put(prefix +"/data/basket.json",p,co(c));
+}
+
+function updateGoods(id,p,c){
+    $.post(prefix +"/data/basket/{id}.json".replace("{id}",id),p,co(c));
+}
+
+function delGOrder(id,c){
+    $.del(prefix +"/data/basket/{id}.json".replace("{id}",id),co(c));
+}
+
 module.exports = {
     getDate:getDate,
     getTables:getTables,
@@ -115,7 +139,13 @@ module.exports = {
     putMenu:putMenu,
     getOrder:getOrder,
     delOrder:delOrder,
-    dishPlus:dishPlus
+    dishPlus:dishPlus,
+    getGoods:getGoods,
+    getGOrder:getGOrder,
+    putGoods:putGoods,
+    getGOrders:getGOrders,
+    updateGoods:updateGoods,
+    delGOrder:delGOrder
 };
 
 });

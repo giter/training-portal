@@ -9,7 +9,7 @@ var Service = require("main/service.js");
 var nav = require("nav/nav.js");
 
 module.exports = Vue.extend({
-    template:"<div>\n{{{content}}}\n</div>",
+    template:"<div style=\"padding:5px;\">\n{{{content}}}\n</div>",
     data: function () {
         return {
             content: ""

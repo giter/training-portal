@@ -81,7 +81,7 @@ module.exports = Vue.extend({
                 feature = new L.rectangle(data.table.position.latlngs,{weight:1,fillColor:this.getStateColor(data.state),fillOpacity:0.4,data:data}).addTo(this.featureLayer);
 
             }else{
-                feature = new L.circle(data.table.position.latlng,data.table.position.radius,{weight:1,fillColor:this.getStateColor(data.state),data:data}).addTo(this.featureLayer);
+                feature = new L.circle(data.table.position.latlng,data.table.position.radius,{weight:1,fillColor:this.getStateColor(data.state),fillOpacity:0.4,data:data}).addTo(this.featureLayer);
             }
             feature.on("click", function () {
                 self.table = this.options.data.table;

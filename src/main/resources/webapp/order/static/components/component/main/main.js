@@ -16,9 +16,9 @@ Vue.use(Router);
 store = {
     state:{
         orders:[],
-        notice:{}
+        notice:{},
+        goods:[]
     },
-    orders:[],
     getOrders: function () {
         var start = (new Date()).Format("yyyy-MM-dd");
         var end =  ((new Date()).Format("yyyy")*1+1)+(new Date()).Format("-MM-dd");
@@ -30,6 +30,19 @@ store = {
                 });
             }
             self.state.orders = rep;
+        });
+    },
+    getGoods: function () {
+        var start = (new Date()).Format("yyyy-MM-dd");
+        var end =  ((new Date()).Format("yyyy")*1+1)+(new Date()).Format("-MM-dd");
+        var self = this;
+        Service.getGOrders({start:start,end:end},function (rep) {
+            if(rep){
+                rep.sort(function (a,b) {
+                    return Date.parse(new Date(a.mdate)) < Date.parse(new Date(b.mdate))?-1:1
+                });
+            }
+            self.state.goods = rep;
         });
     }
 };
@@ -45,8 +58,9 @@ var App = Vue.extend({
         },60000);
 
         store.getOrders();
+        store.getGoods();
 
-       FastClick.attach(document.body);
+        FastClick.attach(document.body);
 
     }
 });
@@ -66,6 +80,20 @@ router.map({
             });
         },
         name:"table"
+    },
+    "/order/goods/:mdate":{
+        component: function (resolve) {
+            require.async(["components/page/goods/goods"], function (p) {
+                resolve(p);
+            });
+        }
+    },
+    "/order/goods/detail/:oid":{
+        component: function (resolve) {
+            require.async(["components/page/goods/goods"], function (p) {
+                resolve(p);
+            });
+        }
     },
     "/food/:oid":{
         component: function (resolve) {
@@ -100,6 +128,13 @@ router.map({
     "/list":{//订单列表
         component: function (resolve) {
             require.async(["components/page/list/list"], function (p) {
+                resolve(p);
+            });
+        }
+    },
+    "list/food/:id":{
+        component: function (resolve) {
+            require.async(["components/page/list/food/food"], function (p) {
                 resolve(p);
             });
         }
