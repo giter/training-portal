@@ -57,7 +57,7 @@ public class DishService extends CRUDService<Dish, DishPageParam> {
 
       if (param.getLike() != null) {
 
-        builder.push("name").add("$regex", Pattern.quote(param.getName()))
+        builder.push("name").add("$regex", Pattern.quote(param.getLike()))
             .pop();
       }
     }
