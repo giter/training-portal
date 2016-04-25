@@ -44,8 +44,8 @@ public class BasketCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/basket.json", method = { RequestMethod.PUT })
-  public String data_basket(@PathVariable("id") String id,
-      HttpServletRequest request, HttpSession session) throws Exception {
+  public String data_basket(HttpServletRequest request, HttpSession session)
+      throws Exception {
 
     User user = userService.getFromSession(session);
 
