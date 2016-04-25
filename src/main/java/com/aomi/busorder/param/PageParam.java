@@ -10,6 +10,8 @@ public class PageParam {
 
   private DBObject sort;
 
+  private String sorts;
+
   public int getPage() {
     return page;
   }
@@ -40,6 +42,14 @@ public class PageParam {
 
   public void setCounting(boolean counting) {
     this.counting = counting;
+  }
+
+  public String getSorts() {
+    return sorts;
+  }
+
+  public void setSorts(String sorts) {
+    this.sorts = sorts;
   }
 
 }

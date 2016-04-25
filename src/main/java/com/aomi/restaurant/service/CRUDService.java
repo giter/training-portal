@@ -10,6 +10,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 
 public abstract class CRUDService<T extends Basic<T>, Q extends PageParam> {
 
@@ -69,6 +70,10 @@ public abstract class CRUDService<T extends Basic<T>, Q extends PageParam> {
 
     if (param != null && param.getSort() != null) {
       cursor.sort(param.getSort());
+    }
+
+    if (param != null && param.getSorts() != null) {
+      cursor.sort((DBObject) JSON.parse(param.getSorts()));
     }
 
     List a = cursor.toArray();
