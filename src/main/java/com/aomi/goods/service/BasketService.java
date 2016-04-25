@@ -57,6 +57,10 @@ public class BasketService extends CRUDService<Basket, BasketPageParam> {
         builder.add("user._id", param.getUid());
       }
 
+      if (param.getMdate() != null) {
+        builder.add("mdate", param.getMdate());
+      }
+
       if (param.getStart() != null) {
 
         builder.push("mdate").add("$gte", param.getStart());
