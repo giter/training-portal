@@ -1,5 +1,7 @@
 package com.aomi.goods.service;
 
+import java.util.regex.Pattern;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +39,20 @@ public class GoodsService extends CRUDService<Goods, GoodsPageParam> {
       if (param.getVisible() != null) {
 
         builder.add("visible", param.getVisible());
+      }
+
+      if (param.getName() != null) {
+        builder.add("name", param.getName());
+      }
+
+      if (param.getType() != null) {
+        builder.add("type", param.getType());
+      }
+
+      if (param.getLike() != null) {
+
+        builder.push("name").add("$regex", Pattern.quote(param.getLike()))
+            .pop();
       }
     }
 

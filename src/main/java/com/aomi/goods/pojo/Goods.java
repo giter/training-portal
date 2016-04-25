@@ -9,9 +9,9 @@ public class Goods extends Basic<Goods> {
   private static final long serialVersionUID = 1L;
 
   @SuppressWarnings("unchecked")
-  public List<String> getType() {
+  public List<Integer> getType() {
 
-    return (List<String>) get("type");
+    return (List<Integer>) get("type");
   }
 
   public Double getPrice() {
