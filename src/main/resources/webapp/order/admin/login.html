@@ -225,7 +225,7 @@
             animation: animRipple 0.4s;
             border-radius: 50%;
         }
-        
+
         @keyframes show {
             from{
                 -webkit-transform: translateY(-20px);
@@ -304,74 +304,35 @@
     </style>
 </head>
 <body>
-
-    <!--<div class="login-page">-->
-        <!--<section>-->
-
-            <!--<div class="panel panel-default col-md-3">-->
-               <!--<div class="panel-body">-->
-                   <!--<form class="text-center" action="/admin/user/login.json" method="post">-->
-                       <!--<h4>-->
-                           <!--<strong>欢迎使用HNPC订餐系统</strong>-->
-                       <!--</h4>-->
-                       <!--<br>-->
-                       <!--<div class="form-group">-->
-                           <!--<div class="input-group">-->
-                               <!--<input type="text" class="form-control" name="email" placeholder="登录用户">-->
-                               <!--<div class="input-group-addon">-->
-                                   <!--<span class="glyphicon glyphicon-user"></span>-->
-                               <!--</div>-->
-                           <!--</div>-->
-                       <!--</div>-->
-                       <!--<div class="form-group">-->
-                           <!--<div class="input-group">-->
-                               <!--<input type="password" class="form-control" name="password"  placeholder="登录密码">-->
-                               <!--<div class="input-group-addon">-->
-                                   <!--<span class=" glyphicon glyphicon-eye-close"></span>-->
-                               <!--</div>-->
-                           <!--</div>-->
-                       <!--</div>-->
-                       <!--<input type="hidden" name="redirect" value="/order/admin/index.html">-->
-                       <!--<div class="form-group">-->
-                               <!--<input type="submit" class="btn btn-primary btn-block"   value="立即登录后台">-->
-                       <!--</div>-->
-                   <!--</form>-->
-               <!--</div>-->
-            <!--</div>-->
-        <!--</section>-->
-
-    <!--</div>-->
-
-    <div class="cont">
-        <div class="demo">
-            <div class="login">
-                <div class="login__check">
+<div class="cont">
+    <div class="demo">
+        <div class="login">
+            <div class="login__check">
                     <span class="logo">
                         logo
                     </span>
-                    <p>HNPC订餐管理系统</p>
-                </div>
-                <form class="login__form"  action="/admin/user/login.json" method="post">
-                    <div class="login__row">
-                        <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
-                            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
-                        </svg>
-                        <input type="text" name="email" class="login__input name" placeholder="Username"/>
-                    </div>
-                    <div class="login__row">
-                        <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
-                            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
-                        </svg>
-                        <input type="password" name="password" class="login__input pass" placeholder="Password"/>
-                        <input type="hidden" name="redirect" value="/order/admin/index.html">
-                    </div>
-                    <button type="submit" class="login__submit">登&nbsp;&nbsp;录</button>
-                    <!--<p class="login__signup">Don't have an account? &nbsp;<a>Sign up</a></p>-->
-                </form>
+                <p>HNPC订餐管理系统</p>
             </div>
+            <form class="login__form"  action="/admin/user/login.json" method="post">
+                <div class="login__row">
+                    <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+                        <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+                    </svg>
+                    <input type="text" name="email" class="login__input name" placeholder="Username"/>
+                </div>
+                <div class="login__row">
+                    <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+                        <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+                    </svg>
+                    <input type="password" name="password" class="login__input pass" placeholder="Password"/>
+                    <input type="hidden" name="redirect" value="/order/admin/index.html">
+                </div>
+                <button type="submit" class="login__submit">登&nbsp;&nbsp;录</button>
+                <p class="login__signup">中国核工业集团公司</p>
+            </form>
         </div>
     </div>
-
+</div>
 
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
