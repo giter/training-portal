@@ -74,6 +74,13 @@ router.map({
             });
         }
     },
+    "/order/goods/:oid":{
+        component: function (resolve) {
+            require.async(["components/page/gOrder/detail/detail"], function (p) {
+                resolve(mixin(p,"detail"));
+            });
+        }
+    },
     "/notice":{
         component: function (resolve) {
             require.async(["components/page/notice/notice"], function (p) {
@@ -106,6 +113,20 @@ router.map({
         component: function (resolve) {
             require.async(["components/page/menu/menu"], function (p) {
                 resolve(mixin(p,"menu"));
+            });
+        }
+    },
+    "/goods":{
+        component: function (resolve) {
+            require.async(["components/page/goods/goods"], function (p) {
+                resolve(mixin(p,"goods"));
+            });
+        }
+    },
+    "gOrder":{
+        component: function (resolve) {
+            require.async(["components/page/gOrder/order"], function (p) {
+                resolve(mixin(p,"gOrder"));
             });
         }
     }

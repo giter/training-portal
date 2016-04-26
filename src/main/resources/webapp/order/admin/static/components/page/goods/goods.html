@@ -3,13 +3,13 @@
         <div class="panel-heading">
             <ul class="nav nav-pills pull-left">
                 <li role="presentation" :class="{active:view=='list'}" @click="changeView('list')"><a href="javascript:;">
-                    菜品</a></li>
+                    货物</a></li>
                 <li role="presentation" :class="{active:view=='type'}" @click="changeView('type')"><a href="javascript:;">
                     分类</a></li>
             </ul>
             <a v-show="view=='list'" href="javascript:;" class="btn pull-right" @click="onAdd">
                 <span class="glyphicon glyphicon-plus"></span>
-                新增菜品
+                新增货物
             </a>
             <a v-show="view=='type'" href="javascript:;" class="btn pull-right" @click="onAddType">
                 <span class="glyphicon glyphicon-plus"></span>
@@ -17,23 +17,25 @@
             </a>
         </div>
         <div v-show="view=='list'" class="panel-body">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label >名称</label>
-                    <input type="text" v-model="query.like" placeholder="菜品名称" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label >类型</label>
-                    <select class="form-control" v-model="query.type">
-                        <option value="">全部</option>
-                        <option value="{{t.key}}" v-for="t in types.types">{{t.value}}</option>
-                    </select>
-                </div>
-                <button class="btn btn-default" @click="onQuery">
-                    <span class="glyphicon glyphicon-search"></span>
-                    查询</button>
-            </form>
-            <hr/>
+            <!--<form class="form-inline">-->
+                <!--<div class="form-group">-->
+                    <!--<label>名称</label>-->
+                    <!--<input type="text" class="form-control"  v-model="query.name" placeholder="请填写">-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label >类型</label>-->
+                    <!--<select class="form-control" v-model="query.type">-->
+                        <!--<option value="">全部</option>-->
+                        <!--<option value="t.key" v-for="t in types.types">{{t.value}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<button class="btn btn-primary" @click="onQuery">-->
+                    <!--<span class="glyphicon glyphicon-search"></span>-->
+                    <!--查询</button>-->
+                <!--<button type="reset" class="btn btn-default" >-->
+                    <!--<span class="glyphicon glyphicon-refresh"></span>-->
+                    <!--重置</button>-->
+            <!--</form>-->
             <table class="table table-bordered table-hover">
                 <tbody>
                 <tr>
@@ -47,9 +49,6 @@
                     </th>
                     <th>
                         分类
-                    </th>
-                    <th>
-                        标签
                     </th>
                     <th>
                         价格
@@ -82,24 +81,19 @@
                         <span v-for="t in types.types" v-if="t.key==m.type">{{t.value}}</span>
                     </td>
                     <td>
-                        <span class="label label-primary" v-for="c in m.cates">
-                            {{c}}
-                        </span>
-                    </td>
-                    <td>
                         ¥{{m.price}}
                     </td>
                     <td>
                         {{m.visible == 0?"禁用":"启用"}}
                     </td>
                     <td>
-                        <a href="javascript:;" @click="onEditMenu(m)">编辑</a>
-                        <a href="javascript:;" @click="onDelMenu(m)">删除</a>
+                        <a href="javascript:;" @click="onEditGoods(m)">编辑</a>
+                        <a href="javascript:;" @click="onDelGoods(m)">删除</a>
                     </td>
                 </tr>
                 </tbody></table>
             <div class="c-pager">
-                <p class="pull-left">共 {{count}} 条记录，{{query.page+1}}/{{Math.ceil(count/query.limit)}}</p>
+                <p class="pull-left">共 {{count}} 条记录，{{query.page+1}}/{{Math.ceil(count/10)}}</p>
 
                 <ul  class="pagination pagination-sm">
                     <li>
@@ -168,18 +162,6 @@
                     <label class="col-sm-2 control-label" :class="{'has-warning':$valid.unit.invalid&&$valid.unit.touched}" >单位</label>
                     <div class="col-sm-10" :class="{'has-warning':$valid.unit.invalid&&$valid.unit.touched}">
                         <input type="text" class="form-control" v-model="model.unit" v-validate:unit="['required']" placeholder="必填(份/个/等等)">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" >标签</label>
-                    <div class="col-sm-10">
-                        <span class="label label-primary" style="margin-right: 10px;" v-for="c in model.cates">
-                            {{c}}
-                          <span class="glyphicon glyphicon-remove" @click="onRemoveCate(c)"></span>
-                        </span>
-                        <a href="javascript:;" class="btn btn-default" @click="onAddCate">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </a>
                     </div>
                 </div>
                 <div class="form-group" >

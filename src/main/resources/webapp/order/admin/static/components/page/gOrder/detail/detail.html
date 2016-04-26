@@ -4,9 +4,9 @@
         <div class="panel-heading">
             <ul class="nav nav-pills pull-left">
                 <li role="presentation" class="active"><a href="#">
-                    菜单详情</a></li>
+                    货物详情</a></li>
             </ul>
-            <a v-link="{path:'/order'}" class="btn pull-right">
+            <a v-link="{path:'/gOrder'}" class="btn pull-right">
                 <span class="glyphicon glyphicon-backward"></span>
                 返回
             </a>
@@ -21,7 +21,7 @@
         </div>
         <div class="panel-body" id="order-detail" >
             <h3 class="text-center">
-               {{order.mdate}} {{order.mtime=="dinner"?"晚餐":"中餐"}} {{order.table.no}}号桌({{order.number}}人) {{order.user.name}}预定
+               {{order.mdate}} {{order.user.name}}预定
             </h3>
             <table class="table table-bordered table-hover">
                 <tbody>
@@ -30,7 +30,7 @@
                         #
                     </th>
                     <th>
-                        菜品名称
+                        货物名称
                     </th>
                     <th>
                         数量
@@ -48,7 +48,7 @@
                         编辑
                     </th>
                 </tr>
-                <tr v-for="m in order.menu">
+                <tr v-for="m in order.items">
                     <td>{{$index+1}}</td>
                     <td>
                         <span v-if="mode=='detail'">{{m.name}}</span>
@@ -75,11 +75,6 @@
                     <td v-if="mode=='edit'">
                         <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></button>
                     </td>
-                </tr>
-                <tr>
-                    <td>备注</td>
-                    <td colspan="5">{{order.remark}}</td>
-
                 </tr>
                 </tbody></table>
 

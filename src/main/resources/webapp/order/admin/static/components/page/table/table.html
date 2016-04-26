@@ -68,7 +68,7 @@
                     <a href="javascript:;" @click="goTo(t._id)">查看</a>
                 </td>
                 <td>
-                    {{t.visible==0?"禁用":"启用"}}
+                    {{t.visible==0?"预留":"启用"}}
                 </td>
                 <td>
                     <a href="">编辑</a>
@@ -132,7 +132,7 @@
                     <label class="col-sm-2 control-label">状态</label>
                     <div class="col-sm-10">
                         <select class="form-control" v-model="model.visible" number>
-                            <option value="0">禁用</option>
+                            <option value="0">预留</option>
                             <option value="1">启用</option>
                         </select>
                     </div>

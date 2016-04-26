@@ -143,6 +143,34 @@ function delNotice(id,c){
     $.del(prefix +"/admin/data/notice/{id}.json".replace("{id}",id),co(c));
 }
 
+function getGoods(p,c){
+    $.get_s(prefix +"/admin/data/goods/items.json",p,co(c));
+}
+
+function insertGoods(p,c){
+    $.post(prefix +"/admin/data/goods/insert.json",p,co(c));
+}
+
+function updateGoods(id,p,c){
+    $.put(prefix +"/admin/data/goods/{id}.json".replace("{id}",id),p,co(c));
+}
+
+function delGoods(id,c){
+    $.del(prefix +"/admin/data/goods/{id}.json".replace("{id}",id),co(c));
+}
+
+function getGoodsOrder(p,c){
+    $.get_s(prefix +"/admin/data/basket/items.json",p,co(c));
+}
+
+function delGoodsOrder(id,c){
+    $.del(prefix +"/admin/data/basket/{id}.json".replace("{id}",id),co(c));
+}
+
+function getGoodsOrderById(id,c){
+    $.get_s(prefix +"/admin/data/basket/{id}.json".replace("{id}",id),{},co(c));
+}
+
 module.exports = {
     getDate:getDate,
     getTable:getTable,
@@ -160,7 +188,14 @@ module.exports = {
     getOrders:getOrders,
     getOrder:getOrder,
     delOrder:delOrder,
-    delNotice:delNotice
+    delNotice:delNotice,
+    getGoods:getGoods,
+    insertGoods:insertGoods,
+    updateGoods:updateGoods,
+    delGoods:delGoods,
+    getGoodsOrder:getGoodsOrder,
+    delGoodsOrder:delGoodsOrder,
+    getGoodsOrderById:getGoodsOrderById
 };
 
 });

@@ -5,24 +5,17 @@
                 <li role="presentation" class="active"><a href="#">
                     订单</a></li>
             </ul>
+
         </div>
         <div class="panel-body">
             <div class="form-inline">
                 <div class="form-group">
                     <label>日期</label>
-                    <input type="text" class="form-control" @click="onDateClick" v-model="query.mdate" placeholder="请选择">
+                    <input id="mdate" type="text" class="form-control" @click="onDateClick" v-model="query.mdate" placeholder="请选择">
                 </div>
-                <div class="form-group">
-                    <label >餐次 </label>
-                    <select class="form-control" v-model="query.mtime">
-                        <option value="">全部</option>
-                        <option value="lunch">午餐</option>
-                        <option value="dinner">晚餐</option>
-                    </select>
-                </div>
-                <button class="btn btn-default" @click="onQuery">
+                <a href="javascript:;" class="btn btn-default" @click="onQuery">
                     <span class="glyphicon glyphicon-search"></span>
-                    查询</button>
+                    查询</a>
             </div>
             <hr>
             <table class="table table-bordered table-hover">
@@ -32,10 +25,7 @@
                         #
                     </th>
                     <th>
-                        时间
-                    </th>
-                    <th>
-                        餐次
+                        取货时间
                     </th>
                     <th>
                         下单人
@@ -44,13 +34,7 @@
                         下单时间
                     </th>
                     <th>
-                        人数
-                    </th>
-                    <th>
-                        餐桌
-                    </th>
-                    <th>
-                        菜单
+                        订单详情
                     </th>
                     <th>
                         操作
@@ -59,12 +43,9 @@
                 <tr v-for="o in orders" track-by="_id">
                     <td>{{$index+1 + 10*query.page}}</td>
                     <td>{{o.mdate}}</td>
-                    <td>{{o.mtime=="dinner"?"晚餐":"午餐"}}</td>
                     <td>{{o.user.name}}</td>
                     <td>{{(new Date(o.created)).Format("yyyy-MM-dd hh:mm")}}</td>
-                    <td>{{o.number}}</td>
-                    <td>{{o.table.no}}</td>
-                    <td><a v-link="{path:'order/'+o._id}" >查看</a></td>
+                    <td><a v-link="{path:'/order/goods/'+o._id}" >查看</a></td>
                     <td><a @click="onCancel(o)" href="javascript:;">取消订单</a></td>
                 </tr>
                 </tbody></table>
@@ -74,19 +55,19 @@
                 <ul  class="pagination pagination-sm">
                     <li>
                     </li>
-                    <li>
-                        <a @click="toFirst" href="javascript:;" aria-label="Previous">
-                            <span class="glyphicon glyphicon-step-backward"></span>
-                        </a>
-                    </li>
+                    <!--<li>-->
+                    <!--<a href="#" aria-label="Previous">-->
+                    <!--<span class="glyphicon glyphicon-step-backward"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
                     <li><a href="javascript:;" :disabled="query.page==0" @click="toPre"><span class="glyphicon glyphicon-triangle-left"></span></a></li>
                     <li><a href="javascript:;" @click="toNext"><span class="glyphicon glyphicon-triangle-right"></span></a></li>
 
-                    <li>
-                        <a @click="toLast" href="javascript:;" aria-label="Next">
-                            <span class="glyphicon glyphicon-step-forward"></span>
-                        </a>
-                    </li>
+                    <!--<li>-->
+                    <!--<a href="#" aria-label="Next">-->
+                    <!--<span class="glyphicon glyphicon-step-forward"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </div>
