@@ -28,7 +28,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
 
 @Controller
 public class WeixinCtrl implements InitializingBean {
@@ -53,6 +56,16 @@ public class WeixinCtrl implements InitializingBean {
 
   public WxMpService getService() {
     return service;
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/get_user_info.json", method = { RequestMethod.GET,
+      RequestMethod.POST })
+  protected String request(@RequestParam("openID") String openID,
+      HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException, WxErrorException {
+
+    return JSON.toJSONString(service.userInfo(openID, "zh_CN"));
   }
 
   @ResponseBody

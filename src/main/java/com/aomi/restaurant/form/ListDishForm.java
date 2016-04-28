@@ -9,6 +9,9 @@ public class ListDishForm {
   public static class DishForm {
 
     public String id;
+
     public int number;
+
+    public String remark;
   }
 }

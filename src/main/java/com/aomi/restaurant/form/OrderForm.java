@@ -21,5 +21,7 @@ public class OrderForm {
     public String _id;
 
     public int number;
+
+    public String remark;
   }
 }

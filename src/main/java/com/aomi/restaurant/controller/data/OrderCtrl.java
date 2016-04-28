@@ -120,6 +120,10 @@ public class OrderCtrl {
 
         Dish dish = dishService.get(s._id);
 
+        if (dish != null && s.remark != null) {
+          dish.put("remark", s.remark);
+        }
+
         if (dish != null && s.number > 0) {
 
           dish.put("number", s.number);
@@ -182,6 +186,10 @@ public class OrderCtrl {
       for (DishList s : form.menu) {
 
         Dish dish = dishService.get(s._id);
+
+        if (dish != null && s.remark != null) {
+          dish.put("remark", s.remark);
+        }
 
         if (dish != null && s.number > 0) {
 

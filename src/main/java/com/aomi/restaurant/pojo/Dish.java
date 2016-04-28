@@ -86,4 +86,14 @@ public class Dish extends Basic<Dish> {
 
     return getInt("number", 0);
   }
+
+  public String getRemark() {
+
+    return getString("remark");
+  }
+
+  public double getShift() {
+    return getDouble("shift", 0);
+  }
+
 }
