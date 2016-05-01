@@ -83,6 +83,10 @@ public class WeixinCtrl implements InitializingBean {
       }
     }
 
+    if (openID == null) {
+      return "{}";
+    }
+
     return JSON.toJSONString(service.userInfo(openID, "zh_CN"));
   }
 
