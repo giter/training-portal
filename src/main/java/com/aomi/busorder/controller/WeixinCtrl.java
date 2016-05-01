@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.aomi.busorder.pojo.User;
 import com.aomi.busorder.service.UserService;
+import com.aomi.busorder.vo.RESTResponse;
 
 @Controller
 public class WeixinCtrl implements InitializingBean {
@@ -84,10 +84,10 @@ public class WeixinCtrl implements InitializingBean {
     }
 
     if (openID == null) {
-      return "{}";
+      return RESTResponse.of(null).toString();
     }
 
-    return JSON.toJSONString(service.userInfo(openID, "zh_CN"));
+    return RESTResponse.of(service.userInfo(openID, "zh_CN")).toString();
   }
 
   @ResponseBody
