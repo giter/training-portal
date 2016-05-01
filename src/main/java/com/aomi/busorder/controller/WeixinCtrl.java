@@ -3,9 +3,11 @@ package com.aomi.busorder.controller;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -32,9 +34,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.aomi.busorder.pojo.User;
+import com.aomi.busorder.service.UserService;
 
 @Controller
 public class WeixinCtrl implements InitializingBean {
+
+  @Resource
+  UserService userService;
 
   static Logger LOGGER = LoggerFactory.getLogger(WeixinCtrl.class);
 
@@ -61,9 +68,20 @@ public class WeixinCtrl implements InitializingBean {
   @ResponseBody
   @RequestMapping(value = "/get_user_info.json", method = { RequestMethod.GET,
       RequestMethod.POST })
-  protected String request(@RequestParam("openID") String openID,
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException, WxErrorException {
+  protected String request(
+      @RequestParam(value = "openID", required = false) String openID,
+      HttpServletRequest request, HttpServletResponse response,
+      HttpSession session) throws ServletException, IOException,
+      WxErrorException {
+
+    if (openID == null) {
+
+      User user = userService.getFromSession(session);
+
+      if (user != null) {
+        openID = user.getOpenID();
+      }
+    }
 
     return JSON.toJSONString(service.userInfo(openID, "zh_CN"));
   }
