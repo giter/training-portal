@@ -148,13 +148,22 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
+    "state/state": {
+      "url": "/order/admin/static/components/component/state/state.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ],
+      "pkg": "p1"
+    },
     "components/page/order/order": {
       "url": "/order/admin/static/components/page/order/order.js",
       "type": "js",
       "deps": [
         "component_modules/vue",
         "main/service",
-        "form/form"
+        "form/form",
+        "state/state"
       ],
       "pkg": "p1"
     },
@@ -235,7 +244,8 @@ require.resourceMap({
       "deps": [
         "component_modules/vue",
         "main/service",
-        "form/form"
+        "form/form",
+        "state/state"
       ],
       "pkg": "p1"
     },
@@ -255,7 +265,7 @@ require.resourceMap({
       "type": "js"
     },
     "p1": {
-      "url": "/order/admin/static/pkg/app_22c7ae2.js",
+      "url": "/order/admin/static/pkg/app_9011eda.js",
       "type": "js"
     }
   }
