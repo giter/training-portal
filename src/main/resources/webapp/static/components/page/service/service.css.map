@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,aAAa;EACX,MAAM,EAAE,IAAI;EAEZ,kCAAoB;IAClB,MAAM,EAAE,IAAI;IAEZ,+CAAY;MACV,cAAc,EAAE,IAAI",
-"sources": ["../../../../../??????/front/components/page/service/service.scss"],
-"names": [],
-"file": "service.css"
-}
