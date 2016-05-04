@@ -5,7 +5,7 @@
 var Vue = require("component_modules/vue.js");
 var Layer = require("component_modules/layer.m.js").layer;
 var Service = require("main/service.js");
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 var Check = require("main/check.js");
 
 module.exports =   Vue.extend({
@@ -36,7 +36,7 @@ module.exports =   Vue.extend({
             if(this.valid()=="OK"){
 
                 Layer.open({
-                    content:"Ìá½»ÖÐ",
+                    content:"ï¿½á½»ï¿½ï¿½",
                     type:2,
                     shadeClose:false,
                     shade: false
@@ -45,9 +45,9 @@ module.exports =   Vue.extend({
                     Layer.closeAll();
                     if(rep.Code == 0){
                         Layer.open({
-                            content:"¹ØÁª³É¹¦£¡",
+                            content:"ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½",
                             shadeClose:false,
-                            btn:["È·¶¨"],
+                            btn:["È·ï¿½ï¿½"],
                             yes: function () {
                                 Layer.closeAll();
                                 var router = new Router();
@@ -57,7 +57,7 @@ module.exports =   Vue.extend({
                     }else{
                         Layer.open({
                             content:rep.Message,
-                            btn:["È·¶¨"],
+                            btn:["È·ï¿½ï¿½"],
                             yes: function () {
                                 Layer.closeAll();
                             }
@@ -67,7 +67,7 @@ module.exports =   Vue.extend({
             }else{
                 Layer.open({
                     content:this.valid(),
-                    btn:["È·¶¨"],
+                    btn:["È·ï¿½ï¿½"],
                     yes: function () {
                         Layer.closeAll();
                     }
@@ -77,22 +77,22 @@ module.exports =   Vue.extend({
         valid: function () {
             var rel = this.rel;
             if(!rel.name){
-                return "ÐÕÃû²»ÄÜÎª¿Õ£¡"
+                return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½"
             }
             if(!rel.sn){
-                return "Éí·ÝÖ¤²»ÄÜÎª¿Õ£¡"
+                return "ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½"
             }
             if(rel.sn.length != 4){
-                return "ÇëÊäÈëÉí·ÝÖ¤ºóËÄÎ»£¡"
+                return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½"
             }
             if(!rel.age){
-                return "ÄêÁä²»ÄÜÎª¿Õ£¡"
+                return "ï¿½ï¿½ï¿½ä²»ï¿½ï¿½Îªï¿½Õ£ï¿½"
             }
             if(!rel.relation){
-                return "¹ØÏµ²»ÄÜÎª¿Õ£¡"
+                return "ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½"
             }
             if(!Check.check(rel.tel,"mobile")){
-                return "ÇëÌîÐ´ÕýÈ·ÊÖ»úºÅ"
+                return "ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½È·ï¿½Ö»ï¿½ï¿½ï¿½"
             }
 
             return "OK"

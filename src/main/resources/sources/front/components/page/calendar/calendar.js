@@ -4,7 +4,7 @@
 
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 var Layer = require("component_modules/layer.m.js").layer;
 
 module.exports = Vue.extend({

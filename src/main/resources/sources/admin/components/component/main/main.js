@@ -1,6 +1,6 @@
 
 var Vue = require('component_modules/vue');
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 var desk = require('components/page/desk/desk');
 var Service = require('main/service.js');
 
@@ -15,7 +15,7 @@ window.app = new Vue({
         "amenu":"",
         "bmenu":"",
         "cmenu":"",
-        "loading":false /*ÊÇ·ñÏÔÊ¾¼ÓÔØ*/
+        "loading":false /*ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½*/
     },
     components:{
         "desk":desk
@@ -25,7 +25,7 @@ window.app = new Vue({
     }
 });
 
-/*¹ý³¡¶¯»­*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 Vue.transition('slide', {
     enter: function (el) {
         $(el).css({
@@ -43,7 +43,7 @@ Vue.transition('slide', {
     }
 });
 
-/*±íµ¥ÑéÖ¤½á¹û*/
+/*ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½*/
 Vue.directive('disabled', function (value) {
     this.el.disabled = !value;
 });

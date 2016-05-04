@@ -4,7 +4,7 @@
 
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 var Layer = require("component_modules/layer.m.js").layer;
 
 module.exports = Vue.extend({
@@ -38,7 +38,7 @@ module.exports = Vue.extend({
          var self = this;
          self.bus = [];
          Layer.open({
-            content: "¼ÓÔØÖÐ",
+            content: "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
             type: 2,
             shadeClose: false,
             shade: false
@@ -55,13 +55,13 @@ module.exports = Vue.extend({
       selectBus: function (busid,date,off) {
          if(off){
             return Layer.open({
-               content: "ÒÑ³¬¹ý¶©³µÊ±¼ä£¬ÇëÑ¡ÔñÆäËû°à³µ¡£",
-               btn:["È·¶¨"]
+               content: "ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à³µï¿½ï¿½",
+               btn:["È·ï¿½ï¿½"]
             });
          }else{
             var self = this;
             Layer.open({
-               content:"¼ÓÔØÖÐ",
+               content:"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
                type:2,
                shadeClose:false,
                shade:"background-color:rgba(0,0,0,0)"

@@ -1,9 +1,9 @@
 
-var Vue = require('component_modules/vue');
-var Router = require('component_modules/director').Router;
-var home = require('components/page/home/home');
+var Vue = require('component_modules/vue.js');
+var Router = require('component_modules/director.js').Router;
+var home = require('components/page/home/home.js');
 var Service = require("main/service.js");
-var Fastclick = require("component_modules/fastclick");
+var Fastclick = require("component_modules/fastclick.js");
 
 Vue.config.debug = true;
 
@@ -14,19 +14,19 @@ window.app = new Vue({
         "users":[],
         "user":[],
         "search":{
-            "whither":"ÇëÑ¡Ôñ",
+            "whither":"ï¿½ï¿½Ñ¡ï¿½ï¿½",
             "date":null,
             "dateStr":""
         },
-        "result":[],/*²éÆ±½á¹û*/
-        "bus":[],/*²éÑ¯µ½µÄ³µÁ¾ÐÅÏ¢*/
+        "result":[],/*ï¿½ï¿½Æ±ï¿½ï¿½ï¿½*/
+        "bus":[],/*ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢*/
         "calendars":[],
         "whithers":[],
         "openid":"",
         "mine":"",
         "detailTicket":"",
-        "beginTime":1800,/*ÌáÇ°30·ÖÖÓ*/
-        "endTime":10800,/*ÑÓ³¤ÈýÐ¡Ê±*/
+        "beginTime":1800,/*ï¿½ï¿½Ç°30ï¿½ï¿½ï¿½ï¿½*/
+        "endTime":10800,/*ï¿½Ó³ï¿½ï¿½ï¿½Ð¡Ê±*/
         "busQuery":{
             id:"",
             date:"",
@@ -47,8 +47,8 @@ window.app = new Vue({
         }
     },
     ready:function(){
-        //if(true){
-        if(this.is_weixin()){
+        if(true){
+        //if(this.is_weixin()){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;
@@ -63,7 +63,7 @@ window.app = new Vue({
     }
 });
 
-/*¹ý³¡¶¯»­*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 Vue.transition('slideInRight', {
     leave: function (el) {
         if( $(el).length>0){
@@ -184,7 +184,7 @@ router.on("/relation/relatives",function(){
     })
 });
 
-/*³Ð°üÉÌ*/
+/*ï¿½Ð°ï¿½ï¿½ï¿½*/
 router.on("/company",function(){
     require.async(["page/company/company.js"], function (p) {
         doRouter("company",p);

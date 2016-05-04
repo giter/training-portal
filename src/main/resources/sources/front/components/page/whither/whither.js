@@ -5,7 +5,7 @@
 var Vue = require("component_modules/vue.js");
 var nav = require("navbar/navbar.js");
 var service = require("main/service.js");
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 var Layer =  require('component_modules/layer.m.js').layer;
 module.exports =   Vue.extend({
    inherit:true,
@@ -15,7 +15,7 @@ module.exports =   Vue.extend({
    ready: function () {
       var self = this;
       Layer.open({
-         content:"¼ÓÔØÖÐ",
+         content:"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
          type:2,
          shadeClose:false,
          shade:"background-color:rgba(0,0,0,0)"

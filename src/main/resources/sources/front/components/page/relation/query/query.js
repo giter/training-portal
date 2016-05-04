@@ -5,7 +5,7 @@
 var Vue = require("component_modules/vue.js");
 var Layer = require("component_modules/layer.m.js").layer;
 var Service = require("main/service.js");
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 
 module.exports =   Vue.extend({
     template:__inline("query.html"),
@@ -30,7 +30,7 @@ module.exports =   Vue.extend({
         },
         addDelegation: function (id) {
             Layer.open({
-                content: "Ìá½»ÖÐ",
+                content: "ï¿½á½»ï¿½ï¿½",
                 type: 2,
                 shadeClose: false,
                 shade: false
@@ -41,9 +41,9 @@ module.exports =   Vue.extend({
                     self._add(id);
                 }else{
                     Layer.open({
-                        content: "×î¶à¿ÉÒÔÌí¼ÓËÄ¸öÎ¯ÍÐ£¡",
+                        content: "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Î¯ï¿½Ð£ï¿½",
                         shadeClose: false,
-                        btn:["È·¶¨"],
+                        btn:["È·ï¿½ï¿½"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -58,9 +58,9 @@ module.exports =   Vue.extend({
                 Layer.closeAll();
                 if(rep.Code == 0){
                     Layer.open({
-                        content: "ÒÑ³É¹¦Ìí¼ÓÆäÎªÄúµÄ´ú¶©×ùÈË£¡",
+                        content: "ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½",
                         shadeClose: false,
-                        btn:["È·¶¨"],
+                        btn:["È·ï¿½ï¿½"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -69,7 +69,7 @@ module.exports =   Vue.extend({
                     Layer.open({
                         content: rep.Message,
                         shadeClose: false,
-                        btn:["È·¶¨"],
+                        btn:["È·ï¿½ï¿½"],
                         yes: function () {
                             Layer.closeAll();
                         }
