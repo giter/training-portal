@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>通勤车安全乘坐公众平台</title>
 
-    
+    <link rel="stylesheet" href="/static/pkg/all_4297859.css" />
 </head>
 <body>
     <div id="app" class="wrap" >
@@ -21,6 +21,11 @@ require.resourceMap({
       "type": "js",
       "pkg": "p1"
     },
+    "components/page/home/home": {
+      "url": "/static/components/page/home/home.js",
+      "type": "js",
+      "pkg": "p1"
+    },
     "main/service": {
       "url": "/static/components/component/main/service.js",
       "type": "js",
@@ -30,6 +35,7 @@ require.resourceMap({
       "url": "/static/components/component/main/main.js",
       "type": "js",
       "deps": [
+        "components/page/home/home",
         "main/service"
       ],
       "pkg": "p1"
@@ -193,16 +199,11 @@ require.resourceMap({
         "main/service"
       ],
       "pkg": "p1"
-    },
-    "components/page/home/home": {
-      "url": "/static/components/page/home/home.js",
-      "type": "js",
-      "pkg": "p1"
     }
   },
   "pkg": {
     "p1": {
-      "url": "/static/pkg/app_ff2d20c.js",
+      "url": "/static/pkg/app_f113f18.js",
       "type": "js"
     }
   }

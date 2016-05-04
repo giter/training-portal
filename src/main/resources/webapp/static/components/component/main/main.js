@@ -2,7 +2,7 @@ define('main/main', function(require, exports, module) {
 
 
 var Vue = require('component_modules/vue');
-var Router = require('component_modules/director').Router;
+var Router = require('component_modules/director.js').Router;
 var home = require('components/page/home/home');
 var Service = require("main/service.js");
 var Fastclick = require("component_modules/fastclick");

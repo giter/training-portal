@@ -1,9 +1,9 @@
 define('main/main', function(require, exports, module) {
 
 
-var Vue = require('component_modules/vue');
-var Router = require('component_modules/director').Router;
-var desk = require('components/page/desk/desk');
+var Vue = require('component_modules/vue.js');
+var Router = require('component_modules/director.js').Router;
+var desk = require('components/page/desk/desk.js');
 var Service = require('main/service.js');
 
 require("loading/loading.js");
