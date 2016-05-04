@@ -5,261 +5,212 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>通勤车安全乘坐公众平台</title>
 
-    <link rel="stylesheet" type="text/css" href="/static/pkg/all.css" />
+    
 </head>
 <body>
     <div id="app" class="wrap" >
         <div v-component="{{currentView}}" keep-alive></div>
     </div>
 
-<script type="text/javascript" src="/static/js/mod.js"></script>
-<script type="text/javascript">/*resourcemap*/
+<script src="/static/js/mod.js"></script>
+<script>/*resourcemap*/
 require.resourceMap({
   "res": {
-    "component_modules/vue": {
-      "url": "/static/component_modules/vue.js",
-      "type": "js"
-    },
     "main/check": {
       "url": "/static/components/component/main/check.js",
-      "type": "js"
+      "type": "js",
+      "pkg": "p1"
     },
     "main/service": {
       "url": "/static/components/component/main/service.js",
-      "type": "js"
-    },
-    "component_modules/layer.m": {
-      "url": "/static/component_modules/layer.m.js",
-      "type": "js"
-    },
-    "components/page/bind/bind": {
-      "url": "/static/components/page/bind/bind.js",
       "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "main/check.js",
-        "main/service.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "navbar/navbar": {
-      "url": "/static/components/component/navbar/navbar.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js"
-      ]
-    },
-    "components/page/order/order": {
-      "url": "/static/components/page/order/order.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "main/service.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/order/orderdetail/orderdetail": {
-      "url": "/static/components/page/order/orderdetail/orderdetail.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "main/service.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "component_modules/director": {
-      "url": "/static/component_modules/director.js",
-      "type": "js"
-    },
-    "components/page/tel/tel": {
-      "url": "/static/components/page/tel/tel.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js",
-        "main/service.js"
-      ]
-    },
-    "components/page/history/history": {
-      "url": "/static/components/page/history/history.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/approve/approve": {
-      "url": "/static/components/page/approve/approve.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js",
-        "main/service.js"
-      ]
-    },
-    "components/page/approve/approvemore/approvemore": {
-      "url": "/static/components/page/approve/approvemore/approvemore.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js",
-        "main/service.js"
-      ]
-    },
-    "components/page/search/search": {
-      "url": "/static/components/page/search/search.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js",
-        "main/service.js"
-      ]
-    },
-    "components/page/search/result/result": {
-      "url": "/static/components/page/search/result/result.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/validate/validate": {
-      "url": "/static/components/page/validate/validate.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "main/service.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/config/config": {
-      "url": "/static/components/page/config/config.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "main/service.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/whither/whither": {
-      "url": "/static/components/page/whither/whither.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "navbar/navbar.js",
-        "main/service.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/calendar/calendar": {
-      "url": "/static/components/page/calendar/calendar.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "component_modules/director.js",
-        "component_modules/layer.m.js"
-      ]
-    },
-    "components/page/relation/relation": {
-      "url": "/static/components/page/relation/relation.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "component_modules/layer.m.js",
-        "main/service.js"
-      ]
-    },
-    "components/page/relation/query/query": {
-      "url": "/static/components/page/relation/query/query.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "component_modules/layer.m.js",
-        "main/service.js",
-        "component_modules/director.js"
-      ]
-    },
-    "components/page/relation/relatives/relatives": {
-      "url": "/static/components/page/relation/relatives/relatives.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "component_modules/layer.m.js",
-        "main/service.js",
-        "component_modules/director.js",
-        "main/check.js"
-      ]
-    },
-    "components/page/company/company": {
-      "url": "/static/components/page/company/company.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "component_modules/layer.m.js",
-        "main/service.js"
-      ]
-    },
-    "component_modules/iscroll-zoom": {
-      "url": "/static/component_modules/iscroll-zoom.js",
-      "type": "js"
-    },
-    "components/page/bus/bus": {
-      "url": "/static/components/page/bus/bus.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js",
-        "main/service.js",
-        "component_modules/layer.m.js",
-        "component_modules/iscroll-zoom.js",
-        "component_modules/director.js"
-      ]
-    },
-    "components/page/home/home": {
-      "url": "/static/components/page/home/home.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue.js"
-      ]
-    },
-    "component_modules/fastclick": {
-      "url": "/static/component_modules/fastclick.js",
-      "type": "js"
+      "pkg": "p1"
     },
     "main/main": {
       "url": "/static/components/component/main/main.js",
       "type": "js",
       "deps": [
-        "component_modules/vue.js",
-        "component_modules/director.js",
-        "components/page/home/home.js",
-        "main/service.js",
-        "component_modules/fastclick.js"
-      ]
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/bind/bind": {
+      "url": "/static/components/page/bind/bind.js",
+      "type": "js",
+      "deps": [
+        "main/check",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "navbar/navbar": {
+      "url": "/static/components/component/navbar/navbar.js",
+      "type": "js",
+      "pkg": "p1"
+    },
+    "components/page/order/order": {
+      "url": "/static/components/page/order/order.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/order/orderdetail/orderdetail": {
+      "url": "/static/components/page/order/orderdetail/orderdetail.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/tel/tel": {
+      "url": "/static/components/page/tel/tel.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/history/history": {
+      "url": "/static/components/page/history/history.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/approve/approve": {
+      "url": "/static/components/page/approve/approve.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/approve/approvemore/approvemore": {
+      "url": "/static/components/page/approve/approvemore/approvemore.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/search/search": {
+      "url": "/static/components/page/search/search.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/search/result/result": {
+      "url": "/static/components/page/search/result/result.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/validate/validate": {
+      "url": "/static/components/page/validate/validate.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/config/config": {
+      "url": "/static/components/page/config/config.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/whither/whither": {
+      "url": "/static/components/page/whither/whither.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/calendar/calendar": {
+      "url": "/static/components/page/calendar/calendar.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/relation/relation": {
+      "url": "/static/components/page/relation/relation.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/relation/query/query": {
+      "url": "/static/components/page/relation/query/query.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/relation/relatives/relatives": {
+      "url": "/static/components/page/relation/relatives/relatives.js",
+      "type": "js",
+      "deps": [
+        "main/service",
+        "main/check"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/company/company": {
+      "url": "/static/components/page/company/company.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/bus/bus": {
+      "url": "/static/components/page/bus/bus.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/home/home": {
+      "url": "/static/components/page/home/home.js",
+      "type": "js",
+      "pkg": "p1"
     }
   },
-  "pkg": {}
+  "pkg": {
+    "p1": {
+      "url": "/static/pkg/app_ff2d20c.js",
+      "type": "js"
+    }
+  }
 });</script>
-<script type="text/javascript" src="/static/component_modules/jquery.min.js"></script>
-<script type="text/javascript" src="/static/js/mui.js"></script>
-<script type="text/javascript" src="/static/js/mui.indexedlist.js"></script>
-<script type="text/javascript" src="/static/js/mui.picker.min.js"></script>
+<script src="/static/pkg/common_6f65f1e.js"></script>
+<script src="/static/js/mui.js"></script>
+<script src="/static/js/mui.indexedlist.js"></script>
+<script src="/static/js/mui.picker.min.js"></script>
 <script type="text/javascript">
     require(["main/main.js"]);
 </script>

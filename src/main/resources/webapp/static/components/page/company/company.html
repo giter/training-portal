@@ -1,0 +1,65 @@
+<div class="page-company">
+    <div class="mui-control-content mui-active" v-show="!isQuery">
+        <header class="mui-bar-nav mui-bar">
+            <h5 class="mui-title">
+                合作单位订位查询
+            </h5>
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" href="#config"></a>
+        </header>
+        <div class="mui-content">
+            <ul class="mui-table-view mui-list">
+                <i class=" iconfont icon-users"></i>
+                <li class="mui-table-view-cell">
+                    <a >合作单位
+                        <select class="company-select" v-model="selectCompany" options="companies">
+                            <option>请选择</option>
+                        </select>
+                    </a>
+                </li>
+                <i class="iconfont icon-time"></i>
+                <li class="mui-table-view-cell">
+                    <a  >出发时间
+                        <select class="company-select" v-model="selectDate" options="date">
+                            <option>请选择</option>
+                        </select>
+                    </a>
+                </li>
+            </ul>
+            <div class="mui-content-padded" style="text-align: center">
+                <h5>手机端只支持查询，订位请到PC管理后台。</h5>
+            </div>
+            <button class="mui-btn mui-btn-block" id="btn-search" v-on="click:onSearch()" >
+                <span class="mui-icon mui-icon-search"></span>查询
+            </button>
+
+        </div>
+
+    </div>
+    <div class="mui-control-content mui-active" v-show="isQuery">
+        <header class="mui-bar-nav mui-bar">
+            <h5 class="mui-title">
+                查询结果
+            </h5>
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" v-on="tap:toBack"></a>
+        </header>
+        <div class="mui-content" style="height: {{height}}px;overflow-y: auto;">
+            <table class="table">
+                <thead>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>车辆</th>
+                <th>车位</th>
+                </thead>
+                <tr v-repeat="u in users">
+                    <td>{{$index+1}}</td>
+                    <td>{{u.name}}</td>
+                    <td>{{u.bus}}</td>
+                    <td>{{u.seat}}</td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
