@@ -14,6 +14,8 @@ public class OrderForm {
 
   public Long exact;
 
+  public Integer state;
+
   public List<DishList> menu;
 
   public static class DishList {

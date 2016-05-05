@@ -178,6 +178,10 @@ public class OrderCtrl {
       order.put("exact", form.exact);
     }
 
+    if (form.state != null) {
+      order.put("state", form.state);
+    }
+
     if (form.menu != null) {
 
       ArrayList<Object> menu = new ArrayList<>();
