@@ -118,6 +118,10 @@ public class BasketCtrl {
       order.put("number", form.number);
     }
 
+    if (form.state != null) {
+      order.put("state", form.state);
+    }
+
     if (form.items != null) {
 
       ArrayList<Object> items = new ArrayList<>();

@@ -6,6 +6,7 @@ public class BasketForm {
 
   public String mdate;
   public Integer number;
+  public Integer state;
 
   public List<GoodsList> items;
 
