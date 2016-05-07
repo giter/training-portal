@@ -257,7 +257,7 @@ module.exports = Vue.extend({
         },
         selectWeek: function (v) {
 
-            var w = (new Date).getDate();
+            var w = (new Date).getDay();
             switch (v){
                 case "周日":{
                     w = 0;
