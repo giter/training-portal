@@ -30,6 +30,7 @@ public class RestaurantDAO implements InitializingBean {
   public DBCollection table;
   public DBCollection dish;
   public DBCollection order;
+  public DBCollection pack;
 
   public GridFS gridFS;
 
@@ -65,5 +66,13 @@ public class RestaurantDAO implements InitializingBean {
 
     order.createIndex(BasicDBObjectBuilder.start("mdate", 1).add("mtime", 1)
         .add("state", 1).add("user._id", 1).get());
+
+    pack = client.getDB(dbName).getCollection("pack");
+
+    pack.setInternalClass("menu", Dish.class);
+
+    pack.createIndex(BasicDBObjectBuilder.start().add("state", 1)
+        .add("user._id", 1).get());
+
   }
 }
