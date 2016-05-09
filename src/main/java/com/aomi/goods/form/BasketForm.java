@@ -5,6 +5,7 @@ import java.util.List;
 public class BasketForm {
 
   public String mdate;
+  public String mtime;
   public Integer number;
   public Integer state;
 

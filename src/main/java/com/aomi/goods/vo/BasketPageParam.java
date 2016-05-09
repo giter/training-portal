@@ -9,6 +9,7 @@ public class BasketPageParam extends PageParam {
   private String end;
   private String uid;
   private String mdate;
+  private String mtime;
 
   public Integer getState() {
     return state;
@@ -48,5 +49,13 @@ public class BasketPageParam extends PageParam {
 
   public void setMdate(String mdate) {
     this.mdate = mdate;
+  }
+
+  public String getMtime() {
+    return mtime;
+  }
+
+  public void setMtime(String mtime) {
+    this.mtime = mtime;
   }
 }

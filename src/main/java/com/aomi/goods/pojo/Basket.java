@@ -23,6 +23,10 @@ public class Basket extends Basic<Basket> {
     return getString("mdate");
   }
 
+  public String getMtime() {
+    return getString("mtime");
+  }
+
   public User getUser() {
 
     return (User) get("user");

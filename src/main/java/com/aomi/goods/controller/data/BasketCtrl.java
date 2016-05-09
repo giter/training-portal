@@ -59,6 +59,7 @@ public class BasketCtrl {
     Basket order = new Basket();
 
     order.put("mdate", form.mdate);
+    order.put("mtime", form.mtime);
     order.put("number", form.number);
 
     if (order == null || order.getMdate() == null) {
@@ -112,6 +113,10 @@ public class BasketCtrl {
 
     if (form.mdate != null) {
       order.put("mdate", form.mdate);
+    }
+
+    if (form.mtime != null) {
+      order.put("mtime", form.mtime);
     }
 
     if (form.number != null) {

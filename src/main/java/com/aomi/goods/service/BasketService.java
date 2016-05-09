@@ -61,6 +61,10 @@ public class BasketService extends CRUDService<Basket, BasketPageParam> {
         builder.add("mdate", param.getMdate());
       }
 
+      if (param.getMtime() != null) {
+        builder.add("mtime", param.getMtime());
+      }
+
       if (param.getStart() != null) {
 
         builder.push("mdate").add("$gte", param.getStart());
