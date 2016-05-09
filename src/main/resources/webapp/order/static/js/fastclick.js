@@ -247,6 +247,7 @@
 		case 'label':
 		case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
 		case 'video':
+			case "path":
 			return true;
 		}
 
@@ -521,6 +522,10 @@
 	FastClick.prototype.onTouchEnd = function(event) {
 		var forElement, trackingClickStart, targetTagName, scrollParent, touch, targetElement = this.targetElement;
 
+		if(event.srcElement.nodeName == "path"){
+			this.trackingClick = true;
+		}
+
 		if (!this.trackingClick) {
 			return true;
 		}
@@ -628,6 +633,10 @@
 	 * @returns {boolean}
 	 */
 	FastClick.prototype.onMouse = function(event) {
+
+		if(event.target.nodeName == "path"){
+			return true;
+		}
 
 		// If a target element was never set (because a touch event was never fired) allow the event
 		if (!this.targetElement) {
