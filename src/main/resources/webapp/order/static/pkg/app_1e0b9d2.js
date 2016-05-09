@@ -544,6 +544,7 @@ module.exports = Vue.extend({
                 zoom:2,
                 minZoom:0,
                 maxZoom:3,
+                tap:false,
                 attributionControl:false
             });
 
