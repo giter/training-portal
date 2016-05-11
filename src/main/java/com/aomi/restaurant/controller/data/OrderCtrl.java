@@ -250,7 +250,16 @@ public class OrderCtrl {
     opp.setMdate(mdate);
     opp.setMtime(mtime);
 
-    List<Order> orders = orderService.page(opp);
+    List<Order> olders = orderService.page(opp);
+    List<Order> orders = new ArrayList<>(olders.size());
+
+    for (Order o : olders) {
+
+      if (o.getState() == 2)
+        continue;
+
+      orders.add(o);
+    }
 
     TablePageParam tpp = new TablePageParam();
     tpp.setLimit(-1);
@@ -265,10 +274,6 @@ public class OrderCtrl {
     }
 
     for (Order o : orders) {
-
-      // delete complete orders
-      if (o.getState() == 2)
-        continue;
 
       if (o.getTable() != null) {
 
