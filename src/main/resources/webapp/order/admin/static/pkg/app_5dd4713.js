@@ -550,6 +550,22 @@ router.map({
     }
 });
 
+
+Vue.filter("timeName", function (v) {
+    switch (v){
+        case "morning":{
+            return "上午";
+        }break;
+        case "noon":{
+            return "中午";
+        }break;
+        case "afternoon":{
+            return "下午";
+        }break;
+    }
+});
+
+
 router.start(App, '#app');
 
 
@@ -581,7 +597,7 @@ var model = {
 };
 
 module.exports = Vue.extend({
-    template:"\n<div class=\"panel panel-default page-wrap content\">\n    <div class=\"panel-heading\">\n\n        <ul class=\"nav nav-pills pull-left\">\n            <li role=\"presentation\" :class=\"{active:view=='map'}\"><a href=\"javascript:;\" @click=\"onChangeView('map')\">\n                地图</a></li>\n            <li role=\"presentation\"  :class=\"{active:view=='grid'}\"><a href=\"javascript:;\" @click=\"onChangeView('grid')\">\n                表格</a></li>\n        </ul>\n\n        <div class=\"dropdown pull-right\" v-show=\"view=='map'\">\n            <a class=\"btn dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                新增热区\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                <li><a href=\"javascript:;\" @click=\"onAddRect\" >\n                    <span class=\"glyphicon glyphicon-stop\"></span>\n                    &nbsp;矩形</a></li>\n                <li><a href=\"javascript:;\" @click=\"onAddCircle\">\n                    <span class=\"glyphicon glyphicon-record\"></span>\n                    &nbsp;圆形</a></li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"panel-body\" v-show=\"view=='grid'\">\n        <table class=\"table table-bordered table-hover\">\n            <tbody>\n            <tr>\n                <th>\n                    #\n                </th>\n                <th>\n                    编号\n                </th>\n                <th>\n                    类型\n                </th>\n                <th>\n                    座位数\n                </th>\n                <th>\n                    位置\n                </th>\n                <th>\n                    状态\n                </th>\n                <th>\n                    操作\n                </th>\n            </tr>\n\n            <tr v-for=\"t in tables\">\n                <td>\n                    {{$index+1}}\n                </td>\n                <td>\n                    {{t.no}}\n                </td>\n                <td>\n                    {{t.type==0?\"包厢\":\"大厅\"}}\n                </td>\n                <td>\n                    {{t.seat}}\n                </td>\n                <td>\n                    <a href=\"javascript:;\" @click=\"goTo(t._id)\">查看</a>\n                </td>\n                <td>\n                    {{t.visible==0?\"预留\":\"启用\"}}\n                </td>\n                <td>\n                    <a href=\"\">编辑</a>\n                    <a href=\"javascript:;\" @click=\"onDelTable(t)\">删除</a>\n                </td>\n            </tr>\n\n            </tbody></table>\n        <div class=\"c-pager\">\n            <p class=\"pull-left\">共 11 条记录，每页 20 条 1/1 </p>\n\n            <ul  class=\"pagination pagination-sm\">\n                <li>\n                </li>\n                <li>\n                    <a href=\"#\" aria-label=\"Previous\">\n                        <span class=\"glyphicon glyphicon-step-backward\"></span>\n                    </a>\n                </li>\n                <li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                <li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                <li>\n                    <a href=\"#\" aria-label=\"Next\">\n                        <span class=\"glyphicon glyphicon-step-forward\"></span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"panel-body\" id=\"map\" v-show=\"view=='map'\">\n\n    </div>\n\n\n    <c-form :config=\"modal\" @submit=\"onSubmit\">\n        <validator name=\"valid\">\n            <form class=\"form-horizontal\" novalidate >\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.no.invalid&&$valid.no.touched}\"  >编号</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.no.invalid&&$valid.no.touched}\">\n                        <input type=\"number\" class=\"form-control\" placeholder=\"必填\" v-validate:no=\"['required']\" v-model=\"model.no\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">类别</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.type\" number>\n                            <option value=\"0\">包厢</option>\n                            <option value=\"1\">大厅</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.seat.invalid&&$valid.seat.touched}\" >座位数</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.seat.invalid&&$valid.seat.touched}\">\n                        <input type=\"number\" class=\"form-control\" placeholder=\"必填\" v-model=\"model.seat\" v-validate:seat=\"['required']\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">状态</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.visible\" number>\n                            <option value=\"0\">预留</option>\n                            <option value=\"1\">启用</option>\n                        </select>\n                    </div>\n                </div>\n            </form>\n        </validator>\n    </c-form>\n\n</div>\n",
+    template:"\n<div class=\"panel panel-default page-wrap content\">\n    <div class=\"panel-heading\">\n\n        <ul class=\"nav nav-pills pull-left\">\n            <li role=\"presentation\" :class=\"{active:view=='map'}\"><a href=\"javascript:;\" @click=\"onChangeView('map')\">\n                地图</a></li>\n            <li role=\"presentation\"  :class=\"{active:view=='grid'}\"><a href=\"javascript:;\" @click=\"onChangeView('grid')\">\n                列表</a></li>\n        </ul>\n\n        <div class=\"dropdown pull-right\" v-show=\"view=='map'\">\n            <a class=\"btn dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                新增热区\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                <li><a href=\"javascript:;\" @click=\"onAddRect\" >\n                    <span class=\"glyphicon glyphicon-stop\"></span>\n                    &nbsp;矩形</a></li>\n                <li><a href=\"javascript:;\" @click=\"onAddCircle\">\n                    <span class=\"glyphicon glyphicon-record\"></span>\n                    &nbsp;圆形</a></li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"panel-body\" v-show=\"view=='grid'\">\n        <table class=\"table table-bordered table-hover\">\n            <tbody>\n            <tr>\n                <th>\n                    #\n                </th>\n                <th>\n                    编号\n                </th>\n                <th>\n                    类型\n                </th>\n                <th>\n                    座位数\n                </th>\n                <th>\n                    位置\n                </th>\n                <th>\n                    状态\n                </th>\n                <th>\n                    操作\n                </th>\n            </tr>\n\n            <tr v-for=\"t in tables\">\n                <td>\n                    {{$index+1}}\n                </td>\n                <td>\n                    {{t.no}}\n                </td>\n                <td>\n                    {{t.type==0?\"包厢\":\"大厅\"}}\n                </td>\n                <td>\n                    {{t.seat}}\n                </td>\n                <td>\n                    <a href=\"javascript:;\" @click=\"goTo(t._id)\">查看</a>\n                </td>\n                <td>\n                    {{t.visible==0?\"预留\":\"启用\"}}\n                </td>\n                <td>\n                    <a href=\"\">编辑</a>\n                    <a href=\"javascript:;\" @click=\"onDelTable(t)\">删除</a>\n                </td>\n            </tr>\n\n            </tbody></table>\n        <div class=\"c-pager\">\n            <p class=\"pull-left\">共 11 条记录，每页 20 条 1/1 </p>\n\n            <ul  class=\"pagination pagination-sm\">\n                <li>\n                </li>\n                <li>\n                    <a href=\"#\" aria-label=\"Previous\">\n                        <span class=\"glyphicon glyphicon-step-backward\"></span>\n                    </a>\n                </li>\n                <li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                <li><a href=\"#\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                <li>\n                    <a href=\"#\" aria-label=\"Next\">\n                        <span class=\"glyphicon glyphicon-step-forward\"></span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"panel-body\" id=\"map\" v-show=\"view=='map'\">\n\n    </div>\n\n\n    <c-form :config=\"modal\" @submit=\"onSubmit\">\n        <validator name=\"valid\">\n            <form class=\"form-horizontal\" novalidate >\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.no.invalid&&$valid.no.touched}\"  >编号</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.no.invalid&&$valid.no.touched}\">\n                        <input type=\"number\" class=\"form-control\" placeholder=\"必填\" v-validate:no=\"['required']\" v-model=\"model.no\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">类别</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.type\" number>\n                            <option value=\"0\">包厢</option>\n                            <option value=\"1\">大厅</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\" :class=\"{'has-warning':$valid.seat.invalid&&$valid.seat.touched}\" >座位数</label>\n                    <div class=\"col-sm-10\" :class=\"{'has-warning':$valid.seat.invalid&&$valid.seat.touched}\">\n                        <input type=\"number\" class=\"form-control\" placeholder=\"必填\" v-model=\"model.seat\" v-validate:seat=\"['required']\" number>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">状态</label>\n                    <div class=\"col-sm-10\">\n                        <select class=\"form-control\" v-model=\"model.visible\" number>\n                            <option value=\"0\">预留</option>\n                            <option value=\"1\">启用</option>\n                        </select>\n                    </div>\n                </div>\n            </form>\n        </validator>\n    </c-form>\n\n</div>\n",
     data: function () {
         return {
             view:"map",
@@ -761,13 +777,117 @@ define('state/state', function(require, exports, module) {
 var Vue = require("component_modules/vue.js");
 
 module.exports = Vue.component("c-state", {
-    template:"<span class=\"label-primary label\" v-if=\"state==1\">未完成</span>\n<span class=\"label-danger label\" v-if=\"state==0\">下单失败</span>\n<span class=\"label-warning label\" v-if=\"state==-1\">已取消</span>\n<span class=\"label-success label\" v-if=\"state==2\">已完成</span>",
+    template:"<span class=\"label-primary label\" v-if=\"state==1\">未完成</span>\n<span class=\"label-danger label\" v-if=\"state==0\">下单失败</span>\n<span class=\"label-warning label\" v-if=\"state==-1\">已取消</span>\n<span class=\"label-success label\" v-if=\"state==2\">已完成</span>\n<span class=\"label-success label\" v-if=\"state==3\">已打印</span>",
     props:["state"],
     ready: function () {
         
     },
     methods:{
 
+    }
+});
+
+});
+
+;/*!/components/page/order/stat/stat.js*/
+define('components/page/order/stat/stat', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/4.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+
+require("form/form.js");
+require("state/state.js");
+
+
+module.exports = Vue.extend({
+    template:"<div class=\"panel-body\">\n    <div class=\"form-inline\">\n        <div class=\"form-group\">\n            <label>日期</label>\n            <input type=\"text\" id=\"datepick\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n        </div>\n        <div class=\"form-group\">\n            <label >餐次 </label>\n            <select class=\"form-control\" v-model=\"query.mtime\">\n                <option value=\"\">全部</option>\n                <option value=\"lunch\">午餐</option>\n                <option value=\"dinner\">晚餐</option>\n            </select>\n        </div>\n        <div class=\"form-group\">\n            <label >状态 </label>\n            <select class=\"form-control\" v-model=\"query.state\">\n                <option value=\"\">全部</option>\n                <option value=\"1\">未完成</option>\n                <option value=\"-1\">已取消</option>\n                <option value=\"2\">已完成</option>\n            </select>\n        </div>\n        <button class=\"btn btn-default\" @click=\"onQuery\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            查询</button>\n    </div>\n    <hr>\n    <table class=\"table table-bordered table-hover\">\n        <tbody>\n        <tr>\n            <th>\n                #\n            </th>\n            <th>\n                菜品名称\n            </th>\n            <th>\n                价格\n            </th>\n            <th>\n                数量\n            </th>\n            <th>\n                总价\n            </th>\n        </tr>\n        <tr v-for=\"o in orders\">\n            <td>{{$index+1}}</td>\n            <td>{{o.name}}</td>\n            <td>¥{{o.price}}</td>\n            <td>{{o.number}}</td>\n            <td>¥{{o.price*o.number}}</td>\n        </tr>\n        </tbody></table>\n</div>",
+    data: function () {
+        return {
+            orders:[],
+            count:0,
+            query:{
+                page:0,
+                limit:20,
+                mtime:"",
+                mdate:"",
+                sorts:'{"mdate":-1}',
+                state:""
+            }
+        }
+    },
+    methods:{
+        render: function () {
+            $("#datepick").val((new Date()).Format("yyyy-MM-dd"));
+            this.renderOrders();
+        },
+        renderOrders: function () {
+            var self = this;
+            layer.load();
+            var query = JSON.parse(JSON.stringify(this.query));
+            query.mdate = $("#datepick").val();
+            for(var i in query){
+                if(!query[i]){
+                    delete query[i]
+                }
+            }
+            Service.getOrders(query,function (rep) {
+                self.orders = self.stat(rep.lists);
+                self.count = rep.count;
+                layer.closeAll();
+            })
+        },
+        onDateClick: function () {
+            var self = this;
+            laydate({istime: true, format: 'YYYY-MM-DD',choose: function (datas) {
+                self.query.mdate = datas;
+            }});
+        },
+        onQuery: function () {
+            this.query.page = 0;
+            this.renderOrders();
+        },
+        stat: function (list) {
+            var result = [],menus = {};
+            list.forEach(function (l) {
+                if(typeof l.menu == "object"){
+                    l.menu.forEach(function (m) {
+                        menus[m._id]= {};
+                    })
+                }
+            });
+
+            for(var _id in menus){
+                list.forEach(function (l) {
+                    if(typeof l.menu == "object"){
+                        l.menu.forEach(function (m) {
+                            if(m._id == _id){
+                                menus[_id].name = m.name;
+                                menus[_id].picture = m.picture;
+                                menus[_id].price = m.price;
+                                if(menus[_id].number){
+                                    menus[_id].number += m.number;
+                                }else{
+                                    menus[_id].number = m.number;
+                                }
+
+                            }
+                        })
+                    }
+                });
+
+                result.push(menus[_id]);
+            }
+            return result.sort(function (a,b) {
+                return   b.number - a.number;
+            });
+        }
+    },
+    ready: function () {
+        this.render();
     }
 });
 
@@ -786,16 +906,18 @@ var Service = require("main/service.js");
 require("form/form.js");
 require("state/state.js");
 
+var stat = require("components/page/order/stat/stat");
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-menu\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    订单</a></li>\n            </ul>\n        </div>\n        <div class=\"panel-body\">\n            <div class=\"form-inline\">\n                <div class=\"form-group\">\n                    <label>日期</label>\n                    <input type=\"text\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n                </div>\n                <div class=\"form-group\">\n                    <label >餐次 </label>\n                    <select class=\"form-control\" v-model=\"query.mtime\">\n                        <option value=\"\">全部</option>\n                        <option value=\"lunch\">午餐</option>\n                        <option value=\"dinner\">晚餐</option>\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label >状态 </label>\n                    <select class=\"form-control\" v-model=\"query.state\">\n                        <option value=\"\">全部</option>\n                        <option value=\"1\">未完成</option>\n                        <option value=\"-1\">已取消</option>\n                        <option value=\"2\">已完成</option>\n                    </select>\n                </div>\n                <button class=\"btn btn-default\" @click=\"onQuery\">\n                    <span class=\"glyphicon glyphicon-search\"></span>\n                    查询</button>\n            </div>\n            <hr>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        时间\n                    </th>\n                    <th>\n                        餐次\n                    </th>\n                    <th>\n                        下单人\n                    </th>\n                    <th>\n                        下单时间\n                    </th>\n                    <th>\n                        人数\n                    </th>\n                    <th>\n                        餐桌\n                    </th>\n                    <th>\n                        菜品数量(种)\n                    </th>\n                    <th>\n                        上菜要求\n                    </th>\n                    <th>\n                        状态\n                    </th>\n                    <th>\n                        菜单\n                    </th>\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"o in orders\" track-by=\"_id\">\n                    <td>{{$index+1 + 10*query.page}}</td>\n                    <td>{{o.mdate}}</td>\n                    <td>{{o.mtime==\"dinner\"?\"晚餐\":\"午餐\"}}</td>\n                    <td>{{o.user.name}}</td>\n                    <td>{{(new Date(o.created)).Format(\"yyyy-MM-dd hh:mm\")}}</td>\n                    <td>{{o.number}}</td>\n                    <td>{{o.table.no}}</td>\n                    <td>{{o.menu.length}}</td>\n                    <td>{{o.remark}}</td>\n                    <td><c-state :state=\"o.state\"></c-state></td>\n                    <td><a v-link=\"{path:'order/'+o._id}\" >查看</a></td>\n                    <td>\n                        <a @click=\"onCancel(o)\" href=\"javascript:;\">取消</a>\n                     <a  @click=\"onComplete(o)\" href=\"javascript:;\">完成</a>\n                    </td>\n                </tr>\n                </tbody></table>\n            <div class=\"c-pager\">\n                <p class=\"pull-left\">共 {{count}} 条记录，每页 10 条 {{query.page+1}}/{{Math.ceil(count/10)}} </p>\n\n                <ul  class=\"pagination pagination-sm\">\n                    <li>\n                    </li>\n                    <li>\n                        <a @click=\"toFirst\" href=\"javascript:;\" aria-label=\"Previous\">\n                            <span class=\"glyphicon glyphicon-step-backward\"></span>\n                        </a>\n                    </li>\n                    <li><a href=\"javascript:;\" :disabled=\"query.page==0\" @click=\"toPre\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                    <li><a href=\"javascript:;\" @click=\"toNext\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                    <li>\n                        <a @click=\"toLast\" href=\"javascript:;\" aria-label=\"Next\">\n                            <span class=\"glyphicon glyphicon-step-forward\"></span>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n\n\n\n</div>\n",
+    template:"<div class=\"page-menu\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" :class=\"{active:view==0}\" @click=\"changeView(0)\"><a href=\"javascript:;\">\n                    订单</a></li>\n                <li role=\"presentation\" :class=\"{active:view==1}\" @click=\"changeView(1)\" ><a href=\"javascript:;\">\n                    每日汇总</a></li>\n            </ul>\n        </div>\n        <div v-if=\"view==0\" class=\"panel-body\">\n            <div class=\"form-inline\">\n                <div class=\"form-group\">\n                    <label>日期</label>\n                    <input type=\"text\" id=\"datepick\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n                </div>\n                <div class=\"form-group\">\n                    <label >餐次 </label>\n                    <select class=\"form-control\" v-model=\"query.mtime\">\n                        <option value=\"\">全部</option>\n                        <option value=\"lunch\">午餐</option>\n                        <option value=\"dinner\">晚餐</option>\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label >状态 </label>\n                    <select class=\"form-control\" v-model=\"query.state\">\n                        <option value=\"\">全部</option>\n                        <option value=\"1\">未完成</option>\n                        <option value=\"-1\">已取消</option>\n                        <option value=\"2\">已完成</option>\n                    </select>\n                </div>\n                <button class=\"btn btn-default\" @click=\"onQuery\">\n                    <span class=\"glyphicon glyphicon-search\"></span>\n                    查询</button>\n            </div>\n            <hr>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        时间\n                    </th>\n                    <th>\n                        餐次\n                    </th>\n                    <th>\n                        下单人\n                    </th>\n                    <th>\n                        下单时间\n                    </th>\n                    <th>\n                        人数\n                    </th>\n                    <th>\n                        餐桌\n                    </th>\n                    <th>\n                        菜品数量(种)\n                    </th>\n                    <th>\n                        期望上菜时间\n                    </th>\n                    <th>\n                        状态\n                    </th>\n                    <th>\n                        菜单\n                    </th>\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"o in orders\" track-by=\"_id\">\n                    <td>{{$index+1 + 10*query.page}}</td>\n                    <td>{{o.mdate}}</td>\n                    <td>{{o.mtime==\"dinner\"?\"晚餐\":\"午餐\"}}</td>\n                    <td>{{o.user.name}}</td>\n                    <td>{{(new Date(o.created)).Format(\"yyyy-MM-dd hh:mm\")}}</td>\n                    <td>{{o.number}}</td>\n                    <td>{{o.table.no}}</td>\n                    <td>{{o.menu.length}}</td>\n                    <td>{{o.remark}}</td>\n                    <td><c-state :state=\"o.state\"></c-state></td>\n                    <td><a v-link=\"{path:'order/'+o._id}\" >查看</a></td>\n                    <td>\n                        <a @click=\"onCancel(o)\" href=\"javascript:;\">取消</a>\n                     <a  @click=\"onComplete(o)\" href=\"javascript:;\">已完成</a>\n                     <a  @click=\"onPrinter(o)\" href=\"javascript:;\">已打印</a>\n                    </td>\n                </tr>\n                </tbody></table>\n            <div class=\"c-pager\">\n                <p class=\"pull-left\">共 {{count}} 条记录，每页 {{query.limit}} 条 {{query.page+1}}/{{Math.ceil(count/query.limit)}} </p>\n\n                <ul  class=\"pagination pagination-sm\">\n                    <li>\n                    </li>\n                    <li>\n                        <a @click=\"toFirst\" href=\"javascript:;\" aria-label=\"Previous\">\n                            <span class=\"glyphicon glyphicon-step-backward\"></span>\n                        </a>\n                    </li>\n                    <li><a href=\"javascript:;\" :disabled=\"query.page==0\" @click=\"toPre\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                    <li><a href=\"javascript:;\" @click=\"toNext\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                    <li>\n                        <a @click=\"toLast\" href=\"javascript:;\" aria-label=\"Next\">\n                            <span class=\"glyphicon glyphicon-step-forward\"></span>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div v-if=\"view==1\" is=\"stat\"></div>\n\n\n    </div>\n\n\n\n\n</div>\n",
     data: function () {
         return {
+            view:0,
             orders:[],
             count:0,
             query:{
                 page:0,
-                limit:10,
+                limit:20,
                 mtime:"",
                 mdate:"",
                 sorts:'{"mdate":-1}',
@@ -811,6 +933,7 @@ module.exports = Vue.extend({
             var self = this;
             layer.load();
             var query = JSON.parse(JSON.stringify(this.query));
+            query.mdate = $("#datepick").val();
             for(var i in query){
                 if(!query[i]){
                     delete query[i]
@@ -870,7 +993,22 @@ module.exports = Vue.extend({
                     layer.alert("操作成功!");
                 })
             });
-        }
+        },
+        changeView: function (v) {
+            this.view = v;
+        },
+        onPrinter: function (obj) {
+            layer.confirm("确定修改状态为已打印?",{btn:["确定","取消"]}, function () {
+                obj.state = 3;
+                Service.updateOrder(obj._id,JSON.stringify(obj),function (rep) {
+                    layer.closeAll();
+                    layer.alert("操作成功!");
+                })
+            });
+        },
+    },
+    components:{
+        "stat":stat
     },
     ready: function () {
         this.render();
@@ -894,7 +1032,7 @@ require("form/form.js");
 
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-detail\">\n\n    <div class=\"panel panel-default content\" >\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    菜单详情</a></li>\n            </ul>\n            <a v-link=\"{path:'/order'}\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-backward\"></span>\n                返回\n            </a>\n            <a href=\"javascript:;\" class=\"btn pull-right\" @click=\"onPrint\">\n                <span class=\"glyphicon glyphicon-print\"></span>\n                打印\n            </a>\n            <a href=\"javascript:;\" :disabled=\"mode=='edit'\"  class=\"btn pull-right\" @click=\"onEdit\">\n                <span class=\"glyphicon glyphicon-edit\"></span>\n                编辑</a>\n\n        </div>\n        <div class=\"panel-body\" id=\"order-detail\" >\n            <h3 class=\"text-center\">\n               {{order.mdate}} {{order.mtime==\"dinner\"?\"晚餐\":\"中餐\"}} {{order.table.no}}号桌({{order.number}}人) {{order.user.name}}预定\n            </h3>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        菜品名称\n                    </th>\n                    <th>\n                        数量\n                    </th>\n                    <th>\n                        备注\n                    </th>\n                    <th>\n                        单价(元)\n                    </th>\n                    <th>\n                        总价(元)\n                    </th>\n                    <th v-if=\"mode=='edit'\">\n                        编辑\n                    </th>\n                </tr>\n                <tr v-for=\"m in order.menu\">\n                    <td>{{$index+1}}</td>\n                    <td>\n                        {{m.name}}\n                    </td>\n                    <td>\n                        <span v-if=\"mode=='detail'\">{{m.number}} {{m.unit}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.number\" number>\n                    </td>\n                    <td>{{m.remark}}</td>\n                    <td>¥\n                        <span v-if=\"mode=='detail'\">{{m.price}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.price\" number>\n                    </td>\n                    <td>¥{{m.price * m.number}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <a href=\"javascript:;\">删除</a>\n                    </td>\n                </tr>\n                <tr>\n                    <td>合计</td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td>¥{{total}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <!--<button class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-plus\"></span></button>-->\n                    </td>\n                </tr>\n                </tbody></table>\n\n        </div>\n\n        <div class=\"panel-footer text-right\" v-if=\"mode=='edit'\">\n            <button class=\"btn btn-primary\"  @click=\"onUpdate\">提交</button>\n            <button CLASS=\"btn btn-default\" @click=\"onCancel\">取消</button>\n        </div>\n    </div>\n\n    <div class=\"modal fade\" id=\"menuModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog  modal-lg\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                    <h4 class=\"modal-title\" id=\"myModalLabel\">请选择菜品</h4>\n                </div>\n                <div class=\"modal-body\">\n                    <ul class=\"nav nav-tabs\">\n                        <li role=\"presentation\" v-for=\"t in types\" :class=\"{active:selectType==t.key}\"><a href=\"javascript:;\" @click=\"onChangeType(t.key)\">{{t.value}}</a></li>\n                    </ul>\n\n                    <div class=\"container-fluid\" >\n                        <div class=\"row\">\n                            <div class=\"col-md-2 menu-item\" v-for=\"m in menus\" v-if=\"m.type == selectType\">\n                                <div class=\"thumbnail\">\n                                    <img v-for=\"p in m.picture\" v-if=\"m.picture.length>0&&$index==0\" :src=\"'/data/image/'+p+'/100/100.json'\" >\n                                    <div class=\"caption\">\n                                        <h5>{{m.name}}</h5>\n                                        <p>{{m.cates.join(\",\")}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>\n                    <button type=\"button\" class=\"btn btn-primary\">确定</button>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+    template:"<div class=\"page-detail\">\n\n    <div class=\"panel panel-default content\" >\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    菜单详情</a></li>\n            </ul>\n            <a v-link=\"{path:'/order'}\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-backward\"></span>\n                返回\n            </a>\n            <a href=\"javascript:;\" class=\"btn pull-right\" @click=\"onPrint\">\n                <span class=\"glyphicon glyphicon-print\"></span>\n                打印\n            </a>\n            <a href=\"javascript:;\" :disabled=\"mode=='edit'\"  class=\"btn pull-right\" @click=\"onEdit\">\n                <span class=\"glyphicon glyphicon-edit\"></span>\n                编辑</a>\n\n        </div>\n        <div class=\"panel-body\" id=\"order-detail\" >\n            <h3 class=\"text-center\">\n               {{order.mdate}} {{order.mtime==\"dinner\"?\"晚餐\":\"中餐\"}} {{order.table.no}}号桌({{order.number}}人) {{order.user.name}}预定\n            </h3>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        菜品名称\n                    </th>\n                    <th>\n                        数量\n                    </th>\n                    <th>\n                        备注\n                    </th>\n                    <th>\n                        单价(元)\n                    </th>\n                    <th>\n                        总价(元)\n                    </th>\n                    <!--<th v-if=\"mode=='edit'\">-->\n                        <!--编辑-->\n                    <!--</th>-->\n                </tr>\n                <tr v-for=\"m in order.menu\">\n                    <td>{{$index+1}}</td>\n                    <td>\n                        {{m.name}}\n                    </td>\n                    <td>\n                        <span v-if=\"mode=='detail'\">{{m.number}} {{m.unit}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.number\" number>\n                    </td>\n                    <td>{{m.remark}}</td>\n                    <td>¥\n                        <span v-if=\"mode=='detail'\">{{m.price}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.price\" number>\n                    </td>\n                    <td>¥{{m.price * m.number}}</td>\n                    <!--<td v-if=\"mode=='edit'\">-->\n                        <!--<a href=\"javascript:;\">删除</a>-->\n                    <!--</td>-->\n                </tr>\n                <tr>\n                    <td>合计</td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td>¥{{total}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <!--<button class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-plus\"></span></button>-->\n                    </td>\n                </tr>\n                </tbody></table>\n\n        </div>\n\n        <div class=\"panel-footer text-right\" v-if=\"mode=='edit'\">\n            <button class=\"btn btn-primary\"  @click=\"onUpdate\">提交</button>\n            <button CLASS=\"btn btn-default\" @click=\"onCancel\">取消</button>\n        </div>\n    </div>\n\n    <div class=\"modal fade\" id=\"menuModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog  modal-lg\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                    <h4 class=\"modal-title\" id=\"myModalLabel\">请选择菜品</h4>\n                </div>\n                <div class=\"modal-body\">\n                    <ul class=\"nav nav-tabs\">\n                        <li role=\"presentation\" v-for=\"t in types\" :class=\"{active:selectType==t.key}\"><a href=\"javascript:;\" @click=\"onChangeType(t.key)\">{{t.value}}</a></li>\n                    </ul>\n\n                    <div class=\"container-fluid\" >\n                        <div class=\"row\">\n                            <div class=\"col-md-2 menu-item\" v-for=\"m in menus\" v-if=\"m.type == selectType\">\n                                <div class=\"thumbnail\">\n                                    <img v-for=\"p in m.picture\" v-if=\"m.picture.length>0&&$index==0\" :src=\"'/data/image/'+p+'/100/100.json'\" >\n                                    <div class=\"caption\">\n                                        <h5>{{m.name}}</h5>\n                                        <p>{{m.cates.join(\",\")}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>\n                    <button type=\"button\" class=\"btn btn-primary\">确定</button>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
     data: function () {
         return {
             order:{
@@ -1009,7 +1147,7 @@ require("form/form.js");
 
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-detail\">\n\n    <div class=\"panel panel-default content\" >\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    货物详情</a></li>\n            </ul>\n            <a v-link=\"{path:'/gOrder'}\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-backward\"></span>\n                返回\n            </a>\n            <a href=\"javascript:;\" class=\"btn pull-right\" @click=\"onPrint\">\n                <span class=\"glyphicon glyphicon-print\"></span>\n                打印\n            </a>\n            <a href=\"javascript:;\" :disabled=\"mode=='edit'\"  class=\"btn pull-right\" @click=\"onEdit\">\n                <span class=\"glyphicon glyphicon-edit\"></span>\n                编辑</a>\n\n        </div>\n        <div class=\"panel-body\" id=\"order-detail\" >\n            <h3 class=\"text-center\">\n               {{order.mdate}} {{order.user.name}}预定\n            </h3>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        货物名称\n                    </th>\n                    <th>\n                        数量\n                    </th>\n                    <th>\n                        单位\n                    </th>\n                    <th>\n                        单价(元)\n                    </th>\n                    <th>\n                        总价(元)\n                    </th>\n                    <th v-if=\"mode=='edit'\">\n                        编辑\n                    </th>\n                </tr>\n                <tr v-for=\"m in order.items\">\n                    <td>{{$index+1}}</td>\n                    <td>\n                        {{m.name}}\n                    </td>\n                    <td>\n                        <span v-if=\"mode=='detail'\">{{m.number}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.number\" number>\n                    </td>\n                    <td>{{m.unit}}</td>\n                    <td>¥\n                        <span v-if=\"mode=='detail'\">{{m.price}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.price\" number>\n                    </td>\n                    <td>¥{{m.price * m.number}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <a href=\"javascript:;\">删除</a>\n                    </td>\n                </tr>\n                <tr>\n                    <td>合计</td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td>¥{{total}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <!--<button class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-plus\"></span></button>-->\n                    </td>\n                </tr>\n                </tbody></table>\n\n        </div>\n\n        <div class=\"panel-footer text-right\" v-if=\"mode=='edit'\">\n            <button class=\"btn btn-primary\" @click=\"onUpdate\">提交</button>\n            <button CLASS=\"btn btn-default\" @click=\"onCancel\">取消</button>\n        </div>\n    </div>\n\n    <div class=\"modal fade\" id=\"menuModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog  modal-lg\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                    <h4 class=\"modal-title\" id=\"myModalLabel\">请选择菜品</h4>\n                </div>\n                <div class=\"modal-body\">\n                    <ul class=\"nav nav-tabs\">\n                        <li role=\"presentation\" v-for=\"t in types\" :class=\"{active:selectType==t.key}\"><a href=\"javascript:;\" @click=\"onChangeType(t.key)\">{{t.value}}</a></li>\n                    </ul>\n\n                    <div class=\"container-fluid\" >\n                        <div class=\"row\">\n                            <div class=\"col-md-2 menu-item\" v-for=\"m in menus\" v-if=\"m.type == selectType\">\n                                <div class=\"thumbnail\">\n                                    <img v-for=\"p in m.picture\" v-if=\"m.picture.length>0&&$index==0\" :src=\"'/data/image/'+p+'/100/100.json'\" >\n                                    <div class=\"caption\">\n                                        <h5>{{m.name}}</h5>\n                                        <p>{{m.cates.join(\",\")}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>\n                    <button type=\"button\" class=\"btn btn-primary\">确定</button>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+    template:"<div class=\"page-detail\">\n\n    <div class=\"panel panel-default content\" >\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    货物详情</a></li>\n            </ul>\n            <a v-link=\"{path:'/gOrder'}\" class=\"btn pull-right\">\n                <span class=\"glyphicon glyphicon-backward\"></span>\n                返回\n            </a>\n            <a href=\"javascript:;\" class=\"btn pull-right\" @click=\"onPrint\">\n                <span class=\"glyphicon glyphicon-print\"></span>\n                打印\n            </a>\n            <a href=\"javascript:;\" :disabled=\"mode=='edit'\"  class=\"btn pull-right\" @click=\"onEdit\">\n                <span class=\"glyphicon glyphicon-edit\"></span>\n                编辑</a>\n\n        </div>\n        <div class=\"panel-body\" id=\"order-detail\" >\n            <h3 class=\"text-center\">\n               {{order.mdate}} {{order.user.name}}预定\n            </h3>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        货物名称\n                    </th>\n                    <th>\n                        数量\n                    </th>\n                    <th>\n                        单位\n                    </th>\n                    <th>\n                        单价(元)\n                    </th>\n                    <th>\n                        总价(元)\n                    </th>\n                    <!--<th v-if=\"mode=='edit'\">-->\n                        <!--编辑-->\n                    <!--</th>-->\n                </tr>\n                <tr v-for=\"m in order.items\">\n                    <td>{{$index+1}}</td>\n                    <td>\n                        {{m.name}}\n                    </td>\n                    <td>\n                        <span v-if=\"mode=='detail'\">{{m.number}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.number\" number>\n                    </td>\n                    <td>{{m.unit}}</td>\n                    <td>¥\n                        <span v-if=\"mode=='detail'\">{{m.price}}</span>\n                        <input type=\"number\" v-if=\"mode=='edit'\" v-model=\"m.price\" number>\n                    </td>\n                    <td>¥{{m.price * m.number}}</td>\n                    <!--<td v-if=\"mode=='edit'\">-->\n                        <!--<a href=\"javascript:;\">删除</a>-->\n                    <!--</td>-->\n                </tr>\n                <tr>\n                    <td>合计</td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td></td>\n                    <td>¥{{total}}</td>\n                    <td v-if=\"mode=='edit'\">\n                        <!--<button class=\"btn btn-default btn-sm\"><span class=\"glyphicon glyphicon-plus\"></span></button>-->\n                    </td>\n                </tr>\n                </tbody></table>\n\n        </div>\n\n        <div class=\"panel-footer text-right\" v-if=\"mode=='edit'\">\n            <button class=\"btn btn-primary\" @click=\"onUpdate\">提交</button>\n            <button CLASS=\"btn btn-default\" @click=\"onCancel\">取消</button>\n        </div>\n    </div>\n\n    <div class=\"modal fade\" id=\"menuModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n        <div class=\"modal-dialog  modal-lg\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                    <h4 class=\"modal-title\" id=\"myModalLabel\">请选择菜品</h4>\n                </div>\n                <div class=\"modal-body\">\n                    <ul class=\"nav nav-tabs\">\n                        <li role=\"presentation\" v-for=\"t in types\" :class=\"{active:selectType==t.key}\"><a href=\"javascript:;\" @click=\"onChangeType(t.key)\">{{t.value}}</a></li>\n                    </ul>\n\n                    <div class=\"container-fluid\" >\n                        <div class=\"row\">\n                            <div class=\"col-md-2 menu-item\" v-for=\"m in menus\" v-if=\"m.type == selectType\">\n                                <div class=\"thumbnail\">\n                                    <img v-for=\"p in m.picture\" v-if=\"m.picture.length>0&&$index==0\" :src=\"'/data/image/'+p+'/100/100.json'\" >\n                                    <div class=\"caption\">\n                                        <h5>{{m.name}}</h5>\n                                        <p>{{m.cates.join(\",\")}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>\n                    <button type=\"button\" class=\"btn btn-primary\">确定</button>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
     data: function () {
         return {
             order:{
@@ -1198,25 +1336,99 @@ var Service = require("main/service.js");
 var nav = require("nav/nav.js");
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-config\">\n    <div class=\"panel panel-default content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" @click=\"onChangeView('food')\" :class=\"{active:view=='food'}\"><a href=\"javascript:;\">\n                    订餐配置</a></li>\n                <li role=\"presentation\"  @click=\"onChangeView('goods')\" :class=\"{active:view=='goods'}\"><a href=\"javascript:;\">\n                    订货配置</a></li>\n            </ul>\n        </div>\n        <div class=\"panel-body\" v-if=\"view=='food'\">\n\n            <div class=\"form-horizontal\">\n               <div class=\"form-group\">\n                   <label class=\"col-sm-2 control-label\">提前预定天数</label>\n                   <div class=\"col-sm-10\">\n                       <input type=\"number\"  class=\"form-control\" v-model=\"config.pre\" >\n                   </div>\n               </div>\n            </div>\n\n            <fieldset>\n                <legend>中餐</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚预定时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\" v-model=\"config.lunch.lastOrder\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚退订时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.lunch.unSub\" >\n                        </div>\n                    </div>\n                </div>\n            </fieldset>\n            <fieldset>\n                <legend>晚餐</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚预定时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.dinner.lastOrder\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚退订时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.dinner.unSub\" >\n                        </div>\n                    </div>\n                </div>\n            </fieldset>\n        </div>\n        <div class=\"panel-footer text-right\" v-if=\"view=='food'\">\n            <a href=\"javascript:;\" class=\"btn btn-primary\" @click=\"onSubmit\">提交</a>\n        </div>\n\n        <div class=\"panel-body\" v-if=\"view=='goods'\">\n            <div class=\"form-horizontal\">\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">提前预定天数</label>\n                    <div class=\"col-sm-10\">\n                        <input type=\"number\"  class=\"form-control\" v-model=\"gConfig.pre\" >\n                    </div>\n                </div>\n            </div>\n\n        </div>\n        <div class=\"panel-footer text-right\" v-if=\"view=='goods'\">\n            <a href=\"javascript:;\" class=\"btn btn-primary\" @click=\"onSubmitGoods\">提交</a>\n        </div>\n\n    </div>\n</div>",
+    template:"<div class=\"page-config\">\n    <div class=\"panel panel-default content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" @click=\"onChangeView('food')\" :class=\"{active:view=='food'}\"><a href=\"javascript:;\">\n                    订餐配置</a></li>\n                <li role=\"presentation\"  @click=\"onChangeView('goods')\" :class=\"{active:view=='goods'}\"><a href=\"javascript:;\">\n                    订货配置</a></li>\n            </ul>\n        </div>\n        <div class=\"panel-body\" v-if=\"view=='food'\">\n\n            <div class=\"form-horizontal\">\n               <div class=\"form-group\">\n                   <label class=\"col-sm-2 control-label\">提前预定天数</label>\n                   <div class=\"col-sm-10\">\n                       <input type=\"number\"  class=\"form-control\" v-model=\"config.pre\" >\n                   </div>\n               </div>\n            </div>\n\n            <fieldset>\n                <legend>中餐</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚预定时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\" v-model=\"config.lunch.lastOrder\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚退订时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.lunch.unSub\" >\n                        </div>\n                    </div>\n                </div>\n            </fieldset>\n            <fieldset>\n                <legend>晚餐</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚预定时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.dinner.lastOrder\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">最晚退订时间</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\"  class=\"form-control\"  v-model=\"config.dinner.unSub\" >\n                        </div>\n                    </div>\n                </div>\n            </fieldset>\n            <fieldset>\n                <legend>订餐开放设置</legend>\n                <table class=\"table table-bordered\">\n\n                    <tr>\n                        <th v-for=\"w in config.week\">\n                            {{getWeekName($key)}}\n                        </th>\n                    </tr>\n                    <tr>\n                        <td v-for=\"w in config.week\">\n                            <label>\n                                午餐\n                                <input type=\"checkbox\" v-model=\"w.lunch\">\n                            </label>\n                            <br>\n                            <label>\n                                晚餐\n                                <input type=\"checkbox\"  v-model=\"w.dinner\">\n                            </label>\n                        </td>\n                    </tr>\n\n                </table>\n\n            </fieldset>\n        </div>\n        <div class=\"panel-footer text-right\" v-if=\"view=='food'\">\n            <a href=\"javascript:;\" class=\"btn btn-primary\" @click=\"onSubmit\">提交</a>\n        </div>\n\n        <div class=\"panel-body\" v-if=\"view=='goods'\">\n            <fieldset>\n                <legend>订货设置</legend>\n                <div class=\"form-horizontal\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">订货开启时间</label>\n                        <div class=\"col-sm-5\">\n                            <select v-model=\"gConfig.begin.week\" class=\"form-control\">\n                                <option value=\"0\">每周末</option>\n                                <option value=\"1\">每周一</option>\n                                <option value=\"2\">每周二</option>\n                                <option value=\"3\">每周三</option>\n                                <option value=\"4\">每周四</option>\n                                <option value=\"5\">每周五</option>\n                                <option value=\"6\">每周六</option>\n                            </select>\n                        </div>\n                        <div class=\"col-sm-5\">\n                            <input type=\"text\"  class=\"form-control\" v-model=\"gConfig.begin.time\" >\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">订货关闭时间</label>\n                        <div class=\"col-sm-5\">\n                            <select v-model=\"gConfig.end.week\" class=\"form-control\">\n                                <option value=\"0\">每周末</option>\n                                <option value=\"1\">每周一</option>\n                                <option value=\"2\">每周二</option>\n                                <option value=\"3\">每周三</option>\n                                <option value=\"4\">每周四</option>\n                                <option value=\"5\">每周五</option>\n                                <option value=\"6\">每周六</option>\n                            </select>\n                        </div>\n                        <div class=\"col-sm-5\">\n                            <input type=\"text\"  class=\"form-control\" v-model=\"gConfig.end.time\" >\n                        </div>\n                    </div>\n                </div>\n\n            </fieldset>\n            <fieldset>\n                <legend>取货设置</legend>\n                <div class=\"form-horizontal\">\n                    <table class=\"table table-bordered\">\n                        <tr>\n                            <th v-for=\"w in gConfig.week\">\n                                {{getWeekName($key)}}\n                            </th>\n                        </tr>\n                        <tr>\n                            <td v-for=\"w in gConfig.week\">\n                                <label>\n                                    上午\n                                    <input type=\"checkbox\" v-model=\"w.morning\">\n                                </label>\n                                <br>\n                                <label>\n                                    中午\n                                    <input type=\"checkbox\"  v-model=\"w.noon\">\n                                </label>\n                                <br>\n                                <label>\n                                    下午\n                                    <input type=\"checkbox\"  v-model=\"w.afternoon\">\n                                </label>\n                            </td>\n                        </tr>\n\n                    </table>\n                </div>\n            </fieldset>\n\n        </div>\n        <div class=\"panel-footer text-right\" v-if=\"view=='goods'\">\n            <a href=\"javascript:;\" class=\"btn btn-primary\" @click=\"onSubmitGoods\">提交</a>\n        </div>\n\n    </div>\n</div>",
     data: function () {
-      return {
-          config:{
-              pre:4,
-              lunch:{
-                  lastOrder:"12:00",
-                  unSub:"12:20"
-              },
-              dinner:{
-                  lastOrder:"18:00",
-                  unSub:"18:20"
-              }
-          },
-          gConfig:{
-            pre:5
-          },
-          view:"food"
-      }
+        return {
+            config:{
+                pre:4,
+                lunch:{
+                    lastOrder:"12:00",
+                    unSub:"12:20"
+                },
+                dinner:{
+                    lastOrder:"18:00",
+                    unSub:"18:20"
+                },
+                week:{  //0周日
+                    0:{
+                        dinner:true,
+                        lunch:true
+                    },
+                    1:{
+                        dinner:true,
+                        lunch:true
+                    },
+                    2:{
+                        dinner:true,
+                        lunch:true
+                    },
+                    3:{
+                        dinner:true,
+                        lunch:true
+                    },
+                    4:{
+                        dinner:true,
+                        lunch:true
+                    },
+                    5:{
+                        dinner:true,
+                        lunch:true
+                    },
+                    6:{
+                        dinner:true,
+                        lunch:true
+                    }
+                }
+            },
+            gConfig:{
+                begin:{
+                    week:1,
+                    time:"08:00"
+                },
+                end:{
+                    week:3,
+                    time:"16:00"
+                },
+                week:{  //0周日
+                    0:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    },
+                    1:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    },
+                    2:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    },
+                    3:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    },
+                    4:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    },
+                    5:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    },
+                    6:{
+                        morning:true,
+                        noon:true,
+                        afternoon:true
+                    }
+                }
+            },
+            view:"food"
+        }
     },
     methods:{
         render: function () {
@@ -1254,19 +1466,60 @@ module.exports = Vue.extend({
         },
         onChangeView: function (v) {
             this.view = v;
+        },
+        getWeekName: function (v) {
+            var r = parseInt(v),week = "";
+            switch (r){
+                case 0:{
+                    week = "星期天";
+                }break;
+                case 1:{
+                    week = "星期一";
+                }break;
+                case 2:{
+                    week = "星期二";
+                }break;
+                case 3:{
+                    week = "星期三";
+                }break;
+                case 4:{
+                    week = "星期四";
+                }break;
+                case 5:{
+                    week = "星期五";
+                }break;
+                case 6:{
+                    week = "星期六";
+                }break;
+
+            }
+
+            var d = new Date();
+            var w = d.getDay();
+            var c = w - v;
+
+            if(c == 0){
+                return week+"(今天)";
+            }else if(c < 0){
+                d.setDate(d.getDate()+7+c);
+                return week+ d.Format("(yyyy-MM-dd)");
+            }else if(c >0){
+                d.setDate(d.getDate()+c);
+                return week+d.Format("(yyyy-MM-dd)");
+            }
         }
 
-        
+
     },
     ready: function () {
         this.render();
     },
     watch:{
-      view: function (v) {
-          if(v == "goods"){
-              this.renderGConfig();
-          }
-      }
+        view: function (v) {
+            if(v == "goods"){
+                this.renderGConfig();
+            }
+        }
     },
     route:{
         activate: function (transition) {
@@ -1737,8 +1990,8 @@ module.exports = Vue.extend({
 
 });
 
-;/*!/components/page/gOrder/order.js*/
-define('components/page/gOrder/order', function(require, exports, module) {
+;/*!/components/page/gOrder/stat/stat.js*/
+define('components/page/gOrder/stat/stat', function(require, exports, module) {
 
 /**
  * Created by jack on 16/4/4.
@@ -1752,16 +2005,304 @@ require("state/state.js");
 
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-menu\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" class=\"active\"><a href=\"#\">\n                    订单</a></li>\n            </ul>\n\n        </div>\n        <div class=\"panel-body\">\n            <div class=\"form-inline\">\n                <div class=\"form-group\">\n                    <label>日期</label>\n                    <input id=\"mdate\" type=\"text\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n                </div>\n                <a href=\"javascript:;\" class=\"btn btn-default\" @click=\"onQuery\">\n                    <span class=\"glyphicon glyphicon-search\"></span>\n                    查询</a>\n            </div>\n            <hr>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        取货时间\n                    </th>\n                    <th>\n                        下单人\n                    </th>\n                    <th>\n                        下单时间\n                    </th>\n                    <th>\n                        状态\n                    </th>\n                    <th>\n                        订单详情\n                    </th>\n\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"o in orders\" track-by=\"_id\">\n                    <td>{{$index+1 + 10*query.page}}</td>\n                    <td>{{o.mdate}}</td>\n                    <td>{{o.user.name}}</td>\n                    <td>{{(new Date(o.created)).Format(\"yyyy-MM-dd hh:mm\")}}</td>\n                    <td><c-state :state=\"o.state\"></c-state></td>\n                    <td><a v-link=\"{path:'/order/goods/'+o._id}\" >查看</a></td>\n                    <td><a @click=\"onCancel(o)\" href=\"javascript:;\">取消</a>\n                        <a @click=\"onComplete(o)\" href=\"javascript:;\">完成</a>\n                    </td>\n\n                </tr>\n                </tbody></table>\n            <div class=\"c-pager\">\n                <p class=\"pull-left\">共 {{count}} 条记录，每页 10 条 {{query.page+1}}/{{Math.ceil(count/10)}} </p>\n\n                <ul  class=\"pagination pagination-sm\">\n                    <li>\n                    </li>\n                    <li>\n                        <a href=\"javascript:;\" @click=\"toFirst\" aria-label=\"Previous\">\n                            <span class=\"glyphicon glyphicon-step-backward\"></span>\n                        </a>\n                    </li>\n                    <li><a href=\"javascript:;\" :disabled=\"query.page==0\" @click=\"toPre\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                    <li><a href=\"javascript:;\" @click=\"toNext\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                    <li>\n                        <a href=\"javascript:;\" @click=\"toLast\" aria-label=\"Next\">\n                            <span class=\"glyphicon glyphicon-step-forward\"></span>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n\n\n\n\n</div>\n",
+    template:"<div class=\"panel-body\">\n    <div class=\"form-inline\">\n        <div class=\"form-group\">\n            <label>日期</label>\n            <input type=\"text\" id=\"datepick\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n        </div>\n        <div class=\"form-group\">\n            <label >状态 </label>\n            <select class=\"form-control\" v-model=\"query.state\">\n                <option value=\"\">全部</option>\n                <option value=\"1\">未完成</option>\n                <option value=\"-1\">已取消</option>\n                <option value=\"2\">已完成</option>\n            </select>\n        </div>\n        <button class=\"btn btn-default\" @click=\"onQuery\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            查询</button>\n    </div>\n    <hr>\n    <table class=\"table table-bordered table-hover\">\n        <tbody>\n        <tr>\n            <th>\n                #\n            </th>\n            <th>\n                货物名称\n            </th>\n            <th>\n                价格\n            </th>\n            <th>\n                数量\n            </th>\n            <th>\n                总价\n            </th>\n        </tr>\n        <tr v-for=\"o in orders\">\n            <td>{{$index+1}}</td>\n            <td>{{o.name}}</td>\n            <td>¥{{o.price}}</td>\n            <td>{{o.number}}</td>\n            <td>¥{{o.price*o.number}}</td>\n        </tr>\n        </tbody></table>\n</div>",
     data: function () {
         return {
             orders:[],
             count:0,
             query:{
                 page:0,
-                limit:10,
+                limit:20,
+                mtime:"",
                 mdate:"",
-                sorts:'{"mdate":-1}'
+                sorts:'{"mdate":-1}',
+                state:""
+            }
+        }
+    },
+    methods:{
+        render: function () {
+            $("#datepick").val((new Date()).Format("yyyy-MM-dd"));
+            this.renderOrders();
+        },
+        renderOrders: function () {
+            var self = this;
+            layer.load();
+            var query = JSON.parse(JSON.stringify(this.query));
+            query.mdate = $("#datepick").val();
+            for(var i in query){
+                if(!query[i]){
+                    delete query[i]
+                }
+            }
+            Service.getGoodsOrder(query,function (rep) {
+                self.orders = self.stat(rep.lists);
+                self.count = rep.count;
+                layer.closeAll();
+            })
+        },
+        onDateClick: function () {
+            var self = this;
+            laydate({istime: true, format: 'YYYY-MM-DD',choose: function (datas) {
+                self.query.mdate = datas;
+            }});
+        },
+        onQuery: function () {
+            this.query.page = 0;
+            this.renderOrders();
+        },
+        stat: function (list) {
+            var result = [],menus = {};
+            list.forEach(function (l) {
+                if(typeof l.items == "object"){
+                    l.items.forEach(function (m) {
+                        menus[m._id]= {};
+                    })
+                }
+            });
+
+            for(var _id in menus){
+                list.forEach(function (l) {
+                    if(typeof l.items == "object"){
+                        l.items.forEach(function (m) {
+                            if(m._id == _id){
+                                menus[_id].name = m.name;
+                                menus[_id].picture = m.picture;
+                                menus[_id].price = m.price;
+                                if(menus[_id].number){
+                                    menus[_id].number += m.number;
+                                }else{
+                                    menus[_id].number = m.number;
+                                }
+
+                            }
+                        })
+                    }
+                });
+                result.push(menus[_id]);
+            }
+            return result.sort(function (a,b) {
+                return   b.number - a.number;
+            });
+        }
+    },
+    ready: function () {
+        this.render();
+    }
+});
+
+});
+
+;/*!/components/page/gOrder/weekstat/weekstat.js*/
+define('components/page/gOrder/weekstat/weekstat', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/4.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+
+require("form/form.js");
+require("state/state.js");
+
+
+module.exports = Vue.extend({
+    template:"<div class=\"panel-body\">\n    <div class=\"form-inline\">\n        <div class=\"form-group\">\n            <label>日期</label>\n            <input type=\"text\" id=\"datepick\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n        </div>\n        <div class=\"form-group\">\n            <label >状态 </label>\n            <select class=\"form-control\" v-model=\"query.state\">\n                <option value=\"\">全部</option>\n                <option value=\"1\">未完成</option>\n                <option value=\"-1\">已取消</option>\n                <option value=\"2\">已完成</option>\n            </select>\n        </div>\n        <button class=\"btn btn-default\" @click=\"onQuery\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            查询</button>\n\n        <div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">\n            <button type=\"button\" class=\"btn btn-default\" :class=\"{active:view=='0'}\" @click=\"onChangeView(0)\">统计</button>\n            <button type=\"button\" class=\"btn btn-default\"  :class=\"{active:view=='1'}\" @click=\"onChangeView(1)\">汇总</button>\n        </div>\n    </div>\n    <hr>\n    <table v-if=\"view==0\" class=\"table table-bordered table-hover\" id=\"weekstat\">\n        <tbody>\n        <tr>\n            <th>\n                #\n            </th>\n            <th>\n                下单人\n            </th>\n            <th>\n                取货时间\n            </th>\n            <th>\n                货物(名称\\数量\\单价\\合计)\n            </th>\n            <th>\n                总价\n            </th>\n        </tr>\n        <tr v-for=\"o in orders\">\n            <td>{{$index+1}}</td>\n            <td>{{o.user.name}}</td>\n            <td>{{o.mdate}} {{o.mtime}}</td>\n            <td>\n                <table class=\"table  table-bordered\">\n                    <tr v-for=\"i in o.items\">\n                        <td style=\"width: 40%\">{{i.name}}</td>\n                        <td  style=\"width: 20%\">{{i.number}} {{i.unit}}</td>\n                        <td  style=\"width: 20%\">¥{{i.price}}</td>\n                        <td  style=\"width: 20%\">¥{{i.price*i.number}}</td>\n                    </tr>\n                </table>\n            </td>\n            <td>¥{{getTotal(o)}}</td>\n        </tr>\n        </tbody></table>\n\n    <table v-if=\"view==1\" class=\"table table-bordered table-hover\" id=\"weekstat\">\n        <tbody>\n        <tr>\n            <th>\n                #\n            </th>\n            <th>\n                货物名称\n            </th>\n            <th>\n                价格\n            </th>\n            <th>\n                数量\n            </th>\n            <th>\n                总价\n            </th>\n        </tr>\n        <tr v-for=\"o in stats\">\n            <td>{{$index+1}}</td>\n            <td>{{o.name}}</td>\n            <td>¥{{o.price}}</td>\n            <td>{{o.number}}{{o.unit}}</td>\n            <td>¥{{o.price*o.number}}</td>\n        </tr>\n        <tr>\n            <td colspan=\"4\">合计</td>\n            <td>¥{{allCount(stats)}}</td>\n        </tr>\n        </tbody></table>\n</div>",
+    data: function () {
+        return {
+            orders:[],
+            stats:[],
+            count:0,
+            view:0,
+            query:{
+                mdate:"",
+                sorts:'{"mdate":-1}',
+                state:""
+            }
+        }
+    },
+    methods:{
+        render: function () {
+            var now = (new Date()).Format("yyyy-MM-dd");
+            $("#datepick").val(now);
+            this.renderOrders(now);
+        },
+        onDateClick: function () {
+            var self = this;
+            laydate({istime: true, format: 'YYYY-MM-DD',choose: function (datas) {
+                self.query.mdate = datas;
+            }});
+        },
+        onQuery: function () {
+            this.renderOrders( $("#datepick").val());
+        },
+        renderOrders: function (date) {
+
+            this.orders = [];
+            this.stats = [];
+            this.view = 0;
+
+            var result = this.getMonDayAndSunDay(date);
+            var self = this;
+
+            var query = JSON.parse(JSON.stringify(this.query));
+            for(var i in query){
+                if(!query[i]){
+                    delete query[i]
+                }
+            }
+
+            for(var i in result){
+                (function (date) {
+                    query.mdate =date;
+
+                    Service.getGoodsOrder(query, function (rep) {
+                        self.orders = self.orders.concat(rep.lists);
+                    });
+                })(result[i])
+            }
+
+        },
+        getTotal: function (o) {
+            var total = 0;
+            o.items.forEach(function (i) {
+                total += (i.price* i.number);
+            });
+            return total;
+        },
+        getMonDayAndSunDay: function (datevalue) {
+            var dateValue = datevalue;result = [];
+            var arr = dateValue.split("-");
+            //月份-1 因为月份从0开始 构造一个Date对象
+            var date = new Date(arr[0],arr[1]-1,arr[2]);
+
+            var dateOfWeek = date.getDay();//返回当前日期的在当前周的某一天（0～6--周日到周一）
+
+            var dateOfWeekInt = parseInt(dateOfWeek,10);//转换为整型
+
+            if(dateOfWeekInt==0){//如果是周日
+                dateOfWeekInt=7;
+            }
+            var aa = 7-dateOfWeekInt;//当前于周末相差的天数
+
+            var temp2 = parseInt(arr[2],10);//按10进制转换，以免遇到08和09的时候转换成0
+            var sunDay = temp2+aa;//当前日期的周日的日期
+            var monDay = sunDay-6//当前日期的周一的日期
+
+            var startDate = new Date(arr[0],arr[1]-1,monDay);
+            var endDate = new Date(arr[0],arr[1]-1,sunDay);
+
+            var sm = parseInt(startDate.getMonth())+1;//月份+1 因为月份从0开始
+            var em = parseInt(endDate.getMonth())+1;
+
+            if(sm<9){
+                sm = "0"+sm;
+            }
+            if(em<9){
+                em = "0"+em;
+            }
+
+            var start = startDate.getFullYear()+"-"+sm+"-"+startDate.Format("dd");
+            //var end = endDate.getFullYear()+"-"+em+"-"+endDate.Format("dd");
+            //var result = new Array();
+            result.push(start);
+
+            var dd = new Date(start);
+            for (var i = 1; i < 7; i++) {
+                dd.setDate(dd.getDate()+ 1);
+                result.push(dd.Format("yyyy-MM-dd"));
+            }
+
+            return result;
+        },
+        stat: function (list) {
+            var result = [],menus = {};
+            list.forEach(function (l) {
+                if(typeof l.items == "object"){
+                    l.items.forEach(function (m) {
+                        menus[m._id]= {};
+                    })
+                }
+            });
+
+            for(var _id in menus){
+                list.forEach(function (l) {
+                    if(typeof l.items == "object"){
+                        l.items.forEach(function (m) {
+                            if(m._id == _id){
+                                menus[_id].name = m.name;
+                                menus[_id].picture = m.picture;
+                                menus[_id].price = m.price;
+                                if(menus[_id].number){
+                                    menus[_id].number += m.number;
+                                }else{
+                                    menus[_id].number = m.number;
+                                }
+
+                            }
+                        })
+                    }
+                });
+                result.push(menus[_id]);
+            }
+            return result.sort(function (a,b) {
+                return   b.number - a.number;
+            });
+        },
+        allCount: function (stats) {
+            var total = 0;
+            stats.forEach(function (i) {
+                total += (i.price* i.number);
+            });
+            return total.toFixed(2);
+        },
+        onChangeView: function (v) {
+            this.view = v;
+        }
+    },
+    watch:{
+      view: function (v) {
+          if(v == 1){
+              this.stats = this.stat(this.orders);
+          }
+      }
+    },
+    ready: function () {
+        this.render();
+    }
+});
+
+});
+
+;/*!/components/page/gOrder/order.js*/
+define('components/page/gOrder/order', function(require, exports, module) {
+
+/**
+ * Created by jack on 16/4/4.
+ */
+
+var Vue = require("component_modules/vue.js");
+var Service = require("main/service.js");
+
+require("form/form.js");
+require("state/state.js");
+var stat = require("components/page/gOrder/stat/stat");
+var weekstat = require("components/page/gOrder/weekstat/weekstat");
+
+module.exports = Vue.extend({
+    template:"<div class=\"page-menu\">\n    <div class=\"panel panel-default  content\">\n        <div class=\"panel-heading\">\n            <ul class=\"nav nav-pills pull-left\">\n                <li role=\"presentation\" :class=\"{active:view==0}\" @click=\"changeView(0)\"><a href=\"javascript:;\">\n                    订单</a></li>\n                <li role=\"presentation\"  :class=\"{active:view==1}\" @click=\"changeView(1)\" ><a href=\"javascript:;\">\n                    每日汇总</a></li>\n                <li role=\"presentation\"  :class=\"{active:view==2}\" @click=\"changeView(2)\" ><a href=\"javascript:;\">\n                    周报</a></li>\n            </ul>\n\n            <a href=\"javascript:;\" v-if=\"view==2\" class=\"btn pull-right\" @click=\"onPrint\">\n                <span class=\"glyphicon glyphicon-print\"></span>\n                打印\n            </a>\n\n        </div>\n        <div v-if=\"view==0\" class=\"panel-body\">\n            <div class=\"form-inline\">\n                <div class=\"form-group\">\n                    <label>日期</label>\n                    <input id=\"mdate\" type=\"text\" class=\"form-control\" @click=\"onDateClick\" v-model=\"query.mdate\" placeholder=\"请选择\">\n                </div>\n                <div class=\"form-group\">\n                    <label >状态 </label>\n                    <select class=\"form-control\" v-model=\"query.state\">\n                        <option value=\"\">全部</option>\n                        <option value=\"1\">未完成</option>\n                        <option value=\"-1\">已取消</option>\n                        <option value=\"2\">已完成</option>\n                    </select>\n                </div>\n                <a href=\"javascript:;\" class=\"btn btn-default\" @click=\"onQuery\">\n                    <span class=\"glyphicon glyphicon-search\"></span>\n                    查询</a>\n            </div>\n            <hr>\n            <table class=\"table table-bordered table-hover\">\n                <tbody>\n                <tr>\n                    <th>\n                        #\n                    </th>\n                    <th>\n                        取货时间\n                    </th>\n                    <th>\n                        下单人\n                    </th>\n                    <th>\n                        下单时间\n                    </th>\n                    <th>\n                        状态\n                    </th>\n                    <th>\n                        订单详情\n                    </th>\n\n                    <th>\n                        操作\n                    </th>\n                </tr>\n                <tr v-for=\"o in orders\" track-by=\"_id\">\n                    <td>{{$index+1 + 10*query.page}}</td>\n                    <td>{{o.mdate}} {{o.mtime | timeName}}</td>\n                    <td>{{o.user.name}}</td>\n                    <td>{{(new Date(o.created)).Format(\"yyyy-MM-dd hh:mm\")}}</td>\n                    <td><c-state :state=\"o.state\"></c-state></td>\n                    <td><a v-link=\"{path:'/order/goods/'+o._id}\" >查看</a></td>\n                    <td><a @click=\"onCancel(o)\" href=\"javascript:;\">取消</a>\n                        <a @click=\"onComplete(o)\" href=\"javascript:;\">已完成</a>\n                    </td>\n\n                </tr>\n                </tbody></table>\n            <div class=\"c-pager\">\n                <p class=\"pull-left\">共 {{count}} 条记录，每页 {{query.limit}} 条 {{query.page+1}}/{{Math.ceil(count/query.limit)}} </p>\n\n                <ul  class=\"pagination pagination-sm\">\n                    <li>\n                    </li>\n                    <li>\n                        <a href=\"javascript:;\" @click=\"toFirst\" aria-label=\"Previous\">\n                            <span class=\"glyphicon glyphicon-step-backward\"></span>\n                        </a>\n                    </li>\n                    <li><a href=\"javascript:;\" :disabled=\"query.page==0\" @click=\"toPre\"><span class=\"glyphicon glyphicon-triangle-left\"></span></a></li>\n                    <li><a href=\"javascript:;\" @click=\"toNext\"><span class=\"glyphicon glyphicon-triangle-right\"></span></a></li>\n\n                    <li>\n                        <a href=\"javascript:;\" @click=\"toLast\" aria-label=\"Next\">\n                            <span class=\"glyphicon glyphicon-step-forward\"></span>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n        <div is=\"stat\" v-if=\"view ==1\"></div>\n        <div is=\"weekstat\" v-if=\"view ==2\"></div>\n    </div>\n\n\n\n\n</div>\n",
+    data: function () {
+        return {
+            view:0,
+            orders:[],
+            count:0,
+            query:{
+                page:0,
+                limit:20,
+                mdate:"",
+                sorts:'{"mdate":-1}',
+                state:""
             }
         }
     },
@@ -1834,7 +2375,18 @@ module.exports = Vue.extend({
                     layer.alert("操作成功!");
                 })
             });
+        },
+
+        changeView: function (v) {
+            this.view = v;
+        },
+        onPrint: function () {
+            $("#weekstat").jqprint();
         }
+    },
+    components:{
+        stat:stat,
+        weekstat:weekstat
     },
     ready: function () {
         this.render();
