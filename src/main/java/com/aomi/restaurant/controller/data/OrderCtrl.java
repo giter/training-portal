@@ -250,8 +250,6 @@ public class OrderCtrl {
     opp.setMdate(mdate);
     opp.setMtime(mtime);
 
-    opp.setState(1);
-
     List<Order> orders = orderService.page(opp);
 
     TablePageParam tpp = new TablePageParam();
@@ -267,6 +265,10 @@ public class OrderCtrl {
     }
 
     for (Order o : orders) {
+
+      // delete complete orders
+      if (o.getState() == 2)
+        continue;
 
       if (o.getTable() != null) {
 
