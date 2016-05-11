@@ -258,6 +258,9 @@ public class OrderCtrl {
       if (o.getState() == 2)
         continue;
 
+      if (o.getState() == -1)
+        continue;
+
       orders.add(o);
     }
 
