@@ -615,7 +615,8 @@ p img {
   border: none;
 }
 .table-icon {
-  color: #ffff00;
+  color: #000;
+  text-shadow: 1px 1px   yellow;
   font-size: 12px;
   border-radius: 4px;
   z-index: 2000 !important;
