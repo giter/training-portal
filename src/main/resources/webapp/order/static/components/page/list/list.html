@@ -26,7 +26,7 @@
             <a class="mui-navigate-right" @click="goTo(l)">
                 <div class="mui-media-body">
                     {{l.mdate}} {{l.mtime=="lunch"?"午餐":"晚餐"}}
-                    <p class='mui-ellipsis'>{{l.table.no}}号桌({{l.table.type==0?"大厅":"包厢"}})  {{l.number}}人</p>
+                    <p class='mui-ellipsis'>{{l.table.no}}号桌({{l.table.type==0?"包间":"大厅"}})  {{l.number}}人</p>
                 </div>
                 <span class="mui-badge mui-badge-primary" v-if="l.menu.length>0&&!checkExpire(l)">已点餐</span>
                 <span class="mui-badge " v-if="checkExpire(l)">已过期</span>
@@ -38,16 +38,17 @@
 <div class="mui-content"  v-if="view=='goods'" >
 
     <ul class="mui-table-view" style="margin-bottom: 50px">
-        <li style="text-align: center" v-show="count ==0">
+        <li style="text-align: center" v-show="gcount ==0">
             暂无订单
         </li>
         <li class="mui-table-view-cell mui-media" v-for="l in list.goods" v-if="l.state>0">
-            <a class="mui-navigate-right" v-link="{path:'/order/goods/detail/'+l._id}">
+            <a class="mui-navigate-right" @click="goTo2(l)">
                 <div class="mui-media-body">
-                    {{l.mdate}}
+                    {{l.mdate}} {{getName(l.mtime)}}
                     <p class='mui-ellipsis'></p>
                 </div>
-                <span class="mui-badge mui-badge-primary" >已订货</span>
+                <span v-if="!checkExpire2(l)" class="mui-badge mui-badge-primary" v-show="l.items.length>0" >已订货</span>
+                <span v-if="checkExpire2(l)" class="mui-badge ">已过退订时间</span>
             </a>
         </li>
     </ul>

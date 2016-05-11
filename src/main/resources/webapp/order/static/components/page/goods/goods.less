@@ -1,27 +1,26 @@
-.page-food{
+.page-goods{
     .left-nav{
         position:fixed;
-        width: 100px;
+        width: 80px;
         left: 0;
         top:45px;
         bottom:50px;
         overflow-y: auto;
-        border-right: 1px solid #efefef;
 
-        background-color: #FAFAFA;
+        background-color: #F5F5F5;
 
         .mui-table-view{
             .mui-table-view-cell{
-                background-color: #F5F5F5;
+                border-right: 1px solid #efefef;
+                background-color: #FAFAFA;
                 font-size: 16px;
                 padding: 10px;
-                font-weight: bold;
+                color: #09BB07;
             }
 
             .mui-table-view-cell.active{
                 border-right: none;
                 background-color: #fff;
-                color: #09BB07;
             }
             .mui-table-view-cell:after{
                 left: 0;
@@ -30,13 +29,14 @@
     }
 
     .right-list{
-        margin-left: 100px;
+        margin-left: 80px;
         overflow-y: auto;
         padding-bottom: 50px;
         .mui-table-view{
 
             .mui-media-body{
                 font-size: 15px;
+                font-weight: bold;
             }
 
             .mui-table-view-cell:after{
@@ -51,7 +51,7 @@
             }
 
             .mui-numbox{
-                height:30px;
+                height: 30px;
             }
 
             .mui-media-body{
@@ -83,15 +83,6 @@
         .mui-btn{
             padding: 10px;
         }
-
-        .col-md-12{
-            display: inline-block;
-            width: 50%;
-        }
-    }
-    .menu-img{
-        height: 50px !important;
-        width: 50px  !important;;
     }
 
 }

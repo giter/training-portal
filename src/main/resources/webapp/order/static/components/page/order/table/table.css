@@ -14,6 +14,12 @@
   background-color: #ddd;
   border: none;
 }
+.table-icon {
+  color: #ffff00;
+  font-size: 12px;
+  border-radius: 4px;
+  z-index: 2000 !important;
+}
 .table-info {
   width: 200px;
 }

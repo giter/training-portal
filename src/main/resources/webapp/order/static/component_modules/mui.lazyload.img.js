@@ -57,7 +57,7 @@ define('component_modules/mui.lazyload.img', function(require, exports, module) 
 							callback(placeholder);
 						};
 					});
-					self._addPlaceHolder(element);
+					//self._addPlaceHolder(element);
 				}
 				return true;
 			}

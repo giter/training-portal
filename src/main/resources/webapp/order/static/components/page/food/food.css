@@ -1,6 +1,6 @@
 .page-food .left-nav {
   position: fixed;
-  width: 80px;
+  width: 100px;
   left: 0;
   top: 45px;
   bottom: 50px;
@@ -10,17 +10,20 @@
 }
 .page-food .left-nav .mui-table-view .mui-table-view-cell {
   background-color: #F5F5F5;
-  font-size: 14px;
+  font-size: 16px;
+  padding: 10px;
+  font-weight: bold;
 }
 .page-food .left-nav .mui-table-view .mui-table-view-cell.active {
   border-right: none;
   background-color: #fff;
+  color: #09BB07;
 }
 .page-food .left-nav .mui-table-view .mui-table-view-cell:after {
   left: 0;
 }
 .page-food .right-list {
-  margin-left: 80px;
+  margin-left: 100px;
   overflow-y: auto;
   padding-bottom: 50px;
 }
@@ -34,7 +37,7 @@
   margin-top: 10px;
 }
 .page-food .right-list .mui-table-view .f-info .f-price {
-  font-size: 22px;
+  font-size: 20px;
 }
 .page-food .right-list .mui-table-view .mui-numbox {
   height: 30px;
@@ -47,7 +50,7 @@
   height: 15px;
 }
 .page-food .l-menu {
-  margin-left: 80px;
+  margin-left: 100px;
   overflow-y: auto;
   padding-bottom: 50px;
   margin-left: 0;
@@ -62,7 +65,7 @@
   margin-top: 10px;
 }
 .page-food .l-menu .mui-table-view .f-info .f-price {
-  font-size: 22px;
+  font-size: 20px;
 }
 .page-food .l-menu .mui-table-view .mui-numbox {
   height: 30px;
@@ -82,6 +85,10 @@
 }
 .page-food .b-submit .mui-btn {
   padding: 10px;
+}
+.page-food .b-submit .col-md-12 {
+  display: inline-block;
+  width: 50%;
 }
 .page-food .menu-img {
   height: 50px !important;

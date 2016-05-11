@@ -57,13 +57,18 @@ var App = Vue.extend({
             });
         },60000);
 
+        setInterval(function () {
+            Service.getCtx("dh_config",function (rep) {
+                self.gconfig = rep.config;
+            });
+        },60000);
+
         store.getOrders();
         store.getGoods();
-
-        FastClick.attach(document.body);
-
+         //FastClick.attach(document.body);
     }
 });
+
 
 router.redirect({
     "/":"/order"
@@ -81,21 +86,21 @@ router.map({
         },
         name:"table"
     },
-    "/order/goods/:mdate":{
+    "/goods/:mdate/:mtime/:mode":{
         component: function (resolve) {
             require.async(["components/page/goods/goods"], function (p) {
                 resolve(p);
             });
         }
     },
-    "/order/goods/detail/:oid":{
+    "/order/goods/detail/:oid/:mode":{
         component: function (resolve) {
             require.async(["components/page/goods/goods"], function (p) {
                 resolve(p);
             });
         }
     },
-    "/food/:oid":{
+    "/food/:oid/:view/:mode":{
         component: function (resolve) {
             require.async(["components/page/food/food"], function (p) {
                 resolve(p);
@@ -125,7 +130,7 @@ router.map({
             });
         }
     },
-    "/list":{//订单列表
+    "/list/:view":{//订单列表
         component: function (resolve) {
             require.async(["components/page/list/list"], function (p) {
                 resolve(p);
@@ -138,19 +143,29 @@ router.map({
                 resolve(p);
             });
         }
+    },
+    "list/good/:id":{
+        component: function (resolve) {
+            require.async(["components/page/list/good/good"], function (p) {
+                resolve(p);
+            });
+        }
     }
 });
 
 layer.open({type:2});
 Service.getCtx("dc_config", function (rep) {
-    router.start(App.extend({
-        data: function () {
-            return {
-                config:rep.config
+    Service.getCtx("dh_config",function (dhrep) {
+        router.start(App.extend({
+            data: function () {
+                return {
+                    config:rep.config,
+                    gconfig:dhrep.config
+                }
             }
-        }
-    }), '#app');
-    layer.closeAll();
+        }), '#app');
+        layer.closeAll();
+    });
 });
 
 

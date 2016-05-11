@@ -68,7 +68,7 @@ function getTables(p,c){
 }
 
 function getDishes(c){
-    $.get(prefix +"/data/dishes.json",co(c));
+    $.get(prefix +"/data/dishes.json?",{sorts:"{created:1}"},co(c));
 }
 
 function getNotices(c){
@@ -128,7 +128,12 @@ function delGOrder(id,c){
     $.del(prefix +"/data/basket/{id}.json".replace("{id}",id),co(c));
 }
 
+function getUserInfo(c){
+    $.get(prefix +"/get_user_info.json",co(c));
+}
+
 module.exports = {
+    getUserInfo:getUserInfo,
     getDate:getDate,
     getTables:getTables,
     getDishes:getDishes,
