@@ -280,6 +280,12 @@ public class OrderCtrl {
 
       if (o.getTable() != null) {
 
+        Table table = tableMap.get(o.getTable().get_id());
+
+        if (table != null) {
+          o.getTable().put("position", table.getPosition());
+        }
+
         tableMap.remove(o.getTable().get_id());
       }
 
