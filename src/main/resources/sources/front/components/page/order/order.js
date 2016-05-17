@@ -19,7 +19,7 @@ module.exports = Vue.extend({
         render: function () {
             var self = this;
             Layer.open({
-                content:"¼ÓÔØÖĞ",
+                content:"åŠ è½½ä¸­",
                 type:2,
                 shadeClose:false,
                 shade:"background-color:rgba(0,0,0,0)"
@@ -45,8 +45,8 @@ module.exports = Vue.extend({
         unSub: function (o) {
             var self = this;
             Layer.open({
-                content:"È·¶¨ÍË¶©"+ o.date+"µÄ"+ o.seat.sn+"ºÅ×ùÎ»£¿",
-                btn:["È·¶¨","È¡Ïû"],
+                content:"ç¡®å®šé€€è®¢"+ o.date+"çš„"+ o.seat.sn+"å·åº§ä½ï¼Ÿ",
+                btn:["ç¡®å®š","å–æ¶ˆ"],
                 shadeClose:false,
                 yes: function () {
                     Layer.closeAll();

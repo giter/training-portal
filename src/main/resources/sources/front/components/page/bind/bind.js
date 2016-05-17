@@ -11,10 +11,10 @@ module.exports = Vue.extend({
     inherit:true,
     template:__inline("bind.html"),
     data: function () {
-      return {
-          email:"",
-          valid:true
-      }
+        return {
+            email:"",
+            valid:true
+        }
     },
     methods:{
         onBind: function () {
@@ -23,7 +23,7 @@ module.exports = Vue.extend({
             }else{
                 this.valid = true;
                 Layer.open({
-                    content:"Ã·Ωª÷–",
+                    content:"Êèê‰∫§‰∏≠",
                     type:2,
                     shadeClose:false
                 });
@@ -35,7 +35,7 @@ module.exports = Vue.extend({
                     if(rep.Code == 0){
                         Layer.open({
                             content:rep.Response.value,
-                            btn:["»∑∂®"],
+                            btn:["Á°ÆÂÆö"],
                             yes: function () {
                                 WeixinJSBridge.call('closeWindow');
                             }
@@ -43,7 +43,7 @@ module.exports = Vue.extend({
                     }else{
                         Layer.open({
                             content:rep.Message,
-                            btn:["»∑∂®"],
+                            btn:["Á°ÆÂÆö"],
                             yes: function () {
                                 WeixinJSBridge.call('closeWindow');
                             }
