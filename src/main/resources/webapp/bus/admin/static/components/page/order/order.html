@@ -1,0 +1,38 @@
+<div>
+
+    <div class="panel admin-panel">
+
+        <div class="panel-head">
+
+            <strong>
+                车位预订
+            </strong>
+        </div>
+        <div class="padding border-bottom">
+                <div class="form-group">
+                    <div class="label"><label >目的地&nbsp;</label></div>
+                    <div class="field">
+                        <select class="input" name="place">
+                            <option>请选择</option>
+                            <option value="1">目的地1234</option>
+                        </select>
+                    </div>
+                </div>
+            <ul class="nav nav-menu nav-inline nav-main nav-justified nav-navicon border-green">
+                <li v-class="dateActive:$index==0" v-repeat="d in dates"><a href="javascript:;" style="padding-left: 0;padding-right: 0;">{{d | dateFormat}}</a></li>
+            </ul>
+        </div>
+        <table class="table table-hover">
+            <tr><th width="45">选择</th><th width="120">车牌号</th><th width="100">驾驶员</th><th width="100">汽车类型</th><th width="100">发车目的地</th><th width="100">发车时间</th><th width="100">座位数</th><th width="100">操作</th></tr>
+            <tr v-repeat="c in cars">
+                <td><input type="checkbox" name="id" value="1" /></td>
+                <td>{{c.name}}</td>
+                <td>{{c.name}}</td>
+                <td>大巴</td>
+                <td>{{c.destination}}</td>
+                <td>{{c.goff}}</td>
+                <td>{{c.number}}</td>
+                <td><a class="button border-blue button-little" href="#">预订</a> </tr>
+        </table>
+    </div>
+</div>

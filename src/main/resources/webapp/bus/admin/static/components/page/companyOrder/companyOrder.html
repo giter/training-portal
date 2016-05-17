@@ -1,0 +1,85 @@
+<div class="page-companyOrder container-layout">
+    <div class="line">
+        <div class="x5">
+            <div class="panel admin-panel">
+                <div class="padding border-bottom">
+                    <div class="form-inline">
+                        <div class="form-group">
+
+                            <div class="field">
+                                <select class="input" v-model="selectCompany" options="companies">
+                                    <option >请选择合作单位</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="field">
+                                <select class="input" v-model="selectCalendar" options="calendar">
+                                    <option value="">请选择日期</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--<button class="button bg-main float-right" v-on="click:getCompanyUser" >查询</button>-->
+                </div>
+
+                <table class="table">
+                    <tr>
+                        <th width="60">序号</th>
+                        <th width="100">姓名</th>
+                        <th width="100">车辆</th>
+                        <th width="100">车位</th>
+                        <th width="*">操作</th>
+                    </tr>
+                </table>
+                <div v-style="tableStyle" >
+                    <table class="table ">
+                        <tr v-repeat="u in users" style="cursor: pointer" v-on="click:clickUser(u._id)" v-class="bg-main:u._id == selectUser">
+                            <td width="60">
+                                {{$index+1}}
+                            </td>
+                            <td width="100">
+                                {{u.name}}
+                            </td>
+                            <td width="100">
+                                {{u.bus}}
+                            </td>
+                            <td width="100">
+                                {{u.seat}}
+                            </td>
+                            <td width="*">
+                                <button v-if="u.seat" v-on="click:unSub(u._id,u.ticket)" class="button bg-yellow">退订</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="x7" style="padding-left: 5px;">
+            <div class="panel admin-panel">
+                <div class="padding border-bottom">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="label">
+                            </div>
+                            <div class="field">
+                                <select v-attr="disabled:users.length==0" v-on="change:searchTicketStats" class="input" v-model="selectWhither" options="whither">
+                                    <option>请选择目的地</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="badge bg-sub">{{selectCalendar}}</span>
+                    </div>
+                    <button v-on="click:onOrder" class="button bg-main float-right"  v-attr="disabled:!selectSeat||!selectUser">预订</button>
+
+                </div>
+
+                <div v-component="{{childView}}" keep-alive ></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
