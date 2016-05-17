@@ -425,19 +425,19 @@ window.app = new Vue({
         "users":[],
         "user":[],
         "search":{
-            "whither":"��ѡ��",
+            "whither":"请选择",
             "date":null,
             "dateStr":""
         },
-        "result":[],/*��Ʊ���*/
-        "bus":[],/*��ѯ���ĳ�����Ϣ*/
+        "result":[],
+        "bus":[],
         "calendars":[],
         "whithers":[],
         "openid":"",
         "mine":"",
         "detailTicket":"",
-        "beginTime":1800,/*��ǰ30����*/
-        "endTime":10800,/*�ӳ���Сʱ*/
+        "beginTime":1800,
+        "endTime":10800,
         "busQuery":{
             id:"",
             date:"",
@@ -474,7 +474,6 @@ window.app = new Vue({
     }
 });
 
-/*��������*/
 Vue.transition('slideInRight', {
     leave: function (el) {
         if( $(el).length>0){
@@ -595,7 +594,6 @@ router.on("/relation/relatives",function(){
     })
 });
 
-/*�а���*/
 router.on("/company",function(){
     require.async(["components/page/company/company"], function (p) {
         doRouter("company",p);
@@ -652,10 +650,10 @@ module.exports = Vue.extend({
     inherit:true,
     template:"<div class=\"bind-container mui-content\">\r\n<header class=\"mui-bar-nav mui-bar\">\r\n    <h5 class=\"mui-title\">\r\n        用户绑定\r\n    </h5>\r\n    <a class=\" mui-icon mui-icon-left-nav mui-pull-left\" href=\"#config\"></a>\r\n</header>\r\n   <div class=\"mui-content\">\r\n\r\n       <h5 style=\"text-align: center;margin: 10px;\">请输入您的企业邮箱地址进行绑定</h5>\r\n       <div class=\"mui-card\">\r\n           <form class=\"mui-input-group\">\r\n              <div class=\"mui-input-row\">\r\n                  <label>邮箱</label>\r\n                  <input type=\"text\" class=\"mui-input-clear\" v-model=\"email\" placeholder=\"请输入邮箱地址\">\r\n              </div>\r\n          </form>\r\n       </div>\r\n       <h5 style=\"color: red;text-align: center\" v-show=\"!valid\">请输入正确邮箱格式</h5>\r\n       <div style=\"padding: 15px\">\r\n        <a style=\"padding: 6px 0\" class=\"mui-btn mui-btn-block mui-btn-blue\" v-on=\"click:onBind\">绑定</a>\r\n    </div>\r\n   </div>\r\n</div>\r\n",
     data: function () {
-      return {
-          email:"",
-          valid:true
-      }
+        return {
+            email:"",
+            valid:true
+        }
     },
     methods:{
         onBind: function () {
@@ -710,7 +708,7 @@ var Vue = require("component_modules/vue.js");
 
 module.exports = Vue.component("c-nav",{
     inherit:true,
-    template:"<nav class=\"mui-bar mui-bar-tab\"  >\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='search'\" v-on=\"tap:onClick('#search')\">\r\n        <span class=\"mui-icon mui-icon-search\"></span>\r\n        <span class=\"mui-tab-label\">搜索</span>\r\n    </a>\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='order'\" v-on=\"tap:onClick('#order')\"  >\r\n        <span class=\"mui-icon icon-font  mui-icon-phone\"></span>\r\n        <span class=\"mui-tab-label\">订单</span>\r\n    </a>\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='validate'\"  v-on=\"tap:onClick('#validate')\">\r\n        <span class=\"mui-icon mui-icon-compose\"></span>\r\n        <span class=\"mui-tab-label\">验票</span>\r\n    </a>\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='config'\" v-on=\"tap:onClick('#config')\">\r\n        <span class=\"mui-icon mui-icon-list\"></span>\r\n        <span class=\"mui-tab-label\">服务</span>\r\n    </a>\r\n</nav>",
+    template:"<nav class=\"mui-bar mui-bar-tab\"  >\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='search'\" v-on=\"click:onClick('#search')\">\r\n        <span class=\"mui-icon mui-icon-search\"></span>\r\n        <span class=\"mui-tab-label\">搜索</span>\r\n    </a>\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='order'\" v-on=\"click:onClick('#order')\"  >\r\n        <span class=\"mui-icon icon-font  mui-icon-phone\"></span>\r\n        <span class=\"mui-tab-label\">订单</span>\r\n    </a>\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='validate'\"  v-on=\"click:onClick('#validate')\">\r\n        <span class=\"mui-icon mui-icon-compose\"></span>\r\n        <span class=\"mui-tab-label\">验票</span>\r\n    </a>\r\n    <a class=\"mui-tab-item\" v-class=\"mui-active:view =='config'\" v-on=\"click:onClick('#config')\">\r\n        <span class=\"mui-icon mui-icon-list\"></span>\r\n        <span class=\"mui-tab-label\">服务</span>\r\n    </a>\r\n</nav>",
     props:["view"],
     methods:{
         onClick: function (hash) {
@@ -1297,7 +1295,7 @@ define('components/page/search/result/result', function(require, exports, module
 
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 var Layer = require("component_modules/layer.m.js").layer;
 
 module.exports = Vue.extend({
@@ -1331,7 +1329,7 @@ module.exports = Vue.extend({
          var self = this;
          self.bus = [];
          Layer.open({
-            content: "������",
+            content: "加载中",
             type: 2,
             shadeClose: false,
             shade: false
@@ -1348,13 +1346,13 @@ module.exports = Vue.extend({
       selectBus: function (busid,date,off) {
          if(off){
             return Layer.open({
-               content: "�ѳ�������ʱ�䣬��ѡ�������೵��",
-               btn:["ȷ��"]
+               content: "已超过订车时间，请选择其他班车。",
+               btn:["确定"]
             });
          }else{
             var self = this;
             Layer.open({
-               content:"������",
+               content:"加载中",
                type:2,
                shadeClose:false,
                shade:"background-color:rgba(0,0,0,0)"
@@ -1501,7 +1499,7 @@ module.exports =   Vue.extend({
                Layer.closeAll();
             }
          });
-      } 
+      }
    },
    ready: function () {
       var self = this;
@@ -1534,7 +1532,7 @@ define('components/page/whither/whither', function(require, exports, module) {
 var Vue = require("component_modules/vue.js");
 var nav = require("navbar/navbar.js");
 var service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 var Layer =  require('component_modules/layer.m.js').layer;
 module.exports =   Vue.extend({
    inherit:true,
@@ -1544,7 +1542,7 @@ module.exports =   Vue.extend({
    ready: function () {
       var self = this;
       Layer.open({
-         content:"������",
+         content:"加载中",
          type:2,
          shadeClose:false,
          shade:"background-color:rgba(0,0,0,0)"
@@ -1758,7 +1756,7 @@ define('components/page/relation/query/query', function(require, exports, module
 var Vue = require("component_modules/vue.js");
 var Layer = require("component_modules/layer.m.js").layer;
 var Service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 
 module.exports =   Vue.extend({
     template:"<div class=\"page-query\"  >\r\n    <header class=\"mui-bar mui-bar-nav\">\r\n        <div class=\"mui-input-row mui-search mui-pull-left\" style=\"width: 80%\">\r\n            <input type=\"search\" class=\"mui-input-clear\" placeholder=\"请输入姓名查询\" v-model=\"name\" >\r\n        </div>\r\n        <a class=\"mui-pull-right mui-btn-link\" v-on=\"click:backTo('relation')\">取消</a>\r\n    </header>\r\n    <div class=\"mui-content\" v-if=\"list.length>0\">\r\n        <ul class=\"mui-table-view  mui-media\">\r\n            <li class=\"mui-table-view-cell mui-media-body\" v-repeat=\"u in list\">\r\n                {{u.name}}({{u.department}})\r\n                <p>{{u.email}}</p>\r\n                <button class=\"mui-btn mui-btn-outlined mui-btn-negative\" v-on=\"click:addDelegation(u._id)\">添加</button>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n</div>",
@@ -1783,7 +1781,7 @@ module.exports =   Vue.extend({
         },
         addDelegation: function (id) {
             Layer.open({
-                content: "�ύ��",
+                content: "提交中",
                 type: 2,
                 shadeClose: false,
                 shade: false
@@ -1794,9 +1792,9 @@ module.exports =   Vue.extend({
                     self._add(id);
                 }else{
                     Layer.open({
-                        content: "����������ĸ�ί�У�",
+                        content: "最多可以添加四个委托！",
                         shadeClose: false,
-                        btn:["ȷ��"],
+                        btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -1811,9 +1809,9 @@ module.exports =   Vue.extend({
                 Layer.closeAll();
                 if(rep.Code == 0){
                     Layer.open({
-                        content: "�ѳɹ������Ϊ���Ĵ������ˣ�",
+                        content: "已成功添加其为您的代订座人！",
                         shadeClose: false,
-                        btn:["ȷ��"],
+                        btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -1822,7 +1820,7 @@ module.exports =   Vue.extend({
                     Layer.open({
                         content: rep.Message,
                         shadeClose: false,
-                        btn:["ȷ��"],
+                        btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -1854,7 +1852,7 @@ define('components/page/relation/relatives/relatives', function(require, exports
 var Vue = require("component_modules/vue.js");
 var Layer = require("component_modules/layer.m.js").layer;
 var Service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 var Check = require("main/check.js");
 
 module.exports =   Vue.extend({
@@ -1885,7 +1883,7 @@ module.exports =   Vue.extend({
             if(this.valid()=="OK"){
 
                 Layer.open({
-                    content:"�ύ��",
+                    content:"提交中",
                     type:2,
                     shadeClose:false,
                     shade: false
@@ -1894,9 +1892,9 @@ module.exports =   Vue.extend({
                     Layer.closeAll();
                     if(rep.Code == 0){
                         Layer.open({
-                            content:"�����ɹ���",
+                            content:"关联成功！",
                             shadeClose:false,
-                            btn:["ȷ��"],
+                            btn:["确定"],
                             yes: function () {
                                 Layer.closeAll();
                                 var router = new Router();
@@ -1906,7 +1904,7 @@ module.exports =   Vue.extend({
                     }else{
                         Layer.open({
                             content:rep.Message,
-                            btn:["ȷ��"],
+                            btn:["确定"],
                             yes: function () {
                                 Layer.closeAll();
                             }
@@ -1916,7 +1914,7 @@ module.exports =   Vue.extend({
             }else{
                 Layer.open({
                     content:this.valid(),
-                    btn:["ȷ��"],
+                    btn:["确定"],
                     yes: function () {
                         Layer.closeAll();
                     }
@@ -1926,22 +1924,22 @@ module.exports =   Vue.extend({
         valid: function () {
             var rel = this.rel;
             if(!rel.name){
-                return "��������Ϊ�գ�"
+                return "姓名不能为空！"
             }
             if(!rel.sn){
-                return "���֤����Ϊ�գ�"
+                return "身份证不能为空！"
             }
             if(rel.sn.length != 4){
-                return "���������֤����λ��"
+                return "请输入身份证后四位！"
             }
             if(!rel.age){
-                return "���䲻��Ϊ�գ�"
+                return "年龄不能为空！"
             }
             if(!rel.relation){
-                return "��ϵ����Ϊ�գ�"
+                return "关系不能为空！"
             }
             if(!Check.check(rel.tel,"mobile")){
-                return "����д��ȷ�ֻ���"
+                return "请填写正确手机号"
             }
 
             return "OK"
