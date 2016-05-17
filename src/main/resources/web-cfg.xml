@@ -27,6 +27,8 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/bus/admin/index.html" />
+			<mvc:mapping path="/order/admin/index.html" />
 			<mvc:mapping path="/admin/index.html" />
 			<mvc:mapping path="/admin/**/*.json" />
 			<bean class="com.aomi.busorder.interceptor.AdminInterceptor"></bean>
