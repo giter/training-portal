@@ -4,7 +4,7 @@
 
 var Vue = require("component_modules/vue.js");
 var Service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 var Layer = require("component_modules/layer.m.js").layer;
 
 module.exports = Vue.extend({
@@ -38,7 +38,7 @@ module.exports = Vue.extend({
          var self = this;
          self.bus = [];
          Layer.open({
-            content: "������",
+            content: "加载中",
             type: 2,
             shadeClose: false,
             shade: false
@@ -55,13 +55,13 @@ module.exports = Vue.extend({
       selectBus: function (busid,date,off) {
          if(off){
             return Layer.open({
-               content: "�ѳ�������ʱ�䣬��ѡ�������೵��",
-               btn:["ȷ��"]
+               content: "已超过订车时间，请选择其他班车。",
+               btn:["确定"]
             });
          }else{
             var self = this;
             Layer.open({
-               content:"������",
+               content:"加载中",
                type:2,
                shadeClose:false,
                shade:"background-color:rgba(0,0,0,0)"

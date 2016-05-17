@@ -5,7 +5,7 @@
 var Vue = require("component_modules/vue.js");
 var Layer = require("component_modules/layer.m.js").layer;
 var Service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 var Check = require("main/check.js");
 
 module.exports =   Vue.extend({
@@ -36,7 +36,7 @@ module.exports =   Vue.extend({
             if(this.valid()=="OK"){
 
                 Layer.open({
-                    content:"�ύ��",
+                    content:"提交中",
                     type:2,
                     shadeClose:false,
                     shade: false
@@ -45,9 +45,9 @@ module.exports =   Vue.extend({
                     Layer.closeAll();
                     if(rep.Code == 0){
                         Layer.open({
-                            content:"�����ɹ���",
+                            content:"关联成功！",
                             shadeClose:false,
-                            btn:["ȷ��"],
+                            btn:["确定"],
                             yes: function () {
                                 Layer.closeAll();
                                 var router = new Router();
@@ -57,7 +57,7 @@ module.exports =   Vue.extend({
                     }else{
                         Layer.open({
                             content:rep.Message,
-                            btn:["ȷ��"],
+                            btn:["确定"],
                             yes: function () {
                                 Layer.closeAll();
                             }
@@ -67,7 +67,7 @@ module.exports =   Vue.extend({
             }else{
                 Layer.open({
                     content:this.valid(),
-                    btn:["ȷ��"],
+                    btn:["确定"],
                     yes: function () {
                         Layer.closeAll();
                     }
@@ -77,22 +77,22 @@ module.exports =   Vue.extend({
         valid: function () {
             var rel = this.rel;
             if(!rel.name){
-                return "��������Ϊ�գ�"
+                return "姓名不能为空！"
             }
             if(!rel.sn){
-                return "���֤����Ϊ�գ�"
+                return "身份证不能为空！"
             }
             if(rel.sn.length != 4){
-                return "���������֤����λ��"
+                return "请输入身份证后四位！"
             }
             if(!rel.age){
-                return "���䲻��Ϊ�գ�"
+                return "年龄不能为空！"
             }
             if(!rel.relation){
-                return "��ϵ����Ϊ�գ�"
+                return "关系不能为空！"
             }
             if(!Check.check(rel.tel,"mobile")){
-                return "����д��ȷ�ֻ���"
+                return "请填写正确手机号"
             }
 
             return "OK"

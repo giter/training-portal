@@ -52,7 +52,7 @@ fis.match('::packager', {
         margin: '15'
     })
 }).match('**/*.css', {
-    packTo: '/static/pkg/all.css'//css鎵撴垚涓�涓寘
+    packTo: '/static/pkg/all.css'
 });
 
 fis.match("/static/**/*.*",{

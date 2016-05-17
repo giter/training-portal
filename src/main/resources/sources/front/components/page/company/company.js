@@ -28,9 +28,9 @@ module.exports = Vue.extend({
 
             }else{
                 Layer.open({
-                    content: "ÇëÑ¡ÔñÍêÕû!",
+                    content: "è¯·é€‰æ‹©å®Œæ•´!",
                     shadeClose: false,
-                    btn:["È·¶¨"],
+                    btn:["ç¡®å®š"],
                     yes: function () {
                         Layer.closeAll();
                     }
@@ -44,7 +44,7 @@ module.exports = Vue.extend({
         _search: function () {
             var self = this;
             Layer.open({
-                content: "¼ÓÔØÖÐ",
+                content: "åŠ è½½ä¸­",
                 type: 2,
                 shadeClose: false,
                 shade: false

@@ -23,7 +23,7 @@ module.exports = Vue.extend({
         render: function () {
             var self = this;
             Layer.open({
-                content:"º”‘ÿ÷–",
+                content:"Âä†ËΩΩ‰∏≠",
                 type:2,
                 shadeClose:false,
                 shade:"background-color:rgba(0,0,0,0)"

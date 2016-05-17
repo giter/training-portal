@@ -33,7 +33,7 @@ module.exports = Vue.extend({
         },
         getTicket: function () {
             Layer.open({
-                content: "²éÑ¯ÖÐ",
+                content: "æŸ¥è¯¢ä¸­",
                 type: 2,
                 shadeClose: false,
                 shade: false

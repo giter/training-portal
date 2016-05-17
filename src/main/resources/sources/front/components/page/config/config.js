@@ -16,13 +16,13 @@ module.exports =   Vue.extend({
    methods:{
       unBind: function () {
          Layer.open({
-            content:"È·¶¨½â°ó¸ÃÕËºÅ£¿",
-            btn:["È·¶¨","È¡Ïû"],
+            content:"ç¡®å®šè§£ç»‘è¯¥è´¦å·ï¼Ÿ",
+            btn:["ç¡®å®š","å–æ¶ˆ"],
             shadeClose:false,
             yes: function () {
                Service.unbind(function (rep) {
                   if(rep.Code == 0){
-                     alert("½â°ó³É¹¦£¡");
+                     alert("è§£ç»‘æˆåŠŸï¼");
                   }
                   WeixinJSBridge.call('closeWindow');
                });
@@ -32,12 +32,12 @@ module.exports =   Vue.extend({
                Layer.closeAll();
             }
          });
-      } 
+      }
    },
    ready: function () {
       var self = this;
       Layer.open({
-         content:"¼ÓÔØÖĞ",
+         content:"åŠ è½½ä¸­",
          type:2,
          shadeClose:false,
          shade:"background-color:rgba(0,0,0,0)"

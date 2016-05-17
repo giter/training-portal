@@ -20,7 +20,7 @@ module.exports =   Vue.extend({
         getDelegation: function () {
             var self = this;
             Layer.open({
-                content: "º”‘ÿ÷–",
+                content: "Âä†ËΩΩ‰∏≠",
                 type: 2,
                 shadeClose: false,
                 shade: false
@@ -35,7 +35,7 @@ module.exports =   Vue.extend({
         getRelatives: function () {
             var self = this;
             Layer.open({
-                content: "º”‘ÿ÷–",
+                content: "Âä†ËΩΩ‰∏≠",
                 type: 2,
                 shadeClose: false,
                 shade: false
@@ -50,7 +50,7 @@ module.exports =   Vue.extend({
         delDelegation: function (id) {
             var self = this;
             Layer.open({
-                content: "Ã·Ωª÷–",
+                content: "Êèê‰∫§‰∏≠",
                 type: 2,
                 shadeClose: false,
                 shade: false
@@ -64,7 +64,7 @@ module.exports =   Vue.extend({
         },
         delRel: function (id) {
             Layer.open({
-                content: "Ã·Ωª÷–",
+                content: "Êèê‰∫§‰∏≠",
                 type: 2,
                 shadeClose: false,
                 shade: false

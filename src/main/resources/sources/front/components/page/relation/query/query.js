@@ -5,7 +5,7 @@
 var Vue = require("component_modules/vue.js");
 var Layer = require("component_modules/layer.m.js").layer;
 var Service = require("main/service.js");
-var Router = require('component_modules/director.js').Router;
+var Router = require('component_modules/director').Router;
 
 module.exports =   Vue.extend({
     template:__inline("query.html"),
@@ -30,7 +30,7 @@ module.exports =   Vue.extend({
         },
         addDelegation: function (id) {
             Layer.open({
-                content: "�ύ��",
+                content: "提交中",
                 type: 2,
                 shadeClose: false,
                 shade: false
@@ -41,9 +41,9 @@ module.exports =   Vue.extend({
                     self._add(id);
                 }else{
                     Layer.open({
-                        content: "����������ĸ�ί�У�",
+                        content: "最多可以添加四个委托！",
                         shadeClose: false,
-                        btn:["ȷ��"],
+                        btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -58,9 +58,9 @@ module.exports =   Vue.extend({
                 Layer.closeAll();
                 if(rep.Code == 0){
                     Layer.open({
-                        content: "�ѳɹ������Ϊ���Ĵ������ˣ�",
+                        content: "已成功添加其为您的代订座人！",
                         shadeClose: false,
-                        btn:["ȷ��"],
+                        btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
                         }
@@ -69,7 +69,7 @@ module.exports =   Vue.extend({
                     Layer.open({
                         content: rep.Message,
                         shadeClose: false,
-                        btn:["ȷ��"],
+                        btn:["确定"],
                         yes: function () {
                             Layer.closeAll();
                         }

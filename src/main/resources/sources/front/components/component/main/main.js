@@ -14,19 +14,19 @@ window.app = new Vue({
         "users":[],
         "user":[],
         "search":{
-            "whither":"��ѡ��",
+            "whither":"请选择",
             "date":null,
             "dateStr":""
         },
-        "result":[],/*��Ʊ���*/
-        "bus":[],/*��ѯ���ĳ�����Ϣ*/
+        "result":[],
+        "bus":[],
         "calendars":[],
         "whithers":[],
         "openid":"",
         "mine":"",
         "detailTicket":"",
-        "beginTime":1800,/*��ǰ30����*/
-        "endTime":10800,/*�ӳ���Сʱ*/
+        "beginTime":1800,
+        "endTime":10800,
         "busQuery":{
             id:"",
             date:"",
@@ -63,7 +63,6 @@ window.app = new Vue({
     }
 });
 
-/*��������*/
 Vue.transition('slideInRight', {
     leave: function (el) {
         if( $(el).length>0){
@@ -184,7 +183,6 @@ router.on("/relation/relatives",function(){
     })
 });
 
-/*�а���*/
 router.on("/company",function(){
     require.async(["page/company/company.js"], function (p) {
         doRouter("company",p);
