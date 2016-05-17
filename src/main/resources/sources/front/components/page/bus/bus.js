@@ -21,9 +21,9 @@ module.exports = Vue.extend({
     computed:{
         "selectText": function () {
             if(this.seat){
-                return (this.seat.row+1) +"ÅÅ" +(this.seat.col+1)+"ÁÐ  "+this.seat.sn+"×ù";
+                return (this.seat.row+1) +"æŽ’" +(this.seat.col+1)+"åˆ—  "+this.seat.sn+"åº§";
             }else{
-                return "ÇëÑ¡Ôñ";
+                return "è¯·é€‰æ‹©";
             }
         }
     },
@@ -114,7 +114,7 @@ module.exports = Vue.extend({
         orderSeat: function (id,callback) {
             Layer.closeAll();
             Layer.open({
-                content:"¶©Æ±ÖÐ",
+                content:"è®¢ç¥¨ä¸­",
                 type:2,
                 shadeClose:false
             });
@@ -143,7 +143,7 @@ module.exports = Vue.extend({
         reloadSeat: function () {
             var self = this;
             Layer.open({
-                content:"¼ÓÔØÖÐ",
+                content:"åŠ è½½ä¸­",
                 type:2,
                 shadeClose:false
             });
@@ -216,7 +216,7 @@ module.exports = Vue.extend({
         getBus: function (callback) {
             var self = this;
             Layer.open({
-                content:"¼ÓÔØÖÐ",
+                content:"åŠ è½½ä¸­",
                 type:2,
                 shadeClose:false,
                 shade:"background-color:rgba(0,0,0,0)"
