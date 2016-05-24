@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 // Eros Fratini - eros@recoding.it
 // jqprint 0.3
 //
@@ -53,7 +53,7 @@
             }
         }
 
-        doc.write("<style>@media print {.table{border-spacing: 0; border-collapse: collapse;}.table td{border:1px solid #ddd;padding: 5px;font-size: 14px;}}</style>");
+        doc.write("<style>@media print {.table{border-spacing: 0; border-collapse: collapse;width: 100%}.table td{border:1px solid #ddd;padding: 3px;font-size: 14px;}}</style>");
         
         if (opt.printContainer) { doc.write($element.outer()); }
         else { $element.each( function() { doc.write($(this).html()); }); }
