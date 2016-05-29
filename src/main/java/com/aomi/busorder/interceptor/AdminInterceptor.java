@@ -3,11 +3,15 @@ package com.aomi.busorder.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.aomi.busorder.controller.admin.UserAdminCtrl;
 
 public class AdminInterceptor extends HandlerInterceptorAdapter {
+
+  static Logger LOGGER = LoggerFactory.getLogger(AdminInterceptor.class);
 
   @Override
   public boolean preHandle(HttpServletRequest request,
@@ -22,7 +26,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
         if (path != null && path.endsWith(".html")) {
           response.sendRedirect("/admin/login.html");
         } else {
-          response.sendError(400);
+
+          LOGGER.warn(String.format("Request reach bad point at %s %s ",
+              request.getMethod(), request.getRequestURL()));
+          response.sendError(400, "Not login.");
         }
 
         return false;
