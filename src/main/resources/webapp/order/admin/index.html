@@ -230,12 +230,22 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
+    "components/page/menu/package/package": {
+      "url": "/order/admin/static/components/page/menu/package/package.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
     "components/page/menu/menu": {
       "url": "/order/admin/static/components/page/menu/menu.js",
       "type": "js",
       "deps": [
         "component_modules/vue",
         "main/service",
+        "components/page/menu/package/package",
         "form/form"
       ],
       "pkg": "p1"
@@ -285,6 +295,15 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
+    "components/page/menu/package/add": {
+      "url": "/order/admin/static/components/page/menu/package/add.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
     "components/page/list/list": {
       "url": "/order/admin/static/components/page/list/list.js",
       "type": "js",
@@ -301,7 +320,7 @@ require.resourceMap({
       "type": "js"
     },
     "p1": {
-      "url": "/order/admin/static/pkg/app_44d6f6b.js",
+      "url": "/order/admin/static/pkg/app_d5b105b.js",
       "type": "js"
     }
   }
