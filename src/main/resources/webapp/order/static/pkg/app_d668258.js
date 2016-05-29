@@ -133,7 +133,12 @@ function getUserInfo(c){
     $.get(prefix +"/get_user_info.json",co(c));
 }
 
+function getPackage(c){
+    $.get(prefix +"/data/packs.json",co(c));
+}
+
 module.exports = {
+    getPackage:getPackage,
     getUserInfo:getUserInfo,
     getDate:getDate,
     getTables:getTables,
@@ -188,7 +193,7 @@ var Service = require("main/service.js");
 var nav = require("nav/nav.js");
 
 module.exports = Vue.extend({
-    template:"<div class=\"mui-content page-order\">\n\n    <div class=\"navbar\">\n        <div class=\"bd\" style=\"height: 100%;\">\n            <div class=\"weui_tab\">\n                <div class=\"weui_navbar\">\n                    <div :class=\"{weui_bar_item_on:view=='food'}\" @click=\"onChangeView('food')\" class=\"weui_navbar_item \">\n                        我要订餐\n                    </div>\n                    <div :class=\"{weui_bar_item_on:view=='goods'}\" @click=\"onChangeView('goods')\"  class=\"weui_navbar_item\">\n                        我要订货\n                    </div>\n                </div>\n                <div class=\"weui_tab_bd\">\n\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div v-show=\"view=='food'\">\n        <div class=\"weui_cells_title\">预订日期</div>\n        <form class=\"mui-input-group\">\n            <div class=\"mui-input-row mui-radio\" v-for=\"d in date\" @click=\"selectWeek(d.week)\">\n                <label :for=\"d.value\">{{d.value}} {{d.week}}</label>\n                <input name=\"date\" type=\"radio\"  v-model=\"params.mdate\"  :value=\"d.value\" :id=\"d.value\">\n            </div>\n        </form>\n        <div class=\"weui_cells_title\">就餐人数</div>\n        <div class=\"mui-input-row mui-input-range\" style=\"padding-left: 20px;\">\n            <h4 class=\"p-number\"><span class=\"number-tiaodong\">{{params.num}}</span> 人</h4>\n            <input type=\"range\" id=\"block-range\" value=\"4\" min=\"1\" max=\"20\" data-input-slider=\"4\" v-model=\"params.num\">\n        </div>\n        <div class=\"weui_cells_title\">预订餐次</div>\n        <div class=\"mui-card\">\n            <ul class=\"mui-table-view\">\n                <li class=\"mui-table-view-cell\" v-if=\"lunchShow\"  >\n                    <a class=\"mui-navigate-right\" @click=\"onSelect('lunch')\"  :class=\"{disabled:!lunch}\" >\n                        午餐 <span v-show=\"!lunch\">(今日已过期)</span>\n                    </a>\n                </li>\n                <li class=\"mui-table-view-cell\" v-if=\"dinnerShow\"  >\n                    <a  class=\"mui-navigate-right\"  @click=\"onSelect('dinner')\"    :class=\"{disabled:!dinner}\"  >\n                        晚餐 <span v-show=\"!dinner\">(今日已过期)</span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div v-show=\"view=='goods'\">\n        <div v-if=\"canDH\">\n            <div v-if=\"!hasDH\">\n                <div class=\"weui_cells_title\">取货日期</div>\n                <form class=\"mui-input-group\">\n                    <div class=\"mui-input-row mui-radio\" v-for=\"d in gDate\" @click=\"selectDHdate(d)\">\n                        <label :for=\"d.week\">{{d.value}} {{d.week}}</label>\n                        <input name=\"date\" type=\"radio\"  v-model=\"gParams.mdate\"  :value=\"d.value\" :id=\"d.week\">\n                    </div>\n                </form>\n                <div class=\"weui_cells_title\">取货时间</div>\n                <div class=\"mui-card\">\n                    <ul class=\"mui-table-view\">\n                        <li class=\"mui-table-view-cell\" v-if=\"selectDH.mtime.morning\" >\n                            <a  v-if=\"!checkHasOrder(selectDH,'morning')\" v-link=\"{path:'/goods/'+selectDH.value +'/morning/all'}\" class=\"mui-navigate-right\" >\n                                上午\n                            </a>\n                            <a href=\"javascript:;\" v-else >\n                                上午   <span class=\"mui-badge \">已预订</span>\n                            </a>\n\n                        </li>\n                        <li class=\"mui-table-view-cell\" v-if=\"selectDH.mtime.noon\"   >\n                            <a  v-if=\"!checkHasOrder(selectDH,'noon')\" v-link=\"{path:'/goods/'+selectDH.value +'/noon/all'}\"  class=\"mui-navigate-right\" >\n                                中午\n                            </a>\n                            <a href=\"javascript:;\" v-else >\n                                中午   <span class=\"mui-badge \">已预订</span>\n                            </a>\n                        </li>\n                        <li class=\"mui-table-view-cell\" v-if=\"selectDH.mtime.afternoon\"   >\n                            <a  v-if=\"!checkHasOrder(selectDH,'afternoon')\"  v-link=\"{path:'/goods/'+selectDH.value +'/afternoon/all'}\"  class=\"mui-navigate-right\" >\n                                下午\n                            </a>\n                            <a href=\"javascript:;\" v-else >\n                                下午   <span class=\"mui-badge\">已预订</span>\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n            <div v-else>\n                <ul class=\"mui-table-view\">\n                    <li class=\"mui-table-view-cell\" style=\"text-align: center\">\n                        您本周已经订货。\n                    </li>\n                </ul>\n\n                <div class=\"mui-content-padded\">\n                    <a class=\"mui-btn mui-btn-block mui-btn-success\" v-link=\"{path:'/list/goods'}\" >查看订单</a>\n                </div>\n            </div>\n        </div>\n        <div v-if=\"!canDH\">\n            <ul class=\"mui-table-view\">\n                <li class=\"mui-table-view-cell\" style=\"text-align: center\">\n                    本周开放预定已经结束,请下周预定。\n                </li>\n            </ul>\n        </div>\n        <!--<ul class=\"mui-table-view\">-->\n        <!--<li class=\"mui-table-view-cell\" v-for=\"d in gDate\">-->\n        <!--<a v-link=\"{path:'/goods/'+d.value +'/all'}\" class=\"mui-navigate-right\">-->\n        <!--{{d.value}} {{d.week}}-->\n        <!--</a>-->\n        <!--</li>-->\n        <!--</ul>-->\n    </div>\n\n</div>\n\n<c-nav view=\"order\"></c-nav>\n",
+    template:"<div class=\"mui-content page-order\">\n\n    <div class=\"navbar\">\n        <div class=\"bd\" style=\"height: 100%;\">\n            <div class=\"weui_tab\">\n                <div class=\"weui_navbar\">\n                    <div :class=\"{weui_bar_item_on:view=='food'}\" @click=\"onChangeView('food')\" class=\"weui_navbar_item \">\n                        我要订餐\n                    </div>\n                    <div :class=\"{weui_bar_item_on:view=='goods'}\" @click=\"onChangeView('goods')\"  class=\"weui_navbar_item\">\n                        我要订货\n                    </div>\n                </div>\n                <div class=\"weui_tab_bd\">\n\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div v-show=\"view=='food'\">\n        <div class=\"weui_cells_title\">预订日期</div>\n        <form class=\"mui-input-group\">\n            <div class=\"mui-input-row mui-radio\" v-for=\"d in date\" @click=\"selectWeek(d.week)\">\n                <label :for=\"d.value\">{{d.value}} {{d.week}}</label>\n                <input name=\"date\" type=\"radio\"  v-model=\"params.mdate\"  :value=\"d.value\" :id=\"d.value\">\n            </div>\n        </form>\n        <div class=\"weui_cells_title\">就餐人数</div>\n        <div class=\"mui-input-row mui-input-range\" style=\"padding-left: 20px;\">\n            <h4 class=\"p-number\"><span class=\"number-tiaodong\">{{params.num}}</span> 人</h4>\n            <input type=\"range\" id=\"block-range\" value=\"4\" min=\"1\" max=\"40\" data-input-slider=\"4\" v-model=\"params.num\">\n        </div>\n        <div class=\"weui_cells_title\">预订餐次</div>\n        <div class=\"mui-card\">\n            <ul class=\"mui-table-view\">\n                <li class=\"mui-table-view-cell\" v-if=\"lunchShow\"  >\n                    <a class=\"mui-navigate-right\" @click=\"onSelect('lunch')\"  :class=\"{disabled:!lunch}\" >\n                        午餐 <span v-show=\"!lunch\">(今日已过期)</span>\n                    </a>\n                </li>\n                <li class=\"mui-table-view-cell\" v-if=\"dinnerShow\"  >\n                    <a  class=\"mui-navigate-right\"  @click=\"onSelect('dinner')\"    :class=\"{disabled:!dinner}\"  >\n                        晚餐 <span v-show=\"!dinner\">(今日已过期)</span>\n                    </a>\n                </li>\n            </ul>\n        </div>\n    </div>\n    <div v-show=\"view=='goods'\">\n        <div v-if=\"canDH\">\n            <div v-if=\"!hasDH\">\n                <div class=\"weui_cells_title\">取货日期</div>\n                <form class=\"mui-input-group\">\n                    <div class=\"mui-input-row mui-radio\" v-for=\"d in gDate\" @click=\"selectDHdate(d)\">\n                        <label :for=\"d.week\">{{d.value}} {{d.week}}</label>\n                        <input name=\"date\" type=\"radio\"  v-model=\"gParams.mdate\"  :value=\"d.value\" :id=\"d.week\">\n                    </div>\n                </form>\n                <div class=\"weui_cells_title\">取货时间</div>\n                <div class=\"mui-card\">\n                    <ul class=\"mui-table-view\">\n                        <li class=\"mui-table-view-cell\" v-if=\"selectDH.mtime.morning\" >\n                            <a  v-if=\"!checkHasOrder(selectDH,'morning')\" v-link=\"{path:'/goods/'+selectDH.value +'/morning/all'}\" class=\"mui-navigate-right\" >\n                                上午\n                            </a>\n                            <a href=\"javascript:;\" v-else >\n                                上午   <span class=\"mui-badge \">已预订</span>\n                            </a>\n\n                        </li>\n                        <li class=\"mui-table-view-cell\" v-if=\"selectDH.mtime.noon\"   >\n                            <a  v-if=\"!checkHasOrder(selectDH,'noon')\" v-link=\"{path:'/goods/'+selectDH.value +'/noon/all'}\"  class=\"mui-navigate-right\" >\n                                中午\n                            </a>\n                            <a href=\"javascript:;\" v-else >\n                                中午   <span class=\"mui-badge \">已预订</span>\n                            </a>\n                        </li>\n                        <li class=\"mui-table-view-cell\" v-if=\"selectDH.mtime.afternoon\"   >\n                            <a  v-if=\"!checkHasOrder(selectDH,'afternoon')\"  v-link=\"{path:'/goods/'+selectDH.value +'/afternoon/all'}\"  class=\"mui-navigate-right\" >\n                                下午\n                            </a>\n                            <a href=\"javascript:;\" v-else >\n                                下午   <span class=\"mui-badge\">已预订</span>\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n            <div v-else>\n                <ul class=\"mui-table-view\">\n                    <li class=\"mui-table-view-cell\" style=\"text-align: center\">\n                        您本周已经订货。\n                    </li>\n                </ul>\n\n                <div class=\"mui-content-padded\">\n                    <a class=\"mui-btn mui-btn-block mui-btn-success\" v-link=\"{path:'/list/goods'}\" >查看订单</a>\n                </div>\n            </div>\n        </div>\n        <div v-if=\"!canDH\">\n            <ul class=\"mui-table-view\">\n                <li class=\"mui-table-view-cell\" style=\"text-align: center\">\n                    本周开放预定已经结束,请下周预定。\n                </li>\n            </ul>\n        </div>\n        <!--<ul class=\"mui-table-view\">-->\n        <!--<li class=\"mui-table-view-cell\" v-for=\"d in gDate\">-->\n        <!--<a v-link=\"{path:'/goods/'+d.value +'/all'}\" class=\"mui-navigate-right\">-->\n        <!--{{d.value}} {{d.week}}-->\n        <!--</a>-->\n        <!--</li>-->\n        <!--</ul>-->\n    </div>\n\n</div>\n\n<c-nav view=\"order\"></c-nav>\n",
     data: function () {
         return {
             date:[],
@@ -491,8 +496,34 @@ store = {
                     return Date.parse(new Date(a.mdate)) < Date.parse(new Date(b.mdate))?-1:1
                 });
             }
-            self.state.orders = rep;
+            var list = [];
+            rep.forEach(function (l) {
+                if(l.state == 1){
+                    list.push(l);
+                }
+            });
+            self.state.orders = self._trans(list);
         });
+    },
+    _trans: function (rep) {
+        var list = [];
+        if(rep.length>0){
+            list.push(rep[0]);
+            for (var i = 1,j=0; i < rep.length; i++) {
+                var obj = rep[i];
+                if(this.isSame(rep[j],rep[i])){
+                    rep[j]._id += "_"+rep[i]._id;
+                    rep[j].table.no += ","+rep[i].table.no;
+                }else{
+                    list.push(rep[i]);
+                    j = i;
+                }
+            }
+        }
+        return list;
+    },
+    isSame: function (a,b) {
+        return a.mdate == b.mdate && a.number == b.number && a.mtime == b.mtime;
     },
     getGoods: function () {
         var start = (new Date()).Format("yyyy-MM-dd");
@@ -527,7 +558,7 @@ var App = Vue.extend({
 
         store.getOrders();
         store.getGoods();
-         //FastClick.attach(document.body);
+        //FastClick.attach(document.body);
     }
 });
 
@@ -650,10 +681,10 @@ require("component_modules/leaflet.draw-src.js");
 var nav = require("nav/nav.js");
 
 module.exports = Vue.extend({
-    template:"<div class=\"mui-content\" id=\"map\" :style=\"{height:height+'px'}\">\n</div>\n<c-nav view=\"order\"></c-nav>",
+    template:"<div class=\"mui-content\" id=\"map\" :style=\"{height:height+'px'}\">\n</div>\n<table class=\"table-footbar\" v-show=\"selectTable.length>0\" transition=\"slideInDown\">\n  <tr>\n      <td >\n          已选:\n          <span class=\"table-no\" v-for=\"t in selectTable\">{{t.no<10?('0'+t.no):t.no}}</span>\n      </td>\n      <td >\n          <a class=\"footbar-btn\" href=\"javascript:;\" @click=\"onSubmitAll\">提交</a>\n      </td>\n  </tr>\n</table>",
     data: function () {
         return {
-            height:document.documentElement.clientHeight-52,
+            height:document.documentElement.clientHeight,
             type:0,
             scale:1,
             params:{
@@ -661,7 +692,9 @@ module.exports = Vue.extend({
                 mdate:"",
                 num:0
             },
-            table:{}
+            table:{},
+            selectTable:[],
+            selectTableStr:""
         }
     },
     methods:{
@@ -743,19 +776,31 @@ module.exports = Vue.extend({
                         }
                     });
                 }else{
-                    layer.open({
-                        title:"订单确认",
-                        content: self.getDialogInfo(),
-                        btn: ['确认', '取消'],
-                        shadeClose: true,
-                        yes: function(){
-                            self.order();
-                        }, no: function(){
+
+
+
+                    var color = this.options.fillColor == "#fef1c9"?"blue":"#fef1c9";
+                    if(color){
+                        this.setStyle({fillColor:color});
+                    }
+
+                    var has = false;
+                    for (var i = 0; i < self.selectTable.length; i++) {
+                        var obj = self.selectTable[i];
+                        if(obj._id == self.table._id){
+                            self.selectTable.$remove(self.table);
+                            has = true;
                         }
-                    });
+                    }
+
+                    if(!has&&self.selectTable.length<6){
+                        self.selectTable.push(self.table);
+                    }else{
+                        this.setStyle({fillColor:"#fef1c9"});
+                    }
+                    this.redraw();
+
                 }
-
-
 
             });
 
@@ -772,12 +817,17 @@ module.exports = Vue.extend({
                 "<tr><td>日期:</td><td>{{params.mdate}}</td></tr>" +
                 "<tr><td>餐次:</td><td>{{params.mtime=='lunch'?'午餐':'晚餐'}}</td></tr>" +
                 "<tr><td>就餐人数:</td><td>{{params.num}}人</td></tr>" +
-                "<tr><td>桌位:</td><td>{{table.type==0?'包间':'大厅'}}{{table.no}}号</td></tr>" +
+                "<tr><td>桌位:</td><td>{{selectTableStr}}</td></tr>" +
                 "</table>");
         },
         order: function () {
             var self = this;
-            Service.orderTable(this.table._id,JSON.stringify({
+
+            var ids = [];
+            this.selectTable.forEach(function (s) {
+                ids.push(s._id);
+            });
+            Service.orderTable(ids.join(","),JSON.stringify({
                 mtime:this.params.mtime,
                 mdate:this.params.mdate,
                 number:parseInt(this.params.num),
@@ -788,13 +838,33 @@ module.exports = Vue.extend({
                     time:1,
                     shadeClose:false
                 });
+
+                var ids = [];
+                rep.forEach(function (r) {
+                    ids.push(r._id);
+                });
+
+
                 setTimeout(function () {
                     layer.closeAll();
                     store.getOrders();
                     self.renderTable();
-                    self.$router.replace("/food/"+rep._id+"/list/all");
+                    self.$router.replace("/food/"+ids.join("_")+"/list/all");
                 },1000);
             })
+        },
+        onSubmitAll: function () {
+            var self = this;
+            layer.open({
+                title:"订单确认",
+                content: this.getDialogInfo(),
+                btn: ['确认', '取消'],
+                shadeClose: true,
+                yes: function(){
+                    self.order();
+                }, no: function(){
+                }
+            });
         }
     },
     events:{
@@ -805,11 +875,19 @@ module.exports = Vue.extend({
             handler: function () {
                 this.renderTable();
             }
+        },
+        "selectTable": function () {
+            var list = [];
+            this.selectTable.forEach(function (s) {
+                list.push(s.no);
+            });
+            this.selectTableStr = list.join(",");
         }
     },
     route:{
         data: function (transition) {
             this.params = $.extend(this.params,transition.to.params);
+            this.selectTable = [];
             transition.next();
         }
     },
@@ -1129,25 +1207,27 @@ require("component_modules/dt");
 require("ok/ok.js");
 
 module.exports = Vue.extend({
-    template:"<div class=\"page-food\">\n    <span class=\"mui-badge mui-badge-red\"  id=\"badge\" style=\"display: none;position: absolute;z-index: 1000\">1</span>\n\n    <header class=\"mui-bar mui-bar-nav\" v-if=\"view=='menu'\">\n        <h5 class=\"mui-title \">\n            结算:¥{{total}}\n        </h5>\n        <a class=\"mui-btn-link  mui-pull-right\" v-show=\"mode!='all'\" href=\"#picture\">\n            编辑\n        </a>\n        <a class=\"mui-btn-link  mui-pull-right\" v-show=\"mode=='all'\" href=\"#picture\">\n            取消订单\n        </a>\n        <a class=\"mui-icon mui-icon-back\" v-link=\"{path:'/list/food'}\" >\n        </a>\n    </header>\n    <header class=\"mui-bar mui-bar-nav\" v-if=\"view=='list'\">\n        <h5 class=\"mui-title \">\n            结算:¥{{total}}\n        </h5>\n\n        <a class=\"mui-icon mui-icon-back\" v-link=\"{path:'/list/food'}\" >\n\n        </a>\n    </header>\n    <div class=\"mui-content\" v-show=\"view=='list'\" >\n        <div class=\"left-nav\">\n            <ul class=\"mui-table-view\">\n                <li class=\"mui-table-view-cell\" v-for=\"t in types\" :class=\"{'active':selectType==t.key}\"  @click=\"onSelectType(t)\">\n                    {{t.value}}\n                </li>\n            </ul>\n        </div>\n        <div class=\"right-list\">\n            <div class=\"mui-loading\" v-show=\"list.length==0\">\n                <div class=\"mui-spinner\">\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator12\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator11\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator10\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator9\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator8\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator7\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator6\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator5\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator4\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator3\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator2\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator1\"></div>\n                </div>\n            </div>\n            <ul class=\"mui-table-view\" id=\"menu-container\" v-show=\"list.length>0\">\n                <li class=\"mui-table-view-cell mui-media\" v-for=\"l in list\" v-show=\"l.type == selectType\"  track-by=\"$index\" >\n                    <template v-for=\"p in l.picture\" >\n                        <img class=\"mui-media-object mui-pull-left menu-img\" data-lazyload={{'/data/image/'+p+'/60/60.json'}} data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\"  data-preview-group=\"{{l._id}}\" v-if=\"$index==0\">\n                        <img class=\"mui-media-object mui-pull-left\" style=\"display: none\" src=\"\" data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\" data-preview-group=\"{{l._id}}\"    v-if=\"$index>0\">\n                    </template>\n                    <div class=\"mui-media-body\">\n                        {{l.name}} <span class=\"dz\"><img src=\"/order/static/images/dz.png\" alt=\"\">{{l.star}}</span>\n                        <p class='mui-ellipsis-2'>{{l.cates.join(\",\")}}</p>\n                    </div>\n                    <p class=\"f-info\">\n                        <span class=\"f-price\">¥{{l.price}}</span>/{{l.unit}}\n                    <span class=\"mui-numbox mui-pull-right\" v-show=\"!l.overtime\">\n                        <button class=\"mui-btn mui-numbox-btn-minus\" type=\"button\" :disabled=\"!l.number\" @click=\"onMinusNum(l)\" >-</button>\n                        <input class=\"mui-numbox-input\" type=\"number\" :value=\"l.number\" />\n                        <button class=\"mui-btn mui-numbox-btn-plus\" type=\"button\" @click=\"onPlusNum(l,$event)\">+</button>\n                    </span>\n                    <span class=\"mui-pull-right mui-badge\" v-show=\"l.overtime\">已过预定时间</span>\n                    </p>\n                </li>\n            </ul>\n        </div>\n    </div >\n\n    <div class=\"mui-content l-menu\" v-show=\"view=='menu'\">\n        <div class=\"weui_cells weui_cells_access\" style=\"margin-bottom: 10px;\">\n            <div class=\"weui_cell weui_cell_select weui_select_after\">\n                <div class=\"weui_cell_hd\">\n                    <label for=\"\" class=\"weui_label\">就餐人数</label>\n                </div>\n                <div class=\"weui_cell_bd weui_cell_primary\">\n                    <select :disabled=\"mode!='all'\" :style=\"{color:mode!='all'?'#8f8f94':'#000'}\" class=\"weui_select\"  style=\"padding: 0 30px 0 15px;margin-bottom: 0;\" v-model=\"number\">\n                        <option v-for=\"r in 20\" value=\"{{r+1}}\">{{r+1}}人</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"weui_cell  \">\n                <div class=\"weui_cell_hd\"><label class=\"weui_label\">上菜时间</label></div>\n                <div class=\"weui_cell_bd weui_cell_primary\" @click=\"onPickTime\" >\n                    <span class=\"weui_input\" type=\"text\" :style=\"{color:mode!='all'?'#8f8f94':'#000'}\" v-text=\"remark||'请选择'\" ></span>\n                    <div class=\"weui_cell_ft\" style=\"float: right\">\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <ul class=\"mui-table-view\">\n            <li class=\"mui-table-view-cell mui-media\" v-for=\"l in list\" v-show=\"l.number>0\" >\n                <template v-for=\"p in l.picture\" >\n                    <img class=\"mui-media-object mui-pull-left  menu-img\" :src=\"'/data/image/'+p+'/60/60.json'\" data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\" data-preview-group=\"{{'o_'+l._id}}\"  v-if=\"$index==0\">\n                    <img class=\"mui-media-object mui-pull-left\" style=\"display: none\" src=\"\" data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\"  data-preview-group=\"{{'o_'+l._id}}\"    v-if=\"$index>0\">\n                </template>\n                <div class=\"mui-media-body\">\n                    {{l.name}} <span class=\"dz\"><img src=\"/order/static/images/dz.png\" alt=\"\">{{l.star}}</span><span class=\"mui-pull-right\"  v-show=\"mode!='all'\">{{l.number}} {{l.unit}}</span>\n                    <p class='mui-ellipsis-2'>{{l.cates.join(\",\")}}</p>\n                </div>\n                <p class=\"f-info\">\n                    <span class=\"f-price\">¥{{l.price}}</span>/{{l.unit}}\n\n                    <span class=\"mui-numbox mui-pull-right\" v-show=\"mode=='all'\" v-if=\"!l.overtime\">\n                        <button class=\"mui-btn mui-numbox-btn-minus\" type=\"button\" :disabled=\"!l.number\" @click=\"onMinusNum(l)\" >-</button>\n                        <input class=\"mui-numbox-input\" type=\"number\" :value=\"l.number\" />\n                        <button class=\"mui-btn mui-numbox-btn-plus\" type=\"button\" @click=\"onPlusNum(l,$event)\">+</button>\n                    </span>\n                    <span class=\"mui-pull-right mui-badge\" v-show=\"l.overtime\">已过退订时间</span>\n                </p>\n                <p class=\"mui-ellipsis\">\n                    <input type=\"text\" v-show=\"mode=='all'\"  v-model=\"l.remark\" placeholder=\"请填写备注信息,例如口味,要求。\" style=\"margin-bottom: 0;margin-top: 5px;border: 1px solid rgba(0, 0, 0, 0.1)\">\n                    <span v-show=\"mode!='all'\">{{l.remark}}</span>\n                </p>\n            </li>\n\n            <li class=\"mui-table-view-divider\" v-show=\"count==0\"  @click=\"onChangeView('list')\"  >\n                请先点菜\n            </li>\n\n        </ul>\n        <!--<div class=\"weui_cells_title\">备注信息</div>-->\n        <!--<div class=\"weui_cells weui_cells_form\">-->\n            <!--<div class=\"weui_cell\">-->\n                <!--<div class=\"weui_cell_bd weui_cell_primary\">-->\n                    <!--<textarea  style=\"padding: 0\" v-model=\"remark\" class=\"weui_textarea\" placeholder=\"可以填写您的口味或其他需求\" rows=\"3\"></textarea>-->\n                <!--</div>-->\n            <!--</div>-->\n        <!--</div>-->\n\n        <div class=\"b-submit\" >\n           <div class=\"col-md-6\">\n               <button  class=\"mui-btn mui-btn-block mui-btn-success\" :disabled=\"disabled\" v-show=\"mode=='all'\"  @click=\"onSubmit\">\n               提交订单\n            </button>\n           </div>\n            <div class=\"col-md-6\">\n                <a  class=\"mui-btn mui-btn-block mui-btn-info\" v-show=\"mode=='all'\" v-link=\"{path:'/list'}\">\n                    返回订单\n                </a>\n            </div>\n        </div>\n    </div>\n    <nav class=\"mui-bar mui-bar-tab\"  >\n        <a class=\"mui-tab-item\"   :class=\"{'mui-active':view=='list'}\" v-show=\"mode=='all'\"  @click=\"onChangeView('list')\" >\n            <span class=\"mui-icon mui-icon-list\"></span>\n            <span class=\"mui-tab-label\">菜单</span>\n        </a>\n        <a class=\"mui-tab-item\"  :class=\"{'mui-active':view=='menu'}\" @click=\"onChangeView('menu')\" >\n        <span id=\"dest\" class=\"mui-icon mui-icon-compose\">\n            <span  class=\"mui-badge mui-badge-primary\" transition=\"bounceIn\" v-show=\"count>0\">{{count}}</span>\n        </span>\n            <span class=\"mui-tab-label\">已点</span>\n        </a>\n    </nav>\n\n\n    <div id=\"picture\" class=\"mui-popover mui-popover-action mui-popover-bottom\">\n        <ul class=\"mui-table-view\">\n            <li class=\"mui-table-view-cell\">\n                <a href=\"javascript:;\" @click=\"onEditAll\">修改订单</a>\n            </li>\n            <li class=\"mui-table-view-cell\">\n                <a href=\"javascript:;\" @click=\"onCancel\">取消订单</a>\n            </li>\n        </ul>\n        <ul class=\"mui-table-view\">\n            <li class=\"mui-table-view-cell\">\n                <a href=\"#picture\"><b>取消</b></a>\n            </li>\n        </ul>\n    </div>\n\n    <c-ok @ok-click=\"onOkClick\" :content=\"ok.content\"  transition=\"zoom\" v-if=\"ok.show\"></c-ok>\n</div>",
+    template:"<div class=\"page-food\">\n    <span class=\"mui-badge mui-badge-red\"  id=\"badge\" style=\"display: none;position: absolute;z-index: 1000\">1</span>\n\n    <header class=\"mui-bar mui-bar-nav\" v-if=\"view=='menu'\">\n        <h5 class=\"mui-title \">\n            结算:¥{{total}}\n        </h5>\n        <a class=\"mui-btn-link  mui-pull-right\" v-show=\"mode!='all'\" href=\"#picture\">\n            编辑\n        </a>\n        <a class=\"mui-btn-link  mui-pull-right\" v-show=\"mode=='all'\" href=\"#picture\">\n            取消订单\n        </a>\n        <a class=\"mui-icon mui-icon-back\" v-link=\"{path:'/list/food'}\" >\n        </a>\n    </header>\n    <header class=\"mui-bar mui-bar-nav\" v-if=\"view=='list'\">\n        <h5 class=\"mui-title \">\n            结算:¥{{total}}\n        </h5>\n\n        <a class=\"mui-icon mui-icon-back\" v-link=\"{path:'/list/food'}\" >\n\n        </a>\n    </header>\n    <div class=\"mui-content\" v-show=\"view=='list'\" >\n        <div class=\"left-nav\">\n            <ul class=\"mui-table-view\">\n                <li class=\"mui-table-view-cell\" v-if=\"packages.length>0\" :class=\"{'active':selectType=='package'}\"  @click=\"onSelectType('package')\">套餐</li>\n                <li class=\"mui-table-view-cell\" v-for=\"t in types\" :class=\"{'active':selectType==t.key}\"  @click=\"onSelectType(t)\">\n                    {{t.value}}\n                </li>\n            </ul>\n        </div>\n        <div class=\"right-list\">\n            <div class=\"mui-loading\" v-show=\"list.length==0\">\n                <div class=\"mui-spinner\">\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator12\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator11\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator10\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator9\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator8\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator7\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator6\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator5\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator4\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator3\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator2\"></div>\n                    <div class=\"mui-spinner-indicator mui-spinner-indicator1\"></div>\n                </div>\n            </div>\n            <ul class=\"mui-table-view\" id=\"menu-container\" v-show=\"list.length>0\">\n\n                <li class=\"mui-table-view-cell \" v-show=\"selectType =='package'\" v-for=\"p in packages\">\n                    {{p.name}} <a @click=\"onChoose(p)\" href=\"javascript:;\" style=\"color: #007aff\" class=\"mui-pull-right mui-btn-link\">选择</a>\n                    <ul class=\"mui-table-view mui-table-view-chevron\">\n                        <li style=\"padding:5px;font-size: 12px;\" class=\"mui-table-view-cell\" v-for=\"m in p.menu\">\n                            <p><span style=\"color: #04be02;font-size: 14px;\">{{m.food.name}} </span>{{m.number}} {{m.food.unit}}</p>\n                        </li>\n                    </ul>\n                </li>\n\n                <li class=\"mui-table-view-cell mui-media\" v-for=\"l in list\" v-show=\"l.type == selectType\"  track-by=\"$index\" >\n                    <template v-for=\"p in l.picture\" >\n                        <img class=\"mui-media-object mui-pull-left menu-img\" data-lazyload={{'/data/image/'+p+'/60/60.json'}} data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\"  data-preview-group=\"{{l._id}}\" v-if=\"$index==0\">\n                        <img class=\"mui-media-object mui-pull-left\" style=\"display: none\" src=\"\" data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\" data-preview-group=\"{{l._id}}\"    v-if=\"$index>0\">\n                    </template>\n                    <div class=\"mui-media-body\">\n                        {{l.name}} <span class=\"dz\"><img src=\"/order/static/images/dz.png\" alt=\"\">{{l.star}}</span>\n                        <p class='mui-ellipsis-2'>{{l.cates.join(\",\")}}</p>\n                    </div>\n                    <p class=\"f-info\">\n                        <span class=\"f-price\">¥{{l.price}}</span>/{{l.unit}}\n                    <span class=\"mui-numbox mui-pull-right\" v-show=\"!l.overtime\">\n                        <button class=\"mui-btn mui-numbox-btn-minus\" type=\"button\" :disabled=\"!l.number\" @click=\"onMinusNum(l)\" >-</button>\n                        <input class=\"mui-numbox-input\" type=\"number\" :value=\"l.number\" />\n                        <button class=\"mui-btn mui-numbox-btn-plus\" type=\"button\" @click=\"onPlusNum(l,$event)\">+</button>\n                    </span>\n                    <span class=\"mui-pull-right mui-badge\" v-show=\"l.overtime\">已过预定时间</span>\n                    </p>\n                </li>\n            </ul>\n        </div>\n    </div >\n\n    <div class=\"mui-content l-menu\" v-show=\"view=='menu'\">\n        <div class=\"weui_cells weui_cells_access\" style=\"margin-bottom: 10px;\">\n            <div class=\"weui_cell weui_cell_select weui_select_after\">\n                <div class=\"weui_cell_hd\">\n                    <label for=\"\" class=\"weui_label\">就餐人数</label>\n                </div>\n                <div class=\"weui_cell_bd weui_cell_primary\">\n                    <select :disabled=\"mode!='all'\" :style=\"{color:mode!='all'?'#8f8f94':'#000'}\" class=\"weui_select\"  style=\"padding: 0 30px 0 15px;margin-bottom: 0;\" v-model=\"number\">\n                        <option v-for=\"r in 20\" value=\"{{r+1}}\">{{r+1}}人</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"weui_cell  \">\n                <div class=\"weui_cell_hd\"><label class=\"weui_label\">上菜时间</label></div>\n                <div class=\"weui_cell_bd weui_cell_primary\" @click=\"onPickTime\" >\n                    <span class=\"weui_input\" type=\"text\" :style=\"{color:mode!='all'?'#8f8f94':'#000'}\" v-text=\"remark||'请选择'\" ></span>\n                    <div class=\"weui_cell_ft\" style=\"float: right\">\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <ul class=\"mui-table-view\">\n            <li class=\"mui-table-view-cell mui-media\" v-for=\"l in list\" v-show=\"l.number>0\" >\n                <template v-for=\"p in l.picture\" >\n                    <img class=\"mui-media-object mui-pull-left  menu-img\" :src=\"'/data/image/'+p+'/60/60.json'\" data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\" data-preview-group=\"{{'o_'+l._id}}\"  v-if=\"$index==0\">\n                    <img class=\"mui-media-object mui-pull-left\" style=\"display: none\" src=\"\" data-preview-src=\"{{'/data/image/'+p+'/1000/1000.json'}}\"  data-preview-group=\"{{'o_'+l._id}}\"    v-if=\"$index>0\">\n                </template>\n                <div class=\"mui-media-body\">\n                    {{l.name}} <span class=\"dz\"><img src=\"/order/static/images/dz.png\" alt=\"\">{{l.star}}</span><span class=\"mui-pull-right\"  v-show=\"mode!='all'\">{{l.number}} {{l.unit}}</span>\n                    <p class='mui-ellipsis-2'>{{l.cates.join(\",\")}}</p>\n                </div>\n                <p class=\"f-info\">\n                    <span class=\"f-price\">¥{{l.price}}</span>/{{l.unit}}\n\n                    <span class=\"mui-numbox mui-pull-right\" v-show=\"mode=='all'\" v-if=\"!l.overtime\">\n                        <button class=\"mui-btn mui-numbox-btn-minus\" type=\"button\" :disabled=\"!l.number\" @click=\"onMinusNum(l)\" >-</button>\n                        <input class=\"mui-numbox-input\" type=\"number\" :value=\"l.number\" />\n                        <button class=\"mui-btn mui-numbox-btn-plus\" type=\"button\" @click=\"onPlusNum(l,$event)\">+</button>\n                    </span>\n                    <span class=\"mui-pull-right mui-badge\" v-show=\"l.overtime\">已过退订时间</span>\n                </p>\n                <p class=\"mui-ellipsis\">\n                    <input type=\"text\" v-show=\"mode=='all'\"  v-model=\"l.remark\" placeholder=\"请填写备注信息,例如口味,要求。\" style=\"margin-bottom: 0;margin-top: 5px;border: 1px solid rgba(0, 0, 0, 0.1)\">\n                    <span v-show=\"mode!='all'\">{{l.remark}}</span>\n                </p>\n            </li>\n\n            <li class=\"mui-table-view-divider\" v-show=\"count==0\"  @click=\"onChangeView('list')\"  >\n                请先点菜\n            </li>\n\n        </ul>\n        <!--<div class=\"weui_cells_title\">备注信息</div>-->\n        <!--<div class=\"weui_cells weui_cells_form\">-->\n            <!--<div class=\"weui_cell\">-->\n                <!--<div class=\"weui_cell_bd weui_cell_primary\">-->\n                    <!--<textarea  style=\"padding: 0\" v-model=\"remark\" class=\"weui_textarea\" placeholder=\"可以填写您的口味或其他需求\" rows=\"3\"></textarea>-->\n                <!--</div>-->\n            <!--</div>-->\n        <!--</div>-->\n\n        <div class=\"b-submit\" >\n           <div class=\"col-md-6\">\n               <button  class=\"mui-btn mui-btn-block mui-btn-success\" :disabled=\"disabled\" v-show=\"mode=='all'\"  @click=\"onSubmit\">\n               提交订单\n            </button>\n           </div>\n            <div class=\"col-md-6\">\n                <a  class=\"mui-btn mui-btn-block mui-btn-info\" v-show=\"mode=='all'\" v-link=\"{path:'/list'}\">\n                    返回订单\n                </a>\n            </div>\n        </div>\n    </div>\n    <nav class=\"mui-bar mui-bar-tab\"  >\n        <a class=\"mui-tab-item\"   :class=\"{'mui-active':view=='list'}\" v-show=\"mode=='all'\"  @click=\"onChangeView('list')\" >\n            <span class=\"mui-icon mui-icon-list\"></span>\n            <span class=\"mui-tab-label\">菜单</span>\n        </a>\n        <a class=\"mui-tab-item\"  :class=\"{'mui-active':view=='menu'}\" @click=\"onChangeView('menu')\" >\n        <span id=\"dest\" class=\"mui-icon mui-icon-compose\">\n            <span  class=\"mui-badge mui-badge-primary\" transition=\"bounceIn\" v-show=\"count>0\">{{count}}</span>\n        </span>\n            <span class=\"mui-tab-label\">已点</span>\n        </a>\n    </nav>\n\n\n    <div id=\"picture\" class=\"mui-popover mui-popover-action mui-popover-bottom\">\n        <ul class=\"mui-table-view\">\n            <li class=\"mui-table-view-cell\">\n                <a href=\"javascript:;\" @click=\"onEditAll\">修改订单</a>\n            </li>\n            <li class=\"mui-table-view-cell\">\n                <a href=\"javascript:;\" @click=\"onCancel\">取消订单</a>\n            </li>\n        </ul>\n        <ul class=\"mui-table-view\">\n            <li class=\"mui-table-view-cell\">\n                <a href=\"#picture\"><b>取消</b></a>\n            </li>\n        </ul>\n    </div>\n\n    <c-ok @ok-click=\"onOkClick\" :content=\"ok.content\"  transition=\"zoom\" v-if=\"ok.show\"></c-ok>\n</div>",
     data: function () {
         return {
-            order:"",
-            mode:"all",
-            view:"list",
-            types:[],
-            remark:"",
-            number:"",
-            selectType:"",
-            list:[],
-            oid:"",
-            disabled:true,
-            busy:false,
-            ok:{
-                show:false,
-                content:"你的订单信息已经提交"
-            }
+            order: "",
+            mode: "all",
+            view: "list",
+            types: [],
+            remark: "",
+            number: "",
+            selectType: "",
+            list: [],
+            oid: "",
+            disabled: true,
+            busy: false,
+            ok: {
+                show: false,
+                content: "你的订单信息已经提交"
+            },
+            packages: []
         }
+
     },
     methods:{
         render: function () {
@@ -1163,8 +1243,12 @@ module.exports = Vue.extend({
                     if(!b.sort){b.sort=0}
                     return a.sort - b.sort;
                 });
-                self._getMenus();
+                Service.getPackage(function (rep) {
+                    self.packages = rep;
+                    self._getMenus();
+                });
             });
+
         },
         renderOrder: function (id) {
             var self = this;
@@ -1200,16 +1284,19 @@ module.exports = Vue.extend({
             layer.open({type:2,content:"获取中"});
 
             Service.getDishes(function (rep) {
-                self.selectType = self.types[0].key;
+                if(self.packages.length>0){
+                    self.selectType ="package";
+                }else{
+                    self.selectType = self.types[0].key;
+                }
                 for (var i = 0; i < rep.length; i++) {
                     var obj = rep[i];
                     obj.number = 0;
                     obj.remark = "";
                     obj.overtime = false;
-
                 }
                 self.list = rep;
-                self.renderOrder(self.$route.params.oid);
+                self.renderOrder(self.oid);
                 layer.closeAll();
 
                 Vue.nextTick(function () {
@@ -1227,7 +1314,22 @@ module.exports = Vue.extend({
             return this.now >= target;
         },
         onSelectType: function (t) {
-            this.selectType = t.key;
+            if(t == "package"){
+                this.selectType = t;
+            }else{
+                this.selectType = t.key;
+            }
+        },
+        onChoose: function (p) {
+            var self = this;
+            p.menu.forEach(function (m) {
+                self.list.forEach(function (l) {
+                    if(l._id == m.food._id){
+                        l.number = m.number;
+                    }
+                })
+            });
+            this.view ="menu";
         },
         onMinusNum: function (l) {
             l.number -=1;
@@ -1287,7 +1389,7 @@ module.exports = Vue.extend({
                 }
             });
             var self = this;
-            this._putOrder({menu: m,_id:this.oid,remark:this.remark,number:this.number}, function () {
+            this._putOrder({menu: m,_id:this.$route.params.oid.replace(/_/g,","),remark:this.remark,number:this.number}, function () {
                 self.ok.show = true;
             });
         },
@@ -1306,7 +1408,7 @@ module.exports = Vue.extend({
                 content:"确定取消订单?",
                 btn:["确定","取消"],
                 yes: function () {
-                    Service.delOrder(self.oid, function (rep) {
+                    Service.delOrder(self.$route.params.oid.replace(/_/g,","), function (rep) {
 
                         layer.open({
                             content:"取消成功!",
@@ -1419,8 +1521,12 @@ module.exports = Vue.extend({
     },
     route:{
         data: function (r) {
-            this.oid = r.to.params.oid;
+            var t = r.to.params.oid.split("_");
+            this.oid = t.length>0?t[0]:r.to.params.oid;
             this.selectType = this.types.length>0?this.types[0].key:"";
+            if(this.packages.length>0){
+                this.selectType = "package";
+            }
 
             setTimeout(function () {
                 r.next();
