@@ -148,7 +148,7 @@ public class OrderCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.POST })
-  public String data_order_$id(@PathVariable("id") String idx,
+  public String POST_data_order_$id(@PathVariable("id") String idx,
       HttpServletRequest request, HttpSession session) throws Exception {
 
     User user = userService.getFromSession(session);
@@ -224,16 +224,21 @@ public class OrderCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.DELETE })
-  public String data_order_$id(@PathVariable("id") String _id) {
+  public String DELETE_data_order_$id(@PathVariable("id") String idx) {
 
-    orderService.unorder(_id);
+    String[] ids = idx.trim().split(",");
+
+    for (String id : ids) {
+      orderService.unorder(id);
+    }
     return RESTResponse.of(null).get();
   }
 
   @ResponseBody
   @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.GET })
-  public String data_order_$id(HttpSession session, HttpServletRequest request,
-      @PathVariable("id") String id) throws Exception {
+  public String GET_data_order_$id(HttpSession session,
+      HttpServletRequest request, @PathVariable("id") String id)
+      throws Exception {
 
     User user = userService.getFromSession(session);
     Order order = orderService.get(id);
