@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,9 @@ public abstract class CRUDAdminCtrl<T extends Basic<T>, Q extends PageParam> {
       throws IOException {
 
     T t = Utils.parseJSON(request.getInputStream(), service().clazz());
+
+    String id = new ObjectId().toHexString();
+    t.set_id(id);
 
     return RESTResponse.of(service().insert(t)).toString();
   }
