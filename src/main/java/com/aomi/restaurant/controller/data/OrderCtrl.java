@@ -52,7 +52,7 @@ public class OrderCtrl {
 
   @ResponseBody
   @RequestMapping(value = "/data/table/{id}.json", method = { RequestMethod.PUT })
-  public String data_table_$id(@PathVariable("id") String id,
+  public String data_table_$id(@PathVariable("id") String idx,
       HttpServletRequest request, HttpSession session) throws Exception {
 
     User user = userService.getFromSession(session);
@@ -61,87 +61,94 @@ public class OrderCtrl {
       return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
     }
 
-    Table table = tableService.get(id);
-
-    if (table == null) {
-      return RESTResponse.of(Errors.NO_SUCH_ITEM, null).get();
-    }
-
     OrderForm form = Utils.parseJSON(request.getInputStream(), OrderForm.class);
 
-    Order order = new Order();
+    String[] ids = idx.trim().split(",");
+    List<Order> orders = new ArrayList<>(ids.length);
 
-    if (form.mdate != null) {
-      order.put("mdate", form.mdate);
-    }
+    for (String id : ids) {
 
-    if (form.mtime != null) {
-      order.put("mtime", form.mtime);
-    }
+      Table table = tableService.get(id);
 
-    if (form.number != null) {
-      order.put("number", form.number);
-    }
+      if (table == null) {
+        return RESTResponse.of(Errors.NO_SUCH_ITEM, null).get();
+      }
 
-    if (form.remark != null) {
-      order.put("remark", form.remark);
-    }
+      Order order = new Order();
 
-    if (form.exact != null) {
-      order.put("exact", form.exact);
-    }
+      if (form.mdate != null) {
+        order.put("mdate", form.mdate);
+      }
 
-    order.put("table", table);
+      if (form.mtime != null) {
+        order.put("mtime", form.mtime);
+      }
 
-    if (order == null || order.getMdate() == null || order.getMtime() == null
-        || order.getTable() == null) {
-      return RESTResponse.of(Errors.PARAMETER_ERROR, null).get();
-    }
+      if (form.number != null) {
+        order.put("number", form.number);
+      }
 
-    OrderPageParam opp = new OrderPageParam();
-    opp.setLimit(1);
-    opp.setCounting(false);
-    opp.setMdate(order.getMdate());
-    opp.setMtime(order.getMtime());
-    opp.setTid(order.getTable().get_id());
-    opp.setState(1);
+      if (form.remark != null) {
+        order.put("remark", form.remark);
+      }
 
-    if (orderService.page(opp).size() > 0) {
-      return RESTResponse.of(null).get();
-    }
+      if (form.exact != null) {
+        order.put("exact", form.exact);
+      }
 
-    ArrayList<Object> menu = new ArrayList<>();
+      order.put("table", table);
 
-    order.put("menu", menu);
+      if (order == null || order.getMdate() == null || order.getMtime() == null
+          || order.getTable() == null) {
+        return RESTResponse.of(Errors.PARAMETER_ERROR, null).get();
+      }
 
-    if (form.menu != null) {
+      OrderPageParam opp = new OrderPageParam();
+      opp.setLimit(1);
+      opp.setCounting(false);
+      opp.setMdate(order.getMdate());
+      opp.setMtime(order.getMtime());
+      opp.setTid(order.getTable().get_id());
+      opp.setState(1);
 
-      for (DishList s : form.menu) {
+      if (orderService.page(opp).size() > 0) {
+        return RESTResponse.of(null).get();
+      }
 
-        Dish dish = dishService.get(s._id);
+      ArrayList<Object> menu = new ArrayList<>();
 
-        if (dish != null && s.remark != null) {
-          dish.put("remark", s.remark);
-        }
+      order.put("menu", menu);
 
-        if (dish != null && s.number > 0) {
+      if (form.menu != null) {
 
-          dish.put("number", s.number);
-          menu.add(dish);
+        for (DishList s : form.menu) {
+
+          Dish dish = dishService.get(s._id);
+
+          if (dish != null && s.remark != null) {
+            dish.put("remark", s.remark);
+          }
+
+          if (dish != null && s.number > 0) {
+
+            dish.put("number", s.number);
+            menu.add(dish);
+          }
         }
       }
+
+      order.put("user", user);
+
+      orderService.insert(order);
+      orders.add(order);
     }
 
-    order.put("user", user);
-
-    orderService.insert(order);
-
-    return RESTResponse.of(order).get();
+    return RESTResponse.of(orders).get();
   }
 
   @ResponseBody
   @RequestMapping(value = "/data/order/{id}.json", method = { RequestMethod.POST })
-  public String data_order_$id(@PathVariable("id") String id,
+  public String data_order_$id(@PathVariable("id") String idx,
       HttpServletRequest request, HttpSession session) throws Exception {
 
     User user = userService.getFromSession(session);
@@ -152,60 +159,67 @@ public class OrderCtrl {
 
     OrderForm form = Utils.parseJSON(request.getInputStream(), OrderForm.class);
 
-    Order order = orderService.get(id);
+    String[] ids = idx.trim().split(",");
+    List<Order> orders = new ArrayList<>(ids.length);
 
-    if (!(order.getUser().get_id().equals(user.get_id()))) {
-      return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
-    }
+    for (String id : ids) {
 
-    if (form.mdate != null) {
-      order.put("mdate", form.mdate);
-    }
+      Order order = orderService.get(id);
 
-    if (form.mtime != null) {
-      order.put("mtime", form.mtime);
-    }
+      if (!(order.getUser().get_id().equals(user.get_id()))) {
+        return RESTResponse.of(Errors.UNAUTHORIZED, null).get();
+      }
 
-    if (form.number != null) {
-      order.put("number", form.number);
-    }
+      if (form.mdate != null) {
+        order.put("mdate", form.mdate);
+      }
 
-    if (form.remark != null) {
-      order.put("remark", form.remark);
-    }
+      if (form.mtime != null) {
+        order.put("mtime", form.mtime);
+      }
 
-    if (form.exact != null) {
-      order.put("exact", form.exact);
-    }
+      if (form.number != null) {
+        order.put("number", form.number);
+      }
 
-    if (form.state != null) {
-      order.put("state", form.state);
-    }
+      if (form.remark != null) {
+        order.put("remark", form.remark);
+      }
 
-    if (form.menu != null) {
+      if (form.exact != null) {
+        order.put("exact", form.exact);
+      }
 
-      ArrayList<Object> menu = new ArrayList<>();
-      order.put("menu", menu);
+      if (form.state != null) {
+        order.put("state", form.state);
+      }
 
-      for (DishList s : form.menu) {
+      if (form.menu != null) {
 
-        Dish dish = dishService.get(s._id);
+        ArrayList<Object> menu = new ArrayList<>();
+        order.put("menu", menu);
 
-        if (dish != null && s.remark != null) {
-          dish.put("remark", s.remark);
-        }
+        for (DishList s : form.menu) {
 
-        if (dish != null && s.number > 0) {
+          Dish dish = dishService.get(s._id);
 
-          dish.put("number", s.number);
-          menu.add(dish);
+          if (dish != null && s.remark != null) {
+            dish.put("remark", s.remark);
+          }
+
+          if (dish != null && s.number > 0) {
+
+            dish.put("number", s.number);
+            menu.add(dish);
+          }
         }
       }
+
+      orderService.update(order);
+      orders.add(order);
     }
 
-    orderService.update(order);
-
-    return RESTResponse.of(order).get();
+    return RESTResponse.of(orders).get();
   }
 
   @ResponseBody
