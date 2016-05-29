@@ -10,6 +10,7 @@ import com.aomi.busorder.pojo.User;
 import com.aomi.restaurant.pojo.Dish;
 import com.aomi.restaurant.pojo.Notice;
 import com.aomi.restaurant.pojo.Order;
+import com.aomi.restaurant.pojo.Pack;
 import com.aomi.restaurant.pojo.Table;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
@@ -69,6 +70,10 @@ public class RestaurantDAO implements InitializingBean {
 
     pack = client.getDB(dbName).getCollection("pack");
 
+    pack.setObjectClass(Pack.class);
+
+    pack.setInternalClass("user", User.class);
+    pack.setInternalClass("table", Table.class);
     pack.setInternalClass("menu", Dish.class);
 
     pack.createIndex(BasicDBObjectBuilder.start().add("state", 1)
