@@ -38,8 +38,10 @@ public abstract class CRUDAdminCtrl<T extends Basic<T>, Q extends PageParam> {
 
     T t = Utils.parseJSON(request.getInputStream(), service().clazz());
 
-    String id = new ObjectId().toHexString();
-    t.set_id(id);
+    if (t.get_id() == null) {
+      String id = new ObjectId().toHexString();
+      t.set_id(id);
+    }
 
     return RESTResponse.of(service().insert(t)).toString();
   }
