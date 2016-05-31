@@ -37,4 +37,9 @@ public class Goods extends Basic<Goods> {
     return getInt("visible", 1);
   }
 
+  public int getNumber() {
+
+    return getInt("number", 0);
+  }
+
 }

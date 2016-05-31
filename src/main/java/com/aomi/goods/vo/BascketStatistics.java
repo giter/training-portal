@@ -1,9 +1,9 @@
-package com.aomi.restaurant.vo;
+package com.aomi.goods.vo;
 
-public class OrderStatistics {
+public class BascketStatistics {
 
   /**
-   * 菜名
+   * 货品
    */
   public String name;
 
@@ -23,17 +23,12 @@ public class OrderStatistics {
   public String unit;
 
   /**
-   * 订餐总次数
+   * 订货总次数
    */
   public int times;
 
   /**
-   * 用餐总人数
-   */
-  public int persons;
-
-  /**
-   * 用餐总金额
+   * 订货总金额
    */
   public double amount;
 }

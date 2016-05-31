@@ -77,7 +77,7 @@ public class OrderCtrl {
           stats.put(d.get_id(), new OrderStatistics());
           ss = stats.get(d.get_id());
 
-          ss.dish = d.getName();
+          ss.name = d.getName();
           ss.price = d.getPrice();
           ss.unit = d.getUnit();
         }

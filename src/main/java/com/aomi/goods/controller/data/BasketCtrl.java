@@ -1,7 +1,9 @@
 package com.aomi.goods.controller.data;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import com.aomi.goods.pojo.Basket;
 import com.aomi.goods.pojo.Goods;
 import com.aomi.goods.service.BasketService;
 import com.aomi.goods.service.GoodsService;
+import com.aomi.goods.vo.BascketStatistics;
 import com.aomi.goods.vo.BasketPageParam;
 import com.aomi.restaurant.vo.VOUser;
 
@@ -41,6 +44,46 @@ public class BasketCtrl {
 
   @Resource
   UserService userService;
+
+  @ResponseBody
+  @RequestMapping(value = "/data/basket/statistics/{s}/{e}.json", method = { RequestMethod.POST })
+  public String data_order_statistics_$s_$e(@PathVariable("s") String s,
+      @PathVariable("e") String e, HttpServletRequest request,
+      HttpSession session) throws Exception {
+
+    BasketPageParam param = new BasketPageParam();
+
+    param.setCounting(false);
+    param.setLimit(-1);
+    param.setStart(s);
+    param.setEnd(e);
+
+    Map<String, BascketStatistics> stats = new LinkedHashMap<String, BascketStatistics>();
+
+    for (Basket o : service.page(param)) {
+
+      for (Goods d : o.getItems()) {
+
+        BascketStatistics ss = stats.get(d.get_id());
+
+        if (ss == null) {
+
+          stats.put(d.get_id(), new BascketStatistics());
+          ss = stats.get(d.get_id());
+
+          ss.name = d.getName();
+          ss.price = d.getPrice();
+          ss.unit = d.getUnit();
+        }
+
+        ss.num += o.getNumber();
+        ss.times++;
+        ss.amount += d.getPrice() * o.getNumber();
+      }
+    }
+
+    return RESTResponse.of(stats.values()).toString();
+  }
 
   @ResponseBody
   @RequestMapping(value = "/data/basket.json", method = { RequestMethod.PUT })
