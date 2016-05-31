@@ -428,6 +428,9 @@ module.exports = Vue.extend({
     route:{
         data: function () {
             this.checkHasDh(this.goods.goods);
+            if(this.$route.params.view){
+                this.view = this.$route.params.view;
+            }
         }
     },
     ready: function () {
@@ -569,6 +572,9 @@ router.redirect({
 
 router.map({
     "/order":{
+        component:order
+    },
+    "/order/:view":{
         component:order
     },
     "/order/:mdate/:mtime/:num":{
