@@ -8,7 +8,7 @@
 	<properties>
 
 		<version.springframework>4.1.1.RELEASE</version.springframework>
-		<version.mongodb>2.12.3</version.mongodb>
+		<version.mongodb>3.2.2</version.mongodb>
 		<version.jedis>2.6.0</version.jedis>
 		<version.slf4j>1.7.7</version.slf4j>
 		<version.commons-lang3>3.3.2</version.commons-lang3>

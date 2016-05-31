@@ -67,6 +67,7 @@ public class MongoDAO implements InitializingBean {
 
   public DBCollection dept;
 
+  @SuppressWarnings("deprecation")
   @Override
   public void afterPropertiesSet() throws Exception {
 

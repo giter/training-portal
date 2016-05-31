@@ -26,6 +26,7 @@ public class GoodsDAO implements InitializingBean {
   public DBCollection goods;
   public DBCollection basket;
 
+  @SuppressWarnings("deprecation")
   @Override
   public void afterPropertiesSet() throws Exception {
 
