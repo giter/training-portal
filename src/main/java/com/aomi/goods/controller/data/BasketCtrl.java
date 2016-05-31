@@ -76,9 +76,9 @@ public class BasketCtrl {
           ss.unit = d.getUnit();
         }
 
-        ss.num += o.getNumber();
+        ss.num += d.getNumber();
         ss.times++;
-        ss.amount += d.getPrice() * o.getNumber();
+        ss.amount += d.getPrice() * d.getNumber();
       }
     }
 

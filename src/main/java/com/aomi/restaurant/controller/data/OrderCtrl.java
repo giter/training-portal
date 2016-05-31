@@ -82,10 +82,10 @@ public class OrderCtrl {
           ss.unit = d.getUnit();
         }
 
-        ss.num += o.getNumber();
+        ss.num += d.getNumber();
         ss.times++;
         ss.persons += d.getNumber();
-        ss.amount += d.getPrice() * o.getNumber();
+        ss.amount += d.getPrice() * d.getNumber();
       }
     }
 
