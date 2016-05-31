@@ -32,6 +32,7 @@ import com.aomi.restaurant.service.DishService;
 import com.aomi.restaurant.service.OrderService;
 import com.aomi.restaurant.service.TableService;
 import com.aomi.restaurant.vo.OrderPageParam;
+import com.aomi.restaurant.vo.OrderStatistics;
 import com.aomi.restaurant.vo.TablePageParam;
 import com.aomi.restaurant.vo.VOUser;
 
@@ -49,6 +50,47 @@ public class OrderCtrl {
 
   @Resource
   TableService tableService;
+
+  @ResponseBody
+  @RequestMapping(value = "/data/order/statistics/{s}/{e}.json", method = { RequestMethod.POST })
+  public String data_order_statistics_$s_$e(@PathVariable("s") String s,
+      @PathVariable("e") String e, HttpServletRequest request,
+      HttpSession session) throws Exception {
+
+    OrderPageParam param = new OrderPageParam();
+
+    param.setCounting(false);
+    param.setLimit(-1);
+    param.setStart(s);
+    param.setEnd(e);
+
+    Map<String, OrderStatistics> stats = new LinkedHashMap<String, OrderStatistics>();
+
+    for (Order o : orderService.page(param)) {
+
+      for (Dish d : o.getMenu()) {
+
+        OrderStatistics ss = stats.get(d.get_id());
+
+        if (ss == null) {
+
+          stats.put(d.get_id(), new OrderStatistics());
+          ss = stats.get(d.get_id());
+
+          ss.dish = d.getName();
+          ss.price = d.getPrice();
+          ss.unit = d.getUnit();
+        }
+
+        ss.num += o.getNumber();
+        ss.times++;
+        ss.persons += d.getNumber();
+        ss.amount += d.getPrice() * o.getNumber();
+      }
+    }
+
+    return RESTResponse.of(stats.values()).toString();
+  }
 
   @ResponseBody
   @RequestMapping(value = "/data/table/{id}.json", method = { RequestMethod.PUT })
