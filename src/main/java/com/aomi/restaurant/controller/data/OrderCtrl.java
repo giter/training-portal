@@ -63,7 +63,7 @@ public class OrderCtrl {
     param.setLimit(-1);
     param.setStart(s);
     param.setEnd(e);
-    param.setStates(new Integer[] { 2, 3 });
+    param.setStates(new Integer[] { 2, 3, 4 });
 
     Map<String, OrderStatistics> stats = new LinkedHashMap<String, OrderStatistics>();
 
@@ -118,6 +118,10 @@ public class OrderCtrl {
       }
 
       Order order = new Order();
+
+      if (form.state != null) {
+        order.put("state", form.state);
+      }
 
       if (form.mdate != null) {
         order.put("mdate", form.mdate);
