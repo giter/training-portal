@@ -16,6 +16,8 @@ public class OrderPageParam extends PageParam {
 
   private Integer state;
 
+  private Integer[] states;
+
   private String tid;
 
   public String getUid() {
@@ -72,5 +74,13 @@ public class OrderPageParam extends PageParam {
 
   public void setTid(String tid) {
     this.tid = tid;
+  }
+
+  public Integer[] getStates() {
+    return states;
+  }
+
+  public void setStates(Integer[] states) {
+    this.states = states;
   }
 }

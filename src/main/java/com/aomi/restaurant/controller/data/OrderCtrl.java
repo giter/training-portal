@@ -63,6 +63,7 @@ public class OrderCtrl {
     param.setLimit(-1);
     param.setStart(s);
     param.setEnd(e);
+    param.setStates(new Integer[] { 2, 3 });
 
     Map<String, OrderStatistics> stats = new LinkedHashMap<String, OrderStatistics>();
 

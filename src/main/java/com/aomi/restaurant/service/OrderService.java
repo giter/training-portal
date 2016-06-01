@@ -78,6 +78,11 @@ public class OrderService extends CRUDService<Order, OrderPageParam> {
         builder.add("state", param.getState());
       }
 
+      if (param.getStates() != null) {
+
+        builder.push("state").add("$any", param.getStates()).pop();
+      }
+
       if (param.getTid() != null) {
         builder.add("table._id", param.getTid());
       }

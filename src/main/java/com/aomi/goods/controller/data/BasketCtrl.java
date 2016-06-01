@@ -54,6 +54,7 @@ public class BasketCtrl {
     BasketPageParam param = new BasketPageParam();
 
     param.setCounting(false);
+    param.setStates(new Integer[] { 2, 3 });
     param.setLimit(-1);
     param.setStart(s);
     param.setEnd(e);

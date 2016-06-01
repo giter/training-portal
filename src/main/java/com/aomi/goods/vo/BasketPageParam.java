@@ -5,6 +5,7 @@ import com.aomi.busorder.param.PageParam;
 public class BasketPageParam extends PageParam {
 
   private Integer state;
+  private Integer[] states;
   private String start;
   private String end;
   private String uid;
@@ -57,5 +58,13 @@ public class BasketPageParam extends PageParam {
 
   public void setMtime(String mtime) {
     this.mtime = mtime;
+  }
+
+  public Integer[] getStates() {
+    return states;
+  }
+
+  public void setStates(Integer[] states) {
+    this.states = states;
   }
 }

@@ -53,6 +53,11 @@ public class BasketService extends CRUDService<Basket, BasketPageParam> {
         builder.add("state", param.getState());
       }
 
+      if (param.getStates() != null) {
+
+        builder.push("state").add("$any", param.getStates()).pop();
+      }
+
       if (param.getUid() != null) {
         builder.add("user._id", param.getUid());
       }
