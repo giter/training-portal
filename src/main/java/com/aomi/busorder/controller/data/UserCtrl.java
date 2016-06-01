@@ -113,8 +113,9 @@ public class UserCtrl {
         + "#/bind";
   }
 
-  @RequestMapping(value = "/oauth/{index}.html", method = { RequestMethod.GET })
-  public String oauth_$index(@PathVariable("index") String index,
+  @RequestMapping(value = "/oauth/{index}/{subindex}.html", method = { RequestMethod.GET })
+  public String oauth_$index_$subindex(@PathVariable("index") String index,
+      @PathVariable("subindex") String subindex,
       @RequestParam(value = "code", required = false) String code,
       HttpSession session) throws IOException, WxErrorException {
 
@@ -128,11 +129,19 @@ public class UserCtrl {
     if (user != null) {
 
       doLogin(session, user);
-      return "redirect:/" + index + "/index.html";
+      return "redirect:/" + index + "/" + subindex + ".html";
     }
 
     return "redirect:/index.html?openID=" + URLEncoder.encode(openID, "utf-8")
         + "#/bind";
+  }
+
+  @RequestMapping(value = "/oauth/{index}.html", method = { RequestMethod.GET })
+  public String oauth_$index(@PathVariable("index") String index,
+      @RequestParam(value = "code", required = false) String code,
+      HttpSession session) throws IOException, WxErrorException {
+
+    return oauth_$index_$subindex(index, "index", code, session);
   }
 
   @ResponseBody
