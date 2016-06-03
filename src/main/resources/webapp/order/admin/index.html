@@ -9,7 +9,7 @@
     </style>
 
 
-    <link rel="stylesheet" href="/order/admin/static/pkg/all_1f73125.css" />
+    <link rel="stylesheet" href="/order/admin/static/pkg/all_57cdafc.css" />
 </head>
 <body id="app" >
 <header>
@@ -103,6 +103,24 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
+    "components/page/stat/food/food": {
+      "url": "/order/admin/static/components/page/stat/food/food.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/stat/good/good": {
+      "url": "/order/admin/static/components/page/stat/good/good.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
     "components/page/stat/stat": {
       "url": "/order/admin/static/components/page/stat/stat.js",
       "type": "js",
@@ -110,7 +128,9 @@ require.resourceMap({
         "component_modules/vue",
         "main/service",
         "component_modules/echarts.min",
-        "nav/nav"
+        "nav/nav",
+        "components/page/stat/food/food",
+        "components/page/stat/good/good"
       ],
       "pkg": "p1"
     },
@@ -167,6 +187,15 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
+    "components/page/order/realtime/realtime": {
+      "url": "/order/admin/static/components/page/order/realtime/realtime.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
     "components/page/order/order": {
       "url": "/order/admin/static/components/page/order/order.js",
       "type": "js",
@@ -175,7 +204,8 @@ require.resourceMap({
         "main/service",
         "form/form",
         "state/state",
-        "components/page/order/stat/stat"
+        "components/page/order/stat/stat",
+        "components/page/order/realtime/realtime"
       ],
       "pkg": "p1"
     },
@@ -320,7 +350,7 @@ require.resourceMap({
       "type": "js"
     },
     "p1": {
-      "url": "/order/admin/static/pkg/app_c45abaa.js",
+      "url": "/order/admin/static/pkg/app_b66b384.js",
       "type": "js"
     }
   }
