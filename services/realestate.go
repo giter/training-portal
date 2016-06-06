@@ -44,6 +44,17 @@ type SRealEstatePage struct {
 	Data []models.RealEstate
 }
 
+func RealEstateAll(db *mgo.Database, fields bson.M) (p []models.RealEstate , err error ) {
+
+	c := RealEstateCollection(db)
+	
+	q := bson.M{ }
+	q["Status.Disabled"] = bson.M{ "$ne" : true }
+	
+	err = c.Find(q).Select(fields).All(&p)
+	return
+}
+
 func RealEstatePage(db *mgo.Database, query forms.RealEstatePageForm) (p SRealEstatePage , err error) {
 
 	c := RealEstateCollection(db)

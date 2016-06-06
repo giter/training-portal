@@ -25,18 +25,20 @@ func NewsCollection(db *mgo.Database) *mgo.Collection {
 	return db.C(models.COLLECTION_NEWS);
 }
 
-func NewsForm(db *mgo.Database, req *http.Request, r render.Render) {
+func NewsForm(db *mgo.Database, ctx bson.M, req *http.Request, r render.Render) {
 	
 	var err error
 	c := NewsCollection(db)
 	
-	ctx := bson.M{}
-	
-	ctx["Categories"], err = services.CategoryList(db);
-	
-	if err != nil {
-	
+	if ctx["Categories"], err = services.CategoryList(db); err!=nil && err!=mgo.ErrNotFound {
 		r.Error(500);
+		return
+	}
+	
+	fields := bson.M{"_id": 1, "Name": 1, "Captain": 1, }
+	
+	if ctx["RealEstates"], err = services.RealEstateAll(db, fields); err!=nil && err!=mgo.ErrNotFound {
+		r.Error(500)
 		return
 	}
 	

@@ -27,6 +27,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
 <!-- END PAGE STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
@@ -173,7 +174,6 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="/manage/area/index.html"><i class="icon-bulb"></i> 区域管理</a></li>
-						<li><a href="ecommerce_index.html"><i class="icon-bar-chart"></i> 学校管理</a></li>
 						<li><a href="/manage/category/index.html"><i class="icon-bulb"></i> 资讯分类</a></li>
 						<li><a href="/manage/link/index.html"><i class="icon-bulb"></i> 友情链接</a></li>
 						<li><a href="/manage/manager/index.html"><i class="icon-bulb"></i> 管理帐号</a></li>
@@ -213,6 +213,7 @@
 <script src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/uploadify/jquery.uploadify.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/uploadifive/jquery.uploadifive.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/select2/select2.min.js" type="text/javascript" ></script>
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -235,19 +236,21 @@
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 
-var KVs = {{.CONTEXT.KVs}};
-
 jQuery(document).ready(function() {
    
    var loc = window.location.pathname;
    $(".page-sidebar .sub-menu a[href='"+loc+"']")
-   	.parents("li").first().addClass("active open")
-   	.parents("li").first().addClass("active open")
-   	.find(".arrow").addClass("open");
+    .parents("li").first().addClass("active open")
+    .parents("li").first().addClass("active open")
+    .find(".arrow").addClass("open");
    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   Demo.init(); // init demo features
+   Metronic.init(); /* init metronic core componets */
+   Layout.init(); /* init layout */
+   Demo.init(); /* init demo features */
+   
+   $("select.select2").select2({
+	   language: "zh-CN"
+   });
    
    PageLogical && PageLogical.init && PageLogical.init();
 });

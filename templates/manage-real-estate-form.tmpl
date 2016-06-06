@@ -27,35 +27,35 @@
 <div class="row">
 	{{if .RealEstate}}
 	<ul class="nav nav-tabs">
-		<li class="active">
-			<a href="#tab-general" data-toggle="tab">
+		<li class='{{if eq .Tab "general" "type" }}active{{end}}'>
+			<a href='{{queryN $.CONTEXT.URL.String "tab" "general" "type" nil "p" nil }}'>
 			楼盘资料 </a>
 		</li>
-		<li class="">
-			<a href="#tab-enviroment" data-toggle="tab">
+		<li class='{{if eq .Tab "more" }}active{{end}}'>
+			<a href='{{queryN $.CONTEXT.URL.String "tab" "more" "type" nil "p" nil }}'>
+			楼盘概况</a>
+		</li>
+		<li class='{{if eq .Tab "enviroment" }}active{{end}}'>
+			<a href='{{queryN $.CONTEXT.URL.String "tab" "enviroment" "type" nil "p" nil }}'>
 			参数环境</a>
 		</li>
-		<li class="">
-			<a href="#tab-images" data-toggle="tab">
+		<li class='{{if eq .Tab "images" }}active{{end}}' >
+			<a href='{{queryN $.CONTEXT.URL.String "tab" "images" "type" nil "p" nil }}'>
 			楼盘图库 </a>
 		</li>
-		<li class="">
-			<a href="#tab_images" data-toggle="tab">
+		<li class='{{if eq .Tab "layouts" }}active{{end}}'>
+			<a href='{{queryN $.CONTEXT.URL.String "tab" "layouts" "type" nil "p" nil }}'>
 			户型图库 </a>
 		</li>
-		<li class="">
-			<a href="#tab_reviews" data-toggle="tab">
+		<li class='{{if eq .Tab "reviews" }}active{{end}}'>
+			<a href='{{queryN $.CONTEXT.URL.String "tab" "reviews" "type" nil "p" nil }}'>
 			楼盘评价
 			</a>
-		</li>
-		<li>
-			<a href="#tab_history" data-toggle="tab">
-			历史价格 </a>
 		</li>
 	</ul>
 	{{end}}
 	<div class='tab-content no-space'>
-		<div class="tab-pane active col-md-12" id='tab-general'>
+		<div class='tab-pane {{if eq .Tab "general"}}active{{end}} col-md-12' id='tab-general'>
 		<form class='form-horizontal' id='form-real-estate'>
 			<input type='hidden' name='Id' value='{{if .RealEstate}}{{.RealEstate.Id}}{{end}}' />
 			<input type='hidden' name='MTime[Created]:number' value='{{if .RealEstate}}{{.RealEstate.MTime.Created}}{{end}}' />
@@ -271,12 +271,18 @@
 					</tr>
 					<tr>
 						<td><label class='control-label'>房产公司</label></td>
-						<td></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Estate' class='form-control' value="{{if .RealEstate}}{{if .RealEstate.Estate}}{{.RealEstate.Estate}}{{end}}{{end}}"/>
+								</div>
+							</div>
+						</td>
 						<td><label class='control-label'>发展商</label></td>
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
-									<input type='text' name='Developer' class='form-control'/>
+									<input type='text' name='Developer' class='form-control' value="{{if .RealEstate}}{{if .RealEstate.Developer}}{{.RealEstate.Developer}}{{end}}{{end}}"/>
 								</div>
 							</div>
 						</td>
@@ -286,7 +292,7 @@
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
-									<input type='text' name='Agency' class='form-control'/>
+									<input type='text' name='Agency' class='form-control' value="{{if .RealEstate}}{{if .RealEstate.Agency}}{{.RealEstate.Agency}}{{end}}{{end}}"/>
 								</div>
 							</div>
 						</td>
@@ -294,7 +300,7 @@
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
-									<input type='text' name='Machinate' class='form-control'/>
+									<input type='text' name='Machinate' class='form-control'value="{{if .RealEstate}}{{if .RealEstate.Machinate}}{{.RealEstate.Machinate}}{{end}}{{end}}"/>
 								</div>
 							</div>
 						</td>
@@ -312,7 +318,7 @@
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
-									<input type='text' name='SellAddress[]' value="{{if .RealEstate}}{{if len .RealEstate.SellAddress}}{{index .RealEstate.SellAddress 0}}{{end}}{{end}}" class='form-control required'/>
+									<input type='text' name='SellAddress' value="{{if .RealEstate}}{{if .RealEstate.SellAddress}}{{.RealEstate.SellAddress}}{{end}}{{end}}" class='form-control required'/>
 								</div>
 							</div>
 						</td>
@@ -401,7 +407,7 @@
 		</div>
 		
 		{{if .RealEstate}}
-		<div class="tab-pane col-md-12" id='tab-enviroment'>
+		<div class='tab-pane {{if eq .Tab "enviroment"}}active{{end}} col-md-12' id='tab-enviroment'>
 			<form class='form-horizontal' id='form-real-estate-enviroment'>
 				<input type='hidden' name='Id' value='{{.RealEstate.Id}}' />
 				<input type='hidden' name='MTime[Created]:number' value='{{.RealEstate.MTime.Created}}' />
@@ -415,65 +421,126 @@
 								</div>
 							</div>
 						</td>
-						<td><label class='control-label'>车位比<span class='required' aria-required='true'>*</span></label></td>
-						<td>
-							<div class='row'>
-								<div class='col-md-8'>
-									<input type='text' name='Carbarn' value="{{if .RealEstate.Carbarn}}{{.RealEstate.Carbarn}}{{end}}" class='form-control required'/>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>装修情况</label></td>
-						<td>
-							<div class='row'>
-								<div class='col-md-8'>
-									<input type='text' name='Decoration' value="{{if .RealEstate.Decoration}}{{.RealEstate.Decoration}}{{end}}" class='form-control'/>
-								</div>
-							</div>
-						</td>
-						<td><label class='control-label'>物业费</label></td>
-						<td>
-							<div class='row'>
-								<div class='col-md-8'>
-									<input type='text' name='PropertyFee' value="{{if .RealEstate.PropertyFee}}{{.RealEstate.PropertyFee}}{{end}}" class='form-control'/>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>得房率</label></td>
-						<td>
-							<div class='row'>
-								<div class='col-md-8'>
-									<input type='text' name='EffectiveAreaRatio' value="{{if .RealEstate.EffectiveAreaRatio}}{{.RealEstate.EffectiveAreaRatio}}{{end}}" class='form-control'/>
-								</div>
-							</div>
-						</td>
-						<td><label class='control-label'>容积率</label></td>
-						<td>
-							<div class='row'>
-								<div class='col-md-8'>
-									<input type='text' name='FloorAreaRatio' value="{{if .RealEstate.FloorAreaRatio}}{{.RealEstate.FloorAreaRatio}}{{end}}" class='form-control'/>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td><label class='control-label'>绿化率</label></td>
-						<td>
-							<div class='row'>
-								<div class='col-md-8'>
-									<input type='text' name='GreenRatio' value="{{if .RealEstate.GreenRatio}}{{.RealEstate.GreenRatio}}{{end}}" class='form-control'/>
-								</div>
-							</div>
-						</td>
 						<td><label class='control-label'>学区</label></td>
 						<td>
 							<div class='row'>
 								<div class='col-md-8'>
-									<input type='text' name='Enviroment[Schools]' value="{{if .RealEstate.Enviroment}}{{if .RealEstate.Enviroment.Schools}}{{.RealEstate.Enviroment.Schools}}{{end}}{{end}}" class='form-control'/>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[School]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.School}}{{join .RealEstate.Enviroment.School ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>综合商场</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Mall]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Mall}}{{join .RealEstate.Enviroment.Mall ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>娱乐餐饮</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Restaurant]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Restaurant}}{{join .RealEstate.Enviroment.Restaurant ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>公园</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Park]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Park}}{{join .RealEstate.Enviroment.Park ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>宾馆酒店</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Hotel]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Hotel}}{{join .RealEstate.Enviroment.Hotel ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>银行</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Bank]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Bank}}{{join .RealEstate.Enviroment.Bank ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>医院</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Hospital]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Hospital}}{{join .RealEstate.Enviroment.Hospital ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>菜场</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[Market]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.Market}}{{join .RealEstate.Enviroment.Market ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>公交路线</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input placeholder="用逗号'，'分隔" type='text' name='Enviroment[BusLine]' value='{{if .RealEstate.Enviroment}}{{if len .RealEstate.Enviroment.BusLine}}{{join .RealEstate.Enviroment.BusLine ","}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>交通说明</label></td>
+						<td colspan=3>
+							<div class='row'>
+								<div class='col-md-8'>
+									<textarea name="Enviroment[Traffic]" class='form-control' cols=5 >
+										{{if .RealEstate.Enviroment}}{{if .RealEstate.Enviroment.Traffic}}{{.RealEstate.Enviroment.Traffic}}{{end}}{{end}}
+									</textarea>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>经度</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Enviroment[Lng]' value='{{if .RealEstate.Enviroment}}{{if .RealEstate.Enviroment.Lng}}{{.RealEstate.Enviroment.Lng}}{{end}}{{end}}' class='form-control'/>
+								</div>
+								<div class='control-label col-md-2'>
+									<label><a target="_blank" href='http://lbs.amap.com/api/javascript-api/example/f/0603-2/'>坐标拾取</a></label>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>纬度</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Enviroment[Lat]' value='{{if .RealEstate.Enviroment}}{{if .RealEstate.Enviroment.Lat}}{{.RealEstate.Enviroment.Lat}}{{end}}{{end}}' class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>级别</label></td>
+						<td colspan=3>
+							<div class='row'>
+								<div class='col-md-3'>
+									<input type='text' name='Enviroment[Level]' value='{{if .RealEstate.Enviroment}}{{if .RealEstate.Enviroment.Level}}{{.RealEstate.Enviroment.Level}}{{end}}{{end}}' class='form-control'/>
 								</div>
 							</div>
 						</td>
@@ -491,11 +558,196 @@
 		{{end}}
 		
 		{{if .RealEstate}}
-		<div class='tab-pane col-md-12' id="tab-images">
+		<div class='tab-pane  {{if eq .Tab "more"}}active{{end}}  col-md-12' id='tab-more'>
+			<form class='form-horizontal' id='form-real-estate-more'>
+				<input type='hidden' name='Id' value='{{.RealEstate.Id}}' />
+				<input type='hidden' name='MTime[Created]:number' value='{{.RealEstate.MTime.Created}}' />
+				<table class="table table-striped table-bordered table-hover">
+					<tr>
+						<td><label class='control-label'>产权年限</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='RightYear' value="{{if .RealEstate.RightYear}}{{.RealEstate.RightYear}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>交付标准</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='DeliveryStandard' value="{{if .RealEstate.DeliveryStandard}}{{.RealEstate.DeliveryStandard}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>占地面积</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='CoveredArea' value="{{if .RealEstate.CoveredArea}}{{.RealEstate.CoveredArea}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>容积率</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='FloorAreaRatio' value="{{if .RealEstate.FloorAreaRatio}}{{.RealEstate.FloorAreaRatio}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>建筑面积</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='ConstructionArea' value="{{if .RealEstate.ConstructionArea}}{{.RealEstate.ConstructionArea}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>得房率</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='EffectiveAreaRatio' value="{{if .RealEstate.EffectiveAreaRatio}}{{.RealEstate.EffectiveAreaRatio}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>绿化率</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='GreenRatio' value="{{if .RealEstate.GreenRatio}}{{.RealEstate.GreenRatio}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>房屋结构</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Structure' value="{{if .RealEstate.Structure}}{{.RealEstate.Structure}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>规划户数</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='HouseHold' value="{{if .RealEstate.HouseHold}}{{.RealEstate.HouseHold}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>车位数</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Structure' value="{{if .RealEstate.Carbarn}}{{.RealEstate.Carbarn}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>车位比</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='CarbarnRatio' value="{{if .RealEstate.CarbarnRatio}}{{.RealEstate.CarbarnRatio}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>楼层状况</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='FloorTypes' value="{{if .RealEstate.FloorTypes}}{{.RealEstate.FloorTypes}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>工程进度</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Progress' value="{{if .RealEstate.Progress}}{{.RealEstate.Progress}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'>物业管理费</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='PropertyFee' value="{{if .RealEstate.PropertyFee}}{{.RealEstate.PropertyFee}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>物业公司</label></td>
+						<td>
+							<div class='row'>
+								<div class='col-md-8'>
+									<input type='text' name='Property' value="{{if .RealEstate.Property}}{{.RealEstate.Property}}{{end}}" class='form-control'/>
+								</div>
+							</div>
+						</td>
+						<td><label class='control-label'></label></td>
+						<td>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>开发商简介</label></td>
+						<td colspan=3>
+							<div class='row'>
+								<div class='col-md-8'>
+									<textarea name='EstateDescription' class='ckeditor'>
+										{{if .RealEstate.EstateDescription}}{{.RealEstate.EstateDescription}}{{end}}
+									</textarea>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label class='control-label'>物业管理简介</label></td>
+						<td colspan=3>
+							<div class='row'>
+								<div class='col-md-8'>
+									<textarea name='PropertyDescription' class='ckeditor'>
+										{{if .RealEstate.PropertyDescription}}{{.RealEstate.PropertyDescription}}{{end}}
+									</textarea>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan=3>
+							<input type='submit' class='btn btn-success' value='保存' />
+							<a class='btn' href='./index.html'>取消</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		{{end}}
 		
-			{{range slice .PictureStat 0 1000000}}
-				{{.Name}} [{{.Count}}]
-			{{end}}
+		{{if .RealEstate}}
+		<div class='tab-pane  {{if eq .Tab "images"}}active{{end}}  col-md-12' id="tab-images">
+		
+			<ul class='nav nav-pills clearfix'>
+				{{range slice .PictureStat 0 1000000}}
+				<li class="{{if eq $.PictureType .Value}}active{{end}}">
+					<a class='' href='{{queryN $.CONTEXT.URL.String "type" .Value }}'>{{.Name}} [{{.Count}}]</a>
+				</li>
+				{{end}}
+			</ul>
 			
 			<ul class='clearfix' style='padding:0'>
 				{{range slice .PicturePage.Data 0 1000000}}
@@ -548,25 +800,124 @@
 						<tr>
 							<td class='col-md-2'><label class='control-label'>图片上传</label></td>
 							<td class='col-md-10'>
-							
 								<input type='file' id='PictureUpload' />
-								
-								<br/>
-								
-								<img id='pic-preview' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=' />
 							</td>
 						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		{{end}}
+		
+		{{if .RealEstate}}
+		<div class='tab-pane  {{if eq .Tab "layouts"}}active{{end}}  col-md-12' id="tab-layouts">
+		
+			<ul class='nav nav-pills clearfix'>
+				{{range slice .LayoutStat 0 1000000}}
+				<li class="{{if eq $.LayoutType .Value}}active{{end}}">
+					<a class='' href='{{queryN $.CONTEXT.URL.String "ltype" .Value }}'>{{.Name}} [{{.Count}}]</a>
+				</li>
+				{{end}}
+			</ul>
+			
+			<ul class='clearfix' style='padding:0'>
+				{{range slice .LayoutPage.Data 0 1000000}}
+					<li style='float:left;list-style-type: none;padding:0;margin: 13px;height: 200px;'>
+						{{with .Image}}
+						<p style='width: 240px; border: 1px solid #ddd; text-align: center'><img src='{{.Palm.Path}}' style='max-height: 160px;max-width: 240px;' /></p>
+						{{end}}
+						<p>
+							<span style='float:right;'>
+								<a class='layout-title-edit' data-id="{{.Id}}" href='javascript:void(0)'>编辑</a> <a data-id="{{.Id}}" class='layout-delete' href='javascript:void(0)'>删除</a>
+							</span>
+							<span class='layout-title'>
+								{{.Name}}
+							</span>
+							<span class='layout-title-edition' style='display:none'>
+								<input type='text' value="{{.Name}}" style='width:64px;'/>
+								<button data-created='{{.MTime.Created}}' data-id="{{.Id}}" class='layout-title-edition-button'>确定</button>
+								<button class='layout-title-edition-cancel'>取消</button>
+							</span>
+						</p>
+						<p>
+							{{$.CONTEXT.KVs.LayoutType.Name .Type}} {{.MTime.SCreated}}
+						</p>
+					</li>
+				{{end}}
+			</ul>
+			
+			{{.LayoutPage.Page.SetURL .CONTEXT.URL.String}}
+			{{template "pager" .LayoutPage}}
+		
+			<form class='form-horizontal' id='form-real-estate-layout'>
+				
+				<input type='text' hidden name='Id'  value='' />
+				<input type='text' hidden name='MTime[Created]:number' value='' />
+				
+				<input type='hidden' name="Rid" value="{{.RealEstate.Id}}" />
+				<input type='hidden' name="RType" value="RealEstate" />
+				<input type='hidden' name="Image[Id]" value="" />
+				
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
 						<tr>
-							<td class='col-md-2'><label class='control-label'>图片名称</label></td>
+							<td class='col-md-2'><label class='control-label'>类型</label></td>
 							<td class='col-md-10'>
 							
-								<input type='text' name='Title' class='form-control' value="" />
+								<select class='form-control' name="Type:number" >
+									{{range $k, $v := .CONTEXT.KVs.LayoutType.Nodes}}
+										<option value="{{$v.Value}}">{{$v.Name}}</option>
+									{{end}}
+								</select>
 							</td>
 						</tr>
 						<tr>
-							<td class='col-md-2'><label class='control-label'></label></td>
+							<td class='col-md-2'><label class='control-label'>户型名</label></td>
 							<td class='col-md-10'>
-								<input type='submit' class='btn btn-primary' value='上传' />
+								<input placeholder='例如，A户型' type="text" name="Name"  class='form-control required' />
+							</td>
+						</tr>
+						<tr>
+							<td class='col-md-2'><label class='control-label'>户型</label></td>
+							<td class='col-md-10'>
+								<input placeholder='实际户型，例如“3室2厅1卫”' type="text" name="Layout"  class='form-control required' />
+							</td>
+						</tr>
+						<tr>
+							<td class='col-md-2'><label class='control-label'>建筑面积</label></td>
+							<td class='col-md-10'>
+								<input type="text" name="Area" class='form-control required'/>
+							</td>
+						</tr>
+						<tr>
+							<td class='col-md-2'><label class='control-label'>户型说明</label></td>
+							<td class='col-md-10'>
+								<input type="text" name="Description" class='form-control required'/>
+							</td>
+						</tr>
+						<tr>
+							<td class='col-md-2'><label class='control-label'>主推户型</label></td>
+							<td class='col-md-10'>
+								<input type="checkbox" data-unchecked-value="false" value="1" name="Status[Recommended]:boolean" class='form-control'/>
+							</td>
+						</tr>
+						<tr>
+							<td class='col-md-2'><label class='control-label'>首显户型</label></td>
+							<td class='col-md-10'>
+								<input type="checkbox" data-unchecked-value="false" value="1" name="Status[Indexed]:boolean" class='form-control'/>
+							</td>
+						</tr>
+						<tr>
+							<td class='col-md-2'><label class='control-label'>图片上传</label></td>
+							<td class='col-md-10'>
+								<input type='file' id='LayoutUpload' />
+							</td>
+						</tr>
+						
+						<tr>
+							<td class='col-md-2'></td>
+							<td class='col-md-10'>
+								<input type='submit' class='btn btn-primary' value="上传户型" />
 							</td>
 						</tr>
 					</tbody>
@@ -608,9 +959,9 @@ var PageLogical = function () {
 				}).success(function(data){
 					
 					var form = $("#form-real-estate");
-					form.find('input[name="Logo[Id]"]').val(data.Id)
-					$('#logo-preview').attr("src", o.Path)
-				})
+					form.find('input[name="Logo[Id]"]').val(data.Id);
+					$('#logo-preview').attr("src", o.Path);
+				});
 				
 			}
 		});
@@ -637,17 +988,136 @@ var PageLogical = function () {
 				}).success(function(data){
 					
 					var form = $("#form-real-estate");
-					form.find('input[name="Cover[Id]"]').val(data.Id)
-					$('#cover-preview').attr("src", o.Path)
-				})
+					form.find('input[name="Cover[Id]"]').val(data.Id);
+					$('#cover-preview').attr("src", o.Path);
+				});
 				
 			}
 		});
 		
-		$(".picture-delete").click(function(){
+		/*户型图*/
+		{
+		
+			$(".layout-delete").click(function(){
+				
+				var that = this;
+				
+				bootbox.confirm("是否确认删除?", function(ok) {
+		    		if(!ok) return;
+		    		
+					JWS("/manage/layout/delete.json", {Id:$(that).attr("data-id")}).success(function(){
+		    			$(that).parents("li").first().remove();
+					});
+		        }); 
+			});
 			
-			var that = this
+			$(".layout-title-edit").click(function(){
+				JWS("/manage/layout/one.json", {
+					Id: $(this).attr("data-id")
+				}).success(function(data) {
+					$("#form-real-estate-layout").deserializeJSON(data);
+				});
+				/*$(this).parents("li").first().find(".layout-title-edition").show();
+				$(this).parents("li").first().find(".layout-title").hide();*/
+			});
 			
+			$(".layout-title-edition-button").click(function(){
+				
+				var that = this;
+				var title = $(this).prev().val();
+				JWS("/manage/layout/upsert.json", {
+					
+					Id : $(this).attr('data-id'),
+					Name: title,
+					MTime: {
+						Created: $(this).data("created")
+					}
+				}).success(function(){
+					
+					$(that).parents("li").first().find(".layout-title").html(title);
+					$(that).next().click();
+				});
+			});
+			
+			$(".layout-title-edition-cancel").click(function(){
+				
+				$(this).parent().hide().prev().show();
+			});
+			
+			$("#LayoutUpload").upload({
+				
+				buttonText: "浏览图片",
+				fileTypeDesc : '图片文件',
+				fileTypeExts : '*.gif; *.jpg; *.png',
+				fileSizeLimit: 2048,
+				queueSizeLimit: 1,
+				multi: false,
+				uploader:"/manage/upload.json",
+				uploadScript: "/manage/upload.json",
+				success: function(file ,data){
+					
+					var o = JSON.parse(data);
+					
+					JWS("/manage/picture/upsert.json", {
+						Resource : {
+							Id: o.Id
+						},
+						Type: 300
+					}).success(function(data){
+						
+						var form = $("#form-real-estate-layout");
+						form.find('input[name="Image[Id]"]').val(data.Id);
+					});
+				}
+			});
+			
+			$("#form-real-estate-layout").submit(function(){
+				
+				if(!$(this).valid()){
+					
+					$(this).find("textarea.error, input.error, select.error").first().focus();
+					return false; 
+				};
+				
+				var vals = $(this).serializeJSON();
+				
+				if(!vals.Image || !vals.Image.Id){
+					alert("请选择户型图片！");
+					return false;
+				}
+				
+				JWS("/manage/layout/upsert.json", vals).success(function(data){
+					
+					Metronic.alert({
+	                    type: 'success',
+	                    icon: 'check',
+	                    message: '上传成功...',
+	                    container: $(".page-content"),
+	                    place: 'append',
+	                    closeInSeconds: 3
+	                });
+					
+					$("#form-real-estate-layout input[type=checkbox]").each(function(){
+						if($(this).is(":checked")){
+							$(this).click();
+						}
+					});
+					
+					$("#form-real-estate-layout").trigger("reset");
+				});
+				
+				return false;
+			});
+		
+		};
+		
+		
+		/*效果图*/
+		{
+		
+			$(".picture-delete").click(function(){
+				
+				var that = this;
 				
 				bootbox.confirm("是否确认删除?", function(ok) {
 		    		if(!ok) return;
@@ -656,84 +1126,81 @@ var PageLogical = function () {
 		    			$(that).parents("li").first().remove();
 					});
 		        }); 
-				
-		});
-		
-		$(".picture-title-edit").click(function(){
+			});
 			
-			$(this).parents("li").first().find(".picture-title-edition").show();
-			$(this).parents("li").first().find(".picture-title").hide();
-		})
-		
-		$(".picture-title-edition-button").click(function(){
-			
-			var that = this
-			var title = $(this).prev().val()
-			JWS("/manage/picture/upsert.json", {
+			$(".picture-title-edit").click(function(){
 				
-				Id : $(this).attr('data-id'),
-				Title: title,
-				MTime: {
-					Created: $(this).data("created")
+				$(this).parents("li").first().find(".picture-title-edition").show();
+				$(this).parents("li").first().find(".picture-title").hide();
+			});
+			
+			$(".picture-title-edition-button").click(function(){
+				
+				var that = this;
+				var title = $(this).prev().val();
+				JWS("/manage/picture/upsert.json", {
+					
+					Id : $(this).attr('data-id'),
+					Title: title,
+					MTime: {
+						Created: $(this).data("created")
+					}
+				}).success(function(){
+					
+					$(that).parents("li").first().find(".picture-title").html(title);
+					$(that).next().click();
+				});
+			});
+			
+			$(".picture-title-edition-cancel").click(function(){
+				
+				$(this).parent().hide().prev().show();
+			});
+			
+			$("#PictureUpload").upload({
+				
+				buttonText: "浏览图片",
+				fileTypeDesc : '图片文件',
+				fileTypeExts : '*.gif; *.jpg; *.png',
+				fileSizeLimit: 2048,
+				queueSizeLimit: 1024,
+				multi: true,
+				uploader:"/manage/upload.json",
+				uploadScript: "/manage/upload.json",
+				success: function(file ,data){
+					
+					var form = $("#form-real-estate-picture");
+					var file = JSON.parse(data);
+					form.find('input[name="Resource[Id]"]').val(file.Id);
+					form.submit();
 				}
-			}).success(function(){
+			});
+			
+			$("#form-real-estate-picture").submit(function(){
 				
-				$(that).parents("li").first().find(".picture-title").html(title)
-				$(that).next().click();
-			})
-		});
-		
-		$(".picture-title-edition-cancel").click(function(){
-			
-			$(this).parent().hide().prev().show();
-		})
-		
-		$('#pic-preview').load(function(){
-			
-			var form = $("#form-real-estate-picture");
-			
-			form.find('[name="Width:number"]').val($(this).width())
-			form.find('[name="Height:number"]').val($(this).height())
-		});
-		
-		$("#PictureUpload").upload({
-			
-			buttonText: "浏览图片",
-			fileTypeDesc : '图片文件',
-			fileTypeExts : '*.gif; *.jpg; *.png',
-			fileSizeLimit: 2048,
-			queueSizeLimit: 1,
-			multi: false,
-			uploader:"/manage/upload.json",
-			uploadScript: "/manage/upload.json",
-			success: function(file ,data){
+				if(!$(this).valid()){
+					
+					$(this).find("textarea.error, input.error, select.error").first().focus();
+					return false; 
+				};
 				
-				var form = $("#form-real-estate-picture");
-				var file = JSON.parse(data);
+				var vals = $(this).serializeJSON();
 				
-				form.find("input[name=Title]").val(file.Name)
-				form.find('input[name="Resource[Id]"]').val(file.Id)
-				$('#pic-preview').attr("src", file.Path)
-			}
-		});
-		
-		$("#form-real-estate-picture").submit(function(){
-			
-			if(!$(this).valid()){
+				JWS("/manage/picture/upsert.json", vals).success(function(data){
+					
+					Metronic.alert({
+	                    type: 'success',
+	                    icon: 'check',
+	                    message: '上传成功...',
+	                    container: $(".page-content"),
+	                    place: 'append',
+	                    closeInSeconds: 3
+	                });
+				});
 				
-				$(this).find("textarea.error, input.error, select.error").first().focus();
-				return false; 
-			}
-			
-			var vals = $(this).serializeJSON()
-			
-			JWS("/manage/picture/upsert.json", vals).success(function(data){
-				
-				alert("Success!");
-			})
-			
-			return false;
-		});
+				return false;
+			});
+		};
 		
 		$(".form-datetime").datepicker({
             autoclose: true,
@@ -747,9 +1214,49 @@ var PageLogical = function () {
 				
 				$(this).find("input.error, select.error").first().focus();
 				return false; 
-			}
+			};
 			
-			var vals = $(this).serializeJSON()
+			var vals = $(this).serializeJSON();
+			
+			if(vals.Enviroment) {
+				vals.Enviroment.School = tags(vals.Enviroment.School);
+				vals.Enviroment.Mall = tags(vals.Enviroment.Mall);
+				vals.Enviroment.Restaurant = tags(vals.Enviroment.Restaurant);
+				vals.Enviroment.Park = tags(vals.Enviroment.Park);
+				vals.Enviroment.Bank = tags(vals.Enviroment.Bank);
+				vals.Enviroment.Hotel = tags(vals.Enviroment.Hotel);
+				vals.Enviroment.Hospital = tags(vals.Enviroment.Hospital);
+				vals.Enviroment.Market = tags(vals.Enviroment.Market);
+				vals.Enviroment.BusLine = tags(vals.Enviroment.BusLine);
+			};
+			
+			JWS("/manage/real-estate/upsert.json", vals).success(function(data){
+				
+				Metronic.alert({
+                    type: 'success',
+                    icon: 'check',
+                    message: '保存成功...',
+                    container: $(".page-content"),
+                    place: 'append',
+                    closeInSeconds: 3
+                });
+			});
+			
+			return false;
+		});
+		
+		$("#form-real-estate-more").submit(function(){
+			
+			if(!$(this).valid()){
+				
+				$(this).find("input.error, select.error").first().focus();
+				return false; 
+			};
+			
+			CKEDITOR.instances['EstateDescription'].updateElement();
+			CKEDITOR.instances['PropertyDescription'].updateElement();
+			
+			var vals = $(this).serializeJSON();
 			
 			JWS("/manage/real-estate/upsert.json", vals).success(function(data){
 				
@@ -761,10 +1268,10 @@ var PageLogical = function () {
                     place: 'prepend',
                     closeInSeconds: 3
                 });
-			})
+			});
 			
 			return false;
-		})
+		});
 		
 		$("#form-real-estate").submit(function(){
 			
@@ -774,21 +1281,21 @@ var PageLogical = function () {
 				
 				$(this).find("input.error, select.error").first().focus();
 				return false; 
-			}
+			};
 			
-			var vals = $(this).serializeJSON()
+			var vals = $(this).serializeJSON();
 			
 			if(vals.Captions){
 				vals.Captions = vals.Captions.toUpperCase().split("");
 			}else{
 				delete vals.Open;
-			}
+			};
 			
 			if(vals.Open){
 				vals.Open = new Date(vals.Open) / 1000;
 			}else{
 				delete vals.Open;
-			}
+			};
 			
 			vals.Features = tags(vals.Features);
 			
@@ -796,12 +1303,12 @@ var PageLogical = function () {
 				vals.Delivery = new Date(vals.Delivery) / 1000;
 			}else{
 				delete vals.Delivery;
-			}
+			};
 			
 			if(vals.GroupClose){
 				vals.GroupClose = new Date(vals.GroupClose) / 1000;
 			}else{
-				delete vals.GroupClose
+				delete vals.GroupClose;
 			}
 			
 			if(!vals.Logo.Id){
@@ -816,12 +1323,19 @@ var PageLogical = function () {
 			
 			JWS("/manage/real-estate/upsert.json", vals).success(function(data){
 				
-				window.location.href = "./index.html";
-			})
+				Metronic.alert({
+                    type: 'success',
+                    icon: 'check',
+                    message: '保存成功...',
+                    container: $(".page-content"),
+                    place: 'append',
+                    closeInSeconds: 3
+                });
+			});
 			
 			return false;
-		})
-	}
+		});
+	};
 	
     return {
     	

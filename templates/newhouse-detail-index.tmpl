@@ -2,29 +2,13 @@
 {{set . "HTMLComponent" "newhouse" }}
 {{set . "HTMLTitle" .Newhouse.Name }}
 {{template "head" .}}
-<body id='page-newhouse-detail-index'>
+<body id='page-newhouse-detail-index' class='page-newhouse'>
 
 	{{template "top" .}}
 	
 	<div id='hd'>
-
-		{{template "newhouse-brand" .}}
-
-		<div id='nav'>
-			<div class='wrap'>
-				<ul class='menu'>
-					{{with .Newhouse}}
-						<li class='hoverable clickable active'><a href='/newhouse/o{{.Id}}.html'>楼盘首页</a></li>
-						<li class='hoverable clickable'><a href='/newhouse/i{{.Id}}.html'>简介</a></li>
-						<li class='hoverable clickable'><a href='/newhouse/n{{.Id}}.html'>资讯</a></li>
-						<li class='hoverable clickable'><a href='/newhouse/a{{.Id}}.html'>户型</a></li>
-						<li class='hoverable clickable'><a href='/newhouse/d{{.Id}}.html'>配套</a></li>
-						<li class='hoverable clickable'><a href='/newhouse/p{{.Id}}.html'>图库</a></li>
-						<li class='hoverable clickable'><a href='/newhouse/r{{.Id}}.html'>点评</a></li>
-					{{end}}
-				</ul>
-			</div>
-		</div>
+		{{set . "NewhouseComponent" "index" }}
+		{{template "newhouse-hd" .}}
 	</div>
 	
 	<div id='page-newhouse-index'>
@@ -194,13 +178,12 @@
 									<dt><span class='bold'>特色</span></dt>
 									<dd>{{join .Newhouse.Features " "}}</dd>
 								</dl>
-								
 								{{if .Newhouse.Enviroment}}
-								{{if .Newhouse.Enviroment.Schools}}
+								{{if len .Newhouse.Enviroment.School}}
 								<dl class='l25 clearfix'>
 									<dt><span class='bold'>学区</span></dt>
 									<dd>
-										{{.Newhouse.Enviroment.Schools}}
+										{{join .Newhouse.Enviroment.School "，"}}
 									</dd>
 								</dl>
 								{{end}}

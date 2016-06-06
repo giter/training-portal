@@ -60,7 +60,7 @@
 							<dt>验证码</dt>
 							<dd class='dd1' style='width: 360px;'>
 								<input id=cvali class='required validate-code' type='text' name='validation' value="" />
-								&nbsp;&nbsp;<img id='validation-code' style='vertical-align:middle;' src='/v.png' />
+								&nbsp;&nbsp;<img id='validation-code' style='vertical-align:middle;' src='/validation' />
 								&nbsp;&nbsp;<a class='f13 primary' href='javascript:void(0)' id='re-gen'>换一张</a>
 								&nbsp;&nbsp;
 								
@@ -138,7 +138,7 @@
 			});
 			
 			$("#re-gen, #validation-code").click(function(){
-				$("#validation-code").attr("src", "/v.png?" + Math.random())
+				$("#validation-code").attr("src", "/validation?" + Math.random())
 			})
 		})
 	</script>

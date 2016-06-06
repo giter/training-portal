@@ -9,42 +9,42 @@ import (
 )
 
 
-func PictureCollection(db *mgo.Database) *mgo.Collection {
+func LayoutCollection(db *mgo.Database) *mgo.Collection {
 	
-	return db.C(models.COLLECTION_PICTURE);
+	return db.C(models.COLLECTION_LAYOUT);
 }
 
-func PictureGet(db *mgo.Database, Id string) (r *models.Picture , err error) {
+func LayoutGet(db *mgo.Database, Id string) (r *models.Layout , err error) {
 	
-	c := PictureCollection(db)
+	c := LayoutCollection(db)
 	err = c.Find(bson.M{ "_id" : Id }).One(&r)
 	
 	return
 } 
 
-type PictureStatus struct {
+type LayoutStatus struct {
 
 	Name  string
 	Value int
 	Count int
 	
-	Cover *models.Picture
-	Heads []models.Picture
+	Cover *models.Layout
+	Heads []models.Layout
 }
 
-func PictureStat(db *mgo.Database, rid string, Cover bool, Prefetch int) (ps []PictureStatus, err error) {
+func LayoutStat(db *mgo.Database, rid string, Cover bool, Prefetch int) (ps []LayoutStatus, err error) {
 
 	m := make(map[string]int)
 	
-	var k []models.Picture
+	var k []models.Layout
 	
-	c := PictureCollection(db)
+	c := LayoutCollection(db)
 	if err = c.Find(bson.M{"Rid" : rid}).Select(bson.M{"Type":1}).All(&k) ; err != nil {
 		return
 	}
 	
-	mm := KVs(db)["PictureType"].Values
-	nodes := KVs(db)["PictureType"].Nodes
+	mm := KVs(db)["LayoutType"].Values
+	nodes := KVs(db)["LayoutType"].Nodes
 
 	for _, value := range k {
 		
@@ -64,16 +64,16 @@ func PictureStat(db *mgo.Database, rid string, Cover bool, Prefetch int) (ps []P
 		}
 	}
 	
-	ps = make([]PictureStatus, 0, len(m))
+	ps = make([]LayoutStatus, 0, len(m))
 	
-	ps = append(ps, PictureStatus {})
+	ps = append(ps, LayoutStatus {})
 	
 	for _, node := range nodes {
 		
 		k, v := node.Name, node.Value
 		
 		if m[k] > 0 {
-			ps = append(ps, PictureStatus { k, v.(int), m[k], nil, nil })
+			ps = append(ps, LayoutStatus { k, v.(int), m[k], nil, nil })
 		}
 	}
 	
@@ -84,17 +84,17 @@ func PictureStat(db *mgo.Database, rid string, Cover bool, Prefetch int) (ps []P
 	
 		ps[0].Count += ps[i].Count
 		
-		var a []models.Picture
+		var a []models.Layout
 		
 		if Cover {
-			if a, err = PictureList(db, rid, int64(ps[i].Value), 1) ; err != nil {
+			if a, err = LayoutList(db, rid, int64(ps[i].Value), 1) ; err != nil {
 				return
 			}
 			ps[i].Cover = &a[0]
 		}
 		
 		if Prefetch > 0 {
-			if a, err = PictureList(db, rid, int64(ps[i].Value), Prefetch) ; err != nil {
+			if a, err = LayoutList(db, rid, int64(ps[i].Value), Prefetch) ; err != nil {
 				return
 			}
 			ps[i].Heads = a	
@@ -105,9 +105,9 @@ func PictureStat(db *mgo.Database, rid string, Cover bool, Prefetch int) (ps []P
 }
 
 
-func PictureList(db *mgo.Database, rid string, typo int64, limit int) (r []models.Picture , err error) {
+func LayoutList(db *mgo.Database, rid string, typo int64, limit int) (r []models.Layout , err error) {
 
-	c := PictureCollection(db)
+	c := LayoutCollection(db)
 	
 	q := bson.M{};
 	
@@ -130,15 +130,15 @@ func PictureList(db *mgo.Database, rid string, typo int64, limit int) (r []model
 	return
 }
 
-type SPicturePage struct {
+type SLayoutPage struct {
 
 	Page *Page
-	Data []models.Picture
+	Data []models.Layout
 }
 
-func PicturePage(db *mgo.Database, limit int, page int, rid interface{}, typo int64) (p SPicturePage , err error) {
+func LayoutPage(db *mgo.Database, limit int, page int, rid interface{}, typo int64) (p SLayoutPage , err error) {
 
-	c := PictureCollection(db)
+	c := LayoutCollection(db)
 	
 	p.Page = &Page{}
 	
@@ -152,7 +152,7 @@ func PicturePage(db *mgo.Database, limit int, page int, rid interface{}, typo in
 		skip = 0
 	}
 	
-	var r []models.Picture
+	var r []models.Layout
 	
 	q := bson.M{ }
 	

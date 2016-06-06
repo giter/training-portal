@@ -1,0 +1,64 @@
+{{template "lib"}}
+{{set . "HTMLComponent" "newhouse" }}
+{{set . "HTMLTitle" .Newhouse.Name }}
+{{template "head" .}}
+<body id='page-newhouse-news' class='page-newhouse'>
+
+	{{template "top" .}}
+	
+	<div id='hd'>
+		{{set . "NewhouseComponent" "news" }}
+		{{template "newhouse-hd" .}}
+	</div>
+	
+	<div id='bd'>
+		
+		<div class='clearfix'>
+			<div class='left-640-20'>
+				<div class='section'>
+					<div id=news-list class='block block-news-list block-boundless'>
+						<div class='hd hd-style-3 hd-switch'>
+							<h1>楼盘资讯</h1>
+						</div>
+						<div class='bd'>
+							<ul>
+							{{range .NewsList.Data}}
+								<li class='news hoverable clickable clearfix'>
+									<h1 class='l3 bold'><a href='{{.SURL}}'>{{.Title}}</a></h1>
+									<blockquote>
+										{{.Brief}}
+									</blockquote>
+									<abbr>
+										{{if .Tag | len }}
+										<div class='left'>
+											标签： 
+											{{range .Tag}}
+												<a href='#'>{{.}}</a>
+											{{end}}
+										</div>
+										{{end}}
+										
+										<div class='right'>
+											{{.STime}}
+										</div>
+									</abbr>
+								</li>
+							{{end}}
+							</ul>
+						</div>
+						<div class='ft'>
+							{{ .NewsList.Page.SetHash "news-list" }}
+							{{ template "pager" .NewsList}}
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class='right-340'>
+			</div>
+		</div>
+	</div>
+	
+	{{template "ft" .}}
+	
+</body>

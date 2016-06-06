@@ -2,7 +2,7 @@
 	
 	if(t) {
 		
-		var a = t.split(/[,，]/);
+		var a = t.split(/[,，、]/);
 		var b = []
 		for(var i=0;i<a.length;i++){
 			a[i] = a[i].trim()

@@ -279,7 +279,15 @@ func defaultKV() KV {
 			Node{"总平图",5},
 			Node{"地理位置图",6},
 		}),
-						
+		
+		"LayoutType": NewNodeSet([]Node {
+		
+			Node{"一室户型", 1},
+			Node{"两室户型", 2},
+			Node{"三室户型", 3},
+			Node{"四室户型", 4},
+			Node{"别墅户型", 5},
+		}),
 	};
 	
 	return kv

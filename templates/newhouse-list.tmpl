@@ -88,7 +88,7 @@
 					<div class='block-list block block-boundless'>
 						<div class='bd'>
 							{{ range .NewhousePage.Data}}
-							<div class='item hoverable'>
+							<div class='item clickable hoverable'>
 								<div class='image'>
 									<img width=250 height=130 src='/images/newhouse/sample-list.jpg' />
 								</div>
@@ -99,9 +99,9 @@
 											<p>[{{.Area.Area}}] {{.Address}}</p>
 											<p>主推户型：4居室110平米； 3居室82平米</p>
 											<ul>
-												<li>复合地产</li>
-												<li>大型社区</li>
-												<li>车位充足</li>
+												{{range .Features}}
+													<li>{{.}}</li>
+												{{end}}
 											</ul>
 										</dt>
 										<dd>

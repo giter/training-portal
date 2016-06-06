@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -27,6 +28,12 @@ func RealEstateForm(db *mgo.Database, ctx bson.M, req *http.Request, r render.Re
 	
 	var err error
 	c := RealEstateCollection(db)
+	
+	
+	ctx["Tab"] = req.FormValue("tab")
+	if ctx["Tab"] == "" {
+		ctx["Tab"] = "general"
+	}
 	
 	ctx["Areas"], err = services.AreaList(db)
 	
@@ -50,16 +57,78 @@ func RealEstateForm(db *mgo.Database, ctx bson.M, req *http.Request, r render.Re
 		ctx["RealEstate"] = re
 	}
 	
-	if ctx["PictureStat"], err = services.PictureStat(db, id, false, 0); err!=nil {
-		r.Error(500)
-		return
+	{
+		if ctx["PictureStat"], err = services.PictureStat(db, id, false, 0); err!=nil {
+			r.Error(500)
+			return
+		}
+		
+		pn := int64(1)
+		p := req.FormValue("p");
+		
+		if p != "" {
+			if pn, err  = strconv.ParseInt(p, 10, 64); err != nil {
+				r.Error(500)
+				return
+			}
+		}
+		
+		typo := int64(0)
+		t := req.FormValue("ltype");
+		
+		if t != "" {
+			if typo, err  = strconv.ParseInt(t, 10, 64); err != nil {
+				r.Error(500)
+				return
+			}
+		}
+		
+		ctx["PictureType"] = typo
+		
+		if ctx["PicturePage"], err = services.PicturePage(db, 16, int(pn), id, typo); err!=nil {
+		
+			r.Error(500)
+			return
+		}
 	}
 	
-	if ctx["PicturePage"], err = services.PicturePage(db, 16, 0, id, 0); err!=nil {
 	
-		r.Error(500)
-		return
+	{
+	
+		if ctx["LayoutStat"], err = services.LayoutStat(db, id, false, 0); err!=nil {
+			r.Error(500)
+			return
+		}
+		
+		pn := int64(1)
+		p := req.FormValue("p");
+		
+		if p != "" {
+			if pn, err  = strconv.ParseInt(p, 10, 64); err != nil {
+				r.Error(500)
+				return
+			}
+		}
+		
+		typo := int64(0)
+		t := req.FormValue("ltype");
+		
+		if t != "" {
+			if typo, err  = strconv.ParseInt(t, 10, 64); err != nil {
+				r.Error(500)
+				return
+			}
+		}
+		
+		ctx["LayoutType"] = typo
+		
+		if ctx["LayoutPage"], err = services.LayoutPage(db, 16, int(pn), id, typo); err!=nil {
+		
+			r.Error(500)
+			return
+		}
 	}
+	
 	
 	r.HTML(200, "manage-real-estate-form", ctx, render.HTMLOptions{
 		Layout: "manage-layout", 

@@ -24,10 +24,35 @@ func PictureCollection(db *mgo.Database) *mgo.Collection {
 	return db.C(models.COLLECTION_PICTURE);
 }
 
-func PictureDelete(db *mgo.Database, req *http.Request, r render.Render) {
+func PictureDeletion(db *mgo.Database, Id string) (err error) {
 
 	c := PictureCollection(db)
 	
+	var m *models.Picture
+	
+	if m, err = services.PictureGet(db, Id); err != nil {
+		return
+	}
+	
+	if m == nil {
+		return
+	}
+	
+	ResourceDelete(db, m.Thumbnail)
+	ResourceDelete(db, m.Palm)
+	ResourceDelete(db, m.Big)
+	ResourceDelete(db, m.Large)
+	ResourceDelete(db, m.Resource)
+	
+	if err = c.RemoveId(Id); err != nil {
+		return
+	}
+	
+	return
+}
+
+func PictureDelete(db *mgo.Database, req *http.Request, r render.Render) {
+
 	var b []byte
 	var err error
 	var m   *models.Picture = &models.Picture{}
@@ -50,27 +75,10 @@ func PictureDelete(db *mgo.Database, req *http.Request, r render.Render) {
 		return
 	}
 	
-	if m, err = services.PictureGet(db, Id); err != nil {
+	retVal := bson.M{ "Id": Id }
 	
-		r.JSON(500, err.Error())
-		return
-	}
-	
-	retVal := bson.M { "Id" : Id}
-	
-	if m == nil {
-		r.JSON(200, retVal)
-		return
-	}
-	
-	ResourceDelete(db, m.Thumbnail)
-	ResourceDelete(db, m.Palm)
-	ResourceDelete(db, m.Big)
-	ResourceDelete(db, m.Large)
-	ResourceDelete(db, m.Resource)
-	
-	if err = c.RemoveId(Id); err != nil {
-		r.JSON(500, err.Error())
+	if err = PictureDeletion(db, Id); err != nil {
+		r.Error(500);
 		return
 	}
 	

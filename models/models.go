@@ -26,6 +26,7 @@ const (
 	COLLECTION_MANAGER = "Manager"
 	COLLECTION_RESOURCE = "Resource"
 	COLLECTION_PICTURE = "Picture"
+	COLLECTION_LAYOUT  = "Layout"
 )
 
 type MTime struct {
@@ -253,20 +254,50 @@ type Enviroment struct {
 	Description *string `bson:"Description,omitempty"`
 		
 	//学区
-	Schools             *string `bson:"School,omitempty"`
+	School             []string `bson:"School,omitempty"`
+	
+	//商场
+	Mall []string `bson:"Mall,omitempty"`
+	
+	//餐饮
+	Restaurant []string `bson:"Restaurant,omitempty"`
+	
+	//公园
+	Park		[]string `bson:"Park,omitempty"`
+	
+	//宾馆
+	Hotel		[]string `bson:"Hotel,omitempty"`
+	
+	//银行
+	Bank		[]string `bson:"Bank,omitempty"`
+	
+	//医院
+	Hospital	[]string `bson:"Hospital,omitempty"`
+	
+	//菜场
+	Market	[]string `bson:"Market,omitempty"`
 	
 	//位置
 	Road  *string `bson:"Road,omitempty"`
 	
 	//交通
 	Traffic *string `bson:"Traffic,omitempty"`
-	BusLine *string `bson:"BusLine,omitempty"`
+	
+	//公交路线
+	BusLine []string `bson:"BusLine,omitempty"`
+	
 	FlyOver *string `bson:"FlyOver,omitempty"`
 	HighWay *string `bson:"Highway,omitempty"`
 	Railway *string `bson:"Railway,omitempty"`
 	Bus     *string `bson:"Bus,omitempty"`
 	AirPort *string `bson:"AirPort,omitempty"`
 	
+	//缩放级别
+	Level *string `bson:"Level,omitempty"`
+	//经度
+	Lng *string `bson:"Lng,omitempty"`
+	//纬度
+	Lat *string `bson:"Lat,omitempty"`
 		
 }
 
@@ -334,7 +365,7 @@ type RealEstate struct {
 	Middle    *MiddleSchool `bson:"Middle,omitempty"`
 	
 	//房产公司
-	Estate *RealEstateCompany `bson:"Estate,omitempty"`
+	Estate *string `bson:"Estate,omitempty"`
 	//发展商
 	Developer *string `bson:"Developer,omitempty"`
 	//销售代理
@@ -346,13 +377,14 @@ type RealEstate struct {
 	
 	//车位
 	Carbarn *string `bson:"Carbarn,omitempty"`
+	CarbarnRatio *string `bson:"CarbarnRatio,omitempty"`
 	CPrice *string `bson:"CPrice,omitempty"`
 	CRent *string `bson:"CRent,omitempty"`
 	
 	//售楼电话
 	Phone       []string `bson:"Phone,omitempty"`
 	//售楼地址
-	SellAddress []string `bson:"Selladdress,omitempty"`
+	SellAddress *string `bson:"SellAddress,omitempty"`
 	
 	//400电话配置
 	Order          *string `bson:"Order,omitempty"`
@@ -378,14 +410,41 @@ type RealEstate struct {
 	
 	Remark *string `bson:"Remark,omitempty"`
 	
-	//房屋结构
-	Structure []string `bson:"Structure,omitempty"`
-	
 	Brief   *string `bson:"Brief,omitempty"`
 	Content *string `bson:"Content,omitempty"`
 	
 	Logo *Picture `bson:"Logo,omitempty"`
 	Cover *Picture `bson:"Cover,omitempty"`
+	
+	//产权年限
+	RightYear *string `bson:"RightYear,omitempty"`
+	
+	//交付标准
+	DeliveryStandard  *string `bson:"DeliveryStandard,omitempty"`
+	
+	//占地面积
+	CoveredArea      *string `bson:"CoveredArea,omitempty"`
+	
+	//建筑面积
+	ConstructionArea *string `bson:"ConstructionArea,omitempty"`
+	
+	//房屋结构
+	Structure *string `bson:"Structure,omitempty"`
+	
+	//总户数
+	HouseHold *string `bson:"HouseHold,omitempty"`
+	
+	//楼层状况
+	FloorTypes *string `bson:"FloorTypes,omitempty'`
+	
+	//工程进度
+	Progress   *string `bson:"Progress,omitempty"`
+	
+	//开发商简介
+	EstateDescription *string `bson:"EstateDescription,omitempty"`
+	
+	//物业公司简介
+	PropertyDescription *string `bson:"PropertyDescription,omitempty"`
 	
 	// 扩展属性
 	MTime   *MTime    `bson:"MTime,omitempty"`
@@ -405,7 +464,11 @@ func (r RealEstate) Caption() string {
 }
 
 func (r RealEstate) SOpen() string {
-
+	
+	if r.OpenDate  != nil {
+		return *r.OpenDate
+	}
+	
 	if r.Open == nil {
 		return ""
 	}
@@ -415,7 +478,11 @@ func (r RealEstate) SOpen() string {
 
 
 func (r RealEstate) SDelivery() string {
-
+	
+	if r.DeliveryDate != nil {
+		return *r.DeliveryDate
+	}
+	
 	if r.Delivery == nil {
 		return ""
 	}
@@ -531,6 +598,8 @@ type News struct {
 	
 	// 封面
 	Cover  *Picture `bson:"Cover,omitempty"`
+	
+	RealEstate []string `bson:"RealEstate,omitempty"`
 	
 	Status *Status `bson:"Status,omitempty"`
 	MTime  *MTime  `bson:"MTime,omitempty"`
@@ -698,6 +767,45 @@ type Picture struct {
 	Height   *int64  `bson:"Height,omitempty"`
 	
 	MTime    *MTime  `bson:"MTime,omitempty"`
+}
+
+type Layout struct {
+
+	Id       *string `bson:"_id,omitempty"`
+	
+	//户型名称
+	Name  *string `bson:"Name,omitempty"`
+	
+	//关联新房
+	Rid *string `bson:"Rid,omitempty"`
+	RType *string `bson:"RType,omitempty"`
+	
+	//户型分类
+	Type   *int64  `bson:"Type,omitempty"`
+	
+	//户型
+	Layout *string `bson:"Layout,omitempty"`
+	
+	//户型说明
+	Description *string `bson:"Description,omitempty"`
+	
+	//建筑面积
+	Area   *string `bson:"Area,omitempty"`
+	
+	//户型图片
+	Image *Picture `bson:"Image,omitempty"`
+	
+	Status   *Status `bson:"Status,omitempty"`
+	MTime    *MTime  `bson:"MTime,omitempty"`
+}
+
+func (r Picture) SDate() string {
+	
+	if r.MTime == nil || r.MTime.Created == nil {
+		return "";
+	}
+	
+	return time.Unix(*r.MTime.Created, 0).Format("2006-01-02")
 }
 
 func EncodePassword(pass string) string {

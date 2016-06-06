@@ -64,6 +64,10 @@ func NewsPage(db *mgo.Database, query forms.NewsForm) (p SNewsPage, err error) {
 		q["Tags"] = query.Tag
 	}
 	
+	if query.Newhouse != "" {
+		q["RealEstate"] = query.Newhouse
+	}
+	
 	cur := c.Find(q).Sort("-Time", "-_id")
 	
 	if p.Page.Count, err = cur.Count(); err != nil {

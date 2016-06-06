@@ -134,6 +134,65 @@ func DetailIndex(db *mgo.Database, ctx bson.M, r render.Render, params martini.P
 	});
 }
 
+func DetailIntroduction(db *mgo.Database, req *http.Request, ctx bson.M, r render.Render, params martini.Params) {
+	
+	var err error
+	
+	Id := params["id"]
+	
+	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
+		
+		r.Error(404);
+		return
+	}
+	
+	r.HTML(200, "newhouse-introduction-index", ctx, render.HTMLOptions{
+		Layout: "layout",
+	});
+}
+
+func EnviromentIndex(db *mgo.Database, req *http.Request, ctx bson.M, r render.Render, params martini.Params) {
+	
+	var err error
+	
+	Id := params["id"]
+	
+	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
+		
+		r.Error(404);
+		return
+	}
+	
+	r.HTML(200, "newhouse-enviroment-index", ctx, render.HTMLOptions{
+		Layout: "layout",
+	});
+}
+
+func NewsIndex(db *mgo.Database, req *http.Request, ctx bson.M, r render.Render,form forms.NewsForm, params martini.Params) {
+	
+	var err error
+	
+	Id := params["id"]
+	
+	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
+		
+		r.Error(404);
+		return
+	}
+	
+	form.Newhouse = Id
+	
+	if ctx["NewsList"], err = services.NewsPage(db, form); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
+		
+		r.Error(404);
+		return
+	}
+	
+	r.HTML(200, "newhouse-news-index", ctx, render.HTMLOptions{
+		Layout: "layout",
+	});
+}
+
 func PictureIndex(db *mgo.Database, req *http.Request, ctx bson.M, r render.Render, params martini.Params) {
 	
 	var err error
@@ -187,6 +246,63 @@ func PictureIndex(db *mgo.Database, req *http.Request, ctx bson.M, r render.Rend
 	}
 	
 	r.HTML(200, "newhouse-picture-index", ctx, render.HTMLOptions{
+		Layout: "layout",
+	});
+}
+
+func LayoutIndex(db *mgo.Database, req *http.Request, ctx bson.M, r render.Render, params martini.Params) {
+	
+	var err error
+	
+	Id := params["id"]
+	
+	Type := params["typo"]
+	
+	if Type == "" {
+		Type = "0"
+	}
+	
+	var typo int64
+	
+	if typo, err = strconv.ParseInt(Type, 10, 64 ) ; err != nil {
+	
+		r.Error(404);
+		return
+	}
+	
+	ctx["LayoutType"] = int(typo)
+	
+	if typo > 0 {
+		ctx["LayoutTypeName"] = services.KVs(db)["LayoutType"].Values[int(typo)]
+	}
+	
+	if ctx["Newhouse"], err = services.RealEstateGet(db, Id); (err!=nil&&err!=mgo.ErrNotFound) || ctx["Newhouse"] == nil {
+		
+		r.Error(404);
+		return
+	}
+	
+	count := 4
+	if typo > 0 {
+		count = 0
+	}
+	
+	if ctx["LayoutStatus"] , err = services.LayoutStat(db, Id, false, count); err != nil {
+		r.Error(500);
+		return
+	}
+	
+	if typo > 0 {
+	
+		page, _ := strconv.ParseInt(req.FormValue("p"), 10, 64)
+		
+		if ctx["LayoutPage"] , err = services.LayoutPage(db, 16, int(page), Id, int64(typo)); err != nil {
+			r.Error(500);
+			return
+		}
+	}
+	
+	r.HTML(200, "newhouse-layout-index", ctx, render.HTMLOptions{
 		Layout: "layout",
 	});
 }

@@ -12,7 +12,7 @@ import (
 	"math/rand"
 
 	"github.com/go-martini/martini"
-	"github.com/martini-contrib/gzip"
+	//"github.com/martini-contrib/gzip"
 	"github.com/martini-contrib/render"
 	"github.com/martini-contrib/sessions"
 	
@@ -34,16 +34,20 @@ func main() {
 	
 	m := martini.Classic()
 
-	m.Use(gzip.All())
+	//m.Use(gzip.All())
 	
 	m.Use(func (w http.ResponseWriter, r *http.Request, c martini.Context) {
+	
+		if r.FormValue("debug") != "" {
+			return
+		}
 		
 		if ! (strings.HasSuffix(r.URL.Path, "/") || strings.HasSuffix(r.URL.Path, ".html") ) {
 			return
 		}
 		
 		gzw := LineWriter{ 
-			bufio.NewWriterSize(w, 4096),
+			bufio.NewWriterSize(w, 512),
 			w.(martini.ResponseWriter),
 		}
 		
@@ -211,8 +215,10 @@ func (grw LineWriter) Write(p []byte) (n int, e error) {
 	m = append(m, p[0])
 	
 	for i, n := 1, len(p) ; i < n ; i=i+1 {
-		if IsWhitespace(p[i]) && IsWhitespace(p[i-1]) { continue }
-		m = append(m, p[i])
+		
+		b := IsWhitespace(p[i])
+		if b && IsWhitespace(p[i-1]) { continue }
+		if b { m = append(m, ' ') } else { m = append(m, p[i]) }
 	}
 	
 	return grw.w.Write(m)

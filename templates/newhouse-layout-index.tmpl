@@ -7,7 +7,7 @@
 	{{template "top" .}}
 	
 	<div id='hd'>
-		{{set . "NewhouseComponent" "picture" }}
+		{{set . "NewhouseComponent" "layout" }}
 		{{template "newhouse-hd" .}}
 	</div>
 	
@@ -21,44 +21,44 @@
 					<div class='hd clearfix'>
 						<div class='f16 l3'>
 							<ul>
-									{{range $i, $v := .PictureStatus}}
-										<li class="clickable hoverable {{if equals $.PictureType .Value}}active{{end}}" >
-											<a href='/newhouse/p{{$.Newhouse.Id}}/list-{{.Value}}.html'>{{.Name}}</a>
+									{{range $i, $v := .LayoutStatus}}
+										<li class="clickable hoverable {{if equals $.LayoutType .Value}}active{{end}}" >
+											<a href='/newhouse/l{{$.Newhouse.Id}}/list-{{.Value}}.html'>{{.Name}}</a>
 										</li>
 									{{end}}
 							</ul>
 						</div>
 					</div>
 					
-					{{if gt .PictureType 0}}
+					{{if gt .LayoutType 0}}
 					
 						<div class='bd clearfix'>
 						
 							<ul>
-								{{range $ii, $vv := .PicturePage.Data}}
+								{{range $ii, $vv := .LayoutPage.Data}}
 									<li class='{{if eq (mod $ii 4) 3}}last{{end}}'>
-										<p><a href='#'><img src='{{.Palm.Path}}' width=220 height=147 /></a></p>
+										<p><a href='#'><img src='{{.Image.Palm.Path}}' width=220 height=147 /></a></p>
 										<p style='float:right' class='l3 quote'>
-											{{.SDate}}
+											{{.Image.SDate}}
 										</p>
 										<p class='f13 l3'>
-											<a href='#'>{{if .Title}}{{.Title}}{{else}}{{$.PictureTypeName}}{{end}}</a>
+											<a href='#'>{{if .Name}}{{.Name}}{{else}}{{$.LayoutTypeName}}{{end}}</a>
 										</p>
 									</li>
 								{{end}}
 							</ul>
 						</div>
 						<div class='ft'>
-							{{.PicturePage.Page.SetURL .CONTEXT.URL.String}}
-							{{template "pager".PicturePage}}
+							{{.LayoutPage.Page.SetURL .CONTEXT.URL.String}}
+							{{template "pager".LayoutPage}}
 						</div>
 					{{else}}
 						<div class='bd clearfix'>
-							{{range $i, $v := slice .PictureStatus 1 100}}
+							{{range $i, $v := slice .LayoutStatus 1 100}}
 								<dl class='clearfix'>
 									<dt class='l3 clearfix line f16'>
 										<div class='more quote'>
-											<a href='/newhouse/p{{$.Newhouse.Id}}/list-{{.Value}}.html'>更多&gt;</a>
+											<a href='/newhouse/l{{$.Newhouse.Id}}/list-{{.Value}}.html'>更多&gt;</a>
 										</div>
 										<p class='bold'>{{.Name}} [{{.Count}}]</p>
 									</dt>
@@ -66,8 +66,8 @@
 										<ul>
 											{{range $ii, $vv := slice .Heads 0 4 }}
 											<li class='{{if eq (mod $ii 4) 3}}last{{end}}'>
-												<p><a href='#'><img src='{{.Palm.Path}}' width=220 height=147 /></a></p>
-												<p class='f13'><a href='#'>{{if .Title}}{{.Title}}{{else}}{{$v.Name}}{{end}}</a></p>
+												<p><a href='#'><img src='{{.Image.Palm.Path}}' width=220 height=147 /></a></p>
+												<p class='f13'><a href='#'>{{if .Name}}{{.Name}}{{else}}{{$v.Name}}{{end}}</a></p>
 											</li>
 											{{end}}
 										</ul>

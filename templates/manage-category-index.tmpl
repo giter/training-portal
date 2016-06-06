@@ -171,7 +171,7 @@ var PageLogical = function () {
         		
         		this.reset();
         		$(this).validate().resetForm();
-        	})
+        	});
         });
         
         $("#button-save").click(function(){
@@ -213,7 +213,7 @@ var PageLogical = function () {
                     container: grid.getTableWrapper(),
                     place: 'prepend'
                 });
-        	})
+        	});
         });
         
         grid.getTableWrapper().on('click', '.edit', function(e){
@@ -225,7 +225,8 @@ var PageLogical = function () {
         		
         		this.reset();
         		$(this).validate().resetForm();
-        	})
+        	});
+			
         	$("#modal-form").deserializeJSON(grid.getDataTable().row(".selected").data());
         });
         
@@ -237,13 +238,13 @@ var PageLogical = function () {
         		
         		if(!ok) return;
         		
-	        	$(that).parents('tr').first().find("input[type=checkbox]").trigger("click")
+	        	$(that).parents('tr').first().find("input[type=checkbox]").trigger("click");
 	        	grid.setAjaxParam("action", "delete");
 	            grid.setAjaxParam("id", grid.getSelectedRows());
 	            grid.getDataTable().ajax.reload();
 	            grid.clearAjaxParams();
             }); 
-        })
+        });
         
         grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
         	
@@ -281,7 +282,7 @@ var PageLogical = function () {
                 });
             }
         });
-    }
+    };
 
     return {
         init: function () {

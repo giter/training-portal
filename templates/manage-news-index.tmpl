@@ -101,7 +101,7 @@ var PageLogical = function () {
                 ],
                 "pageLength": 20,
                 "ajax": {
-                    "url": "/manage/news/list.json",
+                    "url": "/manage/news/list.json"
                 },
                 "ordering": false,
                 "columns": [
@@ -109,8 +109,8 @@ var PageLogical = function () {
                 	{ "data": "Category", "title":"主类别", "targets": 1 , "width":80,"defaultContent": "", "render": function(data) {
                 		if(data && data.length > 0) {
                 			return data[0].Name
-                		}
-                		return ""
+                		};
+                		return "";
                 	}},
                 	{ "data": "Title", "title":"标题", "targets": 2,"defaultContent": ""},
                 	{ "data": "Cover.Thumbnail.Path", "title":"封面", "targets": 3,"defaultContent": "", "width":80, "render": function(data) {
@@ -128,7 +128,7 @@ var PageLogical = function () {
         });
         
         gridBindings(grid);
-    }
+    };
 
     return {
         init: function () {

@@ -146,10 +146,25 @@
 				</tr>
 				<tr>
 					<td><label class='control-label'>URL</label></td>
-					<td colspan=3>
+					<td>
 						<div class='row'>
 							<div class='col-md-12'>
 								<input type='text' name='URL' value="{{if .News}}{{.News.URL}}{{end}}" class='form-control'/>
+							</div>
+						</div>
+					</td>
+					<td><label class='control-label'>关联新房</label></td>
+					<td>
+						<div class='row'>
+							<div class='col-md-12'>
+							
+								<select class='select2 form-control' name="RealEstate[]" multiple>
+									{{ range .RealEstates }}
+										<option {{if $.News}}{{if in $.News.RealEstate .Id}}selected{{end}}{{end}} value="{{.Id}}">{{.Name}}</option>
+									{{ end }}
+								</select>
+								
+								<!-- <input type='text' name='RealEstate' value='{{if .News}}{{join .News.RealEstate ","}}{{end}}' class='form-control'/> -->
 							</div>
 						</div>
 					</td>
@@ -231,16 +246,16 @@ var PageLogical = function () {
 				}).success(function(data){
 					
 					var form = $("#form-news");
-					form.find('input[name="Cover[Id]"]').val(data.Id)
-					$('#pic-preview').attr("src", o.Path)
-				})
+					form.find('input[name="Cover[Id]"]').val(data.Id);
+					$('#pic-preview').attr("src", o.Path);
+				});
 				
 			}
 		});
 		
 		$("#append-category").click(function(){
 			$(".category-selector").first().clone().appendTo($(this).parent());
-		})
+		});
 		
 		$(".form-datetime").datetimepicker({
             autoclose: true,
@@ -258,7 +273,7 @@ var PageLogical = function () {
 				return false; 
 			}
 			
-			var vals = $(this).serializeJSON()
+			var vals = $(this).serializeJSON();
 			if(vals.Time){
 				vals.Time = new Date(vals.Time) / 1000;
 			}
@@ -277,11 +292,11 @@ var PageLogical = function () {
 			JWS("/manage/news/upsert.json", vals).success(function(data){
 				
 				window.location.href = "./index.html";
-			})
+			});
 			
 			return false;
-		})
-	}
+		});
+	};
 	
     return {
     	

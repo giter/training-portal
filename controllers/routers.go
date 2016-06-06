@@ -28,7 +28,7 @@ func ManageIndex(r render.Render) {
 }
 
 func Misc(m *martini.ClassicMartini){
-	m.Get("/v.png", misc.Validation);
+	m.Get("/validation", misc.Validation);
 }
 
 func Index(m *martini.ClassicMartini){
@@ -43,8 +43,13 @@ func NewHouse(m *martini.ClassicMartini){
 	m.Get("/newhouse/index.html", newhouse.Index);
 	m.Get("/newhouse/list.html", binding.Bind(forms.RealEstatePageForm{}), newhouse.List);
 	m.Get("/newhouse/o:id.html", newhouse.DetailIndex);
+	m.Get("/newhouse/i:id.html", newhouse.DetailIntroduction);
+	m.Get("/newhouse/e:id.html", newhouse.EnviromentIndex);
+	m.Get("/newhouse/n:id.html", binding.Bind(forms.NewsForm{}), newhouse.NewsIndex);
 	m.Get("/newhouse/p:id.html", newhouse.PictureIndex);
 	m.Get("/newhouse/p:id/list-:typo.html", newhouse.PictureIndex);
+	m.Get("/newhouse/l:id.html", newhouse.LayoutIndex);
+	m.Get("/newhouse/l:id/list-:typo.html", newhouse.LayoutIndex);
 }
 
 func News(m *martini.ClassicMartini) {
@@ -119,9 +124,17 @@ func Managements(m *martini.ClassicMartini) {
 	//文件上传组件
 	m.Post("/manage/upload.json", binding.Bind(forms.ResourceForm{}), manage.ResourceUpload)
 
-	//轮播图片
+	//图片管理
 	m.Get("/manage/picture/index.html", manage.Index("manage-picture-index"));
 	m.Post("/manage/picture/list.json", manage.PictureList)
 	m.Post("/manage/picture/upsert.json", manage.PictureUpsert)
 	m.Post("/manage/picture/delete.json", manage.PictureDelete)
+
+	//户型管理
+	m.Post("/manage/layout/list.json", manage.LayoutList)
+	m.Post("/manage/layout/upsert.json", manage.LayoutUpsert)
+	m.Post("/manage/layout/delete.json", manage.LayoutDelete)
+	m.Post("/manage/layout/one.json", manage.LayoutOne)
+
+
 }

@@ -1,0 +1,356 @@
+{{template "lib"}}
+{{set . "HTMLComponent" "newhouse" }}
+{{set . "HTMLTitle" .Newhouse.Name }}
+{{template "head" .}}
+<body id='page-newhouse-introduction' class='page-newhouse'>
+
+	{{template "top" .}}
+	
+	<div id='hd'>
+		{{set . "NewhouseComponent" "introduction" }}
+		{{template "newhouse-hd" .}}
+	</div>
+	
+	<div id='bd'>
+		
+		<div class='clearfix'>
+			<div class='left-640-20'>
+				{{with .Newhouse}}
+					<div class='section'>
+					<div class='block block-boundless block-newhouse-introduction'>
+					
+						<div class='hd hd-style-3'>
+							<h1>基本信息</h1>
+						</div>
+						
+						<div class='bd f16'>
+						
+							{{if .Cover}}
+								<img src='{{.Cover.Big.Path}}' width='100%'/>
+							{{end}}
+							
+							<dl class=clearfix>
+								<dt>楼盘名称</dt>
+								<dd>{{.Name}}</dd>
+							</dl>
+							
+							<dl class=clearfix>
+								<dt>楼盘特色</dt>
+								<dd>{{ join .Features "，"}}</dd>
+							</dl>
+							
+							<dl class=clearfix>
+								<dt>楼盘价格</dt>
+								<dd>
+									<span class='featured'>{{.Price}}</span> 元/㎡
+		  							{{if equals .PriceType -1}}
+		  								待定
+		  							{{end}}
+		  							&nbsp;&nbsp;&nbsp;&nbsp;
+		  							<span class='quote f13'>
+		  								<i class='icon-calculator'></i> 房贷计算器
+		  							</span>
+		  						</dd>
+							</dl>
+							
+							<dl class=clearfix>
+								<dt>物业类型</dt>
+								<dd>
+									{{range $.CONTEXT.KVs.Usage.Nodes }}
+										{{if in $.Newhouse.Usage .Value }}
+											{{.Name}}
+										{{end}}
+									{{end}}
+								</dd>
+							</dl>
+							
+							{{if .Estate}}
+							<dl class='clearfix'>
+								<dt>开发商</dt>
+								<dd>{{.Estate}}</dd>
+							</dl>
+							{{end}}
+							
+							{{with .Area}}
+							<dl class='clearfix'>
+								<dt>区域</dt>
+								<dd>{{.City}}-{{.Area}}</dd>
+							</dl>
+							{{end}}
+							
+							{{if .Address}}
+							<dl class='clearfix'>
+								<dt>楼盘地址</dt>
+								<dd>{{.Address}}</dd>
+							</dl>
+							{{end}}
+							
+							<dl class=clearfix>
+								
+								<dt>售楼处电话</dt>
+								<dd>
+									<span class='primary f22'>
+									{{if equals .Order "" | not}}
+			  							{{.Order}}
+			  							{{if equals .OrderExtension "" | not}}
+			  							转 
+			  							{{.OrderExtension}}
+			  							{{end}}
+			  						{{else if gt (len .Phone) 0 }}
+			  							{{range slice .Phone 0 1}}{{.}}{{end}}
+		  							{{end}}
+									</span>
+								</dd>
+							</dl>
+							
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class='section'>
+					<div class='block block-boundless block-newhouse-introduction'>
+						<div class='hd hd-style-3'>
+							<h1>销售信息</h1>
+						</div>
+						
+						<div class='bd f16'>
+							
+							{{if .SOpen}}
+							<dl class=clearfix>
+								<dt>开盘时间</dt>
+								<dd>
+									{{.SOpen}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .SDelivery}}
+							<dl class=clearfix>
+								<dt>交房时间</dt>
+								<dd>
+									{{.SDelivery}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .SellAddress}}
+							<dl class=clearfix>
+								<dt>售楼处地址</dt>
+								<dd>
+									{{.SellAddress}}
+								</dd>
+							</dl>
+							{{end}}
+						</div>
+					</div>
+				</div>
+				
+				<div class='section'>
+					<div class='block block-boundless block-newhouse-introduction'>
+						<div class='hd hd-style-3'>
+							<h1>楼盘概况</h1>
+						</div>
+						<div class='bd f16'>
+							<dl class=clearfix>
+								<dt>建筑类型</dt>
+								<dd>
+									{{range $.CONTEXT.KVs.Floor.Nodes }}
+										{{if in $.Newhouse.Floor .Value }}
+											{{.Name}}
+										{{end}}
+									{{end}}
+								</dd>
+							</dl>
+							
+							{{if .RightYear}}
+							<dl class=clearfix>
+								<dt>产权年限</dt>
+								<dd>
+									{{.RightYear}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .DeliveryStandard}}
+							<dl class=clearfix>
+								<dt>交付标准</dt>
+								<dd>
+									{{.DeliveryStandard}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .CoveredArea}}
+							<dl class=clearfix>
+								<dt>占地面积</dt>
+								<dd>
+									{{.CoveredArea}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .FloorAreaRatio}}
+							<dl class=clearfix>
+								<dt>容积率</dt>
+								<dd>
+									{{.FloorAreaRatio}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .ConstructionArea}}
+							<dl class=clearfix>
+								<dt>建筑面积</dt>
+								<dd>
+									{{.ConstructionArea}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .EffectiveAreaRatio}}
+							<dl class=clearfix>
+								<dt>得房率</dt>
+								<dd>
+									{{.EffectiveAreaRatio}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .GreenRatio}}
+							<dl class=clearfix>
+								<dt>绿化率</dt>
+								<dd>
+									{{.GreenRatio}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .Structure}}
+							<dl class=clearfix>
+								<dt>房屋结构</dt>
+								<dd>
+									{{.Structure}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .HouseHold}}
+							<dl class=clearfix>
+								<dt>规划户数</dt>
+								<dd>
+									{{.HouseHold}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .Carbarn}}
+							<dl class=clearfix>
+								<dt>车位数</dt>
+								<dd>
+									{{.Carbarn}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .CarbarnRatio}}
+							<dl class=clearfix>
+								<dt>车位比</dt>
+								<dd>
+									{{.CarbarnRatio}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .FloorTypes}}
+							<dl class=clearfix>
+								<dt>楼层状况</dt>
+								<dd>
+									{{.FloorTypes}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .Progress}}
+							<dl class=clearfix>
+								<dt>工程进度</dt>
+								<dd>
+									{{.Progress}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .PropertyFee}}
+							<dl class=clearfix>
+								<dt>物业管理费</dt>
+								<dd>
+									{{.PropertyFee}}
+								</dd>
+							</dl>
+							{{end}}
+							
+							{{if .Property}}
+							<dl class=clearfix>
+								<dt>物业公司</dt>
+								<dd>
+									{{.Property}}
+								</dd>
+							</dl>
+							{{end}}
+							
+						</div>
+					</div>
+				</div>
+				
+				{{ if .Remark}}
+				<div class='section'>
+					<div class='block block-boundless block-newhouse-introduction'>
+						<div class='hd hd-style-3'>
+							<h1>楼盘简介</h1>
+						</div>
+						
+						<div class='bd f14 content'>
+							{{.Remark | safe}}
+						</div>
+					</div>
+				</div>
+				{{end}}
+				
+				{{ if .EstateDescription}}
+				<div class='section'>
+				
+					<div class='block block-boundless block-newhouse-introduction'>
+						<div class='hd hd-style-3'>
+							<h1>开发商简介</h1>
+						</div>
+						<div class='bd f14 content'>
+							{{.EstateDescription | safe}}
+						</div>
+					</div>
+				</div>
+				{{end}}
+				
+				{{ if .PropertyDescription}}
+				<div class='section'>
+				
+					<div class='block block-boundless block-newhouse-introduction'>
+						<div class='hd hd-style-3'>
+							<h1>物业管理</h1>
+						</div>
+						<div class='bd f14 content'>
+							{{.PropertyDescription | safe}}
+						</div>
+					</div>
+				</div>
+				{{end}}
+			{{end}}
+			</div>
+			
+			<div class='right-340'>
+			</div>
+		</div>
+	</div>
+	
+	{{template "ft" .}}
+	
+</body>

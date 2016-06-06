@@ -101,7 +101,7 @@ var PageLogical = function () {
                 ],
                 "pageLength": 20,
                 "ajax": {
-                    "url": "/manage/real-estate/list.json",
+                    "url": "/manage/real-estate/list.json"
                 },
                 "ordering": false,
                 "columns": [
@@ -119,13 +119,13 @@ var PageLogical = function () {
                 	{ "data": "MTime.Changed", "title":"更新时间", "targets": 7,"defaultContent": "", "width":90, "render": t2d},
                 	{ "data": "Status.Disabled", "title":"通过", "defaultContent": "", "targets": 8, "width": 32, "render": btn_disable},
                 	{ "data": "Status.Indexed","title":"首显", "defaultContent": "", "targets": 9, "width": 32, "render": btn_index},
-                	{ "data": "", "title":"操作", "width":120 , "targets": 10, "defaultContent": "<button class='edit'>编辑</button> <button class='delete'>删除</button>"},
+                	{ "data": "", "title":"操作", "width":120 , "targets": 10, "defaultContent": "<button class='edit'>编辑</button> <button class='delete'>删除</button>"}
                 ]
             }
         });
         
         gridBindings(grid);
-    }
+    };
 
     return {
         init: function () {

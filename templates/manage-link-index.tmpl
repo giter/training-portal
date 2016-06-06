@@ -180,7 +180,7 @@ var PageLogical = function () {
                 ],
                 "pageLength": 20,
                 "ajax": {
-                    "url": "/manage/link/list.json",
+                    "url": "/manage/link/list.json"
                 },
                 "ordering": false,
                 "columns": [
@@ -200,7 +200,7 @@ var PageLogical = function () {
                 	{ "data": "NoFollow", "title":"不计友链", "targets": 6,"defaultContent": "", "width":90},
                 	{ "data": "MTime.Created", "title":"创建时间", "targets": 7,"defaultContent": "", "width":90, "render": t2d},
                 	{ "data": "MTime.Changed", "title":"更新时间", "targets": 8,"defaultContent": "", "width":90, "render": t2d},
-                	{ "data": "", "title":"操作", "width":90 , "targets": 8, "defaultContent": "<a data-toggle='modal' href='#modal-form' class='btn btn-xs yellow edit'>编辑</a> <button class='delete btn btn-xs red'>删除</button>"},
+                	{ "data": "", "title":"操作", "width":90 , "targets": 8, "defaultContent": "<a data-toggle='modal' href='#modal-form' class='btn btn-xs yellow edit'>编辑</a> <button class='delete btn btn-xs red'>删除</button>"}
                 ]
             }
         });
@@ -211,7 +211,7 @@ var PageLogical = function () {
         		
         		this.reset();
         		$(this).validate().resetForm();
-        	})
+        	});
         });
         
         $("#button-links-save").click(function(){
@@ -253,7 +253,7 @@ var PageLogical = function () {
                     container: grid.getTableWrapper(),
                     place: 'prepend'
                 });
-        	})
+        	});
         });
         
         grid.getTableWrapper().on('click', '.edit', function(e){
@@ -265,7 +265,7 @@ var PageLogical = function () {
         		
         		this.reset();
         		$(this).validate().resetForm();
-        	})
+        	});
         	
         	$("#modal-form").deserializeJSON(grid.getDataTable().row(".selected").data());
         });
@@ -278,13 +278,13 @@ var PageLogical = function () {
         		
         		if(!ok) return;
         		
-	        	$(that).parents('tr').first().find("input[type=checkbox]").trigger("click")
+	        	$(that).parents('tr').first().find("input[type=checkbox]").trigger("click");
 	        	grid.setAjaxParam("action", "delete");
 	            grid.setAjaxParam("id", grid.getSelectedRows());
 	            grid.getDataTable().ajax.reload();
 	            grid.clearAjaxParams();
             }); 
-        })
+        });
         
         grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
         	
@@ -322,7 +322,7 @@ var PageLogical = function () {
                 });
             }
         });
-    }
+    };
 
     return {
         init: function () {

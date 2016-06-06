@@ -1,0 +1,115 @@
+{{template "lib"}}
+{{set . "HTMLComponent" "newhouse" }}
+{{set . "HTMLTitle" .Newhouse.Name }}
+{{template "head" .}}
+<body id='page-newhouse-enviroment' class='page-newhouse'>
+
+	{{template "top" .}}
+	
+	<div id='hd'>
+		{{set . "NewhouseComponent" "enviroment" }}
+		{{template "newhouse-hd" .}}
+	</div>
+	
+	<div id='bd'>
+		
+		<div class='clearfix'>
+			<div class='left-640-20'>
+			{{with .Newhouse}}
+				<div class='section'>
+					<div class='block block-boundless block-newhouse-introduction'>
+					
+						<div class='hd hd-style-3'>
+							<h1>周边配套</h1>
+						</div>
+						
+						<div class='bd f16'>
+						
+							{{with .Enviroment}}
+							
+							{{if and .Lng (and .Lat .Level) }}
+								<img style='border:1px solid #ddd;' src='http://api.map.baidu.com/staticimage?dpiType=ph&center={{.Lng}},{{.Lat}}&zoom={{.Level}}&labels={{$.Newhouse.Name}}|{{.Lng}},{{.Lat}}&labelStyles={{$.Newhouse.Name}},1,22,0xffffff,0x62ab00,1&width=580&height=326' width=580 height=326 />
+							{{end}}
+							
+							{{if .Traffic}}
+								<p>{{.Traffic}}</p>
+							{{end}}
+							
+							{{if .Mall}}
+								<dl class='clearfix'>
+									<dt>综合商场</dt>
+									<dd>{{join .Mall "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .Restaurant}}
+								<dl class='clearfix'>
+									<dt>娱乐餐饮</dt>
+									<dd>{{join .Restaurant "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .Park}}
+								<dl class='clearfix'>
+									<dt>公　　园</dt>
+									<dd>{{join .Park "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .School}}
+								<dl class='clearfix'>
+									<dt>学　　校</dt>
+									<dd>{{join .School "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .Hotel}}
+								<dl class='clearfix'>
+									<dt>宾馆酒店</dt>
+									<dd>{{join .Hotel "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .Bank}}
+								<dl class='clearfix'>
+									<dt>银　　行</dt>
+									<dd>{{join .Bank "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .Hospital}}
+								<dl class='clearfix'>
+									<dt>医　　院</dt>
+									<dd>{{join .Hospital "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .Market}}
+								<dl class='clearfix'>
+									<dt>菜　　场</dt>
+									<dd>{{join .Market "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{if .BusLine}}
+								<dl class='clearfix'>
+									<dt>公交路线</dt>
+									<dd>{{join .BusLine "，"}}</dd>
+								</dl>
+							{{end}}
+							
+							{{end}}
+						</div>
+					</div>
+				</div>
+			{{end}}
+			</div>
+			
+			<div class='right-340'>
+			</div>
+		</div>
+	</div>
+	
+	{{template "ft" .}}
+	
+</body>

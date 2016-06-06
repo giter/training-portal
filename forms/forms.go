@@ -45,6 +45,7 @@ type NewsForm struct {
 	
 	Category string `form:"category"`
 	Tag string `form:"tag"`
+	Newhouse string `form:"hid"`
 }
 
 type ResourceForm struct {

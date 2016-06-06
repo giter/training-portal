@@ -144,12 +144,12 @@ var PageLogical = function () {
                 ],
                 "pageLength": 20,
                 "ajax": {
-                    "url": "/manage/area/list.json",
+                    "url": "/manage/area/list.json"
                 },
                 "ordering": false,
                 "columns": [
                 	{ "name": "","data": "Id","class":"table-checkbox","title":'<input type="checkbox" class="group-checkable" />', "targets": 1, "width": 24, "render": function(data){
-                		return "<input type='checkbox' value='"+ data +"' />"
+                		return "<input type='checkbox' value='"+ data +"' />";
                 	}},
                 	{ "data": "City", "title":"城市", "targets": 1 , "width":48},
                 	{ "data": "Area", "title":"区域", "targets": 2,"defaultContent": "", "width":160},
@@ -157,7 +157,7 @@ var PageLogical = function () {
                 	{ "data": "MTime.Created", "title":"创建时间", "targets": 3,"defaultContent": "", "width":90, "render": t2d},
                 	{ "data": "MTime.Changed", "title":"更新时间", "targets": 4,"defaultContent": "", "width":90, "render": t2d},
                 	{ "title":"", "defaultContent": "", "targets": 5},
-                	{ "data": "", "title":"操作", "width":90 , "targets": 6, "defaultContent": "<a data-toggle='modal' href='#modal-form' class='btn btn-xs yellow edit'>编辑</a> <button class='delete btn btn-xs red'>删除</button>"},
+                	{ "data": "", "title":"操作", "width":90 , "targets": 6, "defaultContent": "<a data-toggle='modal' href='#modal-form' class='btn btn-xs yellow edit'>编辑</a> <button class='delete btn btn-xs red'>删除</button>"}
                 ]
             }
         });
@@ -168,7 +168,7 @@ var PageLogical = function () {
         		
         		this.reset();
         		$(this).validate().resetForm();
-        	})
+        	});
         });
         
         $("#button-save").click(function(){
@@ -210,7 +210,7 @@ var PageLogical = function () {
                     container: grid.getTableWrapper(),
                     place: 'prepend'
                 });
-        	})
+        	});
         });
         
         grid.getTableWrapper().on('click', '.edit', function(e){
@@ -222,7 +222,7 @@ var PageLogical = function () {
         		
         		this.reset();
         		$(this).validate().resetForm();
-        	})
+        	});
         	
         	$("#modal-form").deserializeJSON(grid.getDataTable().row(".selected").data());
         });
@@ -235,13 +235,13 @@ var PageLogical = function () {
         		
         		if(!ok) return;
         		
-	        	$(that).parents('tr').first().find("input[type=checkbox]").trigger("click")
+	        	$(that).parents('tr').first().find("input[type=checkbox]").trigger("click");
 	        	grid.setAjaxParam("action", "delete");
 	            grid.setAjaxParam("id", grid.getSelectedRows());
 	            grid.getDataTable().ajax.reload();
 	            grid.clearAjaxParams();
             }); 
-        })
+        });
         
         grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
         	
@@ -279,7 +279,7 @@ var PageLogical = function () {
                 });
             }
         });
-    }
+    };
 
     return {
         init: function () {
