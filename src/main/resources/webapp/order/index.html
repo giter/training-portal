@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">    <title>微信订餐</title>
+
+    <link rel="stylesheet" href="/order/static/pkg/all_1eb0d65.css" />
+</head>
+<body id="app" >
+<router-view  keep-alive></router-view>
+<script src="/order/static/js/mod.js"></script>
+<script>/*resourcemap*/
+require.resourceMap({
+  "res": {
+    "component_modules/vue": {
+      "url": "/order/static/component_modules/vue.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/date": {
+      "url": "/order/static/component_modules/date.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/leaflet-src": {
+      "url": "/order/static/component_modules/leaflet-src.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/leaflet.draw-src": {
+      "url": "/order/static/component_modules/leaflet.draw-src.js",
+      "type": "js",
+      "deps": [
+        "component_modules/leaflet-src"
+      ],
+      "pkg": "p0"
+    },
+    "component_modules/leaflet.zoomify": {
+      "url": "/order/static/component_modules/leaflet.zoomify.js",
+      "type": "js",
+      "deps": [
+        "component_modules/leaflet-src"
+      ],
+      "pkg": "p0"
+    },
+    "component_modules/mui.dtpicker": {
+      "url": "/order/static/component_modules/mui.dtpicker.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui": {
+      "url": "/order/static/component_modules/mui.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui.lazyload.img": {
+      "url": "/order/static/component_modules/mui.lazyload.img.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui.lazyload": {
+      "url": "/order/static/component_modules/mui.lazyload.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui.previewimage": {
+      "url": "/order/static/component_modules/mui.previewimage.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/mui.zoom": {
+      "url": "/order/static/component_modules/mui.zoom.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "component_modules/vue-router": {
+      "url": "/order/static/component_modules/vue-router.js",
+      "type": "js",
+      "pkg": "p0"
+    },
+    "main/service": {
+      "url": "/order/static/components/component/main/service.js",
+      "type": "js",
+      "pkg": "p1"
+    },
+    "loading/index": {
+      "url": "/order/static/components/component/loading/index.js",
+      "type": "js",
+      "pkg": "p1"
+    },
+    "nav/nav": {
+      "url": "/order/static/components/component/nav/nav.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/order/order": {
+      "url": "/order/static/components/page/order/order.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/loading/loading": {
+      "url": "/order/static/components/page/loading/loading.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ],
+      "pkg": "p1"
+    },
+    "main/main": {
+      "url": "/order/static/components/component/main/main.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "component_modules/vue-router",
+        "components/page/order/order",
+        "components/page/loading/loading",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "ok/ok": {
+      "url": "/order/static/components/component/ok/ok.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/config/config": {
+      "url": "/order/static/components/page/config/config.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "nav/nav",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/food/food": {
+      "url": "/order/static/components/page/food/food.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "component_modules/mui",
+        "component_modules/mui.zoom",
+        "component_modules/mui.previewimage",
+        "component_modules/mui.lazyload",
+        "component_modules/mui.lazyload.img",
+        "nav/nav",
+        "ok/ok"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/goods/goods": {
+      "url": "/order/static/components/page/goods/goods.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "component_modules/mui",
+        "component_modules/mui.zoom",
+        "component_modules/mui.previewimage",
+        "component_modules/mui.lazyload",
+        "component_modules/mui.lazyload.img",
+        "ok/ok",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/history/detail/detail": {
+      "url": "/order/static/components/page/history/detail/detail.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "loading/index"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/history/history": {
+      "url": "/order/static/components/page/history/history.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "loading/index"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/list/food/food": {
+      "url": "/order/static/components/page/list/food/food.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/list/good/good": {
+      "url": "/order/static/components/page/list/good/good.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/list/list": {
+      "url": "/order/static/components/page/list/list.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/notice/detail/detail": {
+      "url": "/order/static/components/page/notice/detail/detail.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/notice/notice": {
+      "url": "/order/static/components/page/notice/notice.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/order/table/table": {
+      "url": "/order/static/components/page/order/table/table.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "component_modules/leaflet-src",
+        "component_modules/leaflet.zoomify",
+        "component_modules/leaflet.draw-src",
+        "nav/nav"
+      ],
+      "pkg": "p1"
+    }
+  },
+  "pkg": {
+    "p0": {
+      "url": "/order/static/pkg/common_fa08745.js",
+      "type": "js"
+    },
+    "p1": {
+      "url": "/order/static/pkg/app_b55b57a.js",
+      "type": "js"
+    }
+  }
+});</script>
+<script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+<script src="/order/static/js/layer/layer.js"></script>
+<script src="/order/static/js/fastclick.js"></script>
+<script type="text/javascript">
+    var THEAPP = "food";
+    require(["main/main.js"]);
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<div class="mui-content page-order">
+
+    <div class="navbar">
+        <div class="bd" style="height: 100%;">
+            <div class="weui_tab">
+                <div class="weui_navbar">
+                    <div :class="{weui_bar_item_on:view=='food'}" @click="onChangeView('food')" class="weui_navbar_item ">
+                        我要订餐
+                    </div>
+                    <div :class="{weui_bar_item_on:view=='goods'}" @click="onChangeView('goods')"  class="weui_navbar_item">
+                        我要订货
+                    </div>
+                </div>
+                <div class="weui_tab_bd">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-show="view=='food'">
+        <div class="weui_cells_title">预订日期</div>
+        <form class="mui-input-group">
+            <div class="mui-input-row mui-radio" v-for="d in date" @click="selectWeek(d.week)">
+                <label :for="d.value">{{d.value}} {{d.week}}</label>
+                <input name="date" type="radio"  v-model="params.mdate"  :value="d.value" :id="d.value">
+            </div>
+        </form>
+        <div class="weui_cells_title">就餐人数</div>
+        <div class="mui-input-row mui-input-range" style="padding-left: 20px;">
+            <h4 class="p-number"><span class="number-tiaodong">{{params.num}}</span> 人</h4>
+            <input type="range" id="block-range" value="4" min="1" max="20" data-input-slider="4" v-model="params.num">
+        </div>
+        <div class="weui_cells_title">预订餐次</div>
+        <div class="mui-card">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell" v-if="lunchShow"  >
+                    <a class="mui-navigate-right" @click="onSelect('lunch')"  :class="{disabled:!lunch}" >
+                        午餐 <span v-show="!lunch">(今日已过期)</span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell" v-if="dinnerShow"  >
+                    <a  class="mui-navigate-right"  @click="onSelect('dinner')"    :class="{disabled:!dinner}"  >
+                        晚餐 <span v-show="!dinner">(今日已过期)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div v-show="view=='goods'">
+        <div v-if="canDH">
+            <div v-if="!hasDH">
+                <div class="weui_cells_title">取货日期</div>
+                <form class="mui-input-group">
+                    <div class="mui-input-row mui-radio" v-for="d in gDate" @click="selectDHdate(d)">
+                        <label :for="d.week">{{d.value}} {{d.week}}</label>
+                        <input name="date" type="radio"  v-model="gParams.mdate"  :value="d.value" :id="d.week">
+                    </div>
+                </form>
+                <div class="weui_cells_title">取货时间</div>
+                <div class="mui-card">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell" v-if="selectDH.mtime.morning" >
+                            <a  v-if="!checkHasOrder(selectDH,'morning')" v-link="{path:'/goods/'+selectDH.value +'/morning/all'}" class="mui-navigate-right" >
+                                上午
+                            </a>
+                            <a href="javascript:;" v-else >
+                                上午   <span class="mui-badge ">已预订</span>
+                            </a>
+
+                        </li>
+                        <li class="mui-table-view-cell" v-if="selectDH.mtime.noon"   >
+                            <a  v-if="!checkHasOrder(selectDH,'noon')" v-link="{path:'/goods/'+selectDH.value +'/noon/all'}"  class="mui-navigate-right" >
+                                中午
+                            </a>
+                            <a href="javascript:;" v-else >
+                                中午   <span class="mui-badge ">已预订</span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" v-if="selectDH.mtime.afternoon"   >
+                            <a  v-if="!checkHasOrder(selectDH,'afternoon')"  v-link="{path:'/goods/'+selectDH.value +'/afternoon/all'}"  class="mui-navigate-right" >
+                                下午
+                            </a>
+                            <a href="javascript:;" v-else >
+                                下午   <span class="mui-badge">已预订</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div v-else>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell" style="text-align: center">
+                        您本周已经订货。
+                    </li>
+                </ul>
+
+                <div class="mui-content-padded">
+                    <a class="mui-btn mui-btn-block mui-btn-success" v-link="{path:'/list/goods'}" >查看订单</a>
+                </div>
+            </div>
+        </div>
+        <div v-if="!canDH">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell" style="text-align: center">
+                    本周开放预定已经结束,请下周预定。
+                </li>
+            </ul>
+        </div>
+        <!--<ul class="mui-table-view">-->
+        <!--<li class="mui-table-view-cell" v-for="d in gDate">-->
+        <!--<a v-link="{path:'/goods/'+d.value +'/all'}" class="mui-navigate-right">-->
+        <!--{{d.value}} {{d.week}}-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+    </div>
+
+</div>
+
+<c-nav view="order"></c-nav>

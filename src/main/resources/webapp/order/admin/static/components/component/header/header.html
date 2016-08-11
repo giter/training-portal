@@ -1,0 +1,16 @@
+<div>
+    <div class="logo">
+        <strong>订餐管理后台</strong>
+    </div>
+    <div class="user">
+        <img class="img-circle" src="/order/admin/static/images/my.jpg" data-holder-rendered="true" style="width: 80px; height: 80px;">
+        <h5>admin</h5>
+    </div>
+
+    <div class="list-group">
+        <a v-for="m in menus" v-link="{path:'/'+m.key}" class="list-group-item" title="{{m.name}}" :class="{active:m.key == view}">
+            <span class="glyphicon  pull-right" :class="m.className"  title="{{m.name}}" ></span>
+            &nbsp;{{m.name}}
+        </a>
+    </div>
+</div>
