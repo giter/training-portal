@@ -1,0 +1,22 @@
+@-webkit-keyframes twinkling{    /*透明度由0到1*/
+  0%{
+    background-color: yellow;
+  }
+  60%{
+    background-color: #ccc;
+  }
+}
+
+@keyframes twinkling{    /*透明度由0到1*/
+0%{
+  background-color: yellow;
+}
+60%{
+  background-color: #ccc;
+}
+}
+
+.twinkling {
+  -webkit-animation: twinkling 2s infinite ease;
+  animation: twinkling 2s infinite ease;
+}

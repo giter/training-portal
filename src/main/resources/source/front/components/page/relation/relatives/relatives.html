@@ -1,0 +1,64 @@
+<div class="page-relatives">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" v-on="click:backTo('relation')"></a>
+        <h5 class="mui-title">
+            添加亲属
+        </h5>
+    </header>
+    <div class="mui-content">
+        <div class="mui-card">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>姓名</label>
+                    <input type="text" class="mui-input-clear" v-model="rel.name" placeholder="请输入姓名">
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>身份证</label>
+                    <input type="text" class="mui-input-clear" v-model="rel.sn" placeholder="请输入身份证">
+                </div>
+            </div>
+        </div>
+        <h5 class="mui-content-padded">性别</h5>
+        <div class="mui-card">
+            <form class="mui-input-group">
+                <div class="mui-input-row mui-radio">
+                    <label>男</label>
+                    <input name="style" type="radio" v-model="rel.sex" checked value="男">
+                </div>
+                <div class="mui-input-row mui-radio">
+                    <label>女</label>
+                    <input name="style" type="radio" v-model="rel.sex" value="女">
+                </div>
+            </form>
+        </div>
+        <div class="mui-card" style="margin-top: 10px;">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>年龄</label>
+                    <input type="text" class="mui-input-clear" v-model="rel.age" placeholder="请输入年龄" >
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>手机</label>
+                    <input type="text" class="mui-input-clear" v-model="rel.tel" placeholder="请输入手机号">
+                </div>
+            </div>
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>关系</label>
+                    <input type="text" class="mui-input-clear" v-model="rel.relation" placeholder="请输入关系">
+                </div>
+            </div>
+
+        </div>
+        <h5 class="mui-content-padded mui-text-center">如为承包商请填写单位名称</h5>
+        <div style="padding: 15px;">
+            <a  style="padding: 5px" class="mui-btn mui-btn-primary mui-btn-block" v-on="click:addRel">
+                <span class="mui-icon mui-icon-plus"></span>
+                添加</a>
+        </div>
+    </div>
+</div>

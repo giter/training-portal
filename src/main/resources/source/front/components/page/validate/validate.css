@@ -1,0 +1,25 @@
+@charset "UTF-8";
+.page-service {
+  height: 100%; }
+  .page-service .mui-control-content {
+    height: 100%; }
+    .page-service .mui-control-content .mui-content {
+      padding-bottom: 50px; }
+
+@-webkit-keyframes twinkling {
+  /*透明度由0到1*/
+  0% {
+    background-color: yellow; }
+  60% {
+    background-color: #ccc; } }
+@keyframes twinkling {
+  /*透明度由0到1*/
+  0% {
+    background-color: yellow; }
+  60% {
+    background-color: #ccc; } }
+.twinkling {
+  -webkit-animation: twinkling 2s infinite ease;
+  animation: twinkling 2s infinite ease; }
+
+/*# sourceMappingURL=validate.css.map */

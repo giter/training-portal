@@ -1,0 +1,176 @@
+html,body{
+  height:100%;
+}
+
+#app{
+  height: 100%;
+}
+
+.mui-input-select{
+  font-size: 17px;
+  height: 37px;
+  padding: 0;
+  float: right;
+  width: 65%;
+  margin-bottom: 0;
+  padding-left: 0;
+  border: 0;
+}
+
+.mui-input-select:after{
+  content: "\e581";
+  position: absolute;
+  color: #efeff4;
+  top:5px;
+  right: 0;
+}
+
+
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+
+  }
+
+  100% {
+    opacity: 1;
+
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn-transition {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fadeIn-enter {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+}
+
+.fadeIn-leave{
+  display: none;
+}
+
+@-webkit-keyframes slideInRight {
+  from{  -webkit-transform: translate3d(100%,0,0);  }
+  to{  -webkit-transform: translate3d(0,0,0);  }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.slideInRight-transition {
+  -webkit-animation-duration: 225ms;
+  -webkit-animation-timing-function: ease-out;
+  animation-duration: 225ms;
+  animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.slideInRight-enter {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  border-left: 1px solid #666;
+  height: 100%;
+}
+
+.slideInRight-leave{
+  display: none;
+}
+
+@font-face {
+  font-family: "iconfont";
+  src: url('../fonts/iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+
+.mui-table-view .iconfont{
+  font-size: 22px;
+  color: #0062cc;
+  line-height: 42px;
+  padding-left: 15px;
+  position: absolute;
+  z-index: 1;
+}
+
+.ellipsis2 .iconfont{
+  padding-top: 10px;
+}
+
+.iconfont + .mui-table-view-cell > a{
+  padding-left: 45px;
+}
+
+.icon-target:before{
+  content: "\e603";
+}
+
+.icon-time:before{
+  content: "\e600";
+}
+
+.icon-order:before{
+  content: "\e6a5";
+}
+
+.icon-service:before{
+  content: "\e613";
+}
+
+.icon-tuangou:before{
+  content: "\e609";
+}
+
+.icon-user:before{
+  content: "\e601";
+}
+
+.icon-users:before{
+  content: "\e602";
+}
+
+.icon-plane:before{
+  content: "\e60b";
+}
+
+.icon-train:before{
+  content: "\e60a";
+}
+
+.icon-car:before{
+  content: "\e60c";
+}
+
+.icon-bus:before{
+  content: "\e604";
+}
+
+.mui-list:before{
+  height: 0;
+}
+
+
