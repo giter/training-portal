@@ -36,8 +36,8 @@
                                 类型：
                             </div>
                             <div class="field">
-                                <select  class="input" number>
-                                    <option value="">全部</option>
+                                <select  class="input" v-model="query.admin" number>
+                                    <option value="-1">全部</option>
                                     <option value="0">普通用户</option>
                                     <option value="1">管理员</option>
                                     <option value="3">订票员</option>

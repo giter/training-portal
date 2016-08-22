@@ -265,7 +265,7 @@ module.exports = Vue.extend({
             this.selectDH = obj;
         },
         checkDh: function (config) {
-            var begin = new Date();
+            var begin = new Date(store.timestamp);
             var w = begin.getDay();
             if(w > parseInt(config.end.week)){
                 return false;
@@ -276,13 +276,13 @@ module.exports = Vue.extend({
             var bstr = begin.setMinutes(parseInt(b[1]));
 
 
-            var end = new Date();
+            var end = new Date(store.timestamp);
             end.setDate(end.getDate()+parseInt(config.end.week) - w);
             var e = config.end.time.split(":");
             end.setHours(parseInt(e[0]));
             var estr = end.setMinutes(parseInt(e[1]));
 
-            var nowstr = new Date().getTime();
+            var nowstr = new Date(store.timestamp).getTime();
             if(bstr < nowstr && nowstr < estr){
                 return true;
             }else{
@@ -342,7 +342,7 @@ module.exports = Vue.extend({
         check: function (mt) {
             var config = this.$root.config;
             var t  = config[mt];
-            var now = (new Date()).Format("hh:mm"),last = t.lastOrder;
+            var now = (new Date(store.timestamp)).Format("hh:mm"),last = t.lastOrder;
             return parseInt((now.split(":")[0]*60+now.split(":")[1]*1)) <parseInt( (last.split(":")[0]*60+ last.split(":")[1]*1))
         },
         onChangeView: function (v) {
@@ -354,7 +354,7 @@ module.exports = Vue.extend({
         },
         selectWeek: function (v) {
 
-            var w = (new Date).getDay();
+            var w = (new Date(store.timestamp)).getDay();
             switch (v){
                 case "周日":{
                     w = 0;
@@ -494,7 +494,8 @@ store = {
     state:{
         orders:[],
         notice:{},
-        goods:[]
+        goods:[],
+        timestamp:null
     },
     getOrders: function () {
         var start = (new Date()).Format("yyyy-MM-dd");
@@ -675,6 +676,7 @@ router.map({
 
 layer.open({type:2});
 Service.getCtx("dc_config", function (rep) {
+    store.timestamp = rep.timestamp;
     Service.getCtx("dh_config",function (dhrep) {
         router.start(App.extend({
             data: function () {

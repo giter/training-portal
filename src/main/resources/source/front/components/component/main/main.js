@@ -1,9 +1,9 @@
 
-var Vue = require('component_modules/vue');
-var Router = require('component_modules/director').Router;
-var home = require('components/page/home/home');
+var Vue = require('component_modules/vue.js');
+var Router = require('component_modules/director.js').Router;
+var home = require('components/page/home/home.js');
 var Service = require("main/service.js");
-var Fastclick = require("component_modules/fastclick");
+var Fastclick = require("component_modules/fastclick.js");
 
 Vue.config.debug = true;
 
@@ -47,8 +47,8 @@ window.app = new Vue({
         }
     },
     ready:function(){
-        //if(true){
-        if(this.is_weixin()){
+        if(true){
+        // if(this.is_weixin()){
             this.openid = Service.getQueryString("openID");
             Fastclick.FastClick.attach(document.body);
             var self = this;

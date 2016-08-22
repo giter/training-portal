@@ -2,7 +2,7 @@
  * Created by jack on 2015/8/17.
  */
 //var prefix = "http://127.0.0.1:8088";
-var prefix = "http://weixin.hnpc.cc";
+var prefix = "http://www.aomidata.com";
 
 $.del = function (url,callback) {
     return $.ajax({
