@@ -37,6 +37,11 @@ module.exports = Vue.extend({
         reload: function () {
             this.render();
         },
+        getSourceName: function (o) {
+            if(o){
+                return o.name;
+            }
+        },
         unSub: function (o) {
             var self = this;
             Layer.open({
@@ -84,7 +89,7 @@ module.exports = Vue.extend({
             var time = Date.parse(new Date(o.date.replace(/-/g,"/")+" "+o.bus.goff))/1000;
             var diff = now - time;
 
-            return diff<this.beginTime;
+            return diff<this.beginTime*-1;
         },
         _getDateRange: function () {
             var tran = function (d) {

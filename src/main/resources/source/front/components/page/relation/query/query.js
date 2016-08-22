@@ -41,7 +41,7 @@ module.exports =   Vue.extend({
                     self._add(id);
                 }else{
                     Layer.open({
-                        content: "最多可以添加两个委托！",
+                        content: "最多可以添加四个委托！",
                         shadeClose: false,
                         btn:["确定"],
                         yes: function () {

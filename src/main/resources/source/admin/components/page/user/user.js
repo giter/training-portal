@@ -13,6 +13,10 @@ module.exports = Vue.extend({
    template:__inline("user.html"),
    data: function () {
       return {
+
+              namea:"",
+              level:5
+         ,
          users:[],
          count:0,
          limit:10,
@@ -26,16 +30,21 @@ module.exports = Vue.extend({
             "department":"",
             "unit":"",
             "admin":0,
-            "type":0, //0 普通用户 1 承包商
+            "type":0, //0 普通用户 1 合作单位
             "password":"",
             "limit":1
+         },
+         query:{
+             email:"",
+            name:""
+
          }
       }
    },
    watch:{
       "page": function (p) {
          this.page = p;
-         this.getUsers();
+         this.onTreepage();
       }
    },
    methods:{
@@ -48,7 +57,7 @@ module.exports = Vue.extend({
             "department":"",
             "unit":"",
             "admin":0,
-            "type":0, //0 普通用户 1 承包商
+            "type":0, //0 普通用户 1 合作单位
             "password":"",
             "limit":1
          };
@@ -59,10 +68,20 @@ module.exports = Vue.extend({
          this.user = JSON.parse(JSON.stringify(model));
          this.openDialog();
       },
+      onQuery: function () {
+         this.getUsers();
+      },
+      onReset: function () {
+         this.query = {
+            name:"",
+             email:""
+         }
+         this.getUsers();
+      },
       getUsers:function(param){
          var self = this;
          this.loading = true;
-         Service.getUsers({page:self.page,limit:self.limit,type:self.user.type},function (rep) {
+         Service.getUsers({page:self.page,limit:self.limit,type:self.user.type,email:this.query.email?this.query.email:undefined,name:this.query.name?this.query.name:undefined},function (rep) {
             self.loading = false;
             if(rep.Code == 0){
                self.users = rep.Response.lists;
@@ -142,7 +161,7 @@ module.exports = Vue.extend({
 
             var i = 0,len = rep.length;
 
-           var timer =  setInterval(function () {
+            var timer =  setInterval(function () {
                if(i<len){
                   var p = rep[i];
                   p.limit = 1;
@@ -160,6 +179,8 @@ module.exports = Vue.extend({
 
             },100)
 
+
+
          })
       },
       dellAllUser: function () {
@@ -171,7 +192,7 @@ module.exports = Vue.extend({
                   Service.delUser(rep[i]._id, function (rep) {
                      if(rep.Code != 0 ){
                      }else{
-                       console.log(i);
+                        console.log(i);
                      }
                   });
                   i++;
@@ -181,7 +202,45 @@ module.exports = Vue.extend({
 
             },100)
          });
-      }
+      },
+         onTreeClick:function(event, treeId, treeNode, clickFlag){
+            var aa=this;
+             //this.users = [];
+             aa.level=treeNode.level;
+             aa.namea=treeNode.name;
+             Service.getUsersa({page:aa.page,limit:aa.limit,type:aa.user.type,email:this.query.email?this.query.email:undefined,name:this.query.name?this.query.name:undefined,namea:treeNode.name?treeNode.name:undefined,level:treeNode.level?treeNode.level:undefined},function (rep) {
+                 if(rep.Code == 0){
+                     aa.users = rep.Response.lists;
+                     aa.count = rep.Response.count;
+                 }
+             });
+             this.dialog = $("#user-dialog");
+
+             var x=parseInt($(window).width()-this.dialog.outerWidth())/2;
+             var y=parseInt($(window).height()-this.dialog.outerHeight())/2;
+             if (y<=10){y="10"}
+             this.dialog.css({"left":x,"top":y});
+
+             this.mask = $(".dialog-mask");
+         },
+       onTreepage:function(){
+           var aa=this;
+           //this.users = [];
+           Service.getUsersa({page:aa.page,limit:aa.limit,type:aa.user.type,email:this.query.email?this.query.email:undefined,name:this.query.name?this.query.name:undefined,namea: aa.namea? aa.namea:undefined,level: aa.level? aa.level:undefined},function (rep) {
+               if(rep.Code == 0){
+                   aa.users = rep.Response.lists;
+                   aa.count = rep.Response.count;
+               }
+           });
+           this.dialog = $("#user-dialog");
+
+           var x=parseInt($(window).width()-this.dialog.outerWidth())/2;
+           var y=parseInt($(window).height()-this.dialog.outerHeight())/2;
+           if (y<=10){y="10"}
+           this.dialog.css({"left":x,"top":y});
+
+           this.mask = $(".dialog-mask");
+       }
    },
    computed: {
       validation: function () {
@@ -197,6 +256,8 @@ module.exports = Vue.extend({
             return validation[key]
          })
       }
+
+
    },
    ready: function () {
       this.getUsers();
@@ -208,5 +269,46 @@ module.exports = Vue.extend({
       this.dialog.css({"left":x,"top":y});
 
       this.mask = $(".dialog-mask");
+
+
+       var zTree;
+
+       var setting = {
+           view: {
+               dblClickExpand: false,
+               showLine: false
+           },
+           data: {
+               simpleData: {
+                   enable: true
+               }
+           },
+           check: {
+               enable: false,
+               autoCheckTrigger: true
+           },
+           callback: {
+               beforeClick: null,
+               onClick: this.onTreeClick
+           }
+       };
+       // function zTreeOnClick(event, treeId, treeNode, clickFlag) {
+       //     var self = this;
+       //     this.loading = true;
+
+       //
+       //
+       //}
+       var zNodes;
+       Service.getDepts(function (rep) {
+
+                zNodes = rep.Response;
+
+           var t = $("#treeDemo");
+           t = $.fn.zTree.init(t, setting, zNodes);
+       });
+
+
+
    }
 });

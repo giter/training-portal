@@ -39,7 +39,6 @@ fis.match("components/page/(*.html)",{
 fis.match('**/*.less', {
     rExt: '.css', // from .scss to .css
     parser: fis.plugin('less', {
-        //fis-parser-sass option
     })
 });
 
@@ -77,9 +76,9 @@ fis.match("/static/**/*.*",{
 //生产环境下CSS、JS压缩合并
 //使用方法 fis3 release prod
 fis.media('prod')
-    .match('**.js', {
-        optimizer: fis.plugin('uglify-js')
-    })
+    // .match('**.js', {
+    //     optimizer: fis.plugin('uglify-js')
+    // })
     .match('component_modules/*.js',{
         packTo: '/static/pkg/common.js'
     })

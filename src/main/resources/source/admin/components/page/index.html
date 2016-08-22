@@ -13,17 +13,22 @@
     </style>
 </head>
 <body style="background-color: #f2f9fd">
-    <div id="app" class="wrap" >
-       <c-nav view="{{currentView}}"  amenu="{{amenu}}"  bmenu="{{bmenu}}" cmenu="{{cmenu}}" ></c-nav>
-        <div class="admin" ><div  v-transition="slide" v-component="{{currentView}}"></div>
-        </div>
-        <c-loading show="{{loading}}"></c-loading>
+<div id="app" class="wrap" >
+    <c-nav view="{{currentView}}"  amenu="{{amenu}}"  bmenu="{{bmenu}}" cmenu="{{cmenu}}" ></c-nav>
+    <div class="admin" ><div  v-transition="slide" v-component="{{currentView}}"></div>
     </div>
-    <script src="/component_modules/jquery.min.js"></script>
-    <script src="/static/js/respond.js"></script>
-    <script src="/static/js/mod.js"></script>
-    <script src="/static/js/lrz.pc.min.js"></script>
+    <c-loading show="{{loading}}"></c-loading>
+</div>
+<link rel="stylesheet" href="/static/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/respond.js"></script>
+<script src="/static/js/mod.js"></script>
+<script src="/static/js/lrz.pc.min.js"></script>
+<script src="/static/js/laydate/laydate.js"></script>
+<script type="text/javascript" src="/static/js/ztree/js/jquery.ztree.all-3.5.js"></script>
+<script language="javascript" type="text/javascript" src="/static/js/date97/WdatePicker.js"></script>
 <script type="text/javascript">
+
     var CONFIG = {
         OFFTIME:"16:00"
     };

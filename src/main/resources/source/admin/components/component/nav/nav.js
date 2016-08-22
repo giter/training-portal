@@ -8,6 +8,34 @@ module.exports = Vue.component("c-nav",{
     template:__inline("nav.html"),
     props:["amenu","bmenu","cmenu","view"],
     data: function () {
+
+		if(window.location.search == "?3"){
+				return {
+				"func": [
+					{
+						name: "首页",
+						key: "home",
+						class: "icon-home",
+						child: [
+							{
+								name: "合作单位管理",
+								key: "company",
+								class: "icon-user"
+							},
+							{
+								name: "合作单位订票",
+								key: "companyOrder",
+								class: "icon-file-text"
+							}
+						]
+					}
+				],
+				bread1: {},
+				bread2: {},
+				bread3:{}
+			};
+		}
+
         return {
             "func": [
                 {
@@ -38,13 +66,18 @@ module.exports = Vue.component("c-nav",{
                             ]
                         },
                         {
-                            name: "外围管理",
+                            name: "合作单位管理",
                             key: "company",
                             class: "icon-user"
                         },
                         {
-                            name: "承包商订票",
+                            name: "合作单位订票",
                             key: "companyOrder",
+                            class: "icon-file-text"
+                        },
+						{
+                            name: "订票查询",
+                            key: "check",
                             class: "icon-file-text"
                         }
                     ]
@@ -58,6 +91,11 @@ module.exports = Vue.component("c-nav",{
                             name: "登录日志",
                             key: "history",
                             class: "icon-file-text"
+                        },
+						{
+                            name: "系统配置",
+                            key: "config",
+                            class: "icon-cog"
                         }
                     ]
                 }

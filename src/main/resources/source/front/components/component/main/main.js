@@ -11,6 +11,8 @@ window.app = new Vue({
     el:"#app",
     data:{
         "currentView":"home",
+        "users":[],
+        "user":[],
         "search":{
             "whither":"请选择",
             "date":null,
@@ -24,22 +26,40 @@ window.app = new Vue({
         "mine":"",
         "detailTicket":"",
         "beginTime":1800,/*提前30分钟*/
-        "endTime":10800/*提前30分钟*/
+        "endTime":10800,/*延长三小时*/
+        "busQuery":{
+            id:"",
+            date:"",
+            off:false
+        }
     },
     components:{
         "home":home
     },
-    ready:function(){
-        this.openid = Service.getQueryString("openID");
-        Fastclick.FastClick.attach(document.body);
-        var self = this;
-        Service.getMine(function (rep) {
-            if(rep.Code == 0){
-                self.mine = rep.Response;
+    methods:{
+        is_weixin: function () {
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
             }
-        });
-
-
+        }
+    },
+    ready:function(){
+        //if(true){
+        if(this.is_weixin()){
+            this.openid = Service.getQueryString("openID");
+            Fastclick.FastClick.attach(document.body);
+            var self = this;
+            Service.getMine(function (rep) {
+                if(rep.Code == 0){
+                    self.mine = rep.Response;
+                }
+            });
+        }else{
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=xx&connect_redirect=1#wechat_redirect";
+        }
     }
 });
 
@@ -85,7 +105,11 @@ router.on("/order/:id",function(id){
         doRouter("orderdetail",p);
     })
 });
-
+router.on("/tel",function(){
+    require.async(["page/tel/tel.js"], function (p) {
+        doRouter("tel",p);
+    })
+});
 
 router.on("/list",function(){
     require.async(["page/list/list.js"], function (p) {
@@ -93,6 +117,21 @@ router.on("/list",function(){
     })
 });
 
+router.on("/history",function(){
+    require.async(["page/history/history.js"], function (p) {
+        doRouter("history",p);
+    })
+});
+router.on("/approve",function(){
+    require.async(["page/approve/approve.js"], function (p) {
+        doRouter("approve",p);
+    })
+});
+router.on("/approve/approvemore",function(){
+    require.async(["page/approve/approvemore/approvemore.js"], function (p) {
+        doRouter("approvemore",p);
+    })
+});
 router.on("/search",function(){
     require.async(["page/search/search.js"], function (p) {
         doRouter("search",p);
@@ -152,8 +191,14 @@ router.on("/company",function(){
     })
 });
 
-router.on("/bus", function (id) {
+router.on("/bus/:id/:date/:off", function (id,date,off) {
     require.async(["page/bus/bus.js"], function (p) {
+        window.app.$data.busQuery.id = id;
+        window.app.$data.busQuery.date = date;
+        window.app.$data.busQuery.off = off;
+
+        window.app.$broadcast("busQuery");
+
         doRouter("bus",p);
     });
 });

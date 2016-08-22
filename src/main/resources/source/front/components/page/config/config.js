@@ -20,6 +20,12 @@ module.exports =   Vue.extend({
             btn:["确定","取消"],
             shadeClose:false,
             yes: function () {
+               Service.unbind(function (rep) {
+                  if(rep.Code == 0){
+                     alert("解绑成功！");
+                  }
+                  WeixinJSBridge.call('closeWindow');
+               });
                Layer.closeAll();
             },
             no: function () {

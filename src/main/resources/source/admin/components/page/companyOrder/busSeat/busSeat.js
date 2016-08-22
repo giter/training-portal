@@ -37,6 +37,11 @@ module.exports = Vue.extend({
          for(var i =0;i<list.length;i++){
             if(list[i].col == c && list[i].row == r){
                if(list[i].state){
+
+				  if(!parseInt(list[i].sn)&&typeof list[i].sn == "string"){
+                      return "icon-seat-none bus-text"
+                  }
+
                   switch (list[i].state){
                      case 0:{
                         return "icon-seat-none";
@@ -56,6 +61,17 @@ module.exports = Vue.extend({
          }
 
       },
+
+	  getSeatUserName: function (r,c) {
+            var seat = this.getSeatId(r,c);
+            if(seat){
+                var seat = JSON.parse(seat);
+                if(seat.entity.user){
+                    return seat.entity.user.name;
+                }
+            }
+        },
+
       clickSeat: function (e,r,c) {
          var $t = $(e.$el);
          if($t.hasClass("icon-seat-void")){

@@ -12,12 +12,12 @@ module.exports = Vue.extend({
    inherit:true,
    template:__inline("search.html"),
    data: function () {
-     return {
-        date:[],
-        style:{
-           height:0
-        }
-     }
+      return {
+         date:[],
+         style:{
+            height:0
+         }
+      }
    },
    methods:{
       onClick: function (hash) {
@@ -40,7 +40,7 @@ module.exports = Vue.extend({
             Service.getResult({date:self.search.date,dest:whither},function (rep) {
                Layer.closeAll();
                if(rep.Code == 0){
-                  self.result = self.filterBus(rep.Response);
+                  self.result = self._checkOutBus(self.filterBus(rep.Response));
                   var router = new Router();
                   return router.setRoute("search/result");
                }
@@ -48,15 +48,19 @@ module.exports = Vue.extend({
          }
       },
       filterBus: function (data) {
-         var now = Date.parse(new Date())/1000,list = [];
+         return Service.filterBus(data);
+      },
+      _checkOutBus: function (data) {
+         var now = Date.parse(new Date());
          for(var i in data){
-            var time = Date.parse(new Date(data[i].date.replace(/-/g,"/")))/1000;
-            var diff = now - time;
-            if(diff <= 0){
-               list.push(data[i]);
+            var t = Date.parse(new Date(data[i].date.replace(/-/g,"/")));
+            if(now > t){
+               data[i].offTime = true;
+            }else{
+               data[i].offTime = false;
             }
          }
-         return list;
+         return data;
       },
       valid: function () {
          var str = null;
@@ -67,7 +71,7 @@ module.exports = Vue.extend({
             str = "请先选择目的地！";
          }
          if(str){
-               Layer.open({
+            Layer.open({
                content:str,
                shadeClose:false,
                btn:["确定"],
@@ -80,15 +84,23 @@ module.exports = Vue.extend({
       }
    },
    ready: function () {
+
       var self = this;
-      Service.getCalendar(function (rep) {
+
+      var ctx = Service.getContext({});
+
+      var advance = ctx['config'] ? (ctx['config']['advance'] || 7) : 7;
+
+      Service.getCalendar({max:advance}, function (rep) {
+
          if(rep.Code == 0){
+
             var target = rep.Response;
             var lst = [];
-            for(var i in target){
+            for(var i=0;i<target.length;i++){
                lst.push({
                   value:target[i].value,
-                  text:target[i].name +" " + target[i].week
+                  text:target[i].name +" " + target[i].week + ( (i==0) ? "（今天）":"")
                })
             }
             self.calendars =self.date = lst;

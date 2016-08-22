@@ -49,7 +49,6 @@ fis.match(/static\/images\/.*\.(jpeg|jpg|png)$/,{
     useHash: false
 })
 
-
 fis.match('::packager', {
     // npm install [-g] fis3-postpackager-loader
     // 分析 __RESOURCE_MAP__ 结构，来解决资源加载问题
@@ -82,4 +81,3 @@ fis.media('prod')
     .match('**.css', {
         optimizer: fis.plugin('clean-css')
     });
-
