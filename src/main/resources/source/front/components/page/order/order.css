@@ -1,8 +1,9 @@
 .page-order {
-  height: 100%; }
-  .page-order .mui-control-content {
-    height: 100%; }
-    .page-order .mui-control-content .mui-content {
-      padding-bottom: 50px; }
-
-/*# sourceMappingURL=order.css.map */
+  height: 100%;
+}
+.page-order .mui-control-content {
+  height: 100%;
+}
+.page-order .mui-control-content .mui-content {
+  padding-bottom: 50px;
+}
