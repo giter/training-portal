@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": ";AAAA,aAAa;EACX,MAAM,EAAE,IAAI;EAEZ,kCAAoB;IAClB,MAAM,EAAE,IAAI;IAEZ,+CAAY;MACV,cAAc,EAAE,IAAI;;AAK1B,4BAOC;;EANC,EAAE;IACA,gBAAgB,EAAE,MAAM;EAE1B,GAAG;IACD,gBAAgB,EAAE,IAAI;AAI1B,oBAOC;;EANC,EAAE;IACA,gBAAgB,EAAE,MAAM;EAE1B,GAAG;IACD,gBAAgB,EAAE,IAAI;AAI1B,UAAW;EACT,iBAAiB,EAAE,0BAA0B;EAC7C,SAAS,EAAE,0BAA0B",
+"sources": ["../../../../../??????/front/components/page/validate/validate.scss"],
+"names": [],
+"file": "validate.css"
+}
