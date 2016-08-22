@@ -194,14 +194,14 @@ module.exports = Vue.extend({
       this.dialog.css({"left":x,"top":y});
       this.mask = $(".dialog-mask");
       var self = this;
-      laydate.skin('molv');
-      laydate({
-         elem: '#effective',
-         //min:laydate.now(),
-         choose: function (datas) {
-            self.user.effective = datas;
-         }
-      })
+      // laydate.skin('molv');
+      // laydate({
+      //    elem: '#effective',
+      //    //min:laydate.now(),
+      //    choose: function (datas) {
+      //       self.user.effective = datas;
+      //    }
+      // })
 
    }
 

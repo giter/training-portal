@@ -85,6 +85,6 @@ fis.media('prod')
     .match('components/**/*.js',{
         packTo: '/static/pkg/app.js'
     })
-    .match('**.css', {
-        optimizer: fis.plugin('clean-css')
+    .match('/static/pkg/**',{
+        useHash:true
     });

@@ -4,14 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>通勤车安全乘坐公众平台</title>
-
-    <link rel="stylesheet" href="/static/pkg/all_414b311.css" />
+    
 </head>
 <body>
     <div id="app" class="wrap" >
         <div v-component="{{currentView}}" keep-alive></div>
-    </div>f
-
+    </div>
 <script src="/static/js/mod.js"></script>
 <script>/*resourcemap*/
 require.resourceMap({
@@ -40,53 +38,9 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
-    "components/page/bind/bind": {
-      "url": "/static/components/page/bind/bind.js",
-      "type": "js",
-      "deps": [
-        "main/check",
-        "main/service"
-      ],
-      "pkg": "p1"
-    },
     "navbar/navbar": {
       "url": "/static/components/component/navbar/navbar.js",
       "type": "js",
-      "pkg": "p1"
-    },
-    "components/page/order/order": {
-      "url": "/static/components/page/order/order.js",
-      "type": "js",
-      "deps": [
-        "navbar/navbar",
-        "main/service"
-      ],
-      "pkg": "p1"
-    },
-    "components/page/order/orderdetail/orderdetail": {
-      "url": "/static/components/page/order/orderdetail/orderdetail.js",
-      "type": "js",
-      "deps": [
-        "navbar/navbar",
-        "main/service"
-      ],
-      "pkg": "p1"
-    },
-    "components/page/tel/tel": {
-      "url": "/static/components/page/tel/tel.js",
-      "type": "js",
-      "deps": [
-        "navbar/navbar",
-        "main/service"
-      ],
-      "pkg": "p1"
-    },
-    "components/page/history/history": {
-      "url": "/static/components/page/history/history.js",
-      "type": "js",
-      "deps": [
-        "main/service"
-      ],
       "pkg": "p1"
     },
     "components/page/approve/approve": {
@@ -107,28 +61,35 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
-    "components/page/search/search": {
-      "url": "/static/components/page/search/search.js",
+    "components/page/bind/bind": {
+      "url": "/static/components/page/bind/bind.js",
       "type": "js",
       "deps": [
-        "navbar/navbar",
+        "main/check",
         "main/service"
       ],
       "pkg": "p1"
     },
-    "components/page/search/result/result": {
-      "url": "/static/components/page/search/result/result.js",
+    "components/page/bus/bus": {
+      "url": "/static/components/page/bus/bus.js",
       "type": "js",
       "deps": [
         "main/service"
       ],
       "pkg": "p1"
     },
-    "components/page/validate/validate": {
-      "url": "/static/components/page/validate/validate.js",
+    "components/page/calendar/calendar": {
+      "url": "/static/components/page/calendar/calendar.js",
       "type": "js",
       "deps": [
-        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/company/company": {
+      "url": "/static/components/page/company/company.js",
+      "type": "js",
+      "deps": [
         "main/service"
       ],
       "pkg": "p1"
@@ -142,8 +103,16 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
-    "components/page/whither/whither": {
-      "url": "/static/components/page/whither/whither.js",
+    "components/page/history/history": {
+      "url": "/static/components/page/history/history.js",
+      "type": "js",
+      "deps": [
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/order/order": {
+      "url": "/static/components/page/order/order.js",
       "type": "js",
       "deps": [
         "navbar/navbar",
@@ -151,8 +120,17 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
-    "components/page/calendar/calendar": {
-      "url": "/static/components/page/calendar/calendar.js",
+    "components/page/order/orderdetail/orderdetail": {
+      "url": "/static/components/page/order/orderdetail/orderdetail.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/relation/query/query": {
+      "url": "/static/components/page/relation/query/query.js",
       "type": "js",
       "deps": [
         "main/service"
@@ -161,14 +139,6 @@ require.resourceMap({
     },
     "components/page/relation/relation": {
       "url": "/static/components/page/relation/relation.js",
-      "type": "js",
-      "deps": [
-        "main/service"
-      ],
-      "pkg": "p1"
-    },
-    "components/page/relation/query/query": {
-      "url": "/static/components/page/relation/query/query.js",
       "type": "js",
       "deps": [
         "main/service"
@@ -184,18 +154,46 @@ require.resourceMap({
       ],
       "pkg": "p1"
     },
-    "components/page/company/company": {
-      "url": "/static/components/page/company/company.js",
+    "components/page/search/result/result": {
+      "url": "/static/components/page/search/result/result.js",
       "type": "js",
       "deps": [
         "main/service"
       ],
       "pkg": "p1"
     },
-    "components/page/bus/bus": {
-      "url": "/static/components/page/bus/bus.js",
+    "components/page/search/search": {
+      "url": "/static/components/page/search/search.js",
       "type": "js",
       "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/tel/tel": {
+      "url": "/static/components/page/tel/tel.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/validate/validate": {
+      "url": "/static/components/page/validate/validate.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
+        "main/service"
+      ],
+      "pkg": "p1"
+    },
+    "components/page/whither/whither": {
+      "url": "/static/components/page/whither/whither.js",
+      "type": "js",
+      "deps": [
+        "navbar/navbar",
         "main/service"
       ],
       "pkg": "p1"
@@ -203,12 +201,12 @@ require.resourceMap({
   },
   "pkg": {
     "p1": {
-      "url": "/static/pkg/app_b5351cd.js",
+      "url": "/static/pkg/app_c8dda88.js",
       "type": "js"
     }
   }
 });</script>
-<script src="/static/pkg/common_6f65f1e.js"></script>
+<script src="/static/pkg/common_af22682.js"></script>
 <script src="/static/js/mui.js"></script>
 <script src="/static/js/mui.indexedlist.js"></script>
 <script src="/static/js/mui.picker.min.js"></script>
