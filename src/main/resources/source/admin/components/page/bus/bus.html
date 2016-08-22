@@ -11,7 +11,7 @@
         <table class="table table-hover">
             <tr><th width="120">车辆照片</th><th width="120">车辆名</th><th width="100">车牌号</th><th width="100">驾驶员</th><th width="100">方向</th><th width="*">路线</th><th width="80">发车时间</th><th width="80">到达时间</th><th width="80">状态</th><th width="200">操作</th></tr>
             <tr v-repeat="c in buses" >
-                <td ><img width="64" height="64"  class="img-border radius-small" v-attr="src:c.src||'/admin/static/images/128.png'"></td>
+                <td ><img width="64" height="64"  class="img-border radius-small" v-attr="src:c.src||'/bus/admin/static/images/128.png'"></td>
                 <td >{{c.name}}</td>
                 <td >{{c.sn}}</td>
                 <td>{{c.jsy}}</td>
