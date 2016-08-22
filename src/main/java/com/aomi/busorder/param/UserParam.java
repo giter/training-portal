@@ -4,6 +4,8 @@ public class UserParam extends PageParam {
 
   private Integer type;
 
+  private Integer admin;
+
   private String openID;
 
   private String name;
@@ -130,5 +132,13 @@ public class UserParam extends PageParam {
 
   public void setEffective(Boolean effective) {
     this.effective = effective;
+  }
+
+  public Integer getAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(Integer admin) {
+    this.admin = admin;
   }
 }

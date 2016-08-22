@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aomi.busorder.service.ContextService;
 import com.aomi.busorder.vo.RESTResponse;
+import com.mongodb.DBObject;
 
 @RestController
 public class ConfigCtrl {
@@ -22,6 +23,9 @@ public class ConfigCtrl {
   public String context(
       @RequestParam(value = "app", defaultValue = "context") String app) {
 
-    return RESTResponse.of(service.get(app)).toString();
+    DBObject response = service.get(app);
+    response.put("timestamp", System.currentTimeMillis());
+
+    return RESTResponse.of(response).toString();
   }
 }

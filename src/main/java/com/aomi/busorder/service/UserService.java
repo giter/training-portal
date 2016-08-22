@@ -121,9 +121,9 @@ public class UserService implements InitializingBean {
 
   public User getByRelation(String related, String sn) {
 
-    return (User) dao.user.findOne(BasicDBObjectBuilder.start()
-        .add(User.FIELD_TYPE, User.TYPE_RELATION)
-        .add(User.FIELD_RELATED, related).add(User.FIELD_SN, sn).get());
+    return (User) dao.user.findOne(
+        BasicDBObjectBuilder.start().add(User.FIELD_TYPE, User.TYPE_RELATION)
+            .add(User.FIELD_RELATED, related).add(User.FIELD_SN, sn).get());
   }
 
   public User insert(User user) {
@@ -152,8 +152,8 @@ public class UserService implements InitializingBean {
    */
   public User remove(String _id) {
 
-    User user = (User) dao.user.findAndRemove(BasicDBObjectBuilder.start("_id",
-        _id).get());
+    User user = (User) dao.user
+        .findAndRemove(BasicDBObjectBuilder.start("_id", _id).get());
 
     if (user.getRelated() != null) {
       unrelate(user.getRelated(), user.get_id());
@@ -229,14 +229,18 @@ public class UserService implements InitializingBean {
           new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
     }
 
+    if (param.getAdmin() != null) {
+      ob.add(User.FIELD_ADMIN, param.getAdmin());
+    }
+
     return ob.get();
   }
 
   @SuppressWarnings("unchecked")
   public List<User> page(UserParam param) {
 
-    DBCursor cursor = dao.user.find(query(param)).sort(
-        BasicDBObjectBuilder.start("_id", -1).get());
+    DBCursor cursor = dao.user.find(query(param))
+        .sort(BasicDBObjectBuilder.start("_id", -1).get());
 
     if (param != null && param.getLimit() > 0) {
       cursor.limit(param.getLimit());

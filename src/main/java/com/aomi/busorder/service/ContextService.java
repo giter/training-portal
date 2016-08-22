@@ -15,7 +15,7 @@ public class ContextService {
   @Resource
   MongoDAO dao;
 
-  public Object get(String app) {
+  public DBObject get(String app) {
 
     return dao.system.findOne(app);
   }
