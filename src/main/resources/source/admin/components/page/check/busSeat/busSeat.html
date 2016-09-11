@@ -1,0 +1,40 @@
+<style>
+	@media print {
+		@page { size: A4 portrait;}
+		.lefter {display:none;}
+		#admin-nav{display:none;}
+		.admin { left:0; top:0; padding: 0;width: 100%;}
+		.printer {display:none;}
+		.bus-body { width: auto;}
+		.page-companyOrder {padding: 0;}
+		.page-busSeat .bus-header{padding: 10px 0;}
+	}
+
+</style>
+
+<div class="page-busSeat">
+ <div class=" mui-scroll-wrapper" style="top:151px;">
+  <div class="mui-scroll">
+   <div class="bus-header">
+    <span>车头方向</span>
+    <a class="void"></a> 可选
+    <a class="order"></a> 已选
+
+	<button v-on="click:onPrint" class="button bg-main float-right printer" >打印</button>
+
+   </div>
+   <table class="bus-body" style='width: 100%;margin: 0 auto;'>
+       <tr><td colspan="5">驾驶员：{{bus.jsy}}车牌号：{{bus.sn}}</td></tr>
+    <tr v-repeat="r in bus.rows">
+     <td v-repeat="bus.cols" style="position: relative;padding:0;width:80px; border: 1px solid #000;">
+      <a style="cursor: default; line-height: 16px; height: 16px;" class="iconfont" v-text="getText(r,$index)" >
+      </a>
+	  <p class="user-name" v-text="getSeatUserName(r,$index)" style='margin-bottom: 4px;'></p>
+         <p class="user-name" v-text="getSeatUserSource(r,$index)" style='margin-bottom: 4px;'></p>
+
+     </td>
+    </tr>
+   </table>
+  </div>
+ </div>
+</div>

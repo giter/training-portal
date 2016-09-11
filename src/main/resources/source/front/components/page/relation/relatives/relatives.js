@@ -82,8 +82,8 @@ module.exports =   Vue.extend({
             if(!rel.sn){
                 return "身份证不能为空！"
             }
-            if(!Check.check(rel.sn,"card")){
-                return "身份证格式错误！"
+            if(rel.sn.length != 4){
+                return "请输入身份证后四位！"
             }
             if(!rel.age){
                 return "年龄不能为空！"

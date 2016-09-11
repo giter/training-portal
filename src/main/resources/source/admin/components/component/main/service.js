@@ -1,9 +1,8 @@
 /**
  * Created by jack on 2015/8/17.
  */
-//var prefix = "";
-var prefix = "http://weixin.hnpc.cc";
-
+//var prefix = "http://127.0.0.1:8088";
+var prefix = "";
 
 $.del = function (url,callback) {
     return $.ajax({
@@ -25,7 +24,13 @@ $.put = function (url,data,callback) {
         url:url
     })
 };
-
+function getDepts(p){
+    $.get(prefix+ "/data/user/finddepts.json",p,"json");
+}
+function getUsersa(p,c){
+    p.stamp = Math.random();
+    $.get(prefix+ "/data/user/finddeptuser.json",p, c,"json");
+}
 
 function getUsers(p,c){
     p.stamp = Math.random();
@@ -92,7 +97,9 @@ function getCompanies(c){
 function getCalendar(c){
     $.get(prefix + "/data/calendar.json",c);
 }
-
+function getCalendara(c){
+    $.get(prefix + "/data/calendara.json",c);
+}
 function getWhither(c){
     $.get(prefix + "/data/whither.json",c);
 }
@@ -103,14 +110,17 @@ function getSysInfo(c){
 
 function getTicketStats(p,c){
     p.stamp = Math.random();
-    $.get(prefix+"/data/tickets/stats.json",p, c);
+    $.get(prefix+"/data/tickets/statsa.json",p, c);
 }
 
 function getBusTickets(p,c){
     p.stamp = Math.random();
     $.get(prefix +"/data/tickets.json",p,c);
 }
-
+function getBusTicketsa(p,c){
+    p.stamp = Math.random();
+    $.get(prefix +"/data/ticketsa.json",p,c);
+}
 function userLogin(p,c){
     $.post(prefix + "/admin/user/login.json",p,c);
 }
@@ -131,6 +141,16 @@ function unTicket(uid,id,c){
 function getTraces(p,c){
     p.stamp = Math.random();
     $.get(prefix +"/admin/data/traces.json",p,c);
+}
+
+function getContext(p,c){
+    p.stamp = Math.random();
+    $.get(prefix +"/data/ctx.json",p,c);
+}
+
+
+function putContext(p,c){
+    $.put(prefix + "/admin/data/ctx.json",p,c);
 }
 
 module.exports = {
@@ -158,5 +178,11 @@ module.exports = {
     getCompanyTicket:getCompanyTicket,
     orderTicket:orderTicket,
     unTicket:unTicket,
-    getTraces:getTraces
+    getTraces:getTraces,
+    getContext:getContext,
+    putContext:putContext,
+    getDepts:getDepts,
+    getUsersa:getUsersa,
+    getCalendara:getCalendara,
+    getBusTicketsa:getBusTicketsa
 };

@@ -10,7 +10,7 @@ fis.hook('module', {
 //components下面的所有js资源都是组件化资源
 fis.match("components/**", {
     isMod: true,
-    release: '/admin/static/$0'
+    release: '/bus/admin/static/$0'
 });
 
 //doc目录不发布
@@ -21,7 +21,7 @@ fis.match("doc/**", {
 fis.match("/component_modules/*.js", {
     isMod: true,
     useMap: true,
-    release: '/admin/static/$0'
+    release: '/bus/admin/static/$0'
 });
 
 //component组件资源id支持简写
@@ -31,7 +31,7 @@ fis.match(/^\/components\/component\/(.*)$/i, {
 
 //page里的页面发布到根目录
 fis.match("components/page/(*.html)",{
-    release: '/admin/$1',
+    release: '/bus/admin/$1',
     useCache : false
 });
 
@@ -39,14 +39,13 @@ fis.match("components/page/(*.html)",{
 fis.match('**/*.less', {
     rExt: '.css', // from .scss to .css
     parser: fis.plugin('less', {
-        //fis-parser-sass option
     })
 });
 
 //文章封面和作者头像等动态图片地址不加hash
 fis.match(/static\/images\/.*\.(jpeg|jpg|png|mp4)$/,{
     useHash: false,
-    release:"/admin/$0"
+    release:"/bus/admin/$0"
 });
 
 
@@ -66,26 +65,26 @@ fis.match('::packager', {
     })
 
 }).match('**/*.{css,scss}', {
-    packTo: '/admin/static/pkg/all.css' //css打成一个包
+    packTo: '/bus/admin/static/pkg/all.css' //css打成一个包
 })
 
 fis.match("/static/**/*.*",{
     useHash:false,
-    release:"/admin/$0"
+    release:"/bus/admin/$0"
 })
 
 //生产环境下CSS、JS压缩合并
 //使用方法 fis3 release prod
 fis.media('prod')
-    .match('**.js', {
-        optimizer: fis.plugin('uglify-js')
-    })
+    // .match('**.js', {
+    //     optimizer: fis.plugin('uglify-js')
+    // })
     .match('component_modules/*.js',{
         packTo: '/static/pkg/common.js'
     })
     .match('components/**/*.js',{
         packTo: '/static/pkg/app.js'
     })
-    .match('**.css', {
-        optimizer: fis.plugin('clean-css')
+    .match('/static/pkg/**',{
+        useHash:true
     });

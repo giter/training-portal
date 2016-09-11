@@ -4,10 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit"><title>通勤车安全乘坐管理平台</title>
-    
-
-    <link rel="stylesheet" href="/bus/admin/static/pkg/all_f475e42.css" />
+    <meta name="renderer" content="webkit"><title>通勤车安全乘坐管理平台</title>    
+    <link rel="stylesheet" href="/bus/admin/static/pkg/all.css" />
     <style>
         .admin-nav ul {
             display: none;
@@ -20,9 +18,7 @@
     <div class="admin" ><div  v-transition="slide" v-component="{{currentView}}"></div>
     </div>
     <c-loading show="{{loading}}"></c-loading>
-</div>
-
-<script src="/bus/admin/static/js/mod.js"></script>
+</div><script src="/bus/admin/static/js/mod.js"></script>
 <script>/*resourcemap*/
 require.resourceMap({
   "res": {
@@ -38,11 +34,6 @@ require.resourceMap({
     },
     "component_modules/iscroll-zoom": {
       "url": "/bus/admin/static/component_modules/iscroll-zoom.js",
-      "type": "js",
-      "pkg": "p0"
-    },
-    "component_modules/jquery.min": {
-      "url": "/bus/admin/static/component_modules/jquery.min.js",
       "type": "js",
       "pkg": "p0"
     },
@@ -69,6 +60,15 @@ require.resourceMap({
       "type": "js",
       "pkg": "p2"
     },
+    "components/page/desk/desk": {
+      "url": "/bus/admin/static/components/page/desk/desk.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p2"
+    },
     "nav/nav": {
       "url": "/bus/admin/static/components/component/nav/nav.js",
       "type": "js",
@@ -81,11 +81,18 @@ require.resourceMap({
       "url": "/bus/admin/static/components/component/main/main.js",
       "type": "js",
       "deps": [
+        "component_modules/vue",
         "component_modules/director",
+        "components/page/desk/desk",
         "main/service",
         "loading/loading",
         "nav/nav"
       ],
+      "pkg": "p2"
+    },
+    "main/pintuer": {
+      "url": "/bus/admin/static/components/component/main/pintuer.js",
+      "type": "js",
       "pkg": "p2"
     },
     "pager/pager": {
@@ -93,17 +100,6 @@ require.resourceMap({
       "type": "js",
       "deps": [
         "component_modules/vue"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/user/user": {
-      "url": "/bus/admin/static/components/page/user/user.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service",
-        "main/check",
-        "pager/pager"
       ],
       "pkg": "p2"
     },
@@ -118,64 +114,14 @@ require.resourceMap({
       ],
       "pkg": "p2"
     },
-    "components/page/order/order": {
-      "url": "/bus/admin/static/components/page/order/order.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/desk/desk": {
-      "url": "/bus/admin/static/components/page/desk/desk.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/company/company": {
-      "url": "/bus/admin/static/components/page/company/company.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service",
-        "main/check",
-        "pager/pager"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/companyOrder/ticketsStats/ticketsStats": {
-      "url": "/bus/admin/static/components/page/companyOrder/ticketsStats/ticketsStats.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/companyOrder/busSeat/busSeat": {
-      "url": "/bus/admin/static/components/page/companyOrder/busSeat/busSeat.js",
+    "components/page/check/busSeat/busSeat": {
+      "url": "/bus/admin/static/components/page/check/busSeat/busSeat.js",
       "type": "js",
       "deps": [
         "component_modules/vue",
         "main/service",
         "main/check",
         "component_modules/iscroll-zoom"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/companyOrder/companyOrder": {
-      "url": "/bus/admin/static/components/page/companyOrder/companyOrder.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service",
-        "main/check",
-        "components/page/companyOrder/ticketsStats/ticketsStats",
-        "components/page/companyOrder/busSeat/busSeat"
       ],
       "pkg": "p2"
     },
@@ -185,17 +131,6 @@ require.resourceMap({
       "deps": [
         "component_modules/vue",
         "main/service"
-      ],
-      "pkg": "p2"
-    },
-    "components/page/check/busSeat/busSeat": {
-      "url": "/bus/admin/static/components/page/check/busSeat/busSeat.js",
-      "type": "js",
-      "deps": [
-        "component_modules/vue",
-        "main/service",
-        "main/check",
-        "component_modules/iscroll-zoom"
       ],
       "pkg": "p2"
     },
@@ -211,13 +146,46 @@ require.resourceMap({
       ],
       "pkg": "p2"
     },
-    "components/page/seat/seat": {
-      "url": "/bus/admin/static/components/page/seat/seat.js",
+    "components/page/company/company": {
+      "url": "/bus/admin/static/components/page/company/company.js",
       "type": "js",
       "deps": [
         "component_modules/vue",
         "main/service",
-        "main/check"
+        "main/check",
+        "pager/pager"
+      ],
+      "pkg": "p2"
+    },
+    "components/page/companyOrder/busSeat/busSeat": {
+      "url": "/bus/admin/static/components/page/companyOrder/busSeat/busSeat.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "component_modules/iscroll-zoom"
+      ],
+      "pkg": "p2"
+    },
+    "components/page/companyOrder/ticketsStats/ticketsStats": {
+      "url": "/bus/admin/static/components/page/companyOrder/ticketsStats/ticketsStats.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p2"
+    },
+    "components/page/companyOrder/companyOrder": {
+      "url": "/bus/admin/static/components/page/companyOrder/companyOrder.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "components/page/companyOrder/ticketsStats/ticketsStats",
+        "components/page/companyOrder/busSeat/busSeat"
       ],
       "pkg": "p2"
     },
@@ -231,6 +199,33 @@ require.resourceMap({
       ],
       "pkg": "p2"
     },
+    "components/page/home/home": {
+      "url": "/bus/admin/static/components/page/home/home.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue"
+      ],
+      "pkg": "p2"
+    },
+    "components/page/order/order": {
+      "url": "/bus/admin/static/components/page/order/order.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service"
+      ],
+      "pkg": "p2"
+    },
+    "components/page/seat/seat": {
+      "url": "/bus/admin/static/components/page/seat/seat.js",
+      "type": "js",
+      "deps": [
+        "component_modules/vue",
+        "main/service",
+        "main/check"
+      ],
+      "pkg": "p2"
+    },
     "components/page/system/config": {
       "url": "/bus/admin/static/components/page/system/config.js",
       "type": "js",
@@ -240,27 +235,25 @@ require.resourceMap({
       ],
       "pkg": "p2"
     },
-    "main/pintuer": {
-      "url": "/bus/admin/static/components/component/main/pintuer.js",
-      "type": "js",
-      "pkg": "p2"
-    },
-    "components/page/home/home": {
-      "url": "/bus/admin/static/components/page/home/home.js",
+    "components/page/user/user": {
+      "url": "/bus/admin/static/components/page/user/user.js",
       "type": "js",
       "deps": [
-        "component_modules/vue"
+        "component_modules/vue",
+        "main/service",
+        "main/check",
+        "pager/pager"
       ],
       "pkg": "p2"
     }
   },
   "pkg": {
     "p0": {
-      "url": "/bus/admin/static/pkg/common_cd80228.js",
+      "url": "/bus/admin/static/pkg/common_9f7e40b.js",
       "type": "js"
     },
     "p2": {
-      "url": "/bus/admin/static/pkg/app_beadb80.js",
+      "url": "/bus/admin/static/pkg/app_827977d.js",
       "type": "js"
     }
   }

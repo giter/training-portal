@@ -1,7 +1,7 @@
 
-var Vue = require('component_modules/vue');
-var Router = require('component_modules/director').Router;
-var desk = require('components/page/desk/desk');
+var Vue = require('component_modules/vue.js');
+var Router = require('component_modules/director.js').Router;
+var desk = require('components/page/desk/desk.js');
 var Service = require('main/service.js');
 
 require("loading/loading.js");
@@ -109,6 +109,12 @@ router.on("/home/companyOrder",function(view){
     })
 });
 
+router.on("/home/check",function(){
+    require.async(["page/check/check.js"], function (p) {
+        doRouter("home","check","","check",p);
+    })
+});
+
 router.on("home/bus/:id", function (id) {
     require.async(["page/seat/seat.js"], function (p) {
         doRouter("home","bus","seat","seat",p);
@@ -125,11 +131,39 @@ router.on("/sys/history",function(){
     })
 });
 
+router.on("/sys/config",function(){
+    require.async(["page/system/config.js"], function (p) {
+        doRouter("sys","config","","config",p);
+    })
+});
 
 router.configure({
     notfound: function () {
         router.setRoute("/error/notfound")
     }
+});
+
+
+Vue.filter('user_type',function(v){
+
+    switch (parseInt(v)){
+        case 0:{
+            return '普通用户';
+        }break;
+        case 1:{
+            return '管理员';
+        }break;
+        case 3:{
+            return '订票员';
+        }break;
+        case 4:{
+            return '处室负责人'
+        }break;
+        default:{
+            return '普通用户'
+        }
+    }
+
 });
 
 router.init("/home");

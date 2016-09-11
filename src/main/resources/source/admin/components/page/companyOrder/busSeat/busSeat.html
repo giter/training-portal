@@ -11,6 +11,7 @@
      <td v-repeat="bus.cols" class="seat" data-id="{{getSeatId(r,$index)}}"  v-class="seatClass(r,$index)" style="position: relative;">
       <a style="cursor: pointer" class="iconfont" v-text="getText(r,$index)"  v-on="click:clickSeat(this,r,$index)" >
       </a>
+	  <p class="user-name" v-text="getSeatUserName(r,$index)"></p>
      </td>
     </tr>
    </table>

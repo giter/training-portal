@@ -24,7 +24,8 @@ module.exports = Vue.extend({
             "arrive":"",
             "line":"",
             "online":1,
-            "src":"/admin/static/images/128.png"
+			"weeks":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1},
+            "src":"/bus/admin/static/images/128.png"
          },
          loading:false
       }
@@ -46,7 +47,8 @@ module.exports = Vue.extend({
             "destination":"",
             "goff":"",
             "online":1,
-            "src":"/admin/static/images/128.png"
+			"weeks":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1},
+            "src":"/bus/admin/static/images/128.png"
          };
          this.openDialog();
       },

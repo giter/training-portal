@@ -121,11 +121,13 @@ module.exports = Vue.extend({
             var self = this;
             Service.orderSeat(self.selectDelegate.value,self.mine._id,id, function (rep) {
                 Layer.closeAll();
+                $(".bus-body").find("td").removeClass("icon-seat-select");
+                self.seat = null;
                 if(rep.Code == 0){
                     callback?callback.call(this,rep.Response):null;
-                    $(".bus-body").find("td").removeClass("icon-seat-select");
-                    self.seat = null;
                     self.reloadSeat();
+                }else{
+                    alert(rep.Message);
                 }
             });
         },
@@ -210,6 +212,22 @@ module.exports = Vue.extend({
         },
         selectUser: function (u) {
             this.selectDelegate = u;
+        },
+        getBus: function (callback) {
+            var self = this;
+            Layer.open({
+                content:"Мгдижа",
+                type:2,
+                shadeClose:false,
+                shade:"background-color:rgba(0,0,0,0)"
+            });
+            Service.getBusSeat({bus:this.busQuery.id,date:this.busQuery.date},function (rep) {
+                Layer.closeAll();
+                if(rep.Code == 0){
+                    self.bus = rep.Response;
+                    callback.call(this);
+                }
+            })
         }
     },
     ready: function () {
@@ -218,7 +236,30 @@ module.exports = Vue.extend({
             router.setRoute("search");
             window.location.reload();
         }
-        this.renderScroll();
-        this.getDelegate();
+
+        var self = this;
+
+        this.getBus(
+            function () {
+                Vue.nextTick(function () {
+                    self.renderScroll();
+                    self.getDelegate();
+                })
+            }
+        );
+
+
+        this.$on("busQuery", function () {
+            this.getBus(
+                function () {
+                    Vue.nextTick(function () {
+                        self.renderScroll();
+                        self.getDelegate();
+                    })
+                }
+            );
+        })
+
+
     }
 });

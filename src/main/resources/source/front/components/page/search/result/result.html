@@ -13,21 +13,32 @@
         </h5>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-repeat="r in result">
-                <a class="mui-navigate-right" v-on="click:selectBus(r.id,search.date)">
+                <a v-if="r.offTime" v-class="mui-navigate-right:!r.offTime"  >
                     <img style="max-width: 62px;width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
                     <div class="mui-media-body">
-                        <h4 style="color: blue;font-weight: bold;font-size: 20px;"> {{r.line}}</h4>
-                        <div style="color: green">{{r.name}} {{r.order}}/{{r.void + r.order}}</div>
+                        <h4 class="mui-ellipsis-2" style="font-weight: bold;font-size: 14px;color: #007aff;"> {{r.line}}</h4>
+                        <div style="color: #8f8f94">{{r.name}} {{r.order}}/{{r.void + r.order}}</div>
                         <p>
                             {{r.date}}至{{r.arrive}}
-                        <h5 class="mui-ellipsis-2">
-
-                        </h5>
                         </p>
                     </div>
+                    <span v-show="r.offTime" class="mui-badge">过期</span>
+                </a>
+
+                <a v-if="!r.offTime" v-class="mui-navigate-right:!r.offTime"  href="#bus/{{r.id}}/{{search.date}}/{{r.offTime}}" >
+                    <img style="max-width: 62px;width: 62px;height: 62px;" class="mui-media-object mui-pull-left" v-attr="src:r.src||'/admin/static/images/128.png'">
+                    <div class="mui-media-body">
+                        <h4 class="mui-ellipsis-2" style="font-weight: bold;font-size: 14px;color: #007aff;"> {{r.line}}</h4>
+                        <div style="color: #8f8f94">{{r.name}} {{r.order}}/{{r.void + r.order}}</div>
+                        <p>
+                            {{r.date}}至{{r.arrive}}
+                        </p>
+                    </div>
+                    <span v-show="r.offTime" class="mui-badge">过期</span>
                 </a>
             </li>
         </ul>
+        <div style="height:50px;"></div>
     </div>
     
     <div v-show="result.length==0" class="mui-content-padded mui-text-center" style="padding-top: 50px;">
