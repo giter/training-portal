@@ -500,10 +500,20 @@ public class UserCtrl {
   @RequestMapping(value = "/login.do", method = { RequestMethod.GET })
   public String login(
       @RequestParam(value = "openID", required = false) String openID,
+      @RequestParam(value = "email", required = false) String email,
       HttpSession session, HttpServletResponse response) throws IOException,
       WxErrorException {
 
-    User user = userService.getByOpenID(openID);
+    User user = null;
+
+    if(openID != null){
+      user = userService.getByOpenID(openID);
+    }
+
+    if(email != null){
+      user = userService.getByEmail(email);
+    }
+
     if (user != null) {
       doLogin(session, user);
       return "redirect:/index.html";
@@ -515,7 +525,7 @@ public class UserCtrl {
 
   /**
    * 审批页面
-   * 
+   *
    * @param open
    * @param session
    * @param response
@@ -566,7 +576,7 @@ public class UserCtrl {
 
   /**
    * 全部通过
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -624,7 +634,7 @@ public class UserCtrl {
 
   /**
    * 审批通过
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -652,7 +662,7 @@ public class UserCtrl {
 
   /**
    * 审批不通过
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -672,7 +682,7 @@ public class UserCtrl {
 
   /**
    * 审批详情
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -691,7 +701,7 @@ public class UserCtrl {
 
   /**
    * 查找所有部门
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -710,7 +720,7 @@ public class UserCtrl {
 
   /**
    * 查找所选部门人员
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -750,7 +760,7 @@ public class UserCtrl {
 
   /**
    * 新增或更新人员信息
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -789,7 +799,7 @@ public class UserCtrl {
 
   /**
    * 新增或更新人员信息
-   * 
+   *
    * @param _id
    * @param session
    * @param response
@@ -814,7 +824,7 @@ public class UserCtrl {
 
   /**
    * 新增或更新人员信息
-   * 
+   *
    * @param _id
    * @param session
    * @param response
