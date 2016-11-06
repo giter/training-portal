@@ -516,7 +516,7 @@ public class UserCtrl {
 
     if (user != null) {
       doLogin(session, user);
-      return "redirect:/index.html";
+      return "redirect:/select.html";
     }
 
     response.sendError(400, "Bad Request.");
