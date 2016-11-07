@@ -173,8 +173,7 @@ public class WeixinCtrl implements InitializingBean {
             .userInfo(wxMessage.getFromUserName(), "zh_CN");
 
         WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT()
-            .content(ui.getOpenId()).fromUser(wxMessage.getToUserName())
-            .toUser(wxMessage.getFromUserName()).build();
+            .content(ui.getOpenId()).build();
         return m;
       }
     };
