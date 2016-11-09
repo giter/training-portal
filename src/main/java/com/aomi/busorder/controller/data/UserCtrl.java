@@ -523,7 +523,7 @@ public class UserCtrl {
         redirect = "/select.html";
       }
       return "redirect:"+redirect;
-    }else{
+    }else if(openID != null){
       return "redirect:/index.html?openID=" + URLEncoder.encode(openID, "utf-8")
         + "#/bind";
     }
