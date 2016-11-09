@@ -523,10 +523,6 @@ public class UserCtrl {
       return "redirect:"+redirect;
     }
 
-    if(redirect!=null){
-
-    }
-
     response.sendError(400, "Bad Request.");
     return null;
   }
