@@ -194,8 +194,8 @@ public class WeixinCtrl implements InitializingBean {
                             WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT()
                                     .content("尊敬的用户，请点击<a href='http://weixin.hnpc.cc/login.do?openID="+URLEncoder.encode(wxMessage.getFromUserName(), "utf-8") +"&redirect="+ URLEncoder.encode(key, "utf-8")+"'>这里</a>进入"+Name+"服务。").fromUser(wxMessage.getToUserName())
                                     .toUser(wxMessage.getFromUserName()).build();
-                        }catch(Exception e){ 
-                            throw new RuntimeException(e); 
+                        }catch(Exception e){
+                            throw new RuntimeException(e);
                         }
 
                         return m;
