@@ -501,6 +501,7 @@ public class UserCtrl {
   public String login(
       @RequestParam(value = "openID", required = false) String openID,
       @RequestParam(value = "email", required = false) String email,
+      @RequestParam(value = "redirect", required = false) String redirect,
       HttpSession session, HttpServletResponse response) throws IOException,
       WxErrorException {
 
@@ -516,7 +517,14 @@ public class UserCtrl {
 
     if (user != null) {
       doLogin(session, user);
-      return "redirect:/select.html";
+      if(redirect == null){
+        redirect = "/select.html";
+      }
+      return "redirect:"+redirect;
+    }
+
+    if(redirect!=null){
+
     }
 
     response.sendError(400, "Bad Request.");
