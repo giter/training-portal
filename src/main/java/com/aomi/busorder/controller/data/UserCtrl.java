@@ -516,11 +516,16 @@ public class UserCtrl {
     }
 
     if (user != null) {
+
       doLogin(session, user);
+
       if(redirect == null){
         redirect = "/select.html";
       }
       return "redirect:"+redirect;
+    }else{
+      return "redirect:/index.html?openID=" + URLEncoder.encode(openID, "utf-8")
+        + "#/bind";
     }
 
     response.sendError(400, "Bad Request.");
