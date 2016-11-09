@@ -77,14 +77,10 @@ public class UserCtrl {
             + " {\r\n"
             + "  \"menu\":{\r\n"
             + "     \"button\":[\r\n"
-            + "        { \r\n"
-            + "          \"type\":\"view\",\r\n"
-            + "          \"name\":\"在线订座\",\r\n"
-            + "          \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7d0128b8e445ac1f&redirect_uri=http%3A%2F%2Fwww.hao3304.com%2Foauth.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect\"\r\n"
-            + "        },\r\n" + "\r\n" + "        { \r\n"
-            + "          \"type\":\"view\",\r\n"
-            + "          \"name\":\"企业资讯\",\r\n"
-            + "          \"url\":\"http://sina.cn/?from=wap/\"\r\n"
+            + "\r\n" + "\r\n" + "        { \r\n"
+            + "          \"type\":\"click\",\r\n"
+            + "          \"name\":\"应用之家\",\r\n"
+            + "          \"key\":\"order\"\r\n"
             + "        }\r\n" + "\r\n" + "        ]\r\n" + "    \r\n"
             + "  }\r\n" + "}\r\n" + "\r\n" + "");
     weixin.getService().menuCreate(menus);
