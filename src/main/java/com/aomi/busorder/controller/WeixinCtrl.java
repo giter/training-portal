@@ -18,9 +18,7 @@ import me.chanjar.weixin.mp.api.WxMpMessageHandler;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.WxMpServiceImpl;
-import me.chanjar.weixin.mp.bean.WxMpXmlMessage;
-import me.chanjar.weixin.mp.bean.WxMpXmlOutMessage;
-import me.chanjar.weixin.mp.bean.WxMpXmlOutTextMessage;
+import me.chanjar.weixin.mp.bean.*;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 import org.slf4j.Logger;
@@ -179,26 +177,38 @@ public class WeixinCtrl implements InitializingBean {
                     if(wxMessage.getEvent().equals("CLICK")){
 
                         String key = wxMessage.getEventKey();
-                        String Name;
-
+                        String Name,Src;
                         if(key.equals("/index.html")){
                             Name = "订车";
+                            Src = "https://mmbiz.qlogo.cn/mmbiz_jpg/pD173Eg7t0f9f3OpHU7KGYQwjxicCH5wYkEEsrwpCsTDH404ADWibUMDw0z8HUhuV2Poa5pWp2mrXsPWWRKS0pHg/0?wx_fmt=jpeg";
                         }else if(key.equals("order/index.html")){
                             Name = "订餐";
+                            Src = "https://mmbiz.qlogo.cn/mmbiz_jpg/pD173Eg7t0f9f3OpHU7KGYQwjxicCH5wYXVKiaV8V9OQ43FvibbuRuDUHW8AWsoRkia55l2xcia7AicUkvL7gj3cvTpA/0?wx_fmt=jpeg";
                         }else{
                             Name = "订货";
+                            Src = "https://mmbiz.qlogo.cn/mmbiz_jpg/pD173Eg7t0f9f3OpHU7KGYQwjxicCH5wYeicsSWRHb90X8JPPrMYk55N9oGvbeowseoIJxCEHowyLPrBO7BiaqTtA/0?wx_fmt=jpeg";
                         }
-
                         //do something
+
                         try{
-                            WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT()
-                                    .content("尊敬的用户，请点击<a href='http://weixin.hnpc.cc/login.do?openID="+URLEncoder.encode(wxMessage.getFromUserName(), "utf-8") +"&redirect="+ URLEncoder.encode(key, "utf-8")+"'>这里</a>进入"+Name+"服务。").fromUser(wxMessage.getToUserName())
-                                    .toUser(wxMessage.getFromUserName()).build();
+                            WxMpXmlOutNewsMessage.Item article = new WxMpXmlOutNewsMessage.Item();
+                            article.setPicUrl(Src);
+                            article.setTitle("我要"+Name);
+                            article.setDescription("尊敬的用户，请点击进入"+Name+"服务");
+                            article.setUrl("http://weixin.hnpc.cc/login.do?openID="+URLEncoder.encode(wxMessage.getFromUserName(), "utf-8")+"&redirect="+ URLEncoder.encode(key, "utf-8"));
+
+//                            WxMpXmlOutTextMessage m = WxMpXmlOutTextMessage.TEXT()
+//                                    .content("尊敬的用户，请点击<a href='http://weixin.hnpc.cc/login.do?openID="+URLEncoder.encode(wxMessage.getFromUserName(), "utf-8") +"&redirect="+ URLEncoder.encode(key, "utf-8")+"'>这里</a>进入"+Name+"服务。").fromUser(wxMessage.getToUserName())
+//                                    .toUser(wxMessage.getFromUserName()).build();
+
+                            WxMpXmlOutNewsMessage m = WxMpXmlOutNewsMessage.NEWS().fromUser(wxMessage.getToUserName()).toUser(wxMessage.getFromUserName()).addArticle(article).build();
+
+                            return m;
+
                         }catch(Exception e){
                             throw new RuntimeException(e);
                         }
 
-                        return m;
                     }
                 }
 
